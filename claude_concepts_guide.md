@@ -3,13 +3,13 @@
   <img alt="Claude How To" src="resources/logos/claude-howto-logo.svg">
 </picture>
 
-# Complete Guide to Claude Concepts
+# Полный гайд по концепциям Claude
 
-A comprehensive reference guide covering Slash Commands, Subagents, Memory, MCP Protocol, and Agent Skills with tables, diagrams, and practical examples.
+Полный справочный гайд по Slash Commands, Subagents, Memory, протоколу MCP и Agent Skills с таблицами, диаграммами и практическими примерами.
 
 ---
 
-## Table of Contents
+## Содержание
 
 1. [Slash Commands](#slash-commands)
 2. [Subagents](#subagents)
@@ -26,227 +26,227 @@ A comprehensive reference guide covering Slash Commands, Subagents, Memory, MCP 
 
 ## Slash Commands
 
-### Overview
+### Обзор
 
-Slash commands are user-invoked shortcuts stored as Markdown files that Claude Code can execute. They enable teams to standardize frequently-used prompts and workflows.
+Slash commands — это ярлыки, запускаемые пользователем и хранящиеся как Markdown-файлы, которые Claude Code может выполнять. Они позволяют командам стандартизировать часто используемые запросы и workflows.
 
-### Architecture
+### Архитектура
 
 ```mermaid
 graph TD
-    A["User Input: /command-name"] -->|Triggers| B["Search .claude/commands/"]
-    B -->|Finds| C["command-name.md"]
-    C -->|Loads| D["Markdown Content"]
-    D -->|Executes| E["Claude Processes Prompt"]
-    E -->|Returns| F["Result in Context"]
+    A["Ввод пользователя: /command-name"] -->|Запускает| B["Поиск в .claude/commands/"]
+    B -->|Находит| C["command-name.md"]
+    C -->|Загружает| D["Содержимое Markdown"]
+    D -->|Выполняет| E["Claude обрабатывает запрос"]
+    E -->|Возвращает| F["Результат в контексте"]
 ```
 
-### File Structure
+### Структура файлов
 
 ```mermaid
 graph LR
-    A["Project Root"] -->|contains| B[".claude/commands/"]
-    B -->|contains| C["optimize.md"]
-    B -->|contains| D["test.md"]
-    B -->|contains| E["docs/"]
-    E -->|contains| F["generate-api-docs.md"]
-    E -->|contains| G["generate-readme.md"]
+    A["Корень проекта"] -->|содержит| B[".claude/commands/"]
+    B -->|содержит| C["optimize.md"]
+    B -->|содержит| D["test.md"]
+    B -->|содержит| E["docs/"]
+    E -->|содержит| F["generate-api-docs.md"]
+    E -->|содержит| G["generate-readme.md"]
 ```
 
-### Command Organization Table
+### Таблица организации команд
 
-| Location | Scope | Availability | Use Case | Git Tracked |
+| Расположение | Область | Доступность | Сценарий использования | Отслеживается Git |
 |----------|-------|--------------|----------|-------------|
-| `.claude/commands/` | Project-specific | Team members | Team workflows, shared standards | ✅ Yes |
-| `~/.claude/commands/` | Personal | Individual user | Personal shortcuts across projects | ❌ No |
-| Subdirectories | Namespaced | Based on parent | Organize by category | ✅ Yes |
+| `.claude/commands/` | Для проекта | Участники команды | Командные workflows, общие стандарты | ✅ Да |
+| `~/.claude/commands/` | Личное | Отдельный пользователь | Личные ярлыки между проектами | ❌ Нет |
+| Подкаталоги | С пространством имён | Зависит от родителя | Организация по категориям | ✅ Да |
 
-### Features & Capabilities
+### Возможности
 
-| Feature | Example | Supported |
+| Возможность | Пример | Поддерживается |
 |---------|---------|-----------|
-| Shell script execution | `bash scripts/deploy.sh` | ✅ Yes |
-| File references | `@path/to/file.js` | ✅ Yes |
-| Bash integration | `$(git log --oneline)` | ✅ Yes |
-| Arguments | `/pr --verbose` | ✅ Yes |
-| MCP commands | `/mcp__github__list_prs` | ✅ Yes |
+| Выполнение shell-скриптов | `bash scripts/deploy.sh` | ✅ Да |
+| Ссылки на файлы | `@path/to/file.js` | ✅ Да |
+| Интеграция Bash | `$(git log --oneline)` | ✅ Да |
+| Аргументы | `/pr --verbose` | ✅ Да |
+| Команды MCP | `/mcp__github__list_prs` | ✅ Да |
 
-### Practical Examples
+### Практические примеры
 
-#### Example 1: Code Optimization Command
+#### Пример 1: Команда оптимизации кода
 
-**File:** `.claude/commands/optimize.md`
+**Файл:** `.claude/commands/optimize.md`
 
 ```markdown
 ---
 name: Code Optimization
-description: Analyze code for performance issues and suggest optimizations
+description: Анализировать код на проблемы производительности и предлагать оптимизации
 tags: performance, analysis
 ---
 
-# Code Optimization
+# Оптимизация кода
 
-Review the provided code for the following issues in order of priority:
+Проверьте предоставленный код на следующие проблемы в порядке приоритета:
 
-1. **Performance bottlenecks** - identify O(n²) operations, inefficient loops
-2. **Memory leaks** - find unreleased resources, circular references
-3. **Algorithm improvements** - suggest better algorithms or data structures
-4. **Caching opportunities** - identify repeated computations
-5. **Concurrency issues** - find race conditions or threading problems
+1. **Узкие места производительности** - найдите операции O(n²), неэффективные циклы
+2. **Утечки памяти** - найдите неосвобождённые ресурсы, циклические ссылки
+3. **Улучшения алгоритмов** - предложите лучшие алгоритмы или структуры данных
+4. **Возможности кеширования** - найдите повторяющиеся вычисления
+5. **Проблемы конкурентности** - найдите race condition или проблемы потоков
 
-Format your response with:
-- Issue severity (Critical/High/Medium/Low)
-- Location in code
-- Explanation
-- Recommended fix with code example
+Оформите ответ так:
+- Критичность проблемы (Critical/High/Medium/Low)
+- Расположение в коде
+- Объяснение
+- Рекомендуемое исправление с примером кода
 ```
 
-**Usage:**
+**Использование:**
 ```bash
-# User types in Claude Code
+# Пользователь вводит в Claude Code
 /optimize
 
-# Claude loads the prompt and waits for code input
+# Claude загружает запрос и ждёт ввода кода
 ```
 
-#### Example 2: Pull Request Helper Command
+#### Пример 2: Команда-помощник для Pull Request
 
-**File:** `.claude/commands/pr.md`
+**Файл:** `.claude/commands/pr.md`
 
 ```markdown
 ---
 name: Prepare Pull Request
-description: Clean up code, stage changes, and prepare a pull request
+description: Очистить код, подготовить изменения и оформить pull request
 tags: git, workflow
 ---
 
-# Pull Request Preparation Checklist
+# Чеклист подготовки Pull Request
 
-Before creating a PR, execute these steps:
+Перед созданием PR выполните следующие шаги:
 
-1. Run linting: `prettier --write .`
-2. Run tests: `npm test`
-3. Review git diff: `git diff HEAD`
-4. Stage changes: `git add .`
-5. Create commit message following conventional commits:
-   - `fix:` for bug fixes
-   - `feat:` for new features
-   - `docs:` for documentation
-   - `refactor:` for code restructuring
-   - `test:` for test additions
-   - `chore:` for maintenance
+1. Запустите linting: `prettier --write .`
+2. Запустите тесты: `npm test`
+3. Проверьте git diff: `git diff HEAD`
+4. Проиндексируйте изменения: `git add .`
+5. Создайте сообщение коммита по Conventional Commits:
+   - `fix:` для исправлений ошибок
+   - `feat:` для новых возможностей
+   - `docs:` для документации
+   - `refactor:` для перестройки кода
+   - `test:` для добавления тестов
+   - `chore:` для обслуживания
 
-6. Generate PR summary including:
-   - What changed
-   - Why it changed
-   - Testing performed
-   - Potential impacts
+6. Сгенерируйте сводку PR, включая:
+   - Что изменилось
+   - Почему это изменилось
+   - Какие тесты выполнены
+   - Возможные последствия
 ```
 
-**Usage:**
+**Использование:**
 ```bash
 /pr
 
-# Claude runs through checklist and prepares the PR
+# Claude проходит по чеклисту и готовит PR
 ```
 
-#### Example 3: Hierarchical Documentation Generator
+#### Пример 3: Иерархический генератор документации
 
-**File:** `.claude/commands/docs/generate-api-docs.md`
+**Файл:** `.claude/commands/docs/generate-api-docs.md`
 
 ```markdown
 ---
 name: Generate API Documentation
-description: Create comprehensive API documentation from source code
+description: Создать полную API-документацию из исходного кода
 tags: documentation, api
 ---
 
-# API Documentation Generator
+# Генератор API-документации
 
-Generate API documentation by:
+Сгенерируйте API-документацию так:
 
-1. Scanning all files in `/src/api/`
-2. Extracting function signatures and JSDoc comments
-3. Organizing by endpoint/module
-4. Creating markdown with examples
-5. Including request/response schemas
-6. Adding error documentation
+1. Просканируйте все файлы в `/src/api/`
+2. Извлеките сигнатуры функций и комментарии JSDoc
+3. Организуйте по endpoint/module
+4. Создайте markdown с примерами
+5. Включите схемы запросов и ответов
+6. Добавьте документацию по ошибкам
 
-Output format:
-- Markdown file in `/docs/api.md`
-- Include curl examples for all endpoints
-- Add TypeScript types
+Формат вывода:
+- Markdown-файл в `/docs/api.md`
+- Добавьте примеры curl для всех endpoint
+- Добавьте TypeScript-типизацию
 ```
 
-### Command Lifecycle Diagram
+### Диаграмма жизненного цикла команды
 
 ```mermaid
 sequenceDiagram
-    participant User
+    participant Пользователь
     participant Claude as Claude Code
     participant FS as File System
     participant CLI as Shell/Bash
 
-    User->>Claude: Types /optimize
+    Пользователь->>Claude: Types /optimize
     Claude->>FS: Searches .claude/commands/
     FS-->>Claude: Returns optimize.md
     Claude->>Claude: Loads Markdown content
-    Claude->>User: Displays prompt context
-    User->>Claude: Provides code to analyze
+    Claude->>Пользователь: Displays prompt context
+    Пользователь->>Claude: Provides code to analyze
     Claude->>CLI: (May execute scripts)
     CLI-->>Claude: Results
-    Claude->>User: Returns analysis
+    Claude->>Пользователь: Returns analysis
 ```
 
-### Best Practices
+### Лучшие практики
 
-| ✅ Do | ❌ Don't |
+| ✅ Делайте | ❌ Не делайте |
 |------|---------|
-| Use clear, action-oriented names | Create commands for one-time tasks |
-| Document trigger words in description | Build complex logic in commands |
-| Keep commands focused on single task | Create redundant commands |
-| Version control project commands | Hardcode sensitive information |
-| Organize in subdirectories | Create long lists of commands |
-| Use simple, readable prompts | Use abbreviated or cryptic wording |
+| Используйте понятные, ориентированные на действие имена | Создавайте команды для одноразовых задач |
+| Указывайте слова-триггеры в описании | Встраивайте сложную логику в команды |
+| Делайте команды сфокусированными на одной задаче | Создавайте дублирующие команды |
+| Версионируйте проектные команды | Хардкодьте чувствительную информацию |
+| Организуйте по подкаталогам | Создавайте длинные списки команд |
+| Используйте простые и читаемые запросы | Используйте сокращённые или криптичные формулировки |
 
 ---
 
 ## Subagents
 
-### Overview
+### Обзор
 
-Subagents are specialized AI assistants with isolated context windows and customized system prompts. They enable delegated task execution while maintaining clean separation of concerns.
+Subagents — это специализированные AI-помощники с изолированными окнами контекста и настраиваемыми системными промптами. Они позволяют делегировать задачи, сохраняя чёткое разделение ответственности.
 
-### Architecture Diagram
+### Диаграмма архитектуры
 
 ```mermaid
 graph TB
-    User["👤 User"]
+    Пользователь["👤 Пользователь"]
     Main["🎯 Main Agent<br/>(Coordinator)"]
     Reviewer["🔍 Code Reviewer<br/>Subagent"]
     Tester["✅ Test Engineer<br/>Subagent"]
     Docs["📝 Documentation<br/>Subagent"]
 
-    User -->|asks| Main
+    Пользователь -->|asks| Main
     Main -->|delegates| Reviewer
     Main -->|delegates| Tester
     Main -->|delegates| Docs
     Reviewer -->|returns result| Main
     Tester -->|returns result| Main
     Docs -->|returns result| Main
-    Main -->|synthesizes| User
+    Main -->|synthesizes| Пользователь
 ```
 
-### Subagent Lifecycle
+### Жизненный цикл subagent
 
 ```mermaid
 sequenceDiagram
-    participant User
+    participant Пользователь
     participant MainAgent as Main Agent
     participant CodeReviewer as Code Reviewer<br/>Subagent
     participant Context as Separate<br/>Context Window
 
-    User->>MainAgent: "Build new auth feature"
+    Пользователь->>MainAgent: "Build new auth feature"
     MainAgent->>MainAgent: Analyze task
     MainAgent->>CodeReviewer: "Review this code"
     CodeReviewer->>Context: Initialize clean context
@@ -254,240 +254,240 @@ sequenceDiagram
     CodeReviewer->>CodeReviewer: Perform review
     CodeReviewer-->>MainAgent: Return findings
     MainAgent->>MainAgent: Incorporate results
-    MainAgent-->>User: Provide synthesis
+    MainAgent-->>Пользователь: Provide synthesis
 ```
 
-### Subagent Configuration Table
+### Таблица конфигурации subagent
 
-| Configuration | Type | Purpose | Example |
+| Параметр | Тип | Назначение | Пример |
 |---------------|------|---------|---------|
-| `name` | String | Agent identifier | `code-reviewer` |
-| `description` | String | Purpose & trigger terms | `Comprehensive code quality analysis` |
-| `tools` | List/String | Allowed capabilities | `read, grep, diff, lint_runner` |
-| `system_prompt` | Markdown | Behavioral instructions | Custom guidelines |
+| `name` | String | Идентификатор агента | `code-reviewer` |
+| `description` | String | Назначение и триггерные фразы | `Comprehensive code quality analysis` |
+| `tools` | List/String | Разрешённые возможности | `read, grep, diff, lint_runner` |
+| `system_prompt` | Markdown | Поведенческие инструкции | Пользовательские правила |
 
-### Tool Access Hierarchy
+### Иерархия доступа к инструментам
 
 ```mermaid
 graph TD
-    A["Subagent Configuration"] -->|Option 1| B["Inherit All Tools<br/>from Main Thread"]
-    A -->|Option 2| C["Specify Individual Tools"]
-    B -->|Includes| B1["File Operations"]
-    B -->|Includes| B2["Shell Commands"]
-    B -->|Includes| B3["MCP Tools"]
-    C -->|Explicit List| C1["read, grep, diff"]
-    C -->|Explicit List| C2["Bash(npm:*), Bash(test:*)"]
+    A["Конфигурация subagent"] -->|Вариант 1| B["Наследовать все инструменты<br/>из основного потока"]
+    A -->|Вариант 2| C["Указать отдельные инструменты"]
+    B -->|Включает| B1["Операции с файлами"]
+    B -->|Включает| B2["Shell-команды"]
+    B -->|Включает| B3["Инструменты MCP"]
+    C -->|Явный список| C1["read, grep, diff"]
+    C -->|Явный список| C2["Bash(npm:*), Bash(test:*)"]
 ```
 
-### Practical Examples
+### Практические примеры
 
-#### Example 1: Complete Subagent Setup
+#### Пример 1: Полная настройка subagent
 
-**File:** `.claude/agents/code-reviewer.md`
+**Файл:** `.claude/agents/code-reviewer.md`
 
 ```yaml
 ---
 name: code-reviewer
-description: Comprehensive code quality and maintainability analysis
+description: Полный анализ качества кода и поддерживаемости
 tools: read, grep, diff, lint_runner
 ---
 
-# Code Reviewer Agent
+# Агент code reviewer
 
-You are an expert code reviewer specializing in:
-- Performance optimization
-- Security vulnerabilities
-- Code maintainability
-- Testing coverage
-- Design patterns
+Вы эксперт по code review, специализирующийся на:
+- Оптимизации производительности
+- Уязвимостях безопасности
+- Поддерживаемости кода
+- Покрытии тестами
+- Паттернах проектирования
 
-## Review Priorities (in order)
+## Приоритеты ревью (по порядку)
 
-1. **Security Issues** - Authentication, authorization, data exposure
-2. **Performance Problems** - O(n²) operations, memory leaks, inefficient queries
-3. **Code Quality** - Readability, naming, documentation
-4. **Test Coverage** - Missing tests, edge cases
-5. **Design Patterns** - SOLID principles, architecture
+1. **Проблемы безопасности** - аутентификация, авторизация, утечка данных
+2. **Проблемы производительности** - операции O(n²), утечки памяти, неэффективные запросы
+3. **Качество кода** - читаемость, именование, документация
+4. **Покрытие тестами** - пропущенные тесты, граничные случаи
+5. **Паттерны проектирования** - принципы SOLID, архитектура
 
-## Review Output Format
+## Формат вывода ревью
 
-For each issue:
+Для каждой проблемы:
 - **Severity**: Critical / High / Medium / Low
 - **Category**: Security / Performance / Quality / Testing / Design
-- **Location**: File path and line number
-- **Issue Description**: What's wrong and why
-- **Suggested Fix**: Code example
-- **Impact**: How this affects the system
+- **Location**: путь к файлу и номер строки
+- **Issue Description**: что не так и почему
+- **Suggested Fix**: пример исправления
+- **Impact**: как это влияет на систему
 
-## Example Review
+## Пример ревью
 
-### Issue: N+1 Query Problem
+### Проблема: N+1 Query Problem
 - **Severity**: High
 - **Category**: Performance
 - **Location**: src/user-service.ts:45
-- **Issue**: Loop executes database query in each iteration
-- **Fix**: Use JOIN or batch query
+- **Issue**: цикл выполняет запрос к базе в каждой итерации
+- **Fix**: используйте JOIN или пакетный запрос
 ```
 
-**File:** `.claude/agents/test-engineer.md`
+**Файл:** `.claude/agents/test-engineer.md`
 
 ```yaml
 ---
 name: test-engineer
-description: Test strategy, coverage analysis, and automated testing
+description: Стратегия тестирования, анализ покрытия и автоматизированное тестирование
 tools: read, write, bash, grep
 ---
 
-# Test Engineer Agent
+# Агент test engineer
 
-You are expert at:
-- Writing comprehensive test suites
-- Ensuring high code coverage (>80%)
-- Testing edge cases and error scenarios
-- Performance benchmarking
-- Integration testing
+Вы эксперт в:
+- Написании полных тестовых наборов
+- Обеспечении высокого покрытия кода (>80%)
+- Проверке граничных случаев и сценариев ошибок
+- Бенчмаркинге производительности
+- Интеграционном тестировании
 
-## Testing Strategy
+## Стратегия тестирования
 
-1. **Unit Tests** - Individual functions/methods
-2. **Integration Tests** - Component interactions
-3. **End-to-End Tests** - Complete workflows
-4. **Edge Cases** - Boundary conditions
-5. **Error Scenarios** - Failure handling
+1. **Модульные тесты** - отдельные функции/методы
+2. **Интеграционные тесты** - взаимодействие компонентов
+3. **End-to-End тесты** - полные workflows
+4. **Граничные случаи** - граничные условия
+5. **Сценарии ошибок** - обработка сбоев
 
-## Test Output Requirements
+## Требования к результату тестов
 
-- Use Jest for JavaScript/TypeScript
-- Include setup/teardown for each test
-- Mock external dependencies
-- Document test purpose
-- Include performance assertions when relevant
+- Используйте Jest для JavaScript/TypeScript
+- Добавляйте setup/teardown для каждого теста
+- Мокайте внешние зависимости
+- Документируйте назначение теста
+- Добавляйте проверки производительности, когда это уместно
 
-## Coverage Requirements
+## Требования к покрытию
 
-- Minimum 80% code coverage
-- 100% for critical paths
-- Report missing coverage areas
+- Минимум 80% покрытия кода
+- 100% для критических путей
+- Отчёт о зонах с недостающим покрытием
 ```
 
-**File:** `.claude/agents/documentation-writer.md`
+**Файл:** `.claude/agents/documentation-writer.md`
 
 ```yaml
 ---
 name: documentation-writer
-description: Technical documentation, API docs, and user guides
+description: Техническая документация, API docs и руководства пользователя
 tools: read, write, grep
 ---
 
-# Documentation Writer Agent
+# Агент документации
 
-You create:
-- API documentation with examples
-- User guides and tutorials
-- Architecture documentation
-- Changelog entries
-- Code comment improvements
+Вы создаёте:
+- документацию API с примерами
+- руководства пользователя и туториалы
+- архитектурную документацию
+- записи changelog
+- улучшения комментариев в коде
 
-## Documentation Standards
+## Стандарты документации
 
-1. **Clarity** - Use simple, clear language
-2. **Examples** - Include practical code examples
-3. **Completeness** - Cover all parameters and returns
-4. **Structure** - Use consistent formatting
-5. **Accuracy** - Verify against actual code
+1. **Ясность** - используйте простой и понятный язык
+2. **Примеры** - добавляйте практические примеры кода
+3. **Полнота** - покрывайте все параметры и возвращаемые значения
+4. **Структура** - используйте единообразное форматирование
+5. **Точность** - сверяйтесь с реальным кодом
 
-## Documentation Sections
+## Разделы документации
 
-### For APIs
-- Description
-- Parameters (with types)
-- Returns (with types)
-- Throws (possible errors)
-- Examples (curl, JavaScript, Python)
-- Related endpoints
+### Для API
+- Описание
+- Параметры (с типами)
+- Возвращаемые значения (с типами)
+- Исключения (возможные ошибки)
+- Примеры (curl, JavaScript, Python)
+- Связанные endpoint
 
-### For Features
-- Overview
-- Prerequisites
-- Step-by-step instructions
-- Expected outcomes
-- Troubleshooting
-- Related topics
+### Для возможностей
+- Обзор
+- Требования
+- Пошаговые инструкции
+- Ожидаемые результаты
+- Устранение неполадок
+- Связанные темы
 ```
 
-#### Example 2: Subagent Delegation in Action
+#### Пример 2: Делегирование subagent в действии
 
 ```markdown
-# Scenario: Building a Payment Feature
+# Сценарий: Создание платёжной функции
 
-## User Request
-"Build a secure payment processing feature that integrates with Stripe"
+## Запрос пользователя
+"Создай безопасную функцию обработки платежей, интегрированную со Stripe"
 
-## Main Agent Flow
+## Поток основного агента
 
-1. **Planning Phase**
-   - Understands requirements
-   - Determines tasks needed
-   - Plans architecture
+1. **Этап планирования**
+   - Понимает требования
+   - Определяет необходимые задачи
+   - Планирует архитектуру
 
-2. **Delegates to Code Reviewer Subagent**
-   - Task: "Review the payment processing implementation for security"
-   - Context: Auth, API keys, token handling
-   - Reviews for: SQL injection, key exposure, HTTPS enforcement
+2. **Делегирует subagent code reviewer**
+   - Задача: "Проверь реализацию обработки платежей на безопасность"
+   - Контекст: auth, API-ключи, обработка токенов
+   - Проверяет: SQL-инъекции, утечку ключей, принудительный HTTPS
 
-3. **Delegates to Test Engineer Subagent**
-   - Task: "Create comprehensive tests for payment flows"
-   - Context: Success scenarios, failures, edge cases
-   - Creates tests for: Valid payments, declined cards, network failures, webhooks
+3. **Делегирует subagent test engineer**
+   - Задача: "Создай полные тесты для платёжных сценариев"
+   - Контекст: успешные сценарии, сбои, граничные случаи
+   - Создаёт тесты для: успешных платежей, отклонённых карт, сетевых сбоев, webhook
 
-4. **Delegates to Documentation Writer Subagent**
-   - Task: "Document the payment API endpoints"
-   - Context: Request/response schemas
-   - Produces: API docs with curl examples, error codes
+4. **Делегирует subagent documentation writer**
+   - Задача: "Документируй endpoint платёжного API"
+   - Контекст: схемы запросов и ответов
+   - Результат: API-документация с примерами curl и кодами ошибок
 
-5. **Synthesis**
-   - Main agent collects all outputs
-   - Integrates findings
-   - Returns complete solution to user
+5. **Синтез**
+   - Основной агент собирает все результаты
+   - Объединяет выводы
+   - Возвращает пользователю готовое решение
 ```
 
-#### Example 3: Tool Permission Scoping
+#### Пример 3: Область разрешений инструментов
 
-**Restrictive Setup - Limited to Specific Commands**
+**Ограниченная настройка - только конкретные команды**
 
 ```yaml
 ---
 name: secure-reviewer
-description: Security-focused code review with minimal permissions
+description: Ревью кода с упором на безопасность и минимальными разрешениями
 tools: read, grep
 ---
 
-# Secure Code Reviewer
+# Безопасный ревьюер кода
 
-Reviews code for security vulnerabilities only.
+Проверяет код только на уязвимости безопасности.
 
-This agent:
-- ✅ Reads files to analyze
-- ✅ Searches for patterns
-- ❌ Cannot execute code
-- ❌ Cannot modify files
-- ❌ Cannot run tests
+Этот агент:
+- ✅ Читает файлы для анализа
+- ✅ Ищет паттерны
+- ❌ Не может выполнять код
+- ❌ Не может изменять файлы
+- ❌ Не может запускать тесты
 
-This ensures the reviewer doesn't accidentally break anything.
+Это гарантирует, что ревьюер случайно ничего не сломает.
 ```
 
-**Extended Setup - All Tools for Implementation**
+**Расширенная настройка - все инструменты для реализации**
 
 ```yaml
 ---
 name: implementation-agent
-description: Full implementation capabilities for feature development
+description: Полные возможности реализации для разработки функций
 tools: read, write, bash, grep, edit, glob
 ---
 
-# Implementation Agent
+# Агент реализации
 
-Builds features from specifications.
+Создаёт функции по спецификациям.
 
 This agent:
 - ✅ Reads specifications
@@ -497,25 +497,25 @@ This agent:
 - ✅ Edits existing files
 - ✅ Finds files matching patterns
 
-Full capabilities for independent feature development.
+Полный набор возможностей для самостоятельной разработки функций.
 ```
 
-### Subagent Context Management
+### Управление контекстом subagent
 
 ```mermaid
 graph TB
-    A["Main Agent Context<br/>50,000 tokens"]
-    B["Subagent 1 Context<br/>20,000 tokens"]
-    C["Subagent 2 Context<br/>20,000 tokens"]
-    D["Subagent 3 Context<br/>20,000 tokens"]
+    A["Контекст основного агента<br/>50,000 токенов"]
+    B["Контекст subagent 1<br/>20,000 токенов"]
+    C["Контекст subagent 2<br/>20,000 токенов"]
+    D["Контекст subagent 3<br/>20,000 токенов"]
 
-    A -->|Clean slate| B
-    A -->|Clean slate| C
-    A -->|Clean slate| D
+    A -->|Чистый лист| B
+    A -->|Чистый лист| C
+    A -->|Чистый лист| D
 
-    B -->|Results only| A
-    C -->|Results only| A
-    D -->|Results only| A
+    B -->|Только результаты| A
+    C -->|Только результаты| A
+    D -->|Только результаты| A
 
     style A fill:#e1f5ff
     style B fill:#fff9c4
@@ -523,54 +523,54 @@ graph TB
     style D fill:#fff9c4
 ```
 
-### When to Use Subagents
+### Когда использовать subagent
 
-| Scenario | Use Subagent | Why |
+| Сценарий | Использовать subagent | Почему |
 |----------|--------------|-----|
-| Complex feature with many steps | ✅ Yes | Separate concerns, prevent context pollution |
-| Quick code review | ❌ No | Not necessary overhead |
-| Parallel task execution | ✅ Yes | Each subagent has own context |
-| Specialized expertise needed | ✅ Yes | Custom system prompts |
-| Long-running analysis | ✅ Yes | Prevents main context exhaustion |
-| Single task | ❌ No | Adds latency unnecessarily |
+| Сложная функция с множеством шагов | ✅ Да | Разделение ответственности, защита от загрязнения контекста |
+| Быстрое code review | ❌ Нет | Лишние накладные расходы |
+| Параллельное выполнение задач | ✅ Да | У каждого subagent свой контекст |
+| Нужна узкая экспертиза | ✅ Да | Пользовательские системные промпты |
+| Долгий анализ | ✅ Да | Предотвращает переполнение основного контекста |
+| Одна задача | ❌ Нет | Лишняя задержка |
 
-### Agent Teams
+### Команды агентов
 
-Agent Teams coordinate multiple agents working on related tasks. Rather than delegating to one subagent at a time, Agent Teams allow the main agent to orchestrate a group of agents that collaborate, share intermediate results, and work toward a common goal. This is useful for large-scale tasks like full-stack feature development where a frontend agent, backend agent, and testing agent work in parallel.
+Команды агентов координируют несколько агентов, работающих над связанными задачами. Вместо делегирования по одному subagent за раз, Agent Teams позволяют основному агенту координировать группу агентов, которые сотрудничают, обмениваются промежуточными результатами и движутся к общей цели. Это полезно для больших задач, например полной разработки функции, где frontend-агент, backend-агент и тестовый агент работают параллельно.
 
 ---
 
 ## Memory
 
-### Overview
+### Обзор
 
-Memory enables Claude to retain context across sessions and conversations. It exists in two forms: automatic synthesis in claude.ai, and filesystem-based CLAUDE.md in Claude Code.
+Memory позволяет Claude сохранять контекст между сессиями и разговорами. Она существует в двух формах: автоматическая синтезация в claude.ai и файловая `CLAUDE.md` в Claude Code.
 
-### Memory Architecture
+### Архитектура памяти
 
 ```mermaid
 graph TB
     A["Claude Session"]
-    B["User Input"]
+    B["Пользователь Input"]
     C["Memory System"]
     D["Memory Storage"]
 
-    B -->|User provides info| C
+    B -->|Пользователь provides info| C
     C -->|Synthesizes every 24h| D
     D -->|Loads automatically| A
     A -->|Uses context| C
 ```
 
-### Memory Hierarchy in Claude Code (7 Tiers)
+### Иерархия памяти в Claude Code (7 уровней)
 
-Claude Code loads memory from 7 tiers, listed from highest to lowest priority:
+Claude Code загружает память из 7 уровней, перечисленных от высшего к низшему приоритету:
 
 ```mermaid
 graph TD
     A["1. Managed Policy<br/>Enterprise admin policies"] --> B["2. Project Memory<br/>./CLAUDE.md"]
     B --> C["3. Project Rules<br/>.claude/rules/*.md"]
-    C --> D["4. User Memory<br/>~/.claude/CLAUDE.md"]
-    D --> E["5. User Rules<br/>~/.claude/rules/*.md"]
+    C --> D["4. Пользователь Memory<br/>~/.claude/CLAUDE.md"]
+    D --> E["5. Пользователь Rules<br/>~/.claude/rules/*.md"]
     E --> F["6. Local Memory<br/>.claude/local/CLAUDE.md"]
     F --> G["7. Auto Memory<br/>Automatically captured preferences"]
 
@@ -583,171 +583,171 @@ graph TD
     style G fill:#fff3e0,stroke:#333,color:#333
 ```
 
-### Memory Locations Table
+### Таблица расположения памяти
 
-| Tier | Location | Scope | Priority | Shared | Best For |
+| Уровень | Расположение | Область | Приоритет | Общий доступ | Лучше всего для |
 |------|----------|-------|----------|--------|----------|
-| 1. Managed Policy | Enterprise admin | Organization | Highest | All org users | Compliance, security policies |
-| 2. Project | `./CLAUDE.md` | Project | High | Team (Git) | Team standards, architecture |
-| 3. Project Rules | `.claude/rules/*.md` | Project | High | Team (Git) | Modular project conventions |
-| 4. User | `~/.claude/CLAUDE.md` | Personal | Medium | Individual | Personal preferences |
-| 5. User Rules | `~/.claude/rules/*.md` | Personal | Medium | Individual | Personal rule modules |
-| 6. Local | `.claude/local/CLAUDE.md` | Local | Low | Not shared | Machine-specific settings |
-| 7. Auto Memory | Automatic | Session | Lowest | Individual | Learned preferences, patterns |
+| 1. Managed Policy | Админская политика предприятия | Organization | Highest | Все пользователи организации | Соответствие требованиям, политики безопасности |
+| 2. Project | `./CLAUDE.md` | Project | High | Команда (Git) | Стандарты команды, архитектура |
+| 3. Project Rules | `.claude/rules/*.md` | Project | High | Команда (Git) | Модульные соглашения проекта |
+| 4. Пользователь | `~/.claude/CLAUDE.md` | Personal | Medium | Индивидуально | Личные предпочтения |
+| 5. Пользователь Rules | `~/.claude/rules/*.md` | Personal | Medium | Индивидуально | Модульные личные правила |
+| 6. Local | `.claude/local/CLAUDE.md` | Local | Low | Не делится | Настройки для конкретной машины |
+| 7. Auto Memory | Automatic | Session | Lowest | Индивидуально | Изученные предпочтения, шаблоны |
 
-### Auto Memory
+### Автопамять
 
-Auto Memory automatically captures user preferences and patterns observed during sessions. Claude learns from your interactions and remembers:
+Автопамять автоматически фиксирует предпочтения пользователя и шаблоны, замеченные во время сессий. Claude учится на ваших взаимодействиях и запоминает:
 
-- Coding style preferences
-- Common corrections you make
-- Framework and tool choices
-- Communication style preferences
+- предпочтения по стилю кода
+- типичные исправления, которые вы вносите
+- выбор фреймворков и инструментов
+- предпочтения по стилю общения
 
-Auto Memory works in the background and does not require manual configuration.
+Автопамять работает в фоне и не требует ручной настройки.
 
-### Memory Update Lifecycle
+### Жизненный цикл обновления памяти
 
 ```mermaid
 sequenceDiagram
-    participant User
+    participant Пользователь
     participant Claude as Claude Code
     participant Editor as File System
     participant Memory as CLAUDE.md
 
-    User->>Claude: "Remember: use async/await"
-    Claude->>User: "Which memory file?"
-    User->>Claude: "Project memory"
-    Claude->>Editor: Open ~/.claude/settings.json
-    Claude->>Memory: Write to ./CLAUDE.md
-    Memory-->>Claude: File saved
-    Claude->>Claude: Load updated memory
-    Claude-->>User: "Memory saved!"
+    Пользователь->>Claude: "Запомни: используй async/await"
+    Claude->>Пользователь: "В какой файл памяти?"
+    Пользователь->>Claude: "Память проекта"
+    Claude->>Editor: Открыть ~/.claude/settings.json
+    Claude->>Memory: Записать в ./CLAUDE.md
+    Memory-->>Claude: Файл сохранён
+    Claude->>Claude: Загрузить обновлённую память
+    Claude-->>Пользователь: "Память сохранена!"
 ```
 
-### Practical Examples
+### Практические примеры
 
-#### Example 1: Project Memory Structure
+#### Пример 1: Структура памяти проекта
 
 **File:** `./CLAUDE.md`
 
 ```markdown
-# Project Configuration
+# Конфигурация проекта
 
-## Project Overview
-- **Name**: E-commerce Platform
-- **Tech Stack**: Node.js, PostgreSQL, React 18, Docker
-- **Team Size**: 5 developers
-- **Deadline**: Q4 2025
+## Обзор проекта
+- **Имя**: E-commerce Platform
+- **Стек**: Node.js, PostgreSQL, React 18, Docker
+- **Размер команды**: 5 разработчиков
+- **Дедлайн**: Q4 2025
 
-## Architecture
+## Архитектура
 @docs/architecture.md
 @docs/api-standards.md
 @docs/database-schema.md
 
-## Development Standards
+## Стандарты разработки
 
-### Code Style
-- Use Prettier for formatting
-- Use ESLint with airbnb config
-- Maximum line length: 100 characters
-- Use 2-space indentation
+### Стиль кода
+- Используйте Prettier для форматирования
+- Используйте ESLint с конфигурацией airbnb
+- Максимальная длина строки: 100 символов
+- Используйте отступ в 2 пробела
 
-### Naming Conventions
-- **Files**: kebab-case (user-controller.js)
-- **Classes**: PascalCase (UserService)
-- **Functions/Variables**: camelCase (getUserById)
-- **Constants**: UPPER_SNAKE_CASE (API_BASE_URL)
-- **Database Tables**: snake_case (user_accounts)
+### Соглашения по именованию
+- **Файлы**: kebab-case (user-controller.js)
+- **Классы**: PascalCase (ПользовательService)
+- **Функции/переменные**: camelCase (getПользовательById)
+- **Константы**: UPPER_SNAKE_CASE (API_BASE_URL)
+- **Таблицы базы данных**: snake_case (user_accounts)
 
-### Git Workflow
-- Branch names: `feature/description` or `fix/description`
-- Commit messages: Follow conventional commits
-- PR required before merge
-- All CI/CD checks must pass
-- Minimum 1 approval required
+### Git-workflow
+- Имена веток: `feature/description` или `fix/description`
+- Сообщения коммитов: следуйте Conventional Commits
+- Перед merge нужен PR
+- Все проверки CI/CD должны пройти
+- Нужен минимум 1 апрув
 
-### Testing Requirements
-- Minimum 80% code coverage
-- All critical paths must have tests
-- Use Jest for unit tests
-- Use Cypress for E2E tests
-- Test filenames: `*.test.ts` or `*.spec.ts`
+### Требования к тестам
+- Минимум 80% покрытия кода
+- У всех критических путей должны быть тесты
+- Используйте Jest для модульных тестов
+- Используйте Cypress для E2E тестов
+- Имена файлов тестов: `*.test.ts` или `*.spec.ts`
 
-### API Standards
-- RESTful endpoints only
-- JSON request/response
-- Use HTTP status codes correctly
-- Version API endpoints: `/api/v1/`
-- Document all endpoints with examples
+### Стандарты API
+- Только RESTful endpoint
+- JSON для запросов и ответов
+- Корректно используйте HTTP-коды статуса
+- Версионируйте endpoint API: `/api/v1/`
+- Документируйте все endpoint с примерами
 
-### Database
-- Use migrations for schema changes
-- Never hardcode credentials
-- Use connection pooling
-- Enable query logging in development
-- Regular backups required
+### База данных
+- Используйте миграции для изменений схемы
+- Никогда не хардкодьте учётные данные
+- Используйте connection pooling
+- Включайте логирование запросов в разработке
+- Нужны регулярные бэкапы
 
-### Deployment
-- Docker-based deployment
-- Kubernetes orchestration
-- Blue-green deployment strategy
-- Automatic rollback on failure
-- Database migrations run before deploy
+### Развёртывание
+- Развёртывание на основе Docker
+- Оркестрация через Kubernetes
+- Стратегия blue-green deployment
+- Автоматический rollback при сбое
+- Миграции базы запускаются до deploy
 
-## Common Commands
+## Частые команды
 
-| Command | Purpose |
+| Команда | Назначение |
 |---------|---------|
-| `npm run dev` | Start development server |
-| `npm test` | Run test suite |
-| `npm run lint` | Check code style |
-| `npm run build` | Build for production |
-| `npm run migrate` | Run database migrations |
+| `npm run dev` | Запустить сервер разработки |
+| `npm test` | Запустить набор тестов |
+| `npm run lint` | Проверить стиль кода |
+| `npm run build` | Собрать для production |
+| `npm run migrate` | Запустить миграции базы данных |
 
-## Team Contacts
+## Контакты команды
 - Tech Lead: Sarah Chen (@sarah.chen)
 - Product Manager: Mike Johnson (@mike.j)
 - DevOps: Alex Kim (@alex.k)
 
-## Known Issues & Workarounds
-- PostgreSQL connection pooling limited to 20 during peak hours
-- Workaround: Implement query queuing
-- Safari 14 compatibility issues with async generators
-- Workaround: Use Babel transpiler
+## Известные проблемы и обходные пути
+- Connection pooling PostgreSQL ограничен 20 во время пиковых нагрузок
+- Обход: реализовать очередь запросов
+- Проблемы совместимости Safari 14 с async generators
+- Обход: использовать transpiler Babel
 
-## Related Projects
+## Связанные проекты
 - Analytics Dashboard: `/projects/analytics`
 - Mobile App: `/projects/mobile`
 - Admin Panel: `/projects/admin`
 ```
 
-#### Example 2: Directory-Specific Memory
+#### Пример 2: Память для конкретного каталога
 
 **File:** `./src/api/CLAUDE.md`
 
 ~~~~markdown
-# API Module Standards
+# Стандарты модуля API
 
-This file overrides root CLAUDE.md for everything in /src/api/
+Этот файл переопределяет корневой `CLAUDE.md` для всего в `/src/api/`
 
-## API-Specific Standards
+## Специфические стандарты API
 
-### Request Validation
-- Use Zod for schema validation
-- Always validate input
-- Return 400 with validation errors
-- Include field-level error details
+### Проверка запросов
+- Используйте Zod для валидации схем
+- Всегда проверяйте входные данные
+- Возвращайте 400 с ошибками валидации
+- Добавляйте подробности по полям
 
-### Authentication
-- All endpoints require JWT token
-- Token in Authorization header
-- Token expires after 24 hours
-- Implement refresh token mechanism
+### Аутентификация
+- Все endpoint требуют JWT token
+- Token передаётся в заголовке Authorization
+- Token истекает через 24 часа
+- Реализуйте механизм refresh token
 
-### Response Format
+### Формат ответа
 
-All responses must follow this structure:
+Все ответы должны соответствовать этой структуре:
 
 ```json
 {
@@ -758,36 +758,36 @@ All responses must follow this structure:
 }
 ```
 
-### Error responses:
+### Ошибки ответа:
 ```json
 {
   "success": false,
   "error": {
     "code": "VALIDATION_ERROR",
-    "message": "User message",
+    "message": "Пользователь message",
     "details": { /* field errors */ }
   },
   "timestamp": "2025-11-06T10:30:00Z"
 }
 ```
 
-### Pagination
-- Use cursor-based pagination (not offset)
-- Include `hasMore` boolean
-- Limit max page size to 100
-- Default page size: 20
+### Пагинация
+- Используйте cursor-based pagination, а не offset
+- Добавляйте boolean `hasMore`
+- Ограничьте максимальный размер страницы до 100
+- Размер страницы по умолчанию: 20
 
-### Rate Limiting
-- 1000 requests per hour for authenticated users
-- 100 requests per hour for public endpoints
-- Return 429 when exceeded
-- Include retry-after header
+### Rate limiting
+- 1000 запросов в час для аутентифицированных пользователей
+- 100 запросов в час для публичных endpoint
+- Возвращайте 429 при превышении
+- Добавляйте заголовок retry-after
 
-### Caching
-- Use Redis for session caching
-- Cache duration: 5 minutes default
-- Invalidate on write operations
-- Tag cache keys with resource type
+### Кеширование
+- Используйте Redis для кеша сессий
+- Длительность кеша по умолчанию: 5 минут
+- Инвалидация при операциях записи
+- Помечайте ключи кеша типом ресурса
 ~~~~
 
 #### Example 3: Personal Memory
@@ -795,48 +795,48 @@ All responses must follow this structure:
 **File:** `~/.claude/CLAUDE.md`
 
 ~~~~markdown
-# My Development Preferences
+# Мои предпочтения в разработке
 
-## About Me
-- **Experience Level**: 8 years full-stack development
-- **Preferred Languages**: TypeScript, Python
-- **Communication Style**: Direct, with examples
-- **Learning Style**: Visual diagrams with code
+## Обо мне
+- **Уровень опыта**: 8 лет full-stack разработки
+- **Предпочитаемые языки**: TypeScript, Python
+- **Стиль общения**: Прямой, с примерами
+- **Стиль обучения**: Визуальные диаграммы с кодом
 
-## Code Preferences
+## Предпочтения по коду
 
-### Error Handling
-I prefer explicit error handling with try-catch blocks and meaningful error messages.
-Avoid generic errors. Always log errors for debugging.
+### Обработка ошибок
+Я предпочитаю явную обработку ошибок через try-catch и осмысленные сообщения.
+Избегайте общих ошибок. Всегда логируйте ошибки для отладки.
 
-### Comments
-Use comments for WHY, not WHAT. Code should be self-documenting.
-Comments should explain business logic or non-obvious decisions.
+### Комментарии
+Используйте комментарии для WHY, а не WHAT. Код должен быть самодокументируемым.
+Комментарии должны объяснять бизнес-логику или неочевидные решения.
 
-### Testing
-I prefer TDD (test-driven development).
-Write tests first, then implementation.
-Focus on behavior, not implementation details.
+### Тестирование
+Я предпочитаю TDD (test-driven development).
+Сначала пишите тесты, потом реализацию.
+Сосредоточьтесь на поведении, а не на деталях реализации.
 
-### Architecture
-I prefer modular, loosely-coupled design.
-Use dependency injection for testability.
-Separate concerns (Controllers, Services, Repositories).
+### Архитектура
+Я предпочитаю модульный, слабосвязанный дизайн.
+Используйте dependency injection ради тестируемости.
+Разделяйте ответственность (Controllers, Services, Repositories).
 
-## Debugging Preferences
-- Use console.log with prefix: `[DEBUG]`
-- Include context: function name, relevant variables
-- Use stack traces when available
-- Always include timestamps in logs
+## Предпочтения по отладке
+- Используйте `console.log` с префиксом `[DEBUG]`
+- Добавляйте контекст: имя функции, релевантные переменные
+- Используйте stack trace, когда он доступен
+- Всегда добавляйте timestamps в логи
 
-## Communication
-- Explain complex concepts with diagrams
-- Show concrete examples before explaining theory
-- Include before/after code snippets
-- Summarize key points at the end
+## Коммуникация
+- Объясняйте сложные концепции с помощью диаграмм
+- Показывайте конкретные примеры до теории
+- Добавляйте примеры кода до/после
+- Суммируйте ключевые моменты в конце
 
-## Project Organization
-I organize my projects as:
+## Организация проекта
+Я организую проекты так:
 ```
 project/
   ├── src/
@@ -849,105 +849,105 @@ project/
   └── docker/
 ```
 
-## Tooling
-- **IDE**: VS Code with vim keybindings
-- **Terminal**: Zsh with Oh-My-Zsh
-- **Format**: Prettier (100 char line length)
-- **Linter**: ESLint with airbnb config
-- **Test Framework**: Jest with React Testing Library
+## Инструменты
+- **IDE**: VS Code с vim keybindings
+- **Терминал**: Zsh с Oh-My-Zsh
+- **Форматирование**: Prettier (100 символов в строке)
+- **Linter**: ESLint с конфигурацией airbnb
+- **Фреймворк тестов**: Jest с React Testing Library
 ~~~~
 
-#### Example 4: Memory Update During Session
+#### Example 4: Memory Обновить During Session
 
 **Session Interaction:**
 
 ```markdown
-User: Remember that I prefer using React hooks instead of class components
+Пользователь: Remember that I prefer using React hooks instead of class components
      for all new components.
 
-Claude: I'm adding that to your memory. Which memory file should this go in?
-        1. Project memory (./CLAUDE.md)
-        2. Personal memory (~/.claude/CLAUDE.md)
+Claude: Я добавляю это в память. В какой файл памяти это записать?
+        1. Память проекта (./CLAUDE.md)
+        2. Личная память (~/.claude/CLAUDE.md)
 
-User: Project memory
+Пользователь: Project memory
 
-Claude: ✅ Memory saved!
+Claude: ✅ Память сохранена!
 
 Added to ./CLAUDE.md:
 ---
 
-### Component Development
-- Use functional components with React Hooks
-- Prefer hooks over class components
-- Custom hooks for reusable logic
-- Use useCallback for event handlers
-- Use useMemo for expensive computations
+### Разработка компонентов
+- Используйте функциональные компоненты с React Hooks
+- Предпочитайте hooks класс-компонентам
+- Используйте custom hooks для переиспользуемой логики
+- Используйте useCallback для обработчиков событий
+- Используйте useMemo для дорогих вычислений
 ```
 
-### Memory in Claude Web/Desktop
+### Memory в Claude Web/Desktop
 
-#### Memory Synthesis Timeline
+#### Таймлайн синтеза Memory
 
 ```mermaid
 graph LR
-    A["Day 1: User<br/>Conversations"] -->|24 hours| B["Day 2: Memory<br/>Synthesis"]
-    B -->|Automatic| C["Memory Updated<br/>Summarized"]
-    C -->|Loaded in| D["Day 2-N:<br/>New Conversations"]
+A["День 1: разговоры<br/>пользователя"] -->|24 hours| B["День 2: синтез<br/>Memory"]
+    B -->|Automatic| C["Memory обновлена<br/>и кратко изложена"]
+    C -->|Loaded in| D["День 2-N:<br/>новые разговоры"]
     D -->|Add to| E["Memory"]
     E -->|24 hours later| F["Memory Refreshed"]
 ```
 
-**Example Memory Summary:**
+**Пример сводки памяти:**
 
 ```markdown
-## Claude's Memory of User
+## Память Claude о пользователе
 
-### Professional Background
-- Senior full-stack developer with 8 years experience
-- Focus on TypeScript/Node.js backends and React frontends
-- Active open source contributor
-- Interested in AI and machine learning
+### Профессиональный фон
+- Senior full-stack developer с 8 годами опыта
+- Фокус на TypeScript/Node.js backend и React frontend
+- Активный contributor open source
+- Интерес к AI и machine learning
 
-### Project Context
-- Currently building e-commerce platform
-- Tech stack: Node.js, PostgreSQL, React 18, Docker
-- Working with team of 5 developers
-- Using CI/CD and blue-green deployments
+### Контекст проекта
+- Сейчас строю e-commerce платформу
+- Стек: Node.js, PostgreSQL, React 18, Docker
+- Работаю с командой из 5 разработчиков
+- Использую CI/CD и blue-green deployments
 
-### Communication Preferences
-- Prefers direct, concise explanations
-- Likes visual diagrams and examples
-- Appreciates code snippets
-- Explains business logic in comments
+### Предпочтения по общению
+- Предпочитает прямые и краткие объяснения
+- Любит визуальные диаграммы и примеры
+- Ценит фрагменты кода
+- Объясняет бизнес-логику в комментариях
 
-### Current Goals
-- Improve API performance
-- Increase test coverage to 90%
-- Implement caching strategy
-- Document architecture
+### Текущие цели
+- Улучшить производительность API
+- Повысить покрытие тестами до 90%
+- Реализовать стратегию кеширования
+- Документировать архитектуру
 ```
 
-### Memory Features Comparison
+### Сравнение возможностей Memory
 
-| Feature | Claude Web/Desktop | Claude Code (CLAUDE.md) |
+| Возможность | Claude Web/Desktop | Claude Code (CLAUDE.md) |
 |---------|-------------------|------------------------|
-| Auto-synthesis | ✅ Every 24h | ❌ Manual |
-| Cross-project | ✅ Shared | ❌ Project-specific |
-| Team access | ✅ Shared projects | ✅ Git-tracked |
-| Searchable | ✅ Built-in | ✅ Through `/memory` |
-| Editable | ✅ In-chat | ✅ Direct file edit |
-| Import/Export | ✅ Yes | ✅ Copy/paste |
-| Persistent | ✅ 24h+ | ✅ Indefinite |
+| Автосинтез | ✅ Каждые 24 часа | ❌ Вручную |
+| Межпроектность | ✅ Общая | ❌ Только проект |
+| Доступ команды | ✅ Общие проекты | ✅ Отслеживается Git |
+| Поиск | ✅ Встроенный | ✅ Через `/memory` |
+| Редактирование | ✅ В чате | ✅ Прямое редактирование файла |
+| Импорт/экспорт | ✅ Да | ✅ Копирование/вставка |
+| Постоянство | ✅ 24ч+ | ✅ Бессрочно |
 
 ---
 
-## MCP Protocol
+## Протокол MCP
 
-### Overview
+### Обзор
 
-MCP (Model Context Protocol) is a standardized way for Claude to access external tools, APIs, and real-time data sources. Unlike Memory, MCP provides live access to changing data.
+MCP (Model Context Protocol) — это стандартизированный способ для Claude получать доступ к внешним инструментам, API и источникам данных в реальном времени. В отличие от Memory, MCP даёт живой доступ к изменяющимся данным.
 
-### MCP Architecture
+### Архитектура MCP
 
 ```mermaid
 graph TB
@@ -966,7 +966,7 @@ graph TB
     B -->|Response| A
 ```
 
-### MCP Ecosystem
+### Экосистема MCP
 
 ```mermaid
 graph TB
@@ -983,44 +983,44 @@ graph TB
     F -->|Docs| K["Google Drive"]
 ```
 
-### MCP Setup Process
+### Процесс настройки MCP
 
 ```mermaid
 sequenceDiagram
-    participant User
+    participant Пользователь
     participant Claude as Claude Code
     participant Config as Config File
     participant Service as External Service
 
-    User->>Claude: Type /mcp
+    Пользователь->>Claude: Type /mcp
     Claude->>Claude: List available MCP servers
-    Claude->>User: Show options
-    User->>Claude: Select GitHub MCP
-    Claude->>Config: Update configuration
-    Config->>Claude: Activate connection
+    Claude->>Пользователь: Show options
+    Пользователь->>Claude: Выбрать GitHub MCP
+    Claude->>Config: Обновить configuration
+    Config->>Claude: Активировать connection
     Claude->>Service: Test connection
     Service-->>Claude: Authentication successful
-    Claude->>User: ✅ MCP connected!
+    Claude->>Пользователь: ✅ MCP connected!
 ```
 
-### Available MCP Servers Table
+### Таблица доступных MCP-серверов
 
-| MCP Server | Purpose | Common Tools | Auth | Real-time |
+| MCP-сервер | Назначение | Распространённые инструменты | Аутентификация | Реальное время |
 |------------|---------|--------------|------|-----------|
-| **Filesystem** | File operations | read, write, delete | OS permissions | ✅ Yes |
-| **GitHub** | Repository management | list_prs, create_issue, push | OAuth | ✅ Yes |
-| **Slack** | Team communication | send_message, list_channels | Token | ✅ Yes |
-| **Database** | SQL queries | query, insert, update | Credentials | ✅ Yes |
-| **Google Docs** | Document access | read, write, share | OAuth | ✅ Yes |
-| **Asana** | Project management | create_task, update_status | API Key | ✅ Yes |
-| **Stripe** | Payment data | list_charges, create_invoice | API Key | ✅ Yes |
-| **Memory** | Persistent memory | store, retrieve, delete | Local | ❌ No |
+| **Filesystem** | Операции с файлами | read, write, delete | Разрешения ОС | ✅ Да |
+| **GitHub** | Управление репозиторием | list_prs, create_issue, push | OAuth | ✅ Да |
+| **Slack** | Командная коммуникация | send_message, list_channels | Token | ✅ Да |
+| **Database** | SQL-запросы | query, insert, update | Учётные данные | ✅ Да |
+| **Google Docs** | Доступ к документам | read, write, share | OAuth | ✅ Да |
+| **Asana** | Управление проектами | create_task, update_status | API Key | ✅ Да |
+| **Stripe** | Платёжные данные | list_charges, create_invoice | API Key | ✅ Да |
+| **Memory** | Постоянная память | store, retrieve, delete | Local | ❌ Нет |
 
-### Practical Examples
+### Практические примеры
 
-#### Example 1: GitHub MCP Configuration
+#### Пример 1: Конфигурация GitHub MCP
 
-**File:** `.mcp.json` (project scope) or `~/.claude.json` (user scope)
+**Файл:** `.mcp.json` (область проекта) или `~/.claude.json` (область пользователя)
 
 ```json
 {
@@ -1036,24 +1036,24 @@ sequenceDiagram
 }
 ```
 
-**Available GitHub MCP Tools:**
+**Доступные инструменты GitHub MCP:**
 
 ~~~~markdown
-# GitHub MCP Tools
+# Инструменты GitHub MCP
 
-## Pull Request Management
-- `list_prs` - List all PRs in repository
-- `get_pr` - Get PR details including diff
-- `create_pr` - Create new PR
-- `update_pr` - Update PR description/title
-- `merge_pr` - Merge PR to main branch
-- `review_pr` - Add review comments
+## Управление Pull Request
+- `list_prs` - Показать все PR в репозитории
+- `get_pr` - Получить детали PR, включая diff
+- `create_pr` - Создать новый PR
+- `update_pr` - Обновить описание/заголовок PR
+- `merge_pr` - Слить PR в main branch
+- `review_pr` - Добавить комментарии ревью
 
-Example request:
+Пример запроса:
 ```
 /mcp__github__get_pr 456
 
-# Returns:
+# Возвращает:
 Title: Add dark mode support
 Author: @alice
 Description: Implements dark theme using CSS variables
@@ -1061,28 +1061,28 @@ Status: OPEN
 Reviewers: @bob, @charlie
 ```
 
-## Issue Management
-- `list_issues` - List all issues
-- `get_issue` - Get issue details
-- `create_issue` - Create new issue
-- `close_issue` - Close issue
-- `add_comment` - Add comment to issue
+## Управление issues
+- `list_issues` - Показать все issues
+- `get_issue` - Получить детали issue
+- `create_issue` - Создать новый issue
+- `close_issue` - Закрыть issue
+- `add_comment` - Добавить комментарий к issue
 
-## Repository Information
-- `get_repo_info` - Repository details
-- `list_files` - File tree structure
-- `get_file_content` - Read file contents
-- `search_code` - Search across codebase
+## Информация о репозитории
+- `get_repo_info` - Детали репозитория
+- `list_files` - Структура дерева файлов
+- `get_file_content` - Читать содержимое файлов
+- `search_code` - Поиск по codebase
 
-## Commit Operations
-- `list_commits` - Commit history
-- `get_commit` - Specific commit details
-- `create_commit` - Create new commit
+## Операции с коммитами
+- `list_commits` - История коммитов
+- `get_commit` - Детали конкретного коммита
+- `create_commit` - Создать новый коммит
 ~~~~
 
-#### Example 2: Database MCP Setup
+#### Пример 2: Настройка Database MCP
 
-**Configuration:**
+**Конфигурация:**
 
 ```json
 {
@@ -1098,14 +1098,14 @@ Reviewers: @bob, @charlie
 }
 ```
 
-**Example Usage:**
+**Пример использования:**
 
 ```markdown
-User: Fetch all users with more than 10 orders
+Пользователь: Получи всех пользователей с более чем 10 заказами
 
-Claude: I'll query your database to find that information.
+Claude: Я выполню запрос к вашей базе данных, чтобы найти эту информацию.
 
-# Using MCP database tool:
+# Использование инструмента MCP для базы данных:
 SELECT u.*, COUNT(o.id) as order_count
 FROM users u
 LEFT JOIN orders o ON u.id = o.user_id
@@ -1113,62 +1113,62 @@ GROUP BY u.id
 HAVING COUNT(o.id) > 10
 ORDER BY order_count DESC;
 
-# Results:
-- Alice: 15 orders
-- Bob: 12 orders
-- Charlie: 11 orders
+# Результаты:
+- Alice: 15 заказов
+- Bob: 12 заказов
+- Charlie: 11 заказов
 ```
 
-#### Example 3: Multi-MCP Workflow
+#### Пример 3: Рабочий процесс Multi-MCP
 
-**Scenario: Daily Report Generation**
+**Сценарий: Генерация ежедневного отчёта**
 
 ```markdown
-# Daily Report Workflow using Multiple MCPs
+# Workflow ежедневного отчёта с использованием нескольких MCP
 
-## Setup
-1. GitHub MCP - fetch PR metrics
-2. Database MCP - query sales data
-3. Slack MCP - post report
-4. Filesystem MCP - save report
+## Настройка
+1. GitHub MCP - собрать метрики PR
+2. Database MCP - запросить данные о продажах
+3. Slack MCP - отправить отчёт
+4. Filesystem MCP - сохранить отчёт
 
 ## Workflow
 
-### Step 1: Fetch GitHub Data
+### Шаг 1: Получить данные из GitHub
 /mcp__github__list_prs completed:true last:7days
 
-Output:
+Вывод:
 - Total PRs: 42
 - Average merge time: 2.3 hours
 - Review turnaround: 1.1 hours
 
-### Step 2: Query Database
+### Шаг 2: Запрос к базе данных
 SELECT COUNT(*) as sales, SUM(amount) as revenue
 FROM orders
 WHERE created_at > NOW() - INTERVAL '1 day'
 
-Output:
-- Sales: 247
-- Revenue: $12,450
+Вывод:
+- Продажи: 247
+- Выручка: $12,450
 
-### Step 3: Generate Report
-Combine data into HTML report
+### Шаг 3: Сгенерировать отчёт
+Объединить данные в HTML-отчёт
 
-### Step 4: Save to Filesystem
-Write report.html to /reports/
+### Шаг 4: Сохранить в файловую систему
+Записать `report.html` в `/reports/`
 
-### Step 5: Post to Slack
-Send summary to #daily-reports channel
+### Шаг 5: Отправить в Slack
+Отправить сводку в канал `#daily-reports`
 
-Final Output:
-✅ Report generated and posted
-📊 47 PRs merged this week
-💰 $12,450 in daily sales
+Итог:
+✅ Отчёт сгенерирован и отправлен
+📊 За эту неделю слито 47 PR
+💰 $12,450 ежедневных продаж
 ```
 
-#### Example 4: Filesystem MCP Operations
+#### Пример 4: Операции Filesystem MCP
 
-**Configuration:**
+**Конфигурация:**
 
 ```json
 {
@@ -1181,35 +1181,35 @@ Final Output:
 }
 ```
 
-**Available Operations:**
+**Доступные операции:**
 
-| Operation | Command | Purpose |
+| Операция | Команда | Назначение |
 |-----------|---------|---------|
-| List files | `ls ~/projects` | Show directory contents |
-| Read file | `cat src/main.ts` | Read file contents |
-| Write file | `create docs/api.md` | Create new file |
-| Edit file | `edit src/app.ts` | Modify file |
-| Search | `grep "async function"` | Search in files |
-| Delete | `rm old-file.js` | Delete file |
+| Список файлов | `ls ~/projects` | Показать содержимое каталога |
+| Читать файл | `cat src/main.ts` | Читать содержимое файла |
+| Записать файл | `create docs/api.md` | Создать новый файл |
+| Редактировать файл | `edit src/app.ts` | Изменить файл |
+| Поиск | `grep "async function"` | Искать в файлах |
+| Удалить | `rm old-file.js` | Удалить файл |
 
-### MCP vs Memory: Decision Matrix
+### MCP против Memory: матрица решений
 
 ```mermaid
 graph TD
-    A["Need external data?"]
-    A -->|No| B["Use Memory"]
-    A -->|Yes| C["Does it change frequently?"]
-    C -->|No/Rarely| B
-    C -->|Yes/Often| D["Use MCP"]
+    A["Нужны внешние данные?"]
+    A -->|Нет| B["Использовать Memory"]
+    A -->|Да| C["Они часто меняются?"]
+    C -->|Нет/редко| B
+    C -->|Да/часто| D["Использовать MCP"]
 
-    B -->|Stores| E["Preferences<br/>Context<br/>History"]
-    D -->|Accesses| F["Live APIs<br/>Databases<br/>Services"]
+    B -->|Хранит| E["Предпочтения<br/>Контекст<br/>История"]
+    D -->|Получает доступ к| F["Живые API<br/>Базы данных<br/>Сервисы"]
 
     style B fill:#e1f5ff
     style D fill:#fff9c4
 ```
 
-### Request/Response Pattern
+### Паттерн запрос/ответ
 
 ```mermaid
 sequenceDiagram
@@ -1224,27 +1224,27 @@ sequenceDiagram
     App->>App: Process result
     App->>App: Continue task
 
-    Note over MCP,DB: Real-time access<br/>No caching
+    Note over MCP,DB: Доступ в реальном времени<br/>Без кеширования
 ```
 
 ---
 
 ## Agent Skills
 
-### Overview
+### Обзор
 
-Agent Skills are reusable, model-invoked capabilities packaged as folders containing instructions, scripts, and resources. Claude automatically detects and uses relevant skills.
+Agent Skills — это переиспользуемые возможности, вызываемые моделью и упакованные как папки с инструкциями, скриптами и ресурсами. Claude автоматически определяет и использует подходящие навыки.
 
-### Skill Architecture
+### Архитектура skill
 
 ```mermaid
 graph TB
-    A["Skill Directory"]
+    A["Каталог skill"]
     B["SKILL.md"]
-    C["YAML Metadata"]
-    D["Instructions"]
-    E["Scripts"]
-    F["Templates"]
+    C["YAML-метаданные"]
+    D["Инструкции"]
+    E["Скрипты"]
+    F["Шаблоны"]
 
     A --> B
     B --> C
@@ -1253,39 +1253,39 @@ graph TB
     F --> A
 ```
 
-### Skill Loading Process
+### Процесс загрузки skill
 
 ```mermaid
 sequenceDiagram
-    participant User
+    participant Пользователь
     participant Claude as Claude
     participant System as System
     participant Skill as Skill
 
-    User->>Claude: "Create Excel report"
-    Claude->>System: Scan available skills
-    System->>System: Load skill metadata
-    Claude->>Claude: Match user request to skills
-    Claude->>Skill: Load xlsx skill SKILL.md
-    Skill-->>Claude: Return instructions + tools
-    Claude->>Claude: Execute skill
-    Claude->>User: Generate Excel file
+    Пользователь->>Claude: "Создай Excel-отчёт"
+    Claude->>System: Сканировать доступные skills
+    System->>System: Загрузить метаданные skill
+    Claude->>Claude: Сопоставить запрос пользователя со skills
+    Claude->>Skill: Загрузить SKILL.md для xlsx skill
+    Skill-->>Claude: Вернуть инструкции + инструменты
+    Claude->>Claude: Выполнить skill
+    Claude->>Пользователь: Сгенерировать Excel-файл
 ```
 
-### Skill Types & Locations Table
+### Таблица типов и расположений skill
 
-| Type | Location | Scope | Shared | Sync | Best For |
+| Тип | Расположение | Область | Общий доступ | Синхронизация | Лучше всего для |
 |------|----------|-------|--------|------|----------|
-| Pre-built | Built-in | Global | All users | Auto | Document creation |
-| Personal | `~/.claude/skills/` | Individual | No | Manual | Personal automation |
-| Project | `.claude/skills/` | Team | Yes | Git | Team standards |
-| Plugin | Via plugin install | Varies | Depends | Auto | Integrated features |
+| Pre-built | Встроено | Глобально | Все пользователи | Авто | Создание документов |
+| Personal | `~/.claude/skills/` | Индивидуально | Нет | Вручную | Личная автоматизация |
+| Project | `.claude/skills/` | Команда | Да | Git | Стандарты команды |
+| Plugin | Через установку плагина | Зависит | Зависит | Авто | Интегрированные возможности |
 
-### Pre-built Skills
+### Предустановленные skills
 
 ```mermaid
 graph TB
-    A["Pre-built Skills"]
+    A["Предустановленные skills"]
     B["PowerPoint (pptx)"]
     C["Excel (xlsx)"]
     D["Word (docx)"]
@@ -1296,35 +1296,35 @@ graph TB
     A --> D
     A --> E
 
-    B --> B1["Create presentations"]
-    B --> B2["Edit slides"]
-    C --> C1["Create spreadsheets"]
-    C --> C2["Analyze data"]
-    D --> D1["Create documents"]
-    D --> D2["Format text"]
-    E --> E1["Generate PDFs"]
-    E --> E2["Fill forms"]
+    B --> B1["Создавать презентации"]
+    B --> B2["Редактировать слайды"]
+    C --> C1["Создавать таблицы"]
+    C --> C2["Анализировать данные"]
+    D --> D1["Создавать документы"]
+    D --> D2["Форматировать текст"]
+    E --> E1["Генерировать PDF"]
+    E --> E2["Заполнять формы"]
 ```
 
-### Bundled Skills
+### Встроенные skills
 
-Claude Code now includes 5 bundled skills available out of the box:
+Claude Code теперь включает 5 встроенных skills, доступных сразу:
 
-| Skill | Command | Purpose |
+| Skill | Команда | Назначение |
 |-------|---------|---------|
-| **Simplify** | `/simplify` | Simplify complex code or explanations |
-| **Batch** | `/batch` | Run operations across multiple files or items |
-| **Debug** | `/debug` | Systematic debugging of issues with root cause analysis |
-| **Loop** | `/loop` | Schedule recurring tasks on a timer |
-| **Claude API** | `/claude-api` | Interact with the Anthropic API directly |
+| **Simplify** | `/simplify` | Упростить сложный код или объяснения |
+| **Batch** | `/batch` | Выполнять операции по множеству файлов или элементов |
+| **Debug** | `/debug` | Систематическая отладка с поиском первопричины |
+| **Loop** | `/loop` | Планировать повторяющиеся задачи по таймеру |
+| **Claude API** | `/claude-api` | Работать с Anthropic API напрямую |
 
-These bundled skills are always available and do not require installation or configuration.
+Эти встроенные skills всегда доступны и не требуют установки или настройки.
 
-### Practical Examples
+### Практические примеры
 
-#### Example 1: Custom Code Review Skill
+#### Пример 1: Пользовательский skill для code review
 
-**Directory Structure:**
+**Структура каталога:**
 
 ```
 ~/.claude/skills/code-review/
@@ -1337,12 +1337,12 @@ These bundled skills are always available and do not require installation or con
     └── compare-complexity.py
 ```
 
-**File:** `~/.claude/skills/code-review/SKILL.md`
+**Файл:** `~/.claude/skills/code-review/SKILL.md`
 
 ```yaml
 ---
 name: Code Review Specialist
-description: Comprehensive code review with security, performance, and quality analysis
+description: Полный code review с анализом безопасности, производительности и качества
 version: "1.0.0"
 tags:
   - code-review
@@ -1353,69 +1353,69 @@ effort: high
 shell: bash
 ---
 
-# Code Review Skill
+# Skill code review
 
-This skill provides comprehensive code review capabilities focusing on:
+Этот skill даёт расширенные возможности code review с фокусом на:
 
-1. **Security Analysis**
-   - Authentication/authorization issues
-   - Data exposure risks
-   - Injection vulnerabilities
-   - Cryptographic weaknesses
-   - Sensitive data logging
+1. **Анализ безопасности**
+   - Проблемы аутентификации/авторизации
+   - Риски утечки данных
+   - Уязвимости инъекций
+   - Слабые места криптографии
+   - Логирование чувствительных данных
 
-2. **Performance Review**
-   - Algorithm efficiency (Big O analysis)
-   - Memory optimization
-   - Database query optimization
-   - Caching opportunities
-   - Concurrency issues
+2. **Анализ производительности**
+   - Эффективность алгоритмов (Big O)
+   - Оптимизация памяти
+   - Оптимизация запросов к базе
+   - Возможности кеширования
+   - Проблемы конкурентности
 
-3. **Code Quality**
-   - SOLID principles
-   - Design patterns
-   - Naming conventions
-   - Documentation
-   - Test coverage
+3. **Качество кода**
+   - Принципы SOLID
+   - Паттерны проектирования
+   - Соглашения по именованию
+   - Документация
+   - Покрытие тестами
 
-4. **Maintainability**
-   - Code readability
-   - Function size (should be < 50 lines)
-   - Cyclomatic complexity
-   - Dependency management
-   - Type safety
+4. **Поддерживаемость**
+   - Читаемость кода
+   - Размер функций (должен быть < 50 строк)
+   - Цикломатическая сложность
+   - Управление зависимостями
+   - Типобезопасность
 
-## Review Template
+## Шаблон ревью
 
-For each piece of code reviewed, provide:
+Для каждого проверенного фрагмента кода указывайте:
 
-### Summary
-- Overall quality assessment (1-5)
-- Key findings count
-- Recommended priority areas
+### Сводка
+- Общая оценка качества (1-5)
+- Количество ключевых находок
+- Рекомендуемые приоритетные области
 
-### Critical Issues (if any)
-- **Issue**: Clear description
-- **Location**: File and line number
-- **Impact**: Why this matters
+### Критические проблемы (если есть)
+- **Issue**: ясное описание
+- **Location**: файл и номер строки
+- **Impact**: почему это важно
 - **Severity**: Critical/High/Medium
-- **Fix**: Code example
+- **Fix**: пример исправления
 
-### Findings by Category
+### Находки по категориям
 
-#### Security (if issues found)
-List security vulnerabilities with examples
+#### Безопасность (если есть проблемы)
+Перечислите уязвимости безопасности с примерами
 
-#### Performance (if issues found)
-List performance problems with complexity analysis
+#### Производительность (если есть проблемы)
+Перечислите проблемы производительности с анализом сложности
 
-#### Quality (if issues found)
-List code quality issues with refactoring suggestions
+#### Качество (если есть проблемы)
+Перечислите проблемы качества кода с предложениями по рефакторингу
 
-#### Maintainability (if issues found)
-List maintainability problems with improvements
+#### Поддерживаемость (если есть проблемы)
+Перечислите проблемы поддерживаемости с улучшениями
 ```
-## Python Script: analyze-metrics.py
+## Python-скрипт: analyze-metrics.py
 
 ```python
 #!/usr/bin/env python3
@@ -1423,19 +1423,19 @@ import re
 import sys
 
 def analyze_code_metrics(code):
-    """Analyze code for common metrics."""
+    """Анализ кода по общим метрикам."""
 
-    # Count functions
+    # Подсчёт функций
     functions = len(re.findall(r'^def\s+\w+', code, re.MULTILINE))
 
-    # Count classes
+    # Подсчёт классов
     classes = len(re.findall(r'^class\s+\w+', code, re.MULTILINE))
 
-    # Average line length
+    # Средняя длина строки
     lines = code.split('\n')
     avg_length = sum(len(l) for l in lines) / len(lines) if lines else 0
 
-    # Estimate complexity
+    # Оценка сложности
     complexity = len(re.findall(r'\b(if|elif|else|for|while|and|or)\b', code))
 
     return {
@@ -1453,13 +1453,13 @@ if __name__ == '__main__':
         print(f"{key}: {value:.2f}")
 ```
 
-## Python Script: compare-complexity.py
+## Python-скрипт: compare-complexity.py
 
 ```python
 #!/usr/bin/env python3
 """
-Compare cyclomatic complexity of code before and after changes.
-Helps identify if refactoring actually simplifies code structure.
+Сравнение цикломатической сложности кода до и после изменений.
+Помогает понять, действительно ли рефакторинг упрощает структуру кода.
 """
 
 import re
@@ -1467,7 +1467,7 @@ import sys
 from typing import Dict, Tuple
 
 class ComplexityAnalyzer:
-    """Analyze code complexity metrics."""
+    """Анализ метрик сложности кода."""
 
     def __init__(self, code: str):
         self.code = code
@@ -1475,12 +1475,12 @@ class ComplexityAnalyzer:
 
     def calculate_cyclomatic_complexity(self) -> int:
         """
-        Calculate cyclomatic complexity using McCabe's method.
-        Count decision points: if, elif, else, for, while, except, and, or
+        Рассчитать цикломатическую сложность по методу Маккейба.
+        Учитываются точки ветвления: if, elif, else, for, while, except, and, or
         """
-        complexity = 1  # Base complexity
+        complexity = 1  # Базовая сложность
 
-        # Count decision points
+        # Подсчёт точек ветвления
         decision_patterns = [
             r'\bif\b',
             r'\belif\b',
@@ -1499,21 +1499,21 @@ class ComplexityAnalyzer:
 
     def calculate_cognitive_complexity(self) -> int:
         """
-        Calculate cognitive complexity - how hard is it to understand?
-        Based on nesting depth and control flow.
+        Рассчитать когнитивную сложность - насколько код трудно понимать?
+        Основано на глубине вложенности и потоке управления.
         """
         cognitive = 0
         nesting_depth = 0
 
         for line in self.lines:
-            # Track nesting depth
+            # Отслеживание глубины вложенности
             if re.search(r'^\s*(if|for|while|def|class|try)\b', line):
                 nesting_depth += 1
                 cognitive += nesting_depth
             elif re.search(r'^\s*(elif|else|except|finally)\b', line):
                 cognitive += nesting_depth
 
-            # Reduce nesting when unindenting
+            # Сбрасывать вложенность при выходе из отступа
             if line and not line[0].isspace():
                 nesting_depth = 0
 
@@ -1521,23 +1521,23 @@ class ComplexityAnalyzer:
 
     def calculate_maintainability_index(self) -> float:
         """
-        Maintainability Index ranges from 0-100.
-        > 85: Excellent
-        > 65: Good
-        > 50: Fair
-        < 50: Poor
+        Индекс поддерживаемости находится в диапазоне 0-100.
+        > 85: Отлично
+        > 65: Хорошо
+        > 50: Средне
+        < 50: Плохо
         """
         lines = len(self.lines)
         cyclomatic = self.calculate_cyclomatic_complexity()
         cognitive = self.calculate_cognitive_complexity()
 
-        # Simplified MI calculation
+        # Упрощённый расчёт MI
         mi = 171 - 5.2 * (cyclomatic / lines) - 0.23 * (cognitive) - 16.2 * (lines / 1000)
 
         return max(0, min(100, mi))
 
     def get_complexity_report(self) -> Dict:
-        """Generate comprehensive complexity report."""
+    """Сформировать полный отчёт по сложности."""
         return {
             'cyclomatic_complexity': self.calculate_cyclomatic_complexity(),
             'cognitive_complexity': self.calculate_cognitive_complexity(),
@@ -1548,7 +1548,7 @@ class ComplexityAnalyzer:
 
 
 def compare_files(before_file: str, after_file: str) -> None:
-    """Compare complexity metrics between two code versions."""
+    """Сравнить метрики сложности между двумя версиями кода."""
 
     with open(before_file, 'r') as f:
         before_code = f.read()
@@ -1563,130 +1563,130 @@ def compare_files(before_file: str, after_file: str) -> None:
     after_metrics = after_analyzer.get_complexity_report()
 
     print("=" * 60)
-    print("CODE COMPLEXITY COMPARISON")
+    print("СРАВНЕНИЕ СЛОЖНОСТИ КОДА")
     print("=" * 60)
 
-    print("\nBEFORE:")
-    print(f"  Cyclomatic Complexity:    {before_metrics['cyclomatic_complexity']}")
-    print(f"  Cognitive Complexity:     {before_metrics['cognitive_complexity']}")
-    print(f"  Maintainability Index:    {before_metrics['maintainability_index']}")
-    print(f"  Lines of Code:            {before_metrics['lines_of_code']}")
-    print(f"  Avg Line Length:          {before_metrics['avg_line_length']}")
+    print("\nДО:")
+    print(f"  Цикломатическая сложность: {before_metrics['cyclomatic_complexity']}")
+    print(f"  Когнитивная сложность:     {before_metrics['cognitive_complexity']}")
+    print(f"  Индекс поддерживаемости:   {before_metrics['maintainability_index']}")
+    print(f"  Строк кода:                {before_metrics['lines_of_code']}")
+    print(f"  Средняя длина строки:      {before_metrics['avg_line_length']}")
 
-    print("\nAFTER:")
-    print(f"  Cyclomatic Complexity:    {after_metrics['cyclomatic_complexity']}")
-    print(f"  Cognitive Complexity:     {after_metrics['cognitive_complexity']}")
-    print(f"  Maintainability Index:    {after_metrics['maintainability_index']}")
-    print(f"  Lines of Code:            {after_metrics['lines_of_code']}")
-    print(f"  Avg Line Length:          {after_metrics['avg_line_length']}")
+    print("\nПОСЛЕ:")
+    print(f"  Цикломатическая сложность: {after_metrics['cyclomatic_complexity']}")
+    print(f"  Когнитивная сложность:     {after_metrics['cognitive_complexity']}")
+    print(f"  Индекс поддерживаемости:   {after_metrics['maintainability_index']}")
+    print(f"  Строк кода:                {after_metrics['lines_of_code']}")
+    print(f"  Средняя длина строки:      {after_metrics['avg_line_length']}")
 
-    print("\nCHANGES:")
+    print("\nИЗМЕНЕНИЯ:")
     cyclomatic_change = after_metrics['cyclomatic_complexity'] - before_metrics['cyclomatic_complexity']
     cognitive_change = after_metrics['cognitive_complexity'] - before_metrics['cognitive_complexity']
     mi_change = after_metrics['maintainability_index'] - before_metrics['maintainability_index']
     loc_change = after_metrics['lines_of_code'] - before_metrics['lines_of_code']
 
-    print(f"  Cyclomatic Complexity:    {cyclomatic_change:+d}")
-    print(f"  Cognitive Complexity:     {cognitive_change:+d}")
-    print(f"  Maintainability Index:    {mi_change:+.2f}")
-    print(f"  Lines of Code:            {loc_change:+d}")
+    print(f"  Цикломатическая сложность: {cyclomatic_change:+d}")
+    print(f"  Когнитивная сложность:     {cognitive_change:+d}")
+    print(f"  Индекс поддерживаемости:   {mi_change:+.2f}")
+    print(f"  Строк кода:                {loc_change:+d}")
 
-    print("\nASSESSMENT:")
+    print("\nОЦЕНКА:")
     if mi_change > 0:
-        print("  ✅ Code is MORE maintainable")
+        print("  ✅ Код СТАЛ более поддерживаемым")
     elif mi_change < 0:
-        print("  ⚠️  Code is LESS maintainable")
+        print("  ⚠️  Код СТАЛ менее поддерживаемым")
     else:
-        print("  ➡️  Maintainability unchanged")
+        print("  ➡️  Поддерживаемость не изменилась")
 
     if cyclomatic_change < 0:
-        print("  ✅ Complexity DECREASED")
+        print("  ✅ Сложность СНИЗИЛАСЬ")
     elif cyclomatic_change > 0:
-        print("  ⚠️  Complexity INCREASED")
+        print("  ⚠️  Сложность ВОЗРОСЛА")
     else:
-        print("  ➡️  Complexity unchanged")
+        print("  ➡️  Сложность не изменилась")
 
     print("=" * 60)
 
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
-        print("Usage: python compare-complexity.py <before_file> <after_file>")
+        print("Использование: python compare-complexity.py <before_file> <after_file>")
         sys.exit(1)
 
     compare_files(sys.argv[1], sys.argv[2])
 ```
 
-## Template: review-checklist.md
+## Шаблон: review-checklist.md
 
 ```markdown
-# Code Review Checklist
+# Чеклист code review
 
-## Security Checklist
-- [ ] No hardcoded credentials or secrets
-- [ ] Input validation on all user inputs
-- [ ] SQL injection prevention (parameterized queries)
-- [ ] CSRF protection on state-changing operations
-- [ ] XSS prevention with proper escaping
-- [ ] Authentication checks on protected endpoints
-- [ ] Authorization checks on resources
-- [ ] Secure password hashing (bcrypt, argon2)
-- [ ] No sensitive data in logs
-- [ ] HTTPS enforced
+## Чеклист безопасности
+- [ ] Нет хардкода учётных данных и секретов
+- [ ] Валидация всех пользовательских входов
+- [ ] Защита от SQL-инъекций (параметризованные запросы)
+- [ ] Защита CSRF на операциях, меняющих состояние
+- [ ] Защита от XSS с корректным экранированием
+- [ ] Проверки аутентификации на защищённых endpoint
+- [ ] Проверки авторизации на ресурсах
+- [ ] Безопасное хеширование паролей (bcrypt, argon2)
+- [ ] Нет чувствительных данных в логах
+- [ ] HTTPS принудительно
 
-## Performance Checklist
-- [ ] No N+1 queries
-- [ ] Appropriate use of indexes
-- [ ] Caching implemented where beneficial
-- [ ] No blocking operations on main thread
-- [ ] Async/await used correctly
-- [ ] Large datasets paginated
-- [ ] Database connections pooled
-- [ ] Regular expressions optimized
-- [ ] No unnecessary object creation
-- [ ] Memory leaks prevented
+## Чеклист производительности
+- [ ] Нет N+1 запросов
+- [ ] Индексы используются уместно
+- [ ] Кеширование реализовано там, где это полезно
+- [ ] Нет блокирующих операций в главном потоке
+- [ ] Async/await используется корректно
+- [ ] Большие наборы данных пагинируются
+- [ ] Соединения с базой объединены в пул
+- [ ] Регулярные выражения оптимизированы
+- [ ] Нет лишнего создания объектов
+- [ ] Утечки памяти предотвращены
 
-## Quality Checklist
-- [ ] Functions < 50 lines
-- [ ] Clear variable naming
-- [ ] No duplicate code
-- [ ] Proper error handling
-- [ ] Comments explain WHY, not WHAT
-- [ ] No console.logs in production
-- [ ] Type checking (TypeScript/JSDoc)
-- [ ] SOLID principles followed
-- [ ] Design patterns applied correctly
-- [ ] Self-documenting code
+## Чеклист качества
+- [ ] Функции < 50 строк
+- [ ] Понятные имена переменных
+- [ ] Нет дублирования кода
+- [ ] Корректная обработка ошибок
+- [ ] Комментарии объясняют WHY, а не WHAT
+- [ ] Нет `console.log` в production
+- [ ] Проверка типов (TypeScript/JSDoc)
+- [ ] Соблюдаются принципы SOLID
+- [ ] Паттерны проектирования применены корректно
+- [ ] Самодокументируемый код
 
-## Testing Checklist
-- [ ] Unit tests written
-- [ ] Edge cases covered
-- [ ] Error scenarios tested
-- [ ] Integration tests present
-- [ ] Coverage > 80%
-- [ ] No flaky tests
-- [ ] Mock external dependencies
-- [ ] Clear test names
+## Чеклист тестирования
+- [ ] Написаны модульные тесты
+- [ ] Покрыты граничные случаи
+- [ ] Проверены сценарии ошибок
+- [ ] Есть интеграционные тесты
+- [ ] Покрытие > 80%
+- [ ] Нет flaky-тестов
+- [ ] Замоканы внешние зависимости
+- [ ] Понятные имена тестов
 ```
 
-## Template: finding-template.md
+## Шаблон: finding-template.md
 
 ~~~~markdown
-# Code Review Finding Template
+# Шаблон находки code review
 
-Use this template when documenting each issue found during code review.
+Используйте этот шаблон для документирования каждой проблемы, найденной во время code review.
 
 ---
 
 ## Issue: [TITLE]
 
-### Severity
-- [ ] Critical (blocks deployment)
-- [ ] High (should fix before merge)
-- [ ] Medium (should fix soon)
-- [ ] Low (nice to have)
+### Критичность
+- [ ] Critical (блокирует deployment)
+- [ ] High (нужно исправить до merge)
+- [ ] Medium (желательно исправить скоро)
+- [ ] Low (необязательно, но полезно)
 
-### Category
+### Категория
 - [ ] Security
 - [ ] Performance
 - [ ] Code Quality
@@ -1696,75 +1696,75 @@ Use this template when documenting each issue found during code review.
 - [ ] Documentation
 
 ### Location
-**File:** `src/components/UserCard.tsx`
+**Файл:** `src/components/ПользовательCard.tsx`
 
-**Lines:** 45-52
+**Строки:** 45-52
 
-**Function/Method:** `renderUserDetails()`
+**Функция/метод:** `renderПользовательDetails()`
 
-### Issue Description
+### Описание проблемы
 
-**What:** Describe what the issue is.
+**Что:** Опишите, в чём проблема.
 
-**Why it matters:** Explain the impact and why this needs to be fixed.
+**Почему это важно:** Объясните влияние и почему это нужно исправить.
 
-**Current behavior:** Show the problematic code or behavior.
+**Текущее поведение:** Покажите проблемный код или поведение.
 
-**Expected behavior:** Describe what should happen instead.
+**Ожидаемое поведение:** Опишите, что должно происходить вместо этого.
 
 ### Code Example
 
-#### Current (Problematic)
+#### Текущее (проблемное)
 
 ```typescript
-// Shows the N+1 query problem
-const users = fetchUsers();
+// Показывает проблему N+1 запросов
+const users = fetchПользовательs();
 users.forEach(user => {
-  const posts = fetchUserPosts(user.id); // Query per user!
-  renderUserPosts(posts);
+  const posts = fetchПользовательPosts(user.id); // Запрос на пользователя!
+  renderПользовательPosts(posts);
 });
 ```
 
-#### Suggested Fix
+#### Рекомендуемое исправление
 
 ```typescript
-// Optimized with JOIN query
-const usersWithPosts = fetchUsersWithPosts();
+// Оптимизировано с помощью JOIN-запроса
+const usersWithPosts = fetchПользовательsWithPosts();
 usersWithPosts.forEach(({ user, posts }) => {
-  renderUserPosts(posts);
+  renderПользовательPosts(posts);
 });
 ```
 
-### Impact Analysis
+### Анализ влияния
 
 | Aspect | Impact | Severity |
 |--------|--------|----------|
 | Performance | 100+ queries for 20 users | High |
-| User Experience | Slow page load | High |
-| Scalability | Breaks at scale | Critical |
+| Пользователь Experience | Slow page load | High |
+| Масштабируемость | Breaks at scale | Critical |
 | Maintainability | Hard to debug | Medium |
 
-### Related Issues
+### Связанные проблемы
 
-- Similar issue in `AdminUserList.tsx` line 120
+- Similar issue in `AdminПользовательList.tsx` line 120
 - Related PR: #456
 - Related issue: #789
 
-### Additional Resources
+### Дополнительные ресурсы
 
 - [N+1 Query Problem](https://en.wikipedia.org/wiki/N%2B1_problem)
 - [Database Join Documentation](https://docs.example.com/joins)
 - [Performance Optimization Guide](./docs/performance.md)
 
-### Reviewer Notes
+### Заметки ревьюера
 
 - This is a common pattern in this codebase
 - Consider adding this to the code style guide
 - Might be worth creating a helper function
 
-### Author Response (for feedback)
+### Ответ автора (для обратной связи)
 
-*To be filled by the code author:*
+*Заполняется автором кода:*
 
 - [ ] Fix implemented in commit: `abc123`
 - [ ] Fix status: Complete / In Progress / Needs Discussion
@@ -1772,9 +1772,9 @@ usersWithPosts.forEach(({ user, posts }) => {
 
 ---
 
-## Finding Statistics (for Reviewer)
+## Статистика находок (для ревьюера)
 
-When reviewing multiple findings, track:
+При ревью нескольких находок отслеживайте:
 
 - **Total Issues Found:** X
 - **Critical:** X
@@ -1782,60 +1782,60 @@ When reviewing multiple findings, track:
 - **Medium:** X
 - **Low:** X
 
-**Recommendation:** ✅ Approve / ⚠️ Request Changes / 🔄 Needs Discussion
+**Рекомендация:** ✅ Approve / ⚠️ Request Changes / 🔄 Needs Discussion
 
-**Overall Code Quality:** 1-5 stars
+**Общее качество кода:** 1-5 звёзд
 ~~~~
 
-## Usage Example
+## Пример использования
 
 ~~~~markdown
-User: Review this React component code
+Пользователь: Review this React component code
 
-Claude: I'll conduct a comprehensive code review using my Code Review Skill.
+Claude: Я проведу полное code review с помощью своего skill code review.
 
-[Loads SKILL.md]
-[Analyzes code against checklist]
-[Runs Python metrics script]
-[Applies templates]
+[Загружает SKILL.md]
+[Анализирует код по чеклисту]
+[Запускает Python-скрипт метрик]
+[Применяет шаблоны]
 
-## Code Review Results
+## Результаты code review
 
-### Summary
-Quality Score: 3.5/5
-Key Findings: 7 items
-Priority Areas: Performance optimization, error handling
+### Сводка
+Оценка качества: 3.5/5
+Ключевые находки: 7 пунктов
+Приоритетные области: оптимизация производительности, обработка ошибок
 
-### Critical Issues: 1
+### Критические проблемы: 1
 
-**Issue**: N+1 Query Problem
-**Location**: UserComponent.tsx, lines 45-52
-**Impact**: Renders 100+ database queries for list of 20 users
+**Issue**: Проблема N+1 запросов
+**Location**: ПользовательComponent.tsx, строки 45-52
+**Impact**: Выполняет 100+ запросов к базе для списка из 20 пользователей
 **Severity**: High
 **Fix**:
 ```javascript
 // Before: N+1 queries
-const users = fetchUsers();
-users.forEach(user => fetchUserPosts(user.id)); // 20+ queries
+const users = fetchПользовательs();
+users.forEach(user => fetchПользовательPosts(user.id)); // 20+ queries
 
 // After: Single query with JOIN
-const users = fetchUsersWithPosts(); // 1 query
+const users = fetchПользовательsWithPosts(); // 1 query
 ```
 
-### Performance Findings
-- Missing pagination on large lists
-- Recommendation: Use React.memo() for items
-- Database query: Could be optimized with index
+### Находки по производительности
+- Отсутствует пагинация на больших списках
+- Рекомендация: использовать React.memo() для элементов
+- Запрос к базе: можно оптимизировать индексом
 
-### Quality Findings
-- Function in line 20 is 127 lines (max: 50)
-- Missing error boundary
-- Props should have TypeScript types
+### Находки по качеству
+- Функция на строке 20 занимает 127 строк (максимум: 50)
+- Отсутствует error boundary
+- У props должны быть TypeScript-типы
 ~~~~
 
-#### Example 2: Brand Voice Skill
+#### Пример 2: Skill brand voice
 
-**Directory Structure:**
+**Структура каталога:**
 
 ```
 .claude/skills/brand-voice/
@@ -1848,12 +1848,12 @@ const users = fetchUsersWithPosts(); // 1 query
     └── blog-post-template.md
 ```
 
-**File:** `.claude/skills/brand-voice/SKILL.md`
+**Файл:** `.claude/skills/brand-voice/SKILL.md`
 
 ```yaml
 ---
 name: Brand Voice Consistency
-description: Ensure all communication matches brand voice and tone guidelines
+description: Обеспечивать соответствие всей коммуникации правилам brand voice и tone
 tags:
   - brand
   - writing
@@ -1861,75 +1861,75 @@ tags:
 when_to_use: When creating marketing copy, customer communications, or public-facing content
 ---
 
-# Brand Voice Skill
+# Skill brand voice
 
-## Overview
-This skill ensures all communications maintain consistent brand voice, tone, and messaging.
+## Обзор
+Этот skill обеспечивает единообразный brand voice, tone и messaging во всех коммуникациях.
 
-## Brand Identity
+## Идентичность бренда
 
-### Mission
-Help teams automate their development workflows with AI
+### Миссия
+Помогать командам автоматизировать рабочие процессы разработки с помощью AI
 
-### Values
-- **Simplicity**: Make complex things simple
-- **Reliability**: Rock-solid execution
-- **Empowerment**: Enable human creativity
+### Ценности
+- **Простота**: делать сложные вещи простыми
+- **Надёжность**: безотказное выполнение
+- **Расширение возможностей**: усиливать человеческую креативность
 
-### Tone of Voice
-- **Friendly but professional** - approachable without being casual
-- **Clear and concise** - avoid jargon, explain technical concepts simply
-- **Confident** - we know what we're doing
-- **Empathetic** - understand user needs and pain points
+### Тон общения
+- **Дружелюбный, но профессиональный** - доступный, но не фамильярный
+- **Ясный и краткий** - без жаргона, технические концепции объяснять просто
+- **Уверенный** - мы понимаем, что делаем
+- **Эмпатичный** - понимаем потребности и боли пользователя
 
-## Writing Guidelines
+## Правила написания
 
-### Do's ✅
-- Use "you" when addressing readers
-- Use active voice: "Claude generates reports" not "Reports are generated by Claude"
-- Start with value proposition
-- Use concrete examples
-- Keep sentences under 20 words
-- Use lists for clarity
-- Include calls-to-action
+### Делайте ✅
+- Используйте "you" при обращении к читателю
+- Используйте активный залог: "Claude generates reports", а не "Reports are generated by Claude"
+- Начинайте с ценности
+- Используйте конкретные примеры
+- Держите предложения короче 20 слов
+- Используйте списки для ясности
+- Добавляйте призывы к действию
 
-### Don'ts ❌
-- Don't use corporate jargon
-- Don't patronize or oversimplify
-- Don't use "we believe" or "we think"
-- Don't use ALL CAPS except for emphasis
-- Don't create walls of text
-- Don't assume technical knowledge
+### Не делайте ❌
+- Не используйте корпоративный жаргон
+- Не поучайте и не упрощайте до примитивности
+- Не используйте "we believe" или "we think"
+- Не используйте ALL CAPS, кроме как для акцента
+- Не создавайте стены текста
+- Не предполагаете технических знаний
 
-## Vocabulary
+## Словарь
 
-### ✅ Preferred Terms
-- Claude (not "the Claude AI")
-- Code generation (not "auto-coding")
-- Agent (not "bot")
-- Streamline (not "revolutionize")
-- Integrate (not "synergize")
+### ✅ Предпочтительные термины
+- Claude (не "the Claude AI")
+- Генерация кода (не "auto-coding")
+- Agent (не "bot")
+- Streamline (не "revolutionize")
+- Integrate (не "synergize")
 
-### ❌ Avoid Terms
-- "Cutting-edge" (overused)
-- "Game-changer" (vague)
-- "Leverage" (corporate-speak)
-- "Utilize" (use "use")
-- "Paradigm shift" (unclear)
+### ❌ Избегайте терминов
+- "Cutting-edge" (заезженное)
+- "Game-changer" (размытое)
+- "Leverage" (корпоративный жаргон)
+- "Utilize" (используйте "use")
+- "Paradigm shift" (неясное)
 ```
-## Examples
+## Примеры
 
-### ✅ Good Example
+### ✅ Хороший пример
 "Claude automates your code review process. Instead of manually checking each PR, Claude reviews security, performance, and quality—saving your team hours every week."
 
-Why it works: Clear value, specific benefits, action-oriented
+Почему это работает: понятная ценность, конкретные выгоды, ориентация на действие
 
-### ❌ Bad Example
+### ❌ Плохой пример
 "Claude leverages cutting-edge AI to provide comprehensive software development solutions."
 
-Why it doesn't work: Vague, corporate jargon, no specific value
+Почему это не работает: расплывчато, корпоративный жаргон, нет конкретной ценности
 
-## Template: Email
+## Шаблон: Email
 
 ```
 Subject: [Clear, benefit-driven subject]
@@ -1948,7 +1948,7 @@ Best regards,
 [Name]
 ```
 
-## Template: Social Media
+## Шаблон: Social Media
 
 ```
 [Hook: Grab attention in first line]
@@ -1957,7 +1957,7 @@ Best regards,
 [Emoji: 1-2 max for visual interest]
 ```
 
-## File: tone-examples.md
+## Файл: tone-examples.md
 ```
 Exciting announcement:
 "Save 8 hours per week on code reviews. Claude reviews your PRs automatically."
@@ -1972,9 +1972,9 @@ Educational blog post:
 "Let's explore how agents improve code review workflows. Here's what we learned..."
 ```
 
-#### Example 3: Documentation Generator Skill
+#### Пример 3: Skill генератора документации
 
-**File:** `.claude/skills/doc-generator/SKILL.md`
+**Файл:** `.claude/skills/doc-generator/SKILL.md`
 
 ~~~~yaml
 ---
@@ -1990,34 +1990,34 @@ when_to_use: When creating or updating API documentation
 
 # API Documentation Generator Skill
 
-## Generates
+## Что генерирует
 
-- OpenAPI/Swagger specifications
-- API endpoint documentation
-- SDK usage examples
-- Integration guides
-- Error code references
-- Authentication guides
+- спецификации OpenAPI/Swagger
+- документацию API endpoint
+- примеры использования SDK
+- гайды по интеграции
+- справочник кодов ошибок
+- гайды по аутентификации
 
-## Documentation Structure
+## Структура документации
 
-### For Each Endpoint
+### Для каждого endpoint
 
 ```markdown
 ## GET /api/v1/users/:id
 
-### Description
-Brief explanation of what this endpoint does
+### Описание
+Краткое объяснение, что делает этот endpoint
 
-### Parameters
+### Параметры
 
-| Name | Type | Required | Description |
+| Имя | Тип | Обязателен | Описание |
 |------|------|----------|-------------|
-| id | string | Yes | User ID |
+| id | string | Да | ID пользователя |
 
-### Response
+### Ответ
 
-**200 Success**
+**200 Успех**
 ```json
 {
   "id": "usr_123",
@@ -2027,15 +2027,15 @@ Brief explanation of what this endpoint does
 }
 ```
 
-**404 Not Found**
+**404 Не найдено**
 ```json
 {
   "error": "USER_NOT_FOUND",
-  "message": "User does not exist"
+  "message": "Пользователь does not exist"
 }
 ```
 
-### Examples
+### Примеры
 
 **cURL**
 ```bash
@@ -2059,7 +2059,7 @@ response = requests.get(
 user = response.json()
 ```
 
-## Python Script: generate-docs.py
+## Python-скрипт: generate-docs.py
 
 ```python
 #!/usr/bin/env python3
@@ -2068,13 +2068,13 @@ import json
 from typing import Dict, List
 
 class APIDocExtractor(ast.NodeVisitor):
-    """Extract API documentation from Python source code."""
+    """Извлечь API-документацию из Python-исходника."""
 
     def __init__(self):
         self.endpoints = []
 
     def visit_FunctionDef(self, node):
-        """Extract function documentation."""
+        """Извлечь документацию функции."""
         if node.name.startswith('get_') or node.name.startswith('post_'):
             doc = ast.get_docstring(node)
             endpoint = {
@@ -2087,13 +2087,13 @@ class APIDocExtractor(ast.NodeVisitor):
         self.generic_visit(node)
 
     def _extract_return_type(self, node):
-        """Extract return type from function annotation."""
+        """Извлечь тип возвращаемого значения из аннотации функции."""
         if node.returns:
             return ast.unparse(node.returns)
         return "Any"
 
 def generate_markdown_docs(endpoints: List[Dict]) -> str:
-    """Generate markdown documentation from endpoints."""
+    """Сгенерировать markdown-документацию из endpoint."""
     docs = "# API Documentation\n\n"
 
     for endpoint in endpoints:
@@ -2116,23 +2116,23 @@ if __name__ == '__main__':
     markdown = generate_markdown_docs(extractor.endpoints)
     print(markdown)
 ~~~~
-### Skill Discovery & Invocation
+### Обнаружение и вызов skill
 
 ```mermaid
 graph TD
-    A["User Request"] --> B["Claude Analyzes"]
+    A["Пользователь Request"] --> B["Claude Analyzes"]
     B -->|Scans| C["Available Skills"]
     C -->|Metadata check| D["Skill Description Match?"]
     D -->|Yes| E["Load SKILL.md"]
     D -->|No| F["Try next skill"]
     F -->|More skills?| D
-    F -->|No more| G["Use general knowledge"]
+    F -->|No more| G["Использовать general knowledge"]
     E --> H["Extract Instructions"]
     H --> I["Execute Skill"]
     I --> J["Return Results"]
 ```
 
-### Skill vs Other Features
+### Skill против других возможностей
 
 ```mermaid
 graph TB
@@ -2149,7 +2149,7 @@ graph TB
     A --> E
     A --> F
 
-    B -->|User-invoked| G["Quick shortcuts"]
+    B -->|Пользователь-invoked| G["Quick shortcuts"]
     C -->|Auto-delegated| H["Isolated contexts"]
     D -->|Persistent| I["Cross-session context"]
     E -->|Real-time| J["External data access"]
@@ -2158,88 +2158,88 @@ graph TB
 
 ---
 
-## Claude Code Plugins
+## Плагины Claude Code
 
-### Overview
+### Обзор
 
-Claude Code Plugins are bundled collections of customizations (slash commands, subagents, MCP servers, and hooks) that install with a single command. They represent the highest-level extension mechanism—combining multiple features into cohesive, shareable packages.
+Плагины Claude Code — это собранные вместе наборы кастомизаций (slash commands, subagents, MCP servers и hooks), которые устанавливаются одной командой. Это самый высокий уровень расширения, объединяющий несколько возможностей в цельные, разделяемые пакеты.
 
-### Architecture
+### Архитектура
 
 ```mermaid
 graph TB
-    A["Plugin"]
+    A["Плагин"]
     B["Slash Commands"]
     C["Subagents"]
     D["MCP Servers"]
     E["Hooks"]
-    F["Configuration"]
+    F["Конфигурация"]
 
-    A -->|bundles| B
-    A -->|bundles| C
-    A -->|bundles| D
-    A -->|bundles| E
-    A -->|bundles| F
+    A -->|объединяет| B
+    A -->|объединяет| C
+    A -->|объединяет| D
+    A -->|объединяет| E
+    A -->|объединяет| F
 ```
 
-### Plugin Loading Process
+### Процесс загрузки плагина
 
 ```mermaid
 sequenceDiagram
-    participant User
+    participant Пользователь
     participant Claude as Claude Code
-    participant Plugin as Plugin Marketplace
-    participant Install as Installation
+    participant Plugin as Marketplace плагинов
+    participant Установить as Установка
     participant SlashCmds as Slash Commands
     participant Subagents
     participant MCPServers as MCP Servers
     participant Hooks
-    participant Tools as Configured Tools
+    participant Tools as Настроитьd Tools
 
-    User->>Claude: /plugin install pr-review
-    Claude->>Plugin: Download plugin manifest
-    Plugin-->>Claude: Return plugin definition
-    Claude->>Install: Extract components
-    Install->>SlashCmds: Configure
-    Install->>Subagents: Configure
-    Install->>MCPServers: Configure
-    Install->>Hooks: Configure
-    SlashCmds-->>Tools: Ready to use
-    Subagents-->>Tools: Ready to use
-    MCPServers-->>Tools: Ready to use
-    Hooks-->>Tools: Ready to use
-    Tools-->>Claude: Plugin installed ✅
+    Пользователь->>Claude: /plugin install pr-review
+    Claude->>Plugin: Скачать манифест плагина
+    Plugin-->>Claude: Вернуть определение плагина
+    Claude->>Установить: Извлечь компоненты
+    Установить->>SlashCmds: Настроить
+    Установить->>Subagents: Настроить
+    Установить->>MCPServers: Настроить
+    Установить->>Hooks: Настроить
+    SlashCmds-->>Tools: Готово к использованию
+    Subagents-->>Tools: Готово к использованию
+    MCPServers-->>Tools: Готово к использованию
+    Hooks-->>Tools: Готово к использованию
+    Tools-->>Claude: Плагин установлен ✅
 ```
 
-### Plugin Types & Distribution
+### Типы и распространение плагинов
 
-| Type | Scope | Shared | Authority | Examples |
+| Тип | Область | Общий доступ | Авторитет | Примеры |
 |------|-------|--------|-----------|----------|
-| Official | Global | All users | Anthropic | PR Review, Security Guidance |
-| Community | Public | All users | Community | DevOps, Data Science |
-| Organization | Internal | Team members | Company | Internal standards, tools |
-| Personal | Individual | Single user | Developer | Custom workflows |
+| Official | Глобально | Все пользователи | Anthropic | PR Review, Security Guidance |
+| Community | Публично | Все пользователи | Сообщество | DevOps, Data Science |
+| Organization | Внутренне | Участники команды | Компания | Внутренние стандарты, инструменты |
+| Personal | Индивидуально | Один пользователь | Разработчик | Пользовательские workflows |
 
-### Plugin Definition Structure
+### Структура определения плагина
 
 ```yaml
 ---
 name: plugin-name
 version: "1.0.0"
-description: "What this plugin does"
-author: "Your Name"
+description: "Что делает этот плагин"
+author: "Ваше имя"
 license: MIT
 
-# Plugin metadata
+# Метаданные плагина
 tags:
   - category
   - use-case
 
-# Requirements
+# Требования
 requires:
   - claude-code: ">=1.0.0"
 
-# Components bundled
+# Собранные компоненты
 components:
   - type: commands
     path: commands/
@@ -2250,14 +2250,14 @@ components:
   - type: hooks
     path: hooks/
 
-# Configuration
+# Конфигурация
 config:
   auto_load: true
   enabled_by_default: true
 ---
 ```
 
-### Plugin Structure
+### Структура плагина
 
 ```
 my-plugin/
@@ -2291,11 +2291,11 @@ my-plugin/
     └── plugin.test.js
 ```
 
-### Practical Examples
+### Практические примеры
 
-#### Example 1: PR Review Plugin
+#### Пример 1: Плагин PR review
 
-**File:** `.claude-plugin/plugin.json`
+**Файл:** `.claude-plugin/plugin.json`
 
 ```json
 {
@@ -2309,59 +2309,59 @@ my-plugin/
 }
 ```
 
-**File:** `commands/review-pr.md`
+**Файл:** `commands/review-pr.md`
 
 ```markdown
 ---
 name: Review PR
-description: Start comprehensive PR review with security and testing checks
+description: Начать полное ревью PR с проверками безопасности и тестов
 ---
 
-# PR Review
+# Ревью PR
 
-This command initiates a complete pull request review including:
+Эта команда запускает полное ревью pull request, включая:
 
-1. Security analysis
-2. Test coverage verification
-3. Documentation updates
-4. Code quality checks
-5. Performance impact assessment
+1. Анализ безопасности
+2. Проверку покрытия тестами
+3. Обновление документации
+4. Проверки качества кода
+5. Оценку влияния на производительность
 ```
 
-**File:** `agents/security-reviewer.md`
+**Файл:** `agents/security-reviewer.md`
 
 ```yaml
 ---
 name: security-reviewer
-description: Security-focused code review
+description: Ревью кода с фокусом на безопасность
 tools: read, grep, diff
 ---
 
-# Security Reviewer
+# Ревьюер безопасности
 
-Specializes in finding security vulnerabilities:
-- Authentication/authorization issues
-- Data exposure
-- Injection attacks
-- Secure configuration
+Специализируется на поиске уязвимостей безопасности:
+- Проблемы аутентификации/авторизации
+- Утечка данных
+- Инъекционные атаки
+- Безопасная конфигурация
 ```
 
-**Installation:**
+**Установка:**
 
 ```bash
 /plugin install pr-review
 
-# Result:
-# ✅ 3 slash commands installed
-# ✅ 3 subagents configured
-# ✅ 2 MCP servers connected
-# ✅ 4 hooks registered
-# ✅ Ready to use!
+# Результат:
+# ✅ 3 slash-команды установлены
+# ✅ 3 subagents настроены
+# ✅ 2 MCP-сервера подключены
+# ✅ 4 hooks зарегистрированы
+# ✅ Готово к использованию!
 ```
 
-#### Example 2: DevOps Plugin
+#### Пример 2: Плагин DevOps
 
-**Components:**
+**Компоненты:**
 
 ```
 devops-automation/
@@ -2388,9 +2388,9 @@ devops-automation/
     └── health-check.sh
 ```
 
-#### Example 3: Documentation Plugin
+#### Пример 3: Плагин документации
 
-**Bundled Components:**
+**Собранные компоненты:**
 
 ```
 documentation/
@@ -2412,189 +2412,189 @@ documentation/
     └── adr-template.md
 ```
 
-### Plugin Marketplace
+### Маркетплейс плагинов
 
 ```mermaid
 graph TB
-    A["Plugin Marketplace"]
-    B["Official<br/>Anthropic"]
-    C["Community<br/>Marketplace"]
-    D["Enterprise<br/>Registry"]
+    A["Маркетплейс плагинов"]
+    B["Официальный<br/>Anthropic"]
+    C["Сообщество<br/>Marketplace"]
+    D["Корпоративный<br/>Registry"]
 
     A --> B
     A --> C
     A --> D
 
-    B -->|Categories| B1["Development"]
-    B -->|Categories| B2["DevOps"]
-    B -->|Categories| B3["Documentation"]
+    B -->|Категории| B1["Разработка"]
+    B -->|Категории| B2["DevOps"]
+    B -->|Категории| B3["Документация"]
 
-    C -->|Search| C1["DevOps Automation"]
-    C -->|Search| C2["Mobile Dev"]
-    C -->|Search| C3["Data Science"]
+    C -->|Поиск| C1["Автоматизация DevOps"]
+    C -->|Поиск| C2["Мобильная разработка"]
+    C -->|Поиск| C3["Data Science"]
 
-    D -->|Internal| D1["Company Standards"]
-    D -->|Internal| D2["Legacy Systems"]
-    D -->|Internal| D3["Compliance"]
+    D -->|Внутренние| D1["Стандарты компании"]
+    D -->|Внутренние| D2["Наследованные системы"]
+    D -->|Внутренние| D3["Соответствие требованиям"]
 ```
 
-### Plugin Installation & Lifecycle
+### Установка и жизненный цикл плагина
 
 ```mermaid
 graph LR
-    A["Discover"] -->|Browse| B["Marketplace"]
-    B -->|Select| C["Plugin Page"]
-    C -->|View| D["Components"]
-    D -->|Install| E["/plugin install"]
-    E -->|Extract| F["Configure"]
-    F -->|Activate| G["Use"]
-    G -->|Check| H["Update"]
+    A["Найти"] -->|Просмотр| B["Marketplace"]
+    B -->|Выбрать| C["Страница плагина"]
+    C -->|Посмотреть| D["Компоненты"]
+    D -->|Установить| E["/plugin install"]
+    E -->|Извлечь| F["Настроить"]
+    F -->|Активировать| G["Использовать"]
+    G -->|Проверить| H["Обновить"]
     H -->|Available| G
     G -->|Done| I["Disable"]
     I -->|Later| J["Enable"]
     J -->|Back| G
 ```
 
-### Plugin Features Comparison
+### Сравнение возможностей плагинов
 
-| Feature | Slash Command | Skill | Subagent | Plugin |
+| Возможность | Slash Command | Skill | Subagent | Plugin |
 |---------|---------------|-------|----------|--------|
-| **Installation** | Manual copy | Manual copy | Manual config | One command |
-| **Setup Time** | 5 minutes | 10 minutes | 15 minutes | 2 minutes |
-| **Bundling** | Single file | Single file | Single file | Multiple |
-| **Versioning** | Manual | Manual | Manual | Automatic |
-| **Team Sharing** | Copy file | Copy file | Copy file | Install ID |
-| **Updates** | Manual | Manual | Manual | Auto-available |
-| **Dependencies** | None | None | None | May include |
-| **Marketplace** | No | No | No | Yes |
-| **Distribution** | Repository | Repository | Repository | Marketplace |
+| **Установка** | Ручное копирование | Ручное копирование | Ручная настройка | Одна команда |
+| **Время настройки** | 5 минут | 10 минут | 15 минут | 2 минуты |
+| **Упаковка** | Один файл | Один файл | Один файл | Несколько |
+| **Версионирование** | Вручную | Вручную | Вручную | Автоматически |
+| **Деление в команде** | Копирование файла | Копирование файла | Копирование файла | ID установки |
+| **Обновления** | Вручную | Вручную | Вручную | Доступны автоматически |
+| **Зависимости** | Нет | Нет | Нет | Могут быть |
+| **Marketplace** | Нет | Нет | Нет | Да |
+| **Распространение** | Репозиторий | Репозиторий | Репозиторий | Marketplace |
 
-### Plugin Use Cases
+### Сценарии использования плагинов
 
-| Use Case | Recommendation | Why |
+| Сценарий | Рекомендация | Почему |
 |----------|-----------------|-----|
-| **Team Onboarding** | ✅ Use Plugin | Instant setup, all configurations |
-| **Framework Setup** | ✅ Use Plugin | Bundles framework-specific commands |
-| **Enterprise Standards** | ✅ Use Plugin | Central distribution, version control |
-| **Quick Task Automation** | ❌ Use Command | Overkill complexity |
-| **Single Domain Expertise** | ❌ Use Skill | Too heavy, use skill instead |
-| **Specialized Analysis** | ❌ Use Subagent | Create manually or use skill |
-| **Live Data Access** | ❌ Use MCP | Standalone, don't bundle |
+| **Онбординг команды** | ✅ Используйте плагин | Мгновенная настройка, все конфигурации |
+| **Настройка фреймворка** | ✅ Используйте плагин | Упаковывает команды для конкретного фреймворка |
+| **Корпоративные стандарты** | ✅ Используйте плагин | Централизованное распространение, версионирование |
+| **Быстрая автоматизация задач** | ❌ Используйте команду | Слишком сложно для этого |
+| **Экспертиза в одной области** | ❌ Используйте skill | Слишком тяжело, лучше skill |
+| **Специализированный анализ** | ❌ Используйте subagent | Создавайте вручную или используйте skill |
+| **Доступ к живым данным** | ❌ Используйте MCP | Отдельно, не нужно упаковывать |
 
-### When to Create a Plugin
+### Когда создавать плагин
 
 ```mermaid
 graph TD
-    A["Should I create a plugin?"]
-    A -->|Need multiple components| B{"Multiple commands<br/>or subagents<br/>or MCPs?"}
-    B -->|Yes| C["✅ Create Plugin"]
-    B -->|No| D["Use Individual Feature"]
-    A -->|Team workflow| E{"Share with<br/>team?"}
-    E -->|Yes| C
-    E -->|No| F["Keep as Local Setup"]
-    A -->|Complex setup| G{"Needs auto<br/>configuration?"}
-    G -->|Yes| C
-    G -->|No| D
+    A["Нужно ли создавать плагин?"]
+    A -->|Нужно несколько компонентов| B{"Несколько команд<br/>или subagents<br/>или MCP?"}
+    B -->|Да| C["✅ Создать плагин"]
+    B -->|Нет| D["Использовать отдельную возможность"]
+    A -->|Командный workflow| E{"Делиться с<br/>командой?"}
+    E -->|Да| C
+    E -->|Нет| F["Оставить как локальную настройку"]
+    A -->|Сложная настройка| G{"Нужна авто<br/>конфигурация?"}
+    G -->|Да| C
+    G -->|Нет| D
 ```
 
-### Publishing a Plugin
+### Публикация плагина
 
-**Steps to publish:**
+**Шаги публикации:**
 
-1. Create plugin structure with all components
-2. Write `.claude-plugin/plugin.json` manifest
-3. Create `README.md` with documentation
-4. Test locally with `/plugin install ./my-plugin`
-5. Submit to plugin marketplace
-6. Get reviewed and approved
-7. Published on marketplace
-8. Users can install with one command
+1. Создайте структуру плагина со всеми компонентами
+2. Напишите манифест `.claude-plugin/plugin.json`
+3. Создайте `README.md` с документацией
+4. Протестируйте локально через `/plugin install ./my-plugin`
+5. Отправьте в marketplace плагинов
+6. Пройдите ревью и одобрение
+7. Опубликуйте в marketplace
+8. Пользователи смогут установить одной командой
 
-**Example submission:**
+**Пример заявки:**
 
 ~~~~markdown
 # PR Review Plugin
 
-## Description
-Complete PR review workflow with security, testing, and documentation checks.
+## Описание
+Полный workflow PR review с проверками безопасности, тестов и документации.
 
-## What's Included
-- 3 slash commands for different review types
-- 3 specialized subagents
-- GitHub and CodeQL MCP integration
-- Automated security scanning hooks
+## Что включено
+- 3 slash-команды для разных типов review
+- 3 специализированных subagents
+- Интеграция GitHub и CodeQL MCP
+- Автоматические hooks для проверки безопасности
 
-## Installation
+## Установка
 ```bash
 /plugin install pr-review
 ```
 
-## Features
-✅ Security analysis
-✅ Test coverage checking
-✅ Documentation verification
+## Возможности
+✅ Анализ безопасности
+✅ Проверка покрытия тестами
+✅ Проверка документации
 ✅ Code quality assessment
 ✅ Performance impact analysis
 
-## Usage
+## Использование
 ```bash
 /review-pr
 /check-security
 /check-tests
 ```
 
-## Requirements
+## Требования
 - Claude Code 1.0+
-- GitHub access
-- CodeQL (optional)
+- Доступ к GitHub
+- CodeQL (опционально)
 ~~~~
 
-### Plugin vs Manual Configuration
+### Плагин против ручной конфигурации
 
-**Manual Setup (2+ hours):**
-- Install slash commands one by one
-- Create subagents individually
-- Configure MCPs separately
-- Set up hooks manually
-- Document everything
-- Share with team (hope they configure correctly)
+**Ручная настройка (2+ часа):**
+- Устанавливать slash commands по одному
+- Создавать subagents по отдельности
+- Настраивать MCP отдельно
+- Настраивать hooks вручную
+- Документировать всё
+- Делиться с командой (и надеяться, что они всё настроят правильно)
 
-**With Plugin (2 minutes):**
+**С плагином (2 минуты):**
 ```bash
 /plugin install pr-review
-# ✅ Everything installed and configured
-# ✅ Ready to use immediately
-# ✅ Team can reproduce exact setup
+# ✅ Всё установлено и настроено
+# ✅ Готово к немедленному использованию
+# ✅ Команда может воспроизвести точную настройку
 ```
 
 ---
 
-## Comparison & Integration
+## Сравнение и интеграция
 
-### Feature Comparison Matrix
+### Матрица сравнения возможностей
 
-| Feature | Invocation | Persistence | Scope | Use Case |
+| Возможность | Вызов | Постоянство | Область | Сценарий использования |
 |---------|-----------|------------|-------|----------|
-| **Slash Commands** | Manual (`/cmd`) | Session only | Single command | Quick shortcuts |
-| **Subagents** | Auto-delegated | Isolated context | Specialized task | Task distribution |
-| **Memory** | Auto-loaded | Cross-session | User/team context | Long-term learning |
-| **MCP Protocol** | Auto-queried | Real-time external | Live data access | Dynamic information |
-| **Skills** | Auto-invoked | Filesystem-based | Reusable expertise | Automated workflows |
+| **Slash Commands** | Вручную (`/cmd`) | Только сессия | Одна команда | Быстрые ярлыки |
+| **Subagents** | Авто-делегирование | Изолированный контекст | Специализированная задача | Распределение задач |
+| **Memory** | Загружается автоматически | Межсессионно | Контекст пользователя/команды | Долгосрочное обучение |
+| **MCP Protocol** | Запрашивается автоматически | Внешние данные в реальном времени | Доступ к живым данным | Динамическая информация |
+| **Skills** | Вызываются автоматически | На основе файловой системы | Переиспользуемая экспертиза | Автоматизированные workflows |
 
-### Interaction Timeline
+### Таймлайн взаимодействия
 
 ```mermaid
 graph LR
-    A["Session Start"] -->|Load| B["Memory (CLAUDE.md)"]
-    B -->|Discover| C["Available Skills"]
-    C -->|Register| D["Slash Commands"]
-    D -->|Connect| E["MCP Servers"]
-    E -->|Ready| F["User Interaction"]
+    A["Старт сессии"] -->|Загрузка| B["Memory (CLAUDE.md)"]
+    B -->|Обнаружить| C["Доступные skills"]
+    C -->|Зарегистрировать| D["Slash Commands"]
+    D -->|Подключить| E["MCP Servers"]
+    E -->|Готово| F["Взаимодействие с пользователем"]
 
-    F -->|Type /cmd| G["Slash Command"]
-    F -->|Request| H["Skill Auto-Invoke"]
-    F -->|Query| I["MCP Data"]
-    F -->|Complex task| J["Delegate to Subagent"]
+    F -->|Ввести /cmd| G["Slash Command"]
+    F -->|Запрос| H["Автовызов skill"]
+    F -->|Запросить| I["Данные MCP"]
+    F -->|Сложная задача| J["Делегировать subagent"]
 
     G -->|Uses| B
     H -->|Uses| B
@@ -2602,99 +2602,99 @@ graph LR
     J -->|Uses| B
 ```
 
-### Practical Integration Example: Customer Support Automation
+### Практический пример интеграции: автоматизация поддержки клиентов
 
-#### Architecture
+#### Архитектура
 
 ```mermaid
 graph TB
-    User["Customer Email"] -->|Receives| Router["Support Router"]
+    Пользователь["Customer Email"] -->|Receives| Router["Support Router"]
 
     Router -->|Analyze| Memory["Memory<br/>Customer history"]
     Router -->|Lookup| MCP1["MCP: Customer DB<br/>Previous tickets"]
-    Router -->|Check| MCP2["MCP: Slack<br/>Team status"]
+    Router -->|Проверить| MCP2["MCP: Slack<br/>Team status"]
 
-    Router -->|Route Complex| Sub1["Subagent: Tech Support<br/>Context: Technical issues"]
-    Router -->|Route Simple| Sub2["Subagent: Billing<br/>Context: Payment issues"]
-    Router -->|Route Urgent| Sub3["Subagent: Escalation<br/>Context: Priority handling"]
+    Router -->|Сложное| Sub1["Subagent: Tech Support<br/>Контекст: технические проблемы"]
+    Router -->|Простое| Sub2["Subagent: Billing<br/>Контекст: платежные вопросы"]
+    Router -->|Срочное| Sub3["Subagent: Escalation<br/>Контекст: обработка приоритета"]
 
-    Sub1 -->|Format| Skill1["Skill: Response Generator<br/>Brand voice maintained"]
-    Sub2 -->|Format| Skill2["Skill: Response Generator"]
-    Sub3 -->|Format| Skill3["Skill: Response Generator"]
+    Sub1 -->|Форматировать| Skill1["Skill: Response Generator<br/>Сохранён брендовый стиль"]
+    Sub2 -->|Форматировать| Skill2["Skill: Response Generator"]
+    Sub3 -->|Форматировать| Skill3["Skill: Response Generator"]
 
-    Skill1 -->|Generate| Output["Formatted Response"]
+    Skill1 -->|Сгенерировать| Output["Отформатированный ответ"]
     Skill2 -->|Generate| Output
     Skill3 -->|Generate| Output
 
-    Output -->|Post| MCP3["MCP: Slack<br/>Notify team"]
-    Output -->|Send| Reply["Customer Reply"]
+    Output -->|Опубликовать| MCP3["MCP: Slack<br/>Уведомить команду"]
+    Output -->|Отправить| Reply["Ответ клиенту"]
 ```
 
-#### Request Flow
+#### Поток запроса
 
 ```markdown
-## Customer Support Request Flow
+## Поток запроса поддержки клиентов
 
-### 1. Incoming Email
-"I'm getting error 500 when trying to upload files. This is blocking my workflow!"
+### 1. Входящее письмо
+"При попытке загрузить файлы получаю ошибку 500. Это блокирует мой workflow!"
 
-### 2. Memory Lookup
-- Loads CLAUDE.md with support standards
-- Checks customer history: VIP customer, 3rd incident this month
+### 2. Поиск в Memory
+- Загружает CLAUDE.md со стандартами поддержки
+- Проверяет историю клиента: VIP-клиент, 3-й инцидент за этот месяц
 
-### 3. MCP Queries
-- GitHub MCP: List open issues (finds related bug report)
-- Database MCP: Check system status (no outages reported)
-- Slack MCP: Check if engineering is aware
+### 3. Запросы MCP
+- GitHub MCP: Список открытых issues (находит связанный bug report)
+- Database MCP: Проверка статуса системы (сбоев не обнаружено)
+- Slack MCP: Проверяет, в курсе ли engineering
 
-### 4. Skill Detection & Loading
-- Request matches "Technical Support" skill
-- Loads support response template from Skill
+### 4. Обнаружение и загрузка skill
+- Запрос соответствует skill "Technical Support"
+- Загружает шаблон ответа поддержки из Skill
 
-### 5. Subagent Delegation
-- Routes to Tech Support Subagent
-- Provides context: customer history, error details, known issues
-- Subagent has full access to: read, bash, grep tools
+### 5. Делегирование subagent
+- Направляет в Tech Support Subagent
+- Передаёт контекст: история клиента, детали ошибки, известные проблемы
+- Subagent имеет полный доступ к инструментам read, bash, grep
 
-### 6. Subagent Processing
+### 6. Обработка subagent
 Tech Support Subagent:
-- Searches codebase for 500 error in file upload
-- Finds recent change in commit 8f4a2c
-- Creates workaround documentation
+- Ищет в codebase причину ошибки 500 при загрузке файлов
+- Находит недавнее изменение в commit 8f4a2c
+- Создаёт документацию с обходным решением
 
-### 7. Skill Execution
+### 7. Выполнение skill
 Response Generator Skill:
-- Uses Brand Voice guidelines
-- Formats response with empathy
-- Includes workaround steps
-- Links to related documentation
+- Использует guidelines Brand Voice
+- Форматирует ответ с эмпатией
+- Включает шаги обходного решения
+- Ссылается на связанную документацию
 
-### 8. MCP Output
-- Posts update to #support Slack channel
-- Tags engineering team
-- Updates ticket in Jira MCP
+### 8. Вывод MCP
+- Публикует обновление в канал Slack #support
+- Отмечает engineering team
+- Обновляет ticket в Jira MCP
 
-### 9. Response
-Customer receives:
-- Empathetic acknowledgment
-- Explanation of cause
-- Immediate workaround
-- Timeline for permanent fix
-- Link to related issues
+### 9. Ответ
+Клиент получает:
+- Сочувственное подтверждение
+- Объяснение причины
+- Немедленное обходное решение
+- Сроки постоянного исправления
+- Ссылку на связанные issues
 ```
 
-### Complete Feature Orchestration
+### Полная оркестровка возможностей
 
 ```mermaid
 sequenceDiagram
-    participant User
+    participant Пользователь
     participant Claude as Claude Code
     participant Memory as Memory<br/>CLAUDE.md
     participant MCP as MCP Servers
     participant Skills as Skills
     participant SubAgent as Subagents
 
-    User->>Claude: Request: "Build auth system"
+    Пользователь->>Claude: Request: "Build auth system"
     Claude->>Memory: Load project standards
     Memory-->>Claude: Auth standards, team practices
     Claude->>MCP: Query GitHub for similar implementations
@@ -2707,141 +2707,141 @@ sequenceDiagram
     Skills-->>Claude: Security checklist results
     Claude->>SubAgent: Delegate testing
     SubAgent-->>Claude: Test results
-    Claude->>User: Complete system delivered
+    Claude->>Пользователь: Complete system delivered
 ```
 
-### When to Use Each Feature
+### Когда использовать каждую возможность
 
 ```mermaid
 graph TD
-    A["New Task"] --> B{Type of Task?}
+    A["Новая задача"] --> B{Тип задачи?}
 
-    B -->|Repeated workflow| C["Slash Command"]
-    B -->|Need real-time data| D["MCP Protocol"]
-    B -->|Remember for next time| E["Memory"]
-    B -->|Specialized subtask| F["Subagent"]
-    B -->|Domain-specific work| G["Skill"]
+    B -->|Повторяющийся workflow| C["Slash Command"]
+    B -->|Нужны данные в реальном времени| D["MCP Protocol"]
+    B -->|Запомнить на будущее| E["Memory"]
+    B -->|Специализированная подзадача| F["Subagent"]
+    B -->|Предметная работа| G["Skill"]
 
-    C --> C1["✅ Team shortcut"]
-    D --> D1["✅ Live API access"]
-    E --> E1["✅ Persistent context"]
-    F --> F1["✅ Parallel execution"]
-    G --> G1["✅ Auto-invoked expertise"]
+    C --> C1["✅ Командный ярлык"]
+    D --> D1["✅ Доступ к живому API"]
+    E --> E1["✅ Постоянный контекст"]
+    F --> F1["✅ Параллельное выполнение"]
+    G --> G1["✅ Автовызванная экспертиза"]
 ```
 
-### Selection Decision Tree
+### Дерево выбора
 
 ```mermaid
 graph TD
-    Start["Need to extend Claude?"]
+    Start["Нужно расширить Claude?"]
 
-    Start -->|Quick repeated task| A{"Manual or Auto?"}
-    A -->|Manual| B["Slash Command"]
-    A -->|Auto| C["Skill"]
+    Start -->|Быстрая повторяющаяся задача| A{"Вручную или автоматически?"}
+    A -->|Вручную| B["Slash Command"]
+    A -->|Автоматически| C["Skill"]
 
-    Start -->|Need external data| D{"Real-time?"}
-    D -->|Yes| E["MCP Protocol"]
-    D -->|No/Cross-session| F["Memory"]
+    Start -->|Нужны внешние данные| D{"В реальном времени?"}
+    D -->|Да| E["MCP Protocol"]
+    D -->|Нет/межсессионно| F["Memory"]
 
-    Start -->|Complex project| G{"Multiple roles?"}
-    G -->|Yes| H["Subagents"]
-    G -->|No| I["Skills + Memory"]
+    Start -->|Сложный проект| G{"Несколько ролей?"}
+    G -->|Да| H["Subagents"]
+    G -->|Нет| I["Skills + Memory"]
 
-    Start -->|Long-term context| J["Memory"]
-    Start -->|Team workflow| K["Slash Command +<br/>Memory"]
-    Start -->|Full automation| L["Skills +<br/>Subagents +<br/>MCP"]
+    Start -->|Долгосрочный контекст| J["Memory"]
+    Start -->|Командный workflow| K["Slash Command +<br/>Memory"]
+    Start -->|Полная автоматизация| L["Skills +<br/>Subagents +<br/>MCP"]
 ```
 
 ---
 
-## Summary Table
+## Сводная таблица
 
-| Aspect | Slash Commands | Subagents | Memory | MCP | Skills | Plugins |
+| Аспект | Slash Commands | Subagents | Memory | MCP | Skills | Plugins |
 |--------|---|---|---|---|---|---|
-| **Setup Difficulty** | Easy | Medium | Easy | Medium | Medium | Easy |
-| **Learning Curve** | Low | Medium | Low | Medium | Medium | Low |
-| **Team Benefit** | High | High | Medium | High | High | Very High |
-| **Automation Level** | Low | High | Medium | High | High | Very High |
-| **Context Management** | Single-session | Isolated | Persistent | Real-time | Persistent | All features |
-| **Maintenance Burden** | Low | Medium | Low | Medium | Medium | Low |
-| **Scalability** | Good | Excellent | Good | Excellent | Excellent | Excellent |
-| **Shareability** | Fair | Fair | Good | Good | Good | Excellent |
-| **Versioning** | Manual | Manual | Manual | Manual | Manual | Automatic |
-| **Installation** | Manual copy | Manual config | N/A | Manual config | Manual copy | One command |
+| **Сложность настройки** | Easy | Medium | Easy | Medium | Medium | Easy |
+| **Кривая обучения** | Low | Medium | Low | Medium | Medium | Low |
+| **Польза для команды** | High | High | Medium | High | High | Very High |
+| **Уровень автоматизации** | Low | High | Medium | High | High | Very High |
+| **Управление контекстом** | Single-session | Isolated | Persistent | Real-time | Persistent | All features |
+| **Нагрузка на поддержку** | Low | Medium | Low | Medium | Medium | Low |
+| **Масштабируемость** | Good | Excellent | Good | Excellent | Excellent | Excellent |
+| **Совместимость для обмена** | Fair | Fair | Good | Good | Good | Excellent |
+| **Версионирование** | Manual | Manual | Manual | Manual | Manual | Automatic |
+| **Установка** | Manual copy | Manual config | N/A | Manual config | Manual copy | One command |
 
 ---
 
-## Quick Start Guide
+## Руководство по быстрому старту
 
-### Week 1: Start Simple
-- Create 2-3 slash commands for common tasks
-- Enable Memory in Settings
-- Document team standards in CLAUDE.md
+### Неделя 1: Начните просто
+- Создайте 2-3 slash command для типовых задач
+- Включите Memory в настройках
+- Опишите стандарты команды в `CLAUDE.md`
 
-### Week 2: Add Real-time Access
-- Set up 1 MCP (GitHub or Database)
-- Use `/mcp` to configure
-- Query live data in your workflows
+### Неделя 2: Добавьте доступ к данным в реальном времени
+- Настройте 1 MCP (GitHub или Database)
+- Используйте `/mcp` для настройки
+- Запрашивайте живые данные в своих workflows
 
-### Week 3: Distribute Work
-- Create first Subagent for specific role
-- Use `/agents` command
-- Test delegation with simple task
+### Неделя 3: Распределяйте работу
+- Создайте первый Subagent для конкретной роли
+- Используйте команду `/agents`
+- Проверьте делегирование на простой задаче
 
-### Week 4: Automate Everything
-- Create first Skill for repeated automation
-- Use Skill marketplace or build custom
-- Combine all features for full workflow
+### Неделя 4: Автоматизируйте всё
+- Создайте первый Skill для повторяющейся автоматизации
+- Используйте marketplace навыков или создайте свой
+- Объедините все возможности в единый workflow
 
-### Ongoing
-- Review and update Memory monthly
-- Add new Skills as patterns emerge
-- Optimize MCP queries
-- Refine Subagent prompts
+### Постоянно
+- Ежемесячно пересматривайте и обновляйте Memory
+- Добавляйте новые Skills по мере появления шаблонов
+- Оптимизируйте MCP-запросы
+- Улучшайте промпты Subagent
 
 ---
 
 ## Hooks
 
-### Overview
+### Обзор
 
-Hooks are event-driven shell commands that execute automatically in response to Claude Code events. They enable automation, validation, and custom workflows without manual intervention.
+Hooks — это shell-команды, запускаемые по событиям и автоматически выполняющиеся в ответ на события Claude Code. Они дают автоматизацию, валидацию и собственные workflows без ручного вмешательства.
 
-### Hook Events
+### События hooks
 
-Claude Code supports **25 hook events** across four hook types (command, http, prompt, agent):
+Claude Code поддерживает **25 событий hooks** в четырёх типах hooks (command, http, prompt, agent):
 
-| Hook Event | Trigger | Use Cases |
+| Событие hook | Триггер | Сценарии использования |
 |------------|---------|-----------|
-| **SessionStart** | Session begins/resumes/clear/compact | Environment setup, initialization |
-| **InstructionsLoaded** | CLAUDE.md or rules file loaded | Validation, transformation, augmentation |
-| **UserPromptSubmit** | User submits prompt | Input validation, prompt filtering |
-| **PreToolUse** | Before any tool runs | Validation, approval gates, logging |
-| **PermissionRequest** | Permission dialog shown | Auto-approve/deny flows |
-| **PostToolUse** | After tool succeeds | Auto-formatting, notifications, cleanup |
-| **PostToolUseFailure** | Tool execution fails | Error handling, logging |
-| **Notification** | Notification sent | Alerting, external integrations |
-| **SubagentStart** | Subagent spawned | Context injection, initialization |
-| **SubagentStop** | Subagent finishes | Result validation, logging |
-| **Stop** | Claude finishes responding | Summary generation, cleanup tasks |
-| **StopFailure** | API error ends turn | Error recovery, logging |
-| **TeammateIdle** | Agent team teammate idle | Work distribution, coordination |
-| **TaskCompleted** | Task marked complete | Post-task processing |
-| **TaskCreated** | Task created via TaskCreate | Task tracking, logging |
-| **ConfigChange** | Config file changes | Validation, propagation |
-| **CwdChanged** | Working directory changes | Directory-specific setup |
-| **FileChanged** | Watched file changes | File monitoring, rebuild triggers |
-| **PreCompact** | Before context compaction | State preservation |
-| **PostCompact** | After compaction completes | Post-compact actions |
-| **WorktreeCreate** | Worktree being created | Environment setup, dependency install |
-| **WorktreeRemove** | Worktree being removed | Cleanup, resource deallocation |
-| **Elicitation** | MCP server requests user input | Input validation |
-| **ElicitationResult** | User responds to elicitation | Response processing |
-| **SessionEnd** | Session terminates | Cleanup, final logging |
+| **SessionStart** | Сессия начинается/возобновляется/очищается/compact | Настройка окружения, инициализация |
+| **InstructionsLoaded** | Загружен `CLAUDE.md` или файл правил | Валидация, преобразование, дополнение |
+| **ПользовательPromptSubmit** | Пользователь отправляет запрос | Проверка ввода, фильтрация запроса |
+| **PreToolUse** | Перед запуском любого инструмента | Валидация, контроль одобрения, логирование |
+| **PermissionRequest** | Показан диалог разрешения | Сценарии авто-одобрения/отклонения |
+| **PostToolUse** | Инструмент успешно завершён | Автоформатирование, уведомления, очистка |
+| **PostToolUseFailure** | Сбой выполнения инструмента | Обработка ошибок, логирование |
+| **Notification** | Отправлено уведомление | Оповещения, внешние интеграции |
+| **SubagentStart** | Subagent запущен | Внедрение контекста, инициализация |
+| **SubagentStop** | Subagent завершён | Валидация результата, логирование |
+| **Stop** | Claude завершает ответ | Генерация сводки, задачи очистки |
+| **StopFailure** | Ошибка API завершает ход | Восстановление после ошибки, логирование |
+| **TeammateIdle** | Напарник в команде агентов простаивает | Распределение работы, координация |
+| **TaskCompleted** | Задача отмечена как завершённая | Постобработка задачи |
+| **TaskCreated** | Задача создана через TaskCreate | Отслеживание, логирование |
+| **ConfigChange** | Изменён конфиг-файл | Валидация, распространение |
+| **CwdChanged** | Изменился рабочий каталог | Настройка под каталог |
+| **FileChanged** | Изменился отслеживаемый файл | Мониторинг файлов, триггер перестройки |
+| **PreCompact** | Перед сжатием контекста | Сохранение состояния |
+| **PostCompact** | После завершения compact | Действия после compact |
+| **WorktreeCreate** | Создаётся worktree | Настройка окружения, установка зависимостей |
+| **WorktreeRemove** | Worktree удаляется | Очистка, освобождение ресурсов |
+| **Elicitation** | MCP-сервер запрашивает ввод пользователя | Проверка ввода |
+| **ElicitationResult** | Пользователь отвечает на elicitation | Обработка ответа |
+| **SessionEnd** | Сессия завершается | Очистка, финальное логирование |
 
-### Common Hooks
+### Распространённые hooks
 
-Hooks are configured in `~/.claude/settings.json` (user-level) or `.claude/settings.json` (project-level):
+Hooks настраиваются в `~/.claude/settings.json` (уровень пользователя) или `.claude/settings.json` (уровень проекта):
 
 ```json
 {
@@ -2872,73 +2872,73 @@ Hooks are configured in `~/.claude/settings.json` (user-level) or `.claude/setti
 }
 ```
 
-### Hook Environment Variables
+### Переменные окружения hooks
 
-- `$CLAUDE_FILE_PATH` - Path to file being edited/written
-- `$CLAUDE_TOOL_NAME` - Name of tool being used
-- `$CLAUDE_SESSION_ID` - Current session identifier
-- `$CLAUDE_PROJECT_DIR` - Project directory path
+- `$CLAUDE_FILE_PATH` - Путь к редактируемому/записываемому файлу
+- `$CLAUDE_TOOL_NAME` - Имя используемого инструмента
+- `$CLAUDE_SESSION_ID` - Идентификатор текущей сессии
+- `$CLAUDE_PROJECT_DIR` - Путь к каталогу проекта
 
-### Best Practices
+### Лучшие практики
 
-✅ **Do:**
-- Keep hooks fast (< 1 second)
-- Use hooks for validation and automation
-- Handle errors gracefully
-- Use absolute paths
+✅ **Делайте:**
+- Держите hooks быстрыми (< 1 секунды)
+- Используйте hooks для валидации и автоматизации
+- Обрабатывайте ошибки корректно
+- Используйте абсолютные пути
 
-❌ **Don't:**
-- Make hooks interactive
-- Use hooks for long-running tasks
-- Hardcode credentials
+❌ **Не делайте:**
+- Не делайте hooks интерактивными
+- Не используйте hooks для долгих задач
+- Не хардкодьте учётные данные
 
-**See**: [06-hooks/](06-hooks/) for detailed examples
+**Смотрите**: [06-hooks/](06-hooks/) для подробных примеров
 
 ---
 
-## Checkpoints and Rewind
+## Checkpoints и откат
 
-### Overview
+### Обзор
 
-Checkpoints allow you to save conversation state and rewind to previous points, enabling safe experimentation and exploration of multiple approaches.
+Checkpoints позволяют сохранять состояние беседы и откатываться к предыдущим точкам, что даёт безопасные эксперименты и исследование нескольких подходов.
 
-### Key Concepts
+### Основные понятия
 
-| Concept | Description |
+| Понятие | Описание |
 |---------|-------------|
-| **Checkpoint** | Snapshot of conversation state including messages, files, and context |
-| **Rewind** | Return to a previous checkpoint, discarding subsequent changes |
-| **Branch Point** | Checkpoint from which multiple approaches are explored |
+| **Checkpoint** | Снимок состояния беседы, включая сообщения, файлы и контекст |
+| **Rewind** | Возврат к предыдущему checkpoint с откатом последующих изменений |
+| **Branch Point** | Checkpoint, от которого исследуются разные подходы |
 
-### Accessing Checkpoints
+### Доступ к checkpoints
 
-Checkpoints are created automatically with every user prompt. To rewind:
+Checkpoints создаются автоматически при каждом запросе пользователя. Чтобы откатиться:
 
 ```bash
-# Press Esc twice to open the checkpoint browser
+# Нажмите Esc дважды, чтобы открыть браузер checkpoints
 Esc + Esc
 
-# Or use the /rewind command
+# Или используйте команду /rewind
 /rewind
 ```
 
-When you select a checkpoint, you choose from five options:
-1. **Restore code and conversation** -- Revert both to that point
-2. **Restore conversation** -- Rewind messages, keep current code
-3. **Restore code** -- Revert files, keep conversation
-4. **Summarize from here** -- Compress conversation into a summary
-5. **Never mind** -- Cancel
+Когда вы выбираете checkpoint, доступны пять вариантов:
+1. **Restore code and conversation** -- Откатить и код, и разговор к этой точке
+2. **Restore conversation** -- Откатить сообщения, оставить текущий код
+3. **Restore code** -- Откатить файлы, оставить разговор
+4. **Summarize from here** -- Сжать разговор в сводку
+5. **Never mind** -- Отмена
 
-### Use Cases
+### Сценарии использования
 
-| Scenario | Workflow |
+| Сценарий | Workflow |
 |----------|----------|
-| **Exploring Approaches** | Save → Try A → Save → Rewind → Try B → Compare |
-| **Safe Refactoring** | Save → Refactor → Test → If fail: Rewind |
-| **A/B Testing** | Save → Design A → Save → Rewind → Design B → Compare |
-| **Mistake Recovery** | Notice issue → Rewind to last good state |
+| **Исследование подходов** | Сохранить → Попробовать A → Сохранить → Откат → Попробовать B → Сравнить |
+| **Безопасный рефакторинг** | Сохранить → Рефакторинг → Тест → Если ошибка: Откат |
+| **A/B-тестирование** | Сохранить → Дизайн A → Сохранить → Откат → Дизайн B → Сравнить |
+| **Восстановление после ошибки** | Замечена проблема → Откат к последнему рабочему состоянию |
 
-### Configuration
+### Конфигурация
 
 ```json
 {
@@ -2946,77 +2946,77 @@ When you select a checkpoint, you choose from five options:
 }
 ```
 
-**See**: [08-checkpoints/](08-checkpoints/) for detailed examples
+**Смотрите**: [08-checkpoints/](08-checkpoints/) для подробных примеров
 
 ---
 
-## Advanced Features
+## Продвинутые возможности
 
-### Planning Mode
+### Режим планирования
 
-Create detailed implementation plans before coding.
+Создавайте детальные планы реализации до написания кода.
 
-**Activation:**
+**Активация:**
 ```bash
 /plan Implement user authentication system
 ```
 
-**Benefits:**
-- Clear roadmap with time estimates
-- Risk assessment
-- Systematic task breakdown
-- Opportunity for review and modification
+**Преимущества:**
+- Понятный план с оценкой времени
+- Оценка рисков
+- Систематическое разбиение задач
+- Возможность ревью и изменения плана
 
-### Extended Thinking
+### Расширенное мышление
 
-Deep reasoning for complex problems.
+Глубокое рассуждение для сложных задач.
 
-**Activation:**
-- Toggle with `Alt+T` (or `Option+T` on macOS) during a session
-- Set `MAX_THINKING_TOKENS` environment variable for programmatic control
+**Активация:**
+- Переключение `Alt+T` (или `Option+T` на macOS) во время сессии
+- Установите переменную `MAX_THINKING_TOKENS` для программного управления
 
 ```bash
-# Enable extended thinking via environment variable
+# Включить расширенное мышление через переменную окружения
 export MAX_THINKING_TOKENS=50000
 claude -p "Should we use microservices or monolith?"
 ```
 
-**Benefits:**
-- Thorough analysis of trade-offs
-- Better architectural decisions
-- Consideration of edge cases
-- Systematic evaluation
+**Преимущества:**
+- Тщательный анализ компромиссов
+- Лучшие архитектурные решения
+- Учет граничных случаев
+- Систематическая оценка
 
-### Background Tasks
+### Фоновые задачи
 
-Run long operations without blocking the conversation.
+Запускайте долгие операции, не блокируя беседу.
 
-**Usage:**
+**Использование:**
 ```bash
-User: Run tests in background
+Пользователь: Run tests in background
 
 Claude: Started task bg-1234
 
 /task list           # Show all tasks
-/task status bg-1234 # Check progress
+/task status bg-1234 # Проверить progress
 /task show bg-1234   # View output
 /task cancel bg-1234 # Cancel task
 ```
 
-### Permission Modes
+### Режимы разрешений
 
-Control what Claude can do.
+Управляйте тем, что может делать Claude.
 
-| Mode | Description | Use Case |
+| Режим | Описание | Сценарий использования |
 |------|-------------|----------|
-| **default** | Standard permissions with prompts for sensitive actions | General development |
-| **acceptEdits** | Automatically accept file edits without confirmation | Trusted editing workflows |
-| **plan** | Analysis and planning only, no file modifications | Code review, architecture planning |
-| **auto** | Automatically approve safe actions, prompt only for risky ones | Balanced autonomy with safety |
-| **dontAsk** | Execute all actions without confirmation prompts | Experienced users, automation |
-| **bypassPermissions** | Full unrestricted access, no safety checks | CI/CD pipelines, trusted scripts |
+| **default** | Стандартные разрешения с запросами для чувствительных действий | Общая разработка |
+| **acceptEdits** | Автоматически принимать правки файлов без подтверждения | Доверенные workflows редактирования |
+| **plan** | Только анализ и планирование, без изменения файлов | Code review, планирование архитектуры |
+| **auto** | Автоматически одобрять безопасные действия, спрашивать только для рискованных | Баланс автономности и безопасности |
+| **dontAsk** | Выполнять все действия без запросов подтверждения | Опытные пользователи, автоматизация |
+| **bypassPermissions** | Полный неограниченный доступ, без проверок безопасности | CI/CD pipeline, доверенные скрипты |
 
-**Usage:**
+**Использование:**
 ```bash
 claude --permission-mode plan          # Read-only analysis
 claude --permission-mode acceptEdits   # Auto-accept edits
@@ -3024,75 +3024,75 @@ claude --permission-mode auto          # Auto-approve safe actions
 claude --permission-mode dontAsk       # No confirmation prompts
 ```
 
-### Headless Mode (Print Mode)
+### Headless Mode (режим вывода)
 
-Run Claude Code without interactive input for automation and CI/CD using the `-p` (print) flag.
+Запускайте Claude Code без интерактивного ввода для автоматизации и CI/CD, используя флаг `-p` (print).
 
-**Usage:**
+**Использование:**
 ```bash
-# Run specific task
+# Запустить конкретную задачу
 claude -p "Run all tests"
 
-# Pipe input for analysis
+# Передать ввод через pipe для анализа
 cat error.log | claude -p "explain this error"
 
-# CI/CD integration (GitHub Actions)
+# Интеграция CI/CD (GitHub Actions)
 - name: AI Code Review
   run: claude -p "Review PR changes and report issues"
 
-# JSON output for scripting
+# JSON-вывод для скриптов
 claude -p --output-format json "list all functions in src/"
 ```
 
-### Scheduled Tasks
+### Запланированные задачи
 
-Run tasks on a repeating schedule using the `/loop` command.
+Запускайте задачи по повторяющемуся расписанию с помощью команды `/loop`.
 
-**Usage:**
+**Использование:**
 ```bash
-/loop every 30m "Run tests and report failures"
-/loop every 2h "Check for dependency updates"
-/loop every 1d "Generate daily summary of code changes"
+/loop every 30m "Запускать тесты и сообщать о сбоях"
+/loop every 2h "Проверять обновления зависимостей"
+/loop every 1d "Генерировать ежедневную сводку изменений кода"
 ```
 
-Scheduled tasks run in the background and report results when complete. They are useful for continuous monitoring, periodic checks, and automated maintenance workflows.
+Запланированные задачи выполняются в фоне и сообщают результат после завершения. Они полезны для непрерывного мониторинга, периодических проверок и автоматизированного обслуживания.
 
-### Chrome Integration
+### Интеграция с Chrome
 
-Claude Code can integrate with the Chrome browser for web automation tasks. This enables capabilities like navigating web pages, filling forms, taking screenshots, and extracting data from websites directly within your development workflow.
+Claude Code может интегрироваться с браузером Chrome для задач web-автоматизации. Это даёт такие возможности, как навигация по страницам, заполнение форм, создание скриншотов и извлечение данных с сайтов прямо в рабочем процессе разработки.
 
-### Session Management
+### Управление сессиями
 
-Manage multiple work sessions.
+Управляйте несколькими рабочими сессиями.
 
-**Commands:**
+**Команды:**
 ```bash
-/resume                # Resume a previous conversation
-/rename "Feature"      # Name the current session
-/fork                  # Fork into a new session
-claude -c              # Continue most recent conversation
-claude -r "Feature"    # Resume session by name/ID
+/resume                # Возобновить предыдущий разговор
+/rename "Feature"      # Назвать текущую сессию
+/fork                  # Разветвить в новую сессию
+claude -c              # Продолжить последнюю беседу
+claude -r "Feature"    # Возобновить сессию по имени/ID
 ```
 
-### Interactive Features
+### Интерактивные возможности
 
-**Keyboard Shortcuts:**
-- `Ctrl + R` - Search command history
-- `Tab` - Autocomplete
-- `↑ / ↓` - Command history
-- `Ctrl + L` - Clear screen
+**Горячие клавиши:**
+- `Ctrl + R` - Поиск по истории команд
+- `Tab` - Автодополнение
+- `↑ / ↓` - История команд
+- `Ctrl + L` - Очистить экран
 
-**Multi-line Input:**
+**Многострочный ввод:**
 ```bash
-User: \
-> Long complex prompt
-> spanning multiple lines
+Пользователь: \
+> Длинный сложный запрос
+> на несколько строк
 > \end
 ```
 
-### Configuration
+### Конфигурация
 
-Complete configuration example:
+Полный пример конфигурации:
 
 ```json
 {
@@ -3114,19 +3114,19 @@ Complete configuration example:
 }
 ```
 
-**See**: [09-advanced-features/](09-advanced-features/) for comprehensive guide
+**Смотрите**: [09-advanced-features/](09-advanced-features/) для полного гайда
 
 ---
 
-## Resources
+## Ресурсы
 
-- [Claude Code Documentation](https://code.claude.com/docs/en/overview)
-- [Anthropic Documentation](https://docs.anthropic.com)
+- [Документация Claude Code](https://code.claude.com/docs/en/overview)
+- [Документация Anthropic](https://docs.anthropic.com)
 - [MCP GitHub Servers](https://github.com/modelcontextprotocol/servers)
 - [Anthropic Cookbook](https://github.com/anthropics/anthropic-cookbook)
 
 ---
 
-*Last updated: March 2026*
-*For Claude Haiku 4.5, Sonnet 4.6, and Opus 4.6*
-*Now includes: Hooks, Checkpoints, Planning Mode, Extended Thinking, Background Tasks, Permission Modes (6 modes), Headless Mode, Session Management, Auto Memory, Agent Teams, Scheduled Tasks, Chrome Integration, Channels, Voice Dictation, and Bundled Skills*
+*Последнее обновление: март 2026*
+*Для Claude Haiku 4.5, Sonnet 4.6 и Opus 4.6*
+*Теперь включает: Hooks, Checkpoints, Planning Mode, Extended Thinking, Background Tasks, Permission Modes (6 modes), Headless Mode, Session Management, Auto Memory, Agent Teams, Scheduled Tasks, Chrome Integration, Channels, Voice Dictation и Bundled Skills*
