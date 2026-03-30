@@ -5,7 +5,7 @@
 
 # Продвинутые возможности
 
-Подробное руководство по продвинутым возможностям Claude Code, включая planning mode, extended thinking, auto mode, background tasks, permission modes, print mode (non-interactive), session management, interactive features, channels, voice dictation, remote control, web sessions, desktop app, task list, prompt suggestions, git worktrees, sandboxing, managed settings и configuration.
+Подробное руководство по продвинутым возможностям Claude Code, включая planning mode, extended thinking, auto mode, background tasks, permission modes, print mode (non-interactive), session management, interactive features, channels, voice dictation, remote control, web sessions, desktop app, task list, prompt suggestions, git worktrees, sandboxing, managed settings и конфигурацию.
 
 ## Содержание
 
@@ -165,17 +165,17 @@ Claude: Я составлю план внедрения уведомлений �
 Claude: [Начинает реализацию по плану]
 ```
 
-### Изменения плана
+### Изменение плана
 
 ```
-User: Modify the plan - skip the queue for now, we'll add it later
+Пользователь: Измени план: пока пропусти очередь, добавим её позже
 
-Claude: Updated plan:
-[Shows modified plan with queue removed]
+Claude: Обновлённый план:
+[Показывает изменённый план без очереди]
 
-User: Looks good, proceed
+Пользователь: Всё хорошо, продолжай
 
-Claude: [Implements modified plan]
+Claude: [Реализует изменённый план]
 ```
 
 ### Конфигурация режима планирования
@@ -193,7 +193,7 @@ claude --permission-mode plan
 **Алиас модели для планирования**: используйте `opusplan`, чтобы применять Opus для планирования, а Sonnet для выполнения:
 
 ```bash
-claude --model opusplan "design and implement the new API"
+claude --model opusplan "спроектируй и реализуй новый API"
 ```
 
 **Редактирование плана во внешнем редакторе**: нажмите `Ctrl+G`, чтобы открыть текущий план во внешнем редакторе и внести подробные изменения.
@@ -323,24 +323,24 @@ Claude: Давайте тщательно обдумаю это архитект
 Путь миграции: когда вы достигнете 50 тыс.+ пользователей или отдельным модулям потребуется независимое масштабирование, выделите эти модули в микросервисы.
 </extended_thinking>
 
-**Recommendation**: Implement a modular monolith with clean module boundaries.
+**Рекомендация**: реализовать модульный монолит с чёткими границами между модулями.
 
-This approach balances your current constraints (team size, timeline, DevOps resources) with future scalability needs. You can migrate specific modules to microservices later when there's a clear business need.
+Этот подход балансирует текущие ограничения команды (размер, сроки, DevOps-ресурсы) и будущие потребности в масштабировании. Позже можно будет вынести отдельные модули в микросервисы, когда для этого появится явная бизнес-необходимость.
 ```
 
 ### Конфигурация расширенного мышления
 
-Extended thinking is controlled via environment variables, keyboard shortcuts, and CLI flags:
+Расширенное мышление настраивается через переменные окружения, сочетания клавиш и CLI-флаги:
 
 ```bash
-# Set thinking token budget
+# Установить бюджет токенов на рассуждение
 export MAX_THINKING_TOKENS=16000
 
-# Set effort level (Opus 4.6 only): low (○), medium (◐), high (●), or max (Opus 4.6 only)
+# Установить уровень effort (только Opus 4.6): low (○), medium (◐), high (●) или max
 export CLAUDE_CODE_EFFORT_LEVEL=high
 ```
 
-Toggle during a session with `Alt+T` / `Option+T`, set effort with `/effort`, or configure via `/config`.
+Переключайте режим во время сессии через `Alt+T` / `Option+T`, задавайте effort через `/effort` или настраивайте через `/config`.
 
 ---
 
@@ -394,12 +394,12 @@ claude --permission-mode auto
 
 | Заблокированное действие | Пример |
 |--------------------------|---------|
-| Pipe-to-shell installs | `curl \| bash` |
-| Отправка чувствительных данных наружу | API keys, credentials over network |
+| Установки через pipe в shell | `curl \| bash` |
+| Отправка чувствительных данных наружу | API-ключи и учётные данные, отправляемые по сети |
 | Развёртывание в production | Команды развёртывания, нацеленные на production |
-| Массовое удаление | `rm -rf` on large directories |
+| Массовое удаление | `rm -rf` в больших каталогах |
 | Изменения IAM | Изменения разрешений и ролей |
-| Force push в main | `git push --force origin main` |
+| Принудительный push в `main` | `git push --force origin main` |
 
 ### Действия, разрешённые по умолчанию
 
@@ -449,10 +449,10 @@ claude auto-mode defaults
 
 Claude: Задача bg-1234 запущена
 
-/task list           # Show all tasks
-/task status bg-1234 # Check progress
-/task show bg-1234   # View output
-/task cancel bg-1234 # Cancel task
+/task list           # Показать все задачи
+/task status bg-1234 # Проверить прогресс
+/task show bg-1234   # Посмотреть вывод
+/task cancel bg-1234 # Отменить задачу
 ```
 
 ### Запуск фоновых задач
@@ -472,24 +472,24 @@ Claude: [Работает над модулем auth, пока тесты вып
 [Позже, когда тесты завершатся]
 
 Claude: 📢 Фоновая задача bg-1234 завершена:
-✅ 245 tests passed
-❌ 3 tests failed
+✅ Успешно пройдено 245 тестов
+❌ Упало 3 теста
 Результаты: /task show bg-1234
 ```
 
 ### Управление фоновыми задачами
 
-**List active tasks**:
+**Показать активные задачи**:
 ```
 Пользователь: /task list
 
 Активные фоновые задачи:
-1. [bg-1234] Running tests (50% complete, 2min remaining)
-2. [bg-1235] Building Docker image (25% complete, 8min remaining)
-3. [bg-1236] Deploying to staging (90% complete, 30sec remaining)
+1. [bg-1234] Выполняются тесты (50% завершено, осталось 2 мин)
+2. [bg-1235] Собирается Docker-образ (25% завершено, осталось 8 мин)
+3. [bg-1236] Идёт деплой в staging (90% завершено, осталось 30 сек)
 ```
 
-**Check task status**:
+**Проверить статус задачи**:
 ```
 Пользователь: /task status bg-1234
 
@@ -500,14 +500,14 @@ Claude: 📢 Фоновая задача bg-1234 завершена:
 Ожидаемое завершение: 2025-11-08 10:34:22
 ```
 
-**View task output**:
+**Посмотреть вывод задачи**:
 ```
 Пользователь: /task show bg-1234
 
 [Показывает живой вывод тестового прогона]
 ```
 
-**Cancel task**:
+**Отменить задачу**:
 ```
 Пользователь: /task cancel bg-1234
 
@@ -1343,19 +1343,19 @@ claude --teleport
 
 ## Настольное приложение
 
-Desktop App Claude Code — это отдельное приложение с визуальным просмотром diff, параллельными сессиями и встроенными коннекторами. Доступно для macOS и Windows (планы Pro, Max, Team и Enterprise).
+Настольное приложение Claude Code — это отдельное приложение с визуальным просмотром diff, параллельными сессиями и встроенными коннекторами. Доступно для macOS и Windows (планы Pro, Max, Team и Enterprise).
 
 ### Установка
 
-Download from [claude.ai](https://claude.ai) for your platform:
-- **macOS**: Universal build (Apple Silicon and Intel)
-- **Windows**: x64 and ARM64 installers available
+Скачайте приложение на [claude.ai](https://claude.ai) для своей платформы:
+- **macOS**: универсальная сборка (Apple Silicon и Intel)
+- **Windows**: доступны установщики x64 и ARM64
 
-See the [Desktop Quickstart](https://code.claude.com/docs/en/desktop-quickstart) for setup instructions.
+Инструкции по установке см. в [Desktop Quickstart](https://code.claude.com/docs/en/desktop-quickstart).
 
 ### Передача из CLI
 
-Перенесите текущую CLI-сессию в Desktop App:
+Перенесите текущую CLI-сессию в настольное приложение:
 
 ```
 /desktop
@@ -1392,11 +1392,11 @@ See the [Desktop Quickstart](https://code.claude.com/docs/en/desktop-quickstart)
 | Коннектор | Возможность |
 |-----------|------------|
 | **GitHub** | Мониторинг PR, отслеживание задач, проверка кода |
-| **Slack** | Notifications, channel context |
-| **Linear** | Issue tracking, sprint management |
-| **Notion** | Documentation, knowledge base access |
-| **Asana** | Task management, project tracking |
-| **Calendar** | Schedule awareness, meeting context |
+| **Slack** | Уведомления, контекст каналов |
+| **Linear** | Отслеживание задач, управление спринтами |
+| **Notion** | Документация, доступ к базе знаний |
+| **Asana** | Управление задачами, отслеживание проектов |
+| **Calendar** | Понимание расписания, контекст встреч |
 
 > **Примечание**: коннекторы недоступны для удалённых (cloud) сессий.
 
@@ -1405,9 +1405,9 @@ See the [Desktop Quickstart](https://code.claude.com/docs/en/desktop-quickstart)
 - **Удалённые сессии**: работают на облачной инфраструктуре Anthropic; продолжают работать даже после закрытия приложения. Доступны с claude.ai/code или из мобильного приложения Claude
 - **SSH-сессии**: подключение к удалённым машинам по SSH с полным доступом к файловой системе и инструментам. На удалённой машине должен быть установлен Claude Code
 
-### Режимы разрешений в Desktop
+### Режимы разрешений в настольном приложении
 
-Desktop App поддерживает те же 4 режима разрешений, что и CLI:
+Настольное приложение поддерживает те же 4 режима разрешений, что и CLI:
 
 | Режим | Поведение |
 |-------|----------|
@@ -1420,7 +1420,7 @@ Desktop App поддерживает те же 4 режима разрешени
 
 - **Admin console**: управление доступом к вкладке Code и настройками разрешений для организации
 - **MDM deployment**: развёртывание через MDM на macOS или MSIX на Windows
-- **SSO integration**: обязательный single sign-on для участников организации
+- **SSO integration**: обязательный единый вход для участников организации
 - **Managed settings**: централизованное управление конфигурацией команды и доступными моделями
 
 ---
@@ -1428,7 +1428,7 @@ Desktop App поддерживает те же 4 режима разрешени
 <a id="task-list"></a>
 ## Список задач
 
-Функция Task List обеспечивает постоянный трекинг задач, который переживает сжатие контекста (когда история разговора урезается, чтобы поместиться в окно контекста).
+Функция Task List обеспечивает постоянное отслеживание задач, которое переживает сжатие контекста (когда история разговора урезается, чтобы поместиться в окно контекста).
 
 ### Переключение Task List
 
@@ -1481,7 +1481,7 @@ Git Worktrees позволяют запускать Claude Code в изолир�
 ```bash
 # Запустить Claude Code в изолированном worktree
 claude --worktree
-# or
+# или
 claude -w
 ```
 
@@ -1518,29 +1518,29 @@ Worktree создаются в:
 
 ### Сценарии использования
 
-- Work on a feature branch while keeping main branch untouched
-- Run tests in isolation without affecting the working directory
-- Try experimental changes in a disposable environment
-- Sparse-checkout specific packages in monorepos for faster startup
+- Работайте в feature-ветке, не затрагивая `main`
+- Запускайте тесты изолированно, не влияя на рабочий каталог
+- Пробуйте экспериментальные изменения в одноразовой среде
+- Выполняйте sparse-checkout только нужных пакетов в monorepo для более быстрого старта
 
 ---
 
 <a id="sandboxing"></a>
 ## Песочница
 
-Sandboxing предоставляет изоляцию файловой системы и сети на уровне ОС для Bash-команд, выполняемых Claude Code. Это дополняет правила разрешений и добавляет ещё один уровень защиты.
+Песочница предоставляет изоляцию файловой системы и сети на уровне ОС для Bash-команд, выполняемых Claude Code. Это дополняет правила разрешений и добавляет ещё один уровень защиты.
 
-### Включение Sandboxing
+### Включение песочницы
 
-**Slash command**:
+**Slash-команда**:
 ```
 /sandbox
 ```
 
-**CLI flags**:
+**CLI-флаги**:
 ```bash
-claude --sandbox       # Enable sandboxing
-claude --no-sandbox    # Disable sandboxing
+claude --sandbox       # Включить песочницу
+claude --no-sandbox    # Отключить песочницу
 ```
 
 ### Параметры конфигурации
@@ -1573,9 +1573,9 @@ claude --no-sandbox    # Disable sandboxing
 
 ### Как это работает
 
-- Bash-команды выполняются в sandboxed-среде с ограниченным доступом к файловой системе
+- Bash-команды выполняются в изолированной среде с ограниченным доступом к файловой системе
 - Доступ к сети можно изолировать, чтобы предотвратить нежелательные внешние подключения
-- Работает вместе с правилами разрешений по принципу defense in depth
+- Работает вместе с правилами разрешений по принципу многоуровневой защиты
 - На macOS для сетевых ограничений используйте `sandbox.enableWeakerNetworkIsolation` (полная изоляция сети на macOS недоступна)
 
 ### Сценарии использования
@@ -1589,20 +1589,20 @@ claude --no-sandbox    # Disable sandboxing
 <a id="managed-settings-enterprise"></a>
 ## Управляемые настройки (Enterprise)
 
-Managed Settings позволяют корпоративным администраторам разворачивать конфигурацию Claude Code по всей организации с помощью нативных средств управления платформы.
+Управляемые настройки позволяют корпоративным администраторам разворачивать конфигурацию Claude Code по всей организации с помощью нативных средств управления платформы.
 
 ### Способы развёртывания
 
 | Платформа | Способ | С версии |
 |-----------|--------|---------|
-| macOS | Managed plist files (MDM) | v2.1.51+ |
+| macOS | Управляемые plist-файлы (MDM) | v2.1.51+ |
 | Windows | Реестр Windows | v2.1.51+ |
 | Кроссплатформенно | Управляемые файлы конфигурации | v2.1.51+ |
-| Cross-platform | Managed drop-ins (`managed-settings.d/` directory) | v2.1.83+ |
+| Кроссплатформенно | Управляемые drop-in-файлы (`managed-settings.d/`) | v2.1.83+ |
 
 ### Управляемые drop-in-файлы
 
-Начиная с v2.1.83 администраторы могут размещать несколько managed settings files в каталоге `managed-settings.d/`. Файлы объединяются в алфавитном порядке, что позволяет строить модульную конфигурацию для разных команд:
+Начиная с v2.1.83 администраторы могут размещать несколько файлов managed settings в каталоге `managed-settings.d/`. Файлы объединяются в алфавитном порядке, что позволяет строить модульную конфигурацию для разных команд:
 
 ```
 ~/.claude/managed-settings.d/
@@ -1824,7 +1824,7 @@ User: /config
 ### Режимы разрешений
 - ✅ Используйте `plan` для code review (только чтение)
 - ✅ Используйте `default` для интерактивной разработки
-- ✅ Используйте `acceptEdits` для автоматизированных workflow
+- ✅ Используйте `acceptEdits` для автоматизированных процессов
 - ✅ Используйте `auto` для автономной работы с защитными ограничителями
 - ❌ Не используйте `bypassPermissions`, если это не абсолютно необходимо
 
@@ -1841,19 +1841,19 @@ User: /config
 
 Подробнее о Claude Code и связанных возможностях:
 
-- [Official Interactive Mode Documentation](https://code.claude.com/docs/en/interactive-mode)
-- [Official Headless Mode Documentation](https://code.claude.com/docs/en/headless)
-- [CLI Reference](https://code.claude.com/docs/en/cli-reference)
-- [Checkpoints Guide](../08-checkpoints/) - Управление сессиями и откат
+- [Официальная документация по интерактивному режиму](https://code.claude.com/docs/en/interactive-mode)
+- [Официальная документация по headless-режиму](https://code.claude.com/docs/en/headless)
+- [Справочник CLI](https://code.claude.com/docs/en/cli-reference)
+- [Гайд по Checkpoints](../08-checkpoints/) - Управление сессиями и откат
 - [Slash Commands](../01-slash-commands/) - Справочник команд
-- [Memory Guide](../02-memory/) - Постоянный контекст
-- [Skills Guide](../03-skills/) - Автономные возможности
-- [Subagents Guide](../04-subagents/) - Делегированное выполнение задач
-- [MCP Guide](../05-mcp/) - Доступ к внешним данным
-- [Hooks Guide](../06-hooks/) - Автоматизация, основанная на событиях
-- [Plugins Guide](../07-plugins/) - Встроенные расширения
-- [Official Scheduled Tasks Documentation](https://code.claude.com/docs/en/scheduled-tasks)
-- [Official Chrome Integration Documentation](https://code.claude.com/docs/en/chrome)
-- [Official Remote Control Documentation](https://code.claude.com/docs/en/remote-control)
-- [Official Keybindings Documentation](https://code.claude.com/docs/en/keybindings)
-- [Official Desktop App Documentation](https://code.claude.com/docs/en/desktop)
+- [Гайд по Memory](../02-memory/) - Постоянный контекст
+- [Гайд по Skills](../03-skills/) - Автономные возможности
+- [Гайд по Subagents](../04-subagents/) - Делегированное выполнение задач
+- [Гайд по MCP](../05-mcp/) - Доступ к внешним данным
+- [Гайд по Hooks](../06-hooks/) - Автоматизация, основанная на событиях
+- [Гайд по Plugins](../07-plugins/) - Встроенные расширения
+- [Официальная документация по запланированным задачам](https://code.claude.com/docs/en/scheduled-tasks)
+- [Официальная документация по интеграции с Chrome](https://code.claude.com/docs/en/chrome)
+- [Официальная документация по Remote Control](https://code.claude.com/docs/en/remote-control)
+- [Официальная документация по сочетаниям клавиш](https://code.claude.com/docs/en/keybindings)
+- [Официальная документация по Desktop App](https://code.claude.com/docs/en/desktop)

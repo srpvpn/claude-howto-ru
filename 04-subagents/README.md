@@ -748,20 +748,20 @@ Agent Teams добавляют два дополнительных [hook-соб�
 
 ```mermaid
 graph TB
-    User["User"]
+    User["Пользователь"]
     Main["Основной агент<br/>(Координатор)"]
     Reviewer["Code Reviewer<br/>Subagent"]
     Tester["Test Engineer<br/>Subagent"]
     Docs["Documentation<br/>Subagent"]
 
-    User -->|asks| Main
-    Main -->|delegates| Reviewer
-    Main -->|delegates| Tester
-    Main -->|delegates| Docs
-    Reviewer -->|returns result| Main
-    Tester -->|returns result| Main
-    Docs -->|returns result| Main
-    Main -->|synthesizes| User
+    User -->|задаёт запрос| Main
+    Main -->|делегирует| Reviewer
+    Main -->|делегирует| Tester
+    Main -->|делегирует| Docs
+    Reviewer -->|возвращает результат| Main
+    Tester -->|возвращает результат| Main
+    Docs -->|возвращает результат| Main
+    Main -->|синтезирует ответ| User
 ```
 
 ### Жизненный цикл Subagent
@@ -771,17 +771,17 @@ sequenceDiagram
     participant User
     participant MainAgent as Основной агент
     participant CodeReviewer as Code Reviewer<br/>Subagent
-    participant Context as Separate<br/>Context Window
+    participant Context as Отдельное<br/>окно контекста
 
-    User->>MainAgent: "Build new auth feature"
-    MainAgent->>MainAgent: Analyze task
-    MainAgent->>CodeReviewer: "Review this code"
-    CodeReviewer->>Context: Initialize clean context
-    Context->>CodeReviewer: Load reviewer instructions
-    CodeReviewer->>CodeReviewer: Perform review
-    CodeReviewer-->>MainAgent: Return findings
-    MainAgent->>MainAgent: Incorporate results
-    MainAgent-->>User: Provide synthesis
+    User->>MainAgent: "Сделай новую auth-функцию"
+    MainAgent->>MainAgent: Анализирует задачу
+    MainAgent->>CodeReviewer: "Проверь этот код"
+    CodeReviewer->>Context: Инициализирует чистый контекст
+    Context->>CodeReviewer: Загружает инструкции ревьюера
+    CodeReviewer->>CodeReviewer: Выполняет проверку
+    CodeReviewer-->>MainAgent: Возвращает найденные проблемы
+    MainAgent->>MainAgent: Встраивает результаты
+    MainAgent-->>User: Возвращает итоговый ответ
 ```
 
 ---
@@ -792,16 +792,16 @@ sequenceDiagram
 graph TB
     A["Контекст основного агента<br/>50,000 tokens"]
     B["Контекст subagent 1<br/>20,000 tokens"]
-    C["Subagent 2 Context<br/>20,000 tokens"]
-    D["Subagent 3 Context<br/>20,000 tokens"]
+    C["Контекст subagent 2<br/>20,000 токенов"]
+    D["Контекст subagent 3<br/>20,000 токенов"]
 
-    A -->|Clean slate| B
-    A -->|Clean slate| C
-    A -->|Clean slate| D
+    A -->|Чистый старт| B
+    A -->|Чистый старт| C
+    A -->|Чистый старт| D
 
-    B -->|Results only| A
-    C -->|Results only| A
-    D -->|Results only| A
+    B -->|Только результаты| A
+    C -->|Только результаты| A
+    D -->|Только результаты| A
 
     style A fill:#e1f5fe
     style B fill:#fff9c4
@@ -813,19 +813,19 @@ graph TB
 
 - Каждый subagent получает **свежее окно контекста** без истории основного разговора
 - В subagent передаётся только **релевантный контекст** для его задачи
-- Результаты **сводятся** обратно в основной agent
-- Это предотвращает **исчерпание token-ов контекста** на длинных проектах
+- Результаты **сводятся** обратно в основной агент
+- Это предотвращает **исчерпание токенов контекста** на длинных проектах
 
 ### Соображения по производительности
 
-- **Эффективность контекста** - agents сохраняют основной контекст, позволяя проводить более долгие сессии
+- **Эффективность контекста** - subagents сохраняют основной контекст, позволяя проводить более долгие сессии
 - **Задержка** - subagents начинают с чистого листа и могут добавлять задержку на сбор начального контекста
 
 ### Ключевое поведение
 
 - **Без вложенного spawn** - subagents не могут создавать другие subagents
 - **Разрешения в фоне** - фоновые subagents автоматически отклоняют любые разрешения, которые не были заранее одобрены
-- **Перевод в фон** - нажмите `Ctrl+B`, чтобы отправить текущую задачу в фон
+- **Отправка в фон** - нажмите `Ctrl+B`, чтобы отправить текущую задачу в фон
 - **Транскрипты** - транскрипты subagent хранятся в `~/.claude/projects/{project}/{sessionId}/subagents/agent-{agentId}.jsonl`
 - **Автокомпактация** - контекст subagent автоматически компактизируется примерно при 95% заполнении (можно переопределить через переменную окружения `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE`)
 
@@ -833,12 +833,12 @@ graph TB
 
 ## Когда использовать Subagents
 
-| Сценарий | Использовать Subagent | Почему |
+| Сценарий | Использовать subagent | Почему |
 |----------|---------------------|--------|
 | Сложная функция с множеством шагов | Да | Разделяет ответственность, предотвращает загрязнение контекста |
-| Быстрый code review | Нет | Лишний overhead |
+| Быстрый code review | Нет | Лишние накладные расходы |
 | Параллельное выполнение задач | Да | У каждого subagent свой контекст |
-| Нужна узкая экспертиза | Да | Кастомные system prompt |
+| Нужна узкая экспертиза | Да | Кастомный системный промпт |
 | Долгий анализ | Да | Не даёт основному контексту исчерпаться |
 | Одна задача | Нет | Лишняя задержка |
 
@@ -851,7 +851,7 @@ graph TB
 **Делайте:**
 - Начинайте с сгенерированных Claude agents - сначала создайте базовый subagent через Claude, потом дорабатывайте
 - Проектируйте сфокусированные subagents - одна понятная ответственность, а не попытка делать всё
-- Пишите подробные prompt-ы - включайте конкретные инструкции, примеры и ограничения
+- Пишите подробные промпты - включайте конкретные инструкции, примеры и ограничения
 - Ограничивайте доступ к инструментам - выдавайте только то, что нужно для задачи subagent
 - Храните в version control - добавляйте project subagents в репозиторий для совместной работы
 
@@ -859,35 +859,35 @@ graph TB
 - создавайте пересекающиеся subagents с одинаковыми ролями
 - давайте subagents лишний доступ к инструментам
 - используйте subagents для простых одношаговых задач
-- смешивайте разные ответственности в одном prompt subagent
+- смешивайте разные ответственности в одном промпте subagent
 - забывайте передать нужный контекст
 
-### Лучшие практики для system prompt
+### Лучшие практики для системного промпта
 
 1. **Чётко определяйте роль**
    ```
-   You are an expert code reviewer specializing in [specific areas]
+   Вы эксперт по проверке кода, специализирующийся на [конкретных областях]
    ```
 
 2. **Ясно задавайте приоритеты**
    ```
-   Review priorities (in order):
-   1. Security Issues
-   2. Performance Problems
-   3. Code Quality
+   Приоритеты проверки (по порядку):
+   1. Проблемы безопасности
+   2. Проблемы производительности
+   3. Качество кода
    ```
 
 3. **Указывайте формат вывода**
    ```
-   For each issue provide: Severity, Category, Location, Description, Fix, Impact
+   Для каждой проблемы указывайте: Severity, Category, Location, Description, Fix, Impact
    ```
 
 4. **Включайте шаги действий**
    ```
-   When invoked:
-   1. Run git diff to see recent changes
-   2. Focus on modified files
-   3. Begin review immediately
+   При запуске:
+   1. Выполни `git diff`, чтобы увидеть недавние изменения
+   2. Сосредоточься на изменённых файлах
+   3. Сразу начинай проверку
    ```
 
 ### Стратегия доступа к инструментам
@@ -899,7 +899,7 @@ graph TB
 
 ---
 
-## Примеры Subagents в этой папке
+## Примеры subagents в этой папке
 
 В этой папке лежат готовые к использованию примеры subagents:
 
@@ -907,10 +907,10 @@ graph TB
 
 **Назначение**: комплексный анализ качества кода и поддерживаемости
 
-**Tools**: Read, Grep, Glob, Bash
+**Инструменты**: Read, Grep, Glob, Bash
 
 **Специализация**:
-- выявление security уязвимостей
+- выявление уязвимостей безопасности
 - поиск возможностей для оптимизации производительности
 - оценка поддерживаемости кода
 - анализ покрытия тестами
@@ -923,12 +923,12 @@ graph TB
 
 **Назначение**: тестовая стратегия, анализ покрытия и автоматизированное тестирование
 
-**Tools**: Read, Write, Bash, Grep
+**Инструменты**: Read, Write, Bash, Grep
 
 **Специализация**:
 - создание unit-тестов
 - проектирование integration-тестов
-- выявление edge case-ов
+- выявление пограничных случаев
 - анализ покрытия (цель >80%)
 
 **Когда использовать**: когда нужен полный набор тестов или анализ покрытия
@@ -1025,14 +1025,14 @@ graph TB
 
 Далее:
 1. выберите `Create New Agent`
-2. выберите project-level или user-level
+2. выберите уровень `project-level` или `user-level`
 3. подробно опишите subagent
 4. выберите инструменты для доступа (или оставьте пустым, чтобы наследовать все)
 5. сохраните и используйте
 
 ### Способ 2: копирование в проект
 
-Скопируйте файлы agents в каталог `.claude/agents/` вашего проекта:
+Скопируйте файлы subagent в каталог `.claude/agents/` вашего проекта:
 
 ```bash
 # Перейдите в ваш проект
