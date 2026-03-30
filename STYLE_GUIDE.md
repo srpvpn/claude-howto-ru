@@ -3,37 +3,37 @@
   <img alt="Claude How To" src="resources/logos/claude-howto-logo.svg">
 </picture>
 
-# Style Guide
+# Руководство по стилю
 
-> Conventions and formatting rules for contributing to Claude How To. Follow this guide to keep content consistent, professional, and easy to maintain.
-
----
-
-## Table of Contents
-
-- [File and Folder Naming](#file-and-folder-naming)
-- [Document Structure](#document-structure)
-- [Headings](#headings)
-- [Text Formatting](#text-formatting)
-- [Lists](#lists)
-- [Tables](#tables)
-- [Code Blocks](#code-blocks)
-- [Links and Cross-References](#links-and-cross-references)
-- [Diagrams](#diagrams)
-- [Emoji Usage](#emoji-usage)
-- [YAML Frontmatter](#yaml-frontmatter)
-- [Images and Media](#images-and-media)
-- [Tone and Voice](#tone-and-voice)
-- [Commit Messages](#commit-messages)
-- [Checklist for Authors](#checklist-for-authors)
+> Соглашения и правила форматирования для участия в Claude How To. Следуйте этому руководству, чтобы контент оставался единым, профессиональным и удобным для поддержки.
 
 ---
 
-## File and Folder Naming
+## Содержание
 
-### Lesson Folders
+- [Именование файлов и папок](#file-and-folder-naming)
+- [Структура документа](#document-structure)
+- [Заголовки](#headings)
+- [Форматирование текста](#text-formatting)
+- [Списки](#lists)
+- [Таблицы](#tables)
+- [Блоки кода](#code-blocks)
+- [Ссылки и перекрёстные ссылки](#links-and-cross-references)
+- [Диаграммы](#diagrams)
+- [Использование emoji](#emoji-usage)
+- [YAML frontmatter](#yaml-frontmatter)
+- [Изображения и медиа](#images-and-media)
+- [Тон и голос](#tone-and-voice)
+- [Сообщения коммитов](#commit-messages)
+- [Чеклист для авторов](#checklist-for-authors)
 
-Lesson folders use a **two-digit numbered prefix** followed by a **kebab-case** descriptor:
+---
+
+## Именование файлов и папок
+
+### Папки уроков
+
+Папки уроков используют **двузначный числовой префикс**, за которым следует дескриптор в **kebab-case**:
 
 ```
 01-slash-commands/
@@ -43,77 +43,77 @@ Lesson folders use a **two-digit numbered prefix** followed by a **kebab-case** 
 05-mcp/
 ```
 
-The number reflects the learning path order from beginner to advanced.
+Число отражает порядок учебного маршрута от новичка к продвинутому уровню.
 
-### File Names
+### Имена файлов
 
-| Type | Convention | Examples |
+| Тип | Соглашение | Примеры |
 |------|-----------|----------|
-| **Lesson README** | `README.md` | `01-slash-commands/README.md` |
-| **Feature file** | Kebab-case `.md` | `code-reviewer.md`, `generate-api-docs.md` |
-| **Shell script** | Kebab-case `.sh` | `format-code.sh`, `validate-input.sh` |
-| **Config file** | Standard names | `.mcp.json`, `settings.json` |
-| **Memory file** | Scope-prefixed | `project-CLAUDE.md`, `personal-CLAUDE.md` |
-| **Top-level docs** | UPPER_CASE `.md` | `CATALOG.md`, `QUICK_REFERENCE.md`, `CONTRIBUTING.md` |
-| **Image assets** | Kebab-case | `pr-slash-command.png`, `claude-howto-logo.svg` |
+| **README урока** | `README.md` | `01-slash-commands/README.md` |
+| **Файл функции** | `.md` в kebab-case | `code-reviewer.md`, `generate-api-docs.md` |
+| **Shell-скрипт** | `.sh` в kebab-case | `format-code.sh`, `validate-input.sh` |
+| **Файл конфигурации** | Стандартные имена | `.mcp.json`, `settings.json` |
+| **Файл памяти** | Префикс области | `project-CLAUDE.md`, `personal-CLAUDE.md` |
+| **Документы верхнего уровня** | `.md` в UPPER_CASE | `CATALOG.md`, `QUICK_REFERENCE.md`, `CONTRIBUTING.md` |
+| **Изображения** | kebab-case | `pr-slash-command.png`, `claude-howto-logo.svg` |
 
-### Rules
+### Правила
 
-- Use **lowercase** for all file and folder names (except top-level docs like `README.md`, `CATALOG.md`)
-- Use **hyphens** (`-`) as word separators, never underscores or spaces
-- Keep names descriptive but concise
+- Используйте **lowercase** для всех имён файлов и папок, кроме верхнеуровневых документов вроде `README.md`, `CATALOG.md`
+- Используйте **дефисы** (`-`) как разделители слов, никогда не используйте подчёркивания или пробелы
+- Делайте имена описательными, но короткими
 
 ---
 
-## Document Structure
+## Структура документа
 
-### Root README
+### Корневой README
 
-The root `README.md` follows this order:
+Корневой `README.md` следует такому порядку:
 
 1. Logo (`<picture>` element with dark/light variants)
 2. H1 title
 3. Introductory blockquote (one-line value proposition)
-4. "Why This Guide?" section with comparison table
+4. Section "Why This Guide?" with comparison table
 5. Horizontal rule (`---`)
 6. Table of Contents
-7. Feature Catalog
-8. Quick Navigation
-9. Learning Path
-10. Feature sections
-11. Getting Started
-12. Best Practices / Troubleshooting
-13. Contributing / License
+7. Каталог возможностей
+8. Быстрая навигация
+9. Учебный путь
+10. Разделы возможностей
+11. Начало работы
+12. Лучшие практики / Устранение неполадок
+13. Вклад / Лицензия
 
-### Lesson README
+### README урока
 
-Each lesson `README.md` follows this order:
+Каждый `README.md` урока следует такому порядку:
 
-1. H1 title (e.g., `# Slash Commands`)
-2. Brief overview paragraph
-3. Quick reference table (optional)
-4. Architecture diagram (Mermaid)
-5. Detailed sections (H2)
-6. Practical examples (numbered, 4-6 examples)
-7. Best practices (Do's and Don'ts tables)
-8. Troubleshooting
-9. Related guides / Official documentation
-10. Document metadata footer
+1. H1 title (например, `# Slash Commands`)
+2. Краткий обзорный абзац
+3. Краткая справочная таблица (необязательно)
+4. Диаграмма архитектуры (Mermaid)
+5. Подробные разделы (H2)
+6. Практические примеры (нумерованные, 4-6 примеров)
+7. Best practices (таблицы Do's and Don'ts)
+8. Устранение неполадок
+9. Связанные гайды / официальная документация
+10. Footer с метаданными документа
 
-### Feature/Example File
+### Файл функции/примера
 
-Individual feature files (e.g., `optimize.md`, `pr.md`):
+Отдельные файлы функций, например `optimize.md` или `pr.md`:
 
-1. YAML frontmatter (if applicable)
+1. YAML frontmatter (если применимо)
 2. H1 title
 3. Purpose / description
-4. Usage instructions
-5. Code examples
-6. Customization tips
+4. Инструкции по использованию
+5. Примеры кода
+6. Советы по кастомизации
 
-### Section Separators
+### Разделители секций
 
-Use horizontal rules (`---`) to separate major document regions:
+Используйте горизонтальные линии (`---`) для отделения крупных областей документа:
 
 ```markdown
 ---
@@ -121,44 +121,44 @@ Use horizontal rules (`---`) to separate major document regions:
 ## New Major Section
 ```
 
-Place them after the introductory blockquote and between logically distinct parts of the document.
+Ставьте их после вводной цитаты и между логически различными частями документа.
 
 ---
 
-## Headings
+## Заголовки
 
-### Hierarchy
+### Иерархия
 
-| Level | Use | Example |
+| Уровень | Использование | Пример |
 |-------|-----|---------|
-| `#` H1 | Page title (one per document) | `# Slash Commands` |
-| `##` H2 | Major sections | `## Best Practices` |
-| `###` H3 | Subsections | `### Adding a Skill` |
-| `####` H4 | Sub-subsections (rare) | `#### Configuration Options` |
+| `#` H1 | Заголовок страницы (один на документ) | `# Slash Commands` |
+| `##` H2 | Крупные разделы | `## Best Practices` |
+| `###` H3 | Подразделы | `### Adding a Skill` |
+| `####` H4 | Подподразделы (редко) | `#### Configuration Options` |
 
-### Rules
+### Правила
 
-- **One H1 per document** — the page title only
-- **Never skip levels** — don't jump from H2 to H4
-- **Keep headings concise** — aim for 2-5 words
-- **Use sentence case** — capitalize first word and proper nouns only (exception: feature names stay as-is)
-- **Add emoji prefixes only on root README** section headers (see [Emoji Usage](#emoji-usage))
+- **Один H1 на документ** — только заголовок страницы
+- **Не пропускайте уровни** — не переходите с H2 сразу на H4
+- **Делайте заголовки короткими** — 2-5 слов
+- **Используйте sentence case** — с заглавной только первое слово и имена собственные (исключение: названия функций остаются как есть)
+- **Добавляйте emoji-префиксы только в корневом README** у заголовков секций (см. [Использование emoji](#emoji-usage))
 
 ---
 
-## Text Formatting
+## Форматирование текста
 
-### Emphasis
+### Выделение
 
-| Style | When to Use | Example |
+| Стиль | Когда использовать | Пример |
 |-------|------------|---------|
-| **Bold** (`**text**`) | Key terms, labels in tables, important concepts | `**Installation**:` |
-| *Italic* (`*text*`) | First use of a technical term, book/doc titles | `*frontmatter*` |
-| `Code` (`` `text` ``) | File names, commands, config values, code references | `` `CLAUDE.md` `` |
+| **Bold** (`**text**`) | Ключевые термины, подписи в таблицах, важные концепции | `**Installation**:` |
+| *Italic* (`*text*`) | Первое упоминание технического термина, названия книг/документов | `*frontmatter*` |
+| `Code` (`` `text` ``) | Имена файлов, команды, значения конфигурации, ссылки на код | `` `CLAUDE.md` `` |
 
-### Blockquotes for Callouts
+### Блок-цитаты для заметок
 
-Use blockquotes with bold prefixes for important notes:
+Используйте blockquote с жирным префиксом для важных заметок:
 
 ```markdown
 > **Note**: Custom slash commands have been merged into skills since v2.0.
@@ -168,22 +168,22 @@ Use blockquotes with bold prefixes for important notes:
 > **Tip**: Combine memory with skills for maximum effectiveness.
 ```
 
-Supported callout types: **Note**, **Important**, **Tip**, **Warning**.
+Поддерживаемые типы заметок: **Note**, **Important**, **Tip**, **Warning**.
 
-### Paragraphs
+### Абзацы
 
-- Keep paragraphs short (2-4 sentences)
-- Add a blank line between paragraphs
-- Lead with the key point, then provide context
-- Explain the "why" not just the "what"
+- Держите абзацы короткими (2-4 предложения)
+- Делайте пустую строку между абзацами
+- Сначала сообщайте ключевую мысль, потом давайте контекст
+- Объясняйте не только "что", но и "почему"
 
 ---
 
-## Lists
+## Списки
 
-### Unordered Lists
+### Ненумерованные списки
 
-Use dashes (`-`) with 2-space indentation for nesting:
+Используйте дефисы (`-`) с отступом 2 пробела для вложенности:
 
 ```markdown
 - First item
@@ -194,9 +194,9 @@ Use dashes (`-`) with 2-space indentation for nesting:
 - Third item
 ```
 
-### Ordered Lists
+### Нумерованные списки
 
-Use numbered lists for sequential steps, instructions, and ranked items:
+Используйте нумерованные списки для последовательных шагов, инструкций и ранжированных элементов:
 
 ```markdown
 1. First step
@@ -206,9 +206,9 @@ Use numbered lists for sequential steps, instructions, and ranked items:
 3. Third step
 ```
 
-### Descriptive Lists
+### Описательные списки
 
-Use bold labels for key-value style lists:
+Используйте жирные подписи для key-value списков:
 
 ```markdown
 - **Performance bottlenecks** - identify O(n^2) operations, inefficient loops
@@ -216,18 +216,18 @@ Use bold labels for key-value style lists:
 - **Algorithm improvements** - suggest better algorithms or data structures
 ```
 
-### Rules
+### Правила
 
-- Maintain consistent indentation (2 spaces per level)
-- Add a blank line before and after a list
-- Keep list items parallel in structure (all start with verb, or all are nouns, etc.)
-- Avoid nesting deeper than 3 levels
+- Соблюдайте единообразный отступ (2 пробела на уровень)
+- Добавляйте пустую строку до и после списка
+- Делайте элементы списка параллельными по структуре
+- Не уходите глубже 3 уровней вложенности
 
 ---
 
-## Tables
+## Таблицы
 
-### Standard Format
+### Стандартный формат
 
 ```markdown
 | Column 1 | Column 2 | Column 3 |
@@ -235,9 +235,9 @@ Use bold labels for key-value style lists:
 | Data     | Data     | Data     |
 ```
 
-### Common Table Patterns
+### Частые шаблоны таблиц
 
-**Feature comparison (3-4 columns):**
+**Сравнение возможностей (3-4 колонки):**
 
 ```markdown
 | Feature | Invocation | Persistence | Best For |
@@ -255,7 +255,7 @@ Use bold labels for key-value style lists:
 | Keep files focused | Overload a single file |
 ```
 
-**Quick reference:**
+**Краткая справка:**
 
 ```markdown
 | Aspect | Details |
@@ -265,20 +265,20 @@ Use bold labels for key-value style lists:
 | **Complexity** | Intermediate |
 ```
 
-### Rules
+### Правила
 
-- **Bold table headers** when they are row labels (first column)
-- Align pipes for readability in source (optional but preferred)
-- Keep cell content concise; use links for details
-- Use `code formatting` for commands and file paths inside cells
+- Делайте заголовки таблиц жирными, когда они выступают как подписи строк (первый столбец)
+- По возможности выравнивайте вертикальные черты для читаемости исходника
+- Делайте содержимое ячеек кратким; для деталей используйте ссылки
+- Используйте `code formatting` для команд и путей внутри ячеек
 
 ---
 
-## Code Blocks
+## Блоки кода
 
-### Language Tags
+### Языковые теги
 
-Always specify a language tag for syntax highlighting:
+Всегда указывайте языковой тег для подсветки синтаксиса:
 
 | Language | Tag | Use For |
 |----------|-----|---------|
@@ -292,28 +292,28 @@ Always specify a language tag for syntax highlighting:
 | SQL | `sql` | Database queries |
 | Plain text | (no tag) | Expected output, directory trees |
 
-### Conventions
+### Соглашения
 
 ```bash
 # Comment explaining what the command does
 claude mcp add notion --transport http https://mcp.notion.com/mcp
 ```
 
-- Add a **comment line** before non-obvious commands
-- Make all examples **copy-paste ready**
-- Show **both simple and advanced** versions when relevant
-- Include **expected output** when it aids understanding (use untagged code block)
+- Добавляйте **строку-комментарий** перед неочевидными командами
+- Делайте все примеры **готовыми к копированию и вставке**
+- Показывайте **и простые, и продвинутые** варианты, когда это уместно
+- Добавляйте **ожидаемый вывод**, если это помогает понять пример (используйте code block без тега)
 
-### Installation Blocks
+### Блоки установки
 
-Use this pattern for installation instructions:
+Используйте такой шаблон для инструкций по установке:
 
 ```bash
 # Copy files to your project
 cp 01-slash-commands/*.md .claude/commands/
 ```
 
-### Multi-step Workflows
+### Многошаговые workflow
 
 ```bash
 # Step 1: Create the directory
@@ -328,11 +328,11 @@ ls .claude/commands/
 
 ---
 
-## Links and Cross-References
+## Ссылки и перекрёстные ссылки
 
-### Internal Links (Relative)
+### Внутренние ссылки (относительные)
 
-Use relative paths for all internal links:
+Используйте относительные пути для всех внутренних ссылок:
 
 ```markdown
 [Slash Commands](01-slash-commands/)
@@ -340,36 +340,36 @@ Use relative paths for all internal links:
 [Memory Architecture](02-memory/#memory-architecture)
 ```
 
-From a lesson folder back to root or sibling:
+Из папки урока назад к корню или соседнему разделу:
 
 ```markdown
 [Back to main guide](../README.md)
 [Related: Skills](../03-skills/)
 ```
 
-### External Links (Absolute)
+### Внешние ссылки (абсолютные)
 
-Use full URLs with descriptive anchor text:
+Используйте полные URL с понятным текстом ссылки:
 
 ```markdown
 [Anthropic's official documentation](https://code.claude.com/docs/en/overview)
 ```
 
-- Never use "click here" or "this link" as anchor text
-- Use descriptive text that makes sense out of context
+- Никогда не используйте "click here" или "this link" как текст ссылки
+- Используйте описательный текст, который понятен без контекста
 
-### Section Anchors
+### Якоря разделов
 
-Link to sections within the same document using GitHub-style anchors:
+Ссылайтесь на разделы внутри того же документа с помощью якорей GitHub-стиля:
 
 ```markdown
 [Feature Catalog](#-feature-catalog)
 [Best Practices](#best-practices)
 ```
 
-### Related Guides Pattern
+### Шаблон связанных гайдов
 
-End lessons with a related guides section:
+Заканчивайте уроки разделом related guides:
 
 ```markdown
 ## Related Guides
@@ -381,19 +381,19 @@ End lessons with a related guides section:
 
 ---
 
-## Diagrams
+## Диаграммы
 
 ### Mermaid
 
-Use Mermaid for all diagrams. Supported types:
+Используйте Mermaid для всех диаграмм. Поддерживаемые типы:
 
-- `graph TB` / `graph LR` — architecture, hierarchy, flow
-- `sequenceDiagram` — interaction flows
-- `timeline` — chronological sequences
+- `graph TB` / `graph LR` — архитектура, иерархия, потоки
+- `sequenceDiagram` — сценарии взаимодействия
+- `timeline` — хронологические последовательности
 
-### Style Conventions
+### Соглашения по стилю
 
-Apply consistent colors using style blocks:
+Используйте единые цвета через style blocks:
 
 ```mermaid
 graph TB
@@ -405,7 +405,7 @@ graph TB
     style C fill:#e8f5e9,stroke:#333,color:#333
 ```
 
-**Color palette:**
+**Палитра цветов:**
 
 | Color | Hex | Use For |
 |-------|-----|---------|
@@ -415,30 +415,30 @@ graph TB
 | Light yellow | `#fff9c4` | Configuration, optional |
 | Light purple | `#f3e5f5` | User-facing, UI |
 
-### Rules
+### Правила
 
-- Use `["Label text"]` for node labels (enables special characters)
-- Use `<br/>` for line breaks within labels
-- Keep diagrams simple (max 10-12 nodes)
-- Add a brief text description below the diagram for accessibility
-- Use top-to-bottom (`TB`) for hierarchies, left-to-right (`LR`) for workflows
+- Используйте `["Label text"]` для подписей узлов (это позволяет использовать специальные символы)
+- Используйте `<br/>` для переносов строк внутри подписей
+- Делайте диаграммы простыми (максимум 10-12 узлов)
+- Добавляйте краткое текстовое описание под диаграммой для доступности
+- Используйте top-to-bottom (`TB`) для иерархий, left-to-right (`LR`) для workflow
 
 ---
 
-## Emoji Usage
+## Использование emoji
 
-### Where Emojis Are Used
+### Где используются emoji
 
-Emojis are used **sparingly and purposefully** — only in specific contexts:
+Emoji используются **экономно и осмысленно** — только в конкретных контекстах:
 
-| Context | Emojis | Example |
+| Контекст | Emoji | Пример |
 |---------|--------|---------|
-| Root README section headers | Category icons | `## 📚 Learning Path` |
-| Skill level indicators | Colored circles | 🟢 Beginner, 🔵 Intermediate, 🔴 Advanced |
-| Do's and Don'ts | Check/cross marks | ✅ Do this, ❌ Don't do this |
-| Complexity ratings | Stars | ⭐⭐⭐ |
+| Заголовки секций корневого README | Иконки категорий | `## 📚 Learning Path` |
+| Индикаторы уровня навыка | Цветные кружки | 🟢 Beginner, 🔵 Intermediate, 🔴 Advanced |
+| Do's and Don'ts | Галочка / крест | ✅ Do this, ❌ Don't do this |
+| Рейтинг сложности | Звёзды | ⭐⭐⭐ |
 
-### Standard Emoji Set
+### Стандартный набор emoji
 
 | Emoji | Meaning |
 |-------|---------|
@@ -455,18 +455,18 @@ Emojis are used **sparingly and purposefully** — only in specific contexts:
 | ❌ | Avoid / anti-pattern |
 | ⭐ | Complexity rating unit |
 
-### Rules
+### Правила
 
-- **Never use emojis in body text** or paragraphs
-- **Only use emojis in headers** on the root README (not in lesson READMEs)
-- **Do not add decorative emojis** — every emoji should convey meaning
-- Keep emoji usage consistent with the table above
+- **Никогда не используйте emoji в основном тексте** или абзацах
+- **Используйте emoji только в заголовках** в корневом README (не в lesson READMEs)
+- **Не добавляйте декоративные emoji** — каждое emoji должно нести смысл
+- Держите использование emoji согласованным с таблицей выше
 
 ---
 
-## YAML Frontmatter
+## YAML frontmatter
 
-### Feature Files (Skills, Commands, Agents)
+### Файлы функций (Skills, Commands, Agents)
 
 ```yaml
 ---
@@ -476,7 +476,7 @@ allowed-tools: Bash, Read, Grep
 ---
 ```
 
-### Optional Fields
+### Необязательные поля
 
 ```yaml
 ---
@@ -492,20 +492,20 @@ agent: Explore                     # Agent type for context: fork
 ---
 ```
 
-### Rules
+### Правила
 
-- Place frontmatter at the very top of the file
-- Use **kebab-case** for the `name` field
-- Keep `description` to one sentence
-- Only include fields that are needed
+- Размещайте frontmatter в самом верху файла
+- Используйте **kebab-case** для поля `name`
+- Держите `description` в пределах одного предложения
+- Включайте только нужные поля
 
 ---
 
-## Images and Media
+## Изображения и медиа
 
-### Logo Pattern
+### Шаблон логотипа
 
-All documents that start with a logo use the `<picture>` element for dark/light mode support:
+Все документы, которые начинаются с логотипа, используют элемент `<picture>` для поддержки светлой и тёмной темы:
 
 ```html
 <picture>
@@ -514,59 +514,59 @@ All documents that start with a logo use the `<picture>` element for dark/light 
 </picture>
 ```
 
-### Screenshots
+### Скриншоты
 
-- Store in the relevant lesson folder (e.g., `01-slash-commands/pr-slash-command.png`)
-- Use kebab-case file names
-- Include descriptive alt text
-- Prefer SVG for diagrams, PNG for screenshots
+- Храните их в соответствующей папке урока, например `01-slash-commands/pr-slash-command.png`
+- Используйте имена файлов в kebab-case
+- Добавляйте понятный alt text
+- Для диаграмм предпочитайте SVG, для скриншотов — PNG
 
-### Rules
+### Правила
 
-- Always provide alt text for images
-- Keep image file sizes reasonable (< 500KB for PNGs)
-- Use relative paths for image references
-- Store images in the same directory as the document that references them, or in `assets/` for shared images
+- Всегда указывайте alt text для изображений
+- Следите за разумным размером файлов изображений (менее 500 KB для PNG)
+- Используйте относительные пути для ссылок на изображения
+- Храните изображения в той же директории, что и документ, который на них ссылается, либо в `assets/` для общих ресурсов
 
 ---
 
-## Tone and Voice
+## Тон и голос
 
-### Writing Style
+### Стиль письма
 
-- **Professional but approachable** — technical accuracy without jargon overload
-- **Active voice** — "Create a file" not "A file should be created"
-- **Direct instructions** — "Run this command" not "You might want to run this command"
-- **Beginner-friendly** — assume the reader is new to Claude Code, not new to programming
+- **Professional but approachable** — техническая точность без перегруза жаргоном
+- **Active voice** — "Create a file", а не "A file should be created"
+- **Direct instructions** — "Run this command", а не "You might want to run this command"
+- **Beginner-friendly** — считайте, что читатель новичок в Claude Code, но не в программировании
 
-### Content Principles
+### Принципы контента
 
-| Principle | Example |
+| Принцип | Пример |
 |-----------|---------|
-| **Show, don't tell** | Provide working examples, not abstract descriptions |
-| **Progressive complexity** | Start simple, add depth in later sections |
-| **Explain the "why"** | "Use memory for... because..." not just "Use memory for..." |
-| **Copy-paste ready** | Every code block should work when pasted directly |
-| **Real-world context** | Use practical scenarios, not contrived examples |
+| **Show, don't tell** | Давайте работающие примеры, а не абстрактные описания |
+| **Progressive complexity** | Начинайте просто, добавляйте глубину в более поздних разделах |
+| **Explain the "why"** | "Use memory for... because..." а не только "Use memory for..." |
+| **Copy-paste ready** | Каждый блок кода должен работать после вставки |
+| **Real-world context** | Используйте практические сценарии, а не искусственные примеры |
 
-### Vocabulary
+### Словарь
 
-- Use "Claude Code" (not "Claude CLI" or "the tool")
-- Use "skill" (not "custom command" — legacy term)
-- Use "lesson" or "guide" for the numbered sections
-- Use "example" for individual feature files
+- Используйте "Claude Code" (не "Claude CLI" и не "the tool")
+- Используйте "skill" (а не "custom command" — это устаревший термин)
+- Используйте "lesson" или "guide" для пронумерованных разделов
+- Используйте "example" для отдельных файлов функций
 
 ---
 
-## Commit Messages
+## Сообщения коммитов
 
-Follow [Conventional Commits](https://www.conventionalcommits.org/):
+Следуйте [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```
 type(scope): description
 ```
 
-### Types
+### Типы
 
 | Type | Use For |
 |------|---------|
@@ -578,9 +578,9 @@ type(scope): description
 | `test` | Test additions or changes |
 | `chore` | Build, dependencies, CI |
 
-### Scopes
+### Области
 
-Use the lesson name or file area as scope:
+Используйте имя урока или область файла как scope:
 
 ```
 feat(slash-commands): Add API documentation generator
@@ -591,9 +591,9 @@ docs(skills): Add comprehensive code review skill
 
 ---
 
-## Document Metadata Footer
+## Нижний колонтитул с метаданными документа
 
-Lesson READMEs end with a metadata block:
+README уроков заканчиваются блоком метаданных:
 
 ```markdown
 ---
@@ -602,29 +602,29 @@ Lesson READMEs end with a metadata block:
 **Compatible Models**: Claude Sonnet 4.6, Claude Opus 4.6, Claude Haiku 4.5
 ```
 
-- Use month + year format (e.g., "March 2026")
-- Update the version when features change
-- List all compatible models
+- Используйте формат месяц + год, например "March 2026"
+- Обновляйте версию при изменении функций
+- Перечисляйте все совместимые модели
 
 ---
 
-## Checklist for Authors
+## Чеклист для авторов
 
-Before submitting content, verify:
+Перед отправкой контента проверьте:
 
-- [ ] File/folder names use kebab-case
-- [ ] Document starts with H1 title (one per file)
-- [ ] Heading hierarchy is correct (no skipped levels)
-- [ ] All code blocks have language tags
-- [ ] Code examples are copy-paste ready
-- [ ] Internal links use relative paths
-- [ ] External links have descriptive anchor text
-- [ ] Tables are properly formatted
-- [ ] Emojis follow the standard set (if used at all)
-- [ ] Mermaid diagrams use the standard color palette
-- [ ] No sensitive information (API keys, credentials)
-- [ ] YAML frontmatter is valid (if applicable)
-- [ ] Images have alt text
-- [ ] Paragraphs are short and focused
-- [ ] Related guides section links to relevant lessons
-- [ ] Commit message follows conventional commits format
+- [ ] Имена файлов и папок используют kebab-case
+- [ ] Документ начинается с H1 title (один на файл)
+- [ ] Иерархия заголовков корректна (без пропусков уровней)
+- [ ] У всех блоков кода есть языковые теги
+- [ ] Примеры кода готовы к копированию и вставке
+- [ ] Внутренние ссылки используют относительные пути
+- [ ] У внешних ссылок есть описательный anchor text
+- [ ] Таблицы отформатированы правильно
+- [ ] Emoji соответствуют стандартному набору, если используются
+- [ ] Диаграммы Mermaid используют стандартную цветовую палитру
+- [ ] Нет чувствительной информации (API keys, credentials)
+- [ ] YAML frontmatter валиден, если он используется
+- [ ] У изображений есть alt text
+- [ ] Абзацы короткие и сфокусированные
+- [ ] Раздел related guides ссылается на релевантные уроки
+- [ ] Сообщение коммита соответствует формату Conventional Commits

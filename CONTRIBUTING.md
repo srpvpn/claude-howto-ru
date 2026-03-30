@@ -3,70 +3,70 @@
   <img alt="Claude How To" src="resources/logos/claude-howto-logo.svg">
 </picture>
 
-# Contributing to Claude How To
+# Вклад в Claude How To
 
-Thank you for your interest in contributing to this project! This guide will help you understand how to contribute effectively.
+Спасибо за интерес к участию в проекте. Этот гид поможет понять, как вносить полезные изменения без лишнего шума.
 
-## About This Project
+## О проекте
 
-Claude How To is a visual, example-driven guide to Claude Code. We provide:
-- **Mermaid diagrams** explaining how features work
-- **Production-ready templates** you can use immediately
-- **Real-world examples** with context and best practices
-- **Progressive learning paths** from beginner to advanced
+Claude How To — это наглядный, основанный на примерах гид по Claude Code. Мы даём:
+- **Диаграммы Mermaid**, объясняющие, как работают функции
+- **Готовые к production шаблоны**, которые можно использовать сразу
+- **Реальные примеры** с контекстом и лучшими практиками
+- **Последовательные учебные маршруты** от новичка до продвинутого уровня
 
-## Types of Contributions
+## Что можно вносить
 
-### 1. New Examples or Templates
-Add examples for existing features (slash commands, skills, hooks, etc.):
-- Copy-paste ready code
-- Clear explanations of how it works
-- Use cases and benefits
-- Troubleshooting tips
+### 1. Новые примеры или шаблоны
+Добавляйте примеры для существующих возможностей: slash-команд, skills, hooks и т. д.
+- Готовый к копированию код
+- Понятное объяснение работы
+- Сценарии применения и пользу
+- Советы по устранению проблем
 
-### 2. Documentation Improvements
-- Clarify confusing sections
-- Fix typos and grammar
-- Add missing information
-- Improve code examples
+### 2. Улучшения документации
+- Уточняйте неясные разделы
+- Исправляйте опечатки и грамматику
+- Добавляйте недостающую информацию
+- Улучшайте примеры кода
 
-### 3. Feature Guides
-Create guides for new Claude Code features:
-- Step-by-step tutorials
-- Architecture diagrams
-- Common patterns and anti-patterns
-- Real-world workflows
+### 3. Гайды по функциям
+Создавайте руководства по новым возможностям Claude Code:
+- Пошаговые туториалы
+- Диаграммы архитектуры
+- Типовые паттерны и антипаттерны
+- Реальные рабочие процессы
 
-### 4. Bug Reports
-Report issues you encounter:
-- Describe what you expected
-- Describe what actually happened
-- Include steps to reproduce
-- Add relevant Claude Code version and OS
+### 4. Отчёты об ошибках
+Сообщайте о найденных проблемах:
+- Что вы ожидали увидеть
+- Что произошло на самом деле
+- Шаги для воспроизведения
+- Подходящая версия Claude Code и ОС
 
-### 5. Feedback and Suggestions
-Help improve the guide:
-- Suggest better explanations
-- Point out gaps in coverage
-- Recommend new sections or reorganization
+### 5. Обратная связь и предложения
+Помогайте улучшать гид:
+- Предлагайте более понятные объяснения
+- Указывайте на пробелы в покрытии
+- Рекомендуйте новые разделы или перестройку структуры
 
-## Getting Started
+## Как начать
 
-### 1. Fork and Clone
+### 1. Форкните и клонируйте
 ```bash
 git clone https://github.com/luongnv89/claude-howto.git
 cd claude-howto
 ```
 
-### 2. Create a Branch
-Use a descriptive branch name:
+### 2. Создайте ветку
+Используйте понятное имя ветки:
 ```bash
 git checkout -b add/feature-name
 git checkout -b fix/issue-description
 git checkout -b docs/improvement-area
 ```
 
-### 3. Set Up Your Environment
+### 3. Подготовьте окружение
 ```bash
 # Create virtual environment
 python3 -m venv .venv
@@ -80,7 +80,7 @@ pre-commit install
 pre-commit run --all-files
 ```
 
-## Directory Structure
+## Структура каталога
 
 ```
 ├── 01-slash-commands/      # User-invoked shortcuts
@@ -97,262 +97,130 @@ pre-commit run --all-files
 └── README.md               # Main guide
 ```
 
-## How to Contribute Examples
+## Как вносить примеры
 
-### Adding a Slash Command
-1. Create a `.md` file in `01-slash-commands/`
-2. Include:
-   - Clear description of what it does
-   - Use cases
-   - Installation instructions
-   - Usage examples
-   - Customization tips
-3. Update `01-slash-commands/README.md`
+### Добавление slash-команды
+1. Создайте `.md` файл в `01-slash-commands/`
+2. Добавьте:
+   - Чёткое описание назначения
+   - Сценарии использования
+   - Инструкции по установке
+   - Примеры использования
+   - Советы по настройке
+3. Обновите `01-slash-commands/README.md`
 
-### Adding a Skill
-1. Create a directory in `03-skills/`
-2. Include:
-   - `SKILL.md` - Main documentation
-   - `scripts/` - Helper scripts if needed
-   - `templates/` - Prompt templates
-   - Example usage in README
-3. Update `03-skills/README.md`
+### Добавление skill
+1. Создайте каталог в `03-skills/`
+2. Добавьте:
+   - `SKILL.md` - основная документация
+   - `scripts/` - вспомогательные скрипты при необходимости
+   - `templates/` - шаблоны промптов
+   - Пример использования в README
+3. Обновите `03-skills/README.md`
 
-### Adding a Subagent
-1. Create a `.md` file in `04-subagents/`
-2. Include:
-   - Agent purpose and capabilities
-   - System prompt structure
-   - Example use cases
-   - Integration examples
-3. Update `04-subagents/README.md`
+### Добавление subagent
+1. Создайте `.md` файл в `04-subagents/`
+2. Добавьте:
+   - Назначение и возможности агента
+   - Структуру system prompt
+   - Примеры сценариев
+   - Примеры интеграции
+3. Обновите `04-subagents/README.md`
 
-### Adding MCP Configuration
-1. Create a `.json` file in `05-mcp/`
-2. Include:
-   - Configuration explanation
-   - Required environment variables
-   - Setup instructions
-   - Usage examples
-3. Update `05-mcp/README.md`
+### Добавление MCP-конфига
+1. Создайте `.json` файл в `05-mcp/`
+2. Добавьте:
+   - Пояснение к конфигурации
+   - Необходимые переменные окружения
+   - Инструкции по настройке
+   - Примеры использования
+3. Обновите `05-mcp/README.md`
 
-### Adding a Hook
-1. Create a `.sh` file in `06-hooks/`
-2. Include:
-   - Shebang and description
-   - Clear comments explaining logic
-   - Error handling
-   - Security considerations
-3. Update `06-hooks/README.md`
+### Добавление hook
+1. Создайте `.sh` файл в `06-hooks/`
+2. Добавьте:
+   - Shebang и описание
+   - Понятные комментарии, объясняющие логику
+   - Обработку ошибок
+   - Меры безопасности
+3. Обновите `06-hooks/README.md`
 
-## Writing Guidelines
+## Правила оформления
 
-### Markdown Style
-- Use clear headings (H2 for sections, H3 for subsections)
-- Keep paragraphs short and focused
-- Use bullet points for lists
-- Include code blocks with language specification
-- Add blank lines between sections
+### Стиль Markdown
+- Используйте понятные заголовки (H2 для разделов, H3 для подразделов)
+- Делайте абзацы короткими и по делу
+- Используйте списки для перечислений
+- Добавляйте code blocks с указанием языка
+- Оставляйте пустую строку между разделами
 
-### Code Examples
-- Make examples copy-paste ready
-- Comment non-obvious logic
-- Include both simple and advanced versions
-- Show real-world use cases
-- Highlight potential issues
+### Примеры кода
+- Делайте примеры готовыми к копированию
+- Комментируйте неочевидную логику
+- Показывайте простые и продвинутые варианты
+- Приводите реальные сценарии использования
+- Подсвечивайте возможные проблемы
 
-### Documentation
-- Explain the "why" not just the "what"
-- Include prerequisites
-- Add troubleshooting sections
-- Link to related topics
-- Keep it beginner-friendly
+### Документация
+- Объясняйте не только *что*, но и *почему*
+- Указывайте предварительные требования
+- Добавляйте разделы по устранению проблем
+- Ссылайтесь на связанные темы
+- Пишите понятно для новичков
 
 ### JSON/YAML
-- Use proper indentation (2 or 4 spaces consistently)
-- Add comments explaining configuration
-- Include validation examples
+- Используйте единый отступ (2 или 4 пробела)
+- Добавляйте комментарии, объясняющие конфигурацию
+- Приводите примеры проверки валидности
 
-### Diagrams
-- Use Mermaid when possible
-- Keep diagrams simple and readable
-- Include descriptions below diagrams
-- Link to relevant sections
+### Диаграммы
+- По возможности используйте Mermaid
+- Делайте диаграммы простыми и читаемыми
+- Добавляйте описание под диаграммой
+- Ссылайтесь на связанные разделы
 
-## Commit Guidelines
+## Правила коммитов
 
-Follow conventional commit format:
-```
+Используйте conventional commit format:
+```text
 type(scope): description
 
 [optional body]
 ```
 
-Types:
-- `feat`: New feature or example
-- `fix`: Bug fix or correction
-- `docs`: Documentation changes
-- `refactor`: Code restructuring
-- `style`: Formatting changes
-- `test`: Test additions or changes
-- `chore`: Build, dependencies, etc.
+Типы:
+- `feat`: новая функция или пример
+- `fix`: исправление ошибки
+- `docs`: изменения в документации
+- `refactor`: перестройка кода
+- `style`: форматирование
+- `test`: добавление или изменение тестов
+- `chore`: сборка, зависимости и т. п.
 
-Examples:
-```
+Примеры:
+```text
 feat(slash-commands): Add API documentation generator
 docs(memory): Improve personal preferences example
 fix(README): Correct table of contents link
 docs(skills): Add comprehensive code review skill
 ```
 
-## Before Submitting
+## Перед отправкой
 
-### Checklist
-- [ ] Code follows project style and conventions
-- [ ] New examples include clear documentation
-- [ ] README files are updated (both local and root)
-- [ ] No sensitive information (API keys, credentials)
-- [ ] Examples are tested and working
-- [ ] Links are verified and correct
-- [ ] Files have proper permissions (scripts are executable)
-- [ ] Commit message is clear and descriptive
+### Чеклист
+- [ ] Код соответствует стилю и соглашениям проекта
+- [ ] Новые примеры имеют понятную документацию
+- [ ] README-файлы обновлены на локальном и корневом уровнях
+- [ ] Нет чувствительных данных (API keys, credentials)
+- [ ] Примеры протестированы и работают
+- [ ] Ссылки проверены и корректны
+- [ ] Файлы имеют правильные права доступа
+- [ ] Сообщение коммита ясное и описательное
 
-### Local Testing
-```bash
-# Check file formatting
-pre-commit run --all-files
+### Локальная проверка
 
-# Verify links work (if applicable)
-# Test examples manually with Claude Code
+- Запускайте соответствующие тесты и проверки для изменённых файлов
+- Убедитесь, что документация и ссылки отображаются корректно
+- Проверьте, что новые примеры не ломают существующие инструкции
 
-# Review your changes
-git diff
-
-# Test the EPUB generation (if docs changed)
-uv run scripts/build_epub.py
-```
-
-## Pull Request Process
-
-1. **Create PR with clear description**:
-   - What does this add/fix?
-   - Why is it needed?
-   - Related issues (if any)
-
-2. **Include relevant details**:
-   - New feature? Include use cases
-   - Documentation? Explain improvements
-   - Examples? Show before/after
-
-3. **Link to issues**:
-   - Use `Closes #123` to auto-close related issues
-
-4. **Be patient with reviews**:
-   - Maintainers may suggest improvements
-   - Iterate based on feedback
-   - Final decision rests with maintainers
-
-## Code Review Process
-
-Reviewers will check:
-- **Accuracy**: Does it work as described?
-- **Quality**: Is it production-ready?
-- **Consistency**: Does it follow project patterns?
-- **Documentation**: Is it clear and complete?
-- **Security**: Are there any vulnerabilities?
-
-## Reporting Issues
-
-### Bug Reports
-Include:
-- Claude Code version
-- Operating system
-- Steps to reproduce
-- Expected behavior
-- Actual behavior
-- Screenshots if applicable
-
-### Feature Requests
-Include:
-- Use case or problem being solved
-- Proposed solution
-- Alternatives you've considered
-- Additional context
-
-### Documentation Issues
-Include:
-- What's confusing or missing
-- Suggested improvements
-- Examples or references
-
-## Project Policies
-
-### Sensitive Information
-- Never commit API keys, tokens, or credentials
-- Use placeholder values in examples
-- Include `.env.example` for configuration files
-- Document required environment variables
-
-### Code Quality
-- Keep examples focused and readable
-- Avoid over-engineering solutions
-- Include comments for non-obvious logic
-- Test thoroughly before submitting
-
-### Intellectual Property
-- Original content owned by author
-- Project uses educational license
-- Respect existing copyrights
-- Provide attribution where needed
-
-## Getting Help
-
-- **Questions**: Open a discussion in GitHub Issues
-- **General Help**: Check existing documentation
-- **Development Help**: Review similar examples
-- **Code Review**: Tag maintainers in PRs
-
-## Recognition
-
-Contributors are recognized in:
-- README.md Contributors section
-- GitHub contributors page
-- Commit history
-
-## Security
-
-When contributing examples and documentation, please follow secure coding practices:
-
-- **Never hardcode secrets or API keys** - Use environment variables
-- **Warn about security implications** - Highlight potential risks
-- **Use secure defaults** - Enable security features by default
-- **Validate inputs** - Show proper input validation and sanitization
-- **Include security notes** - Document security considerations
-
-For security issues, see [SECURITY.md](SECURITY.md) for our vulnerability reporting process.
-
-## Code of Conduct
-
-We are committed to providing a welcoming and inclusive community. Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for our full community standards.
-
-In brief:
-- Be respectful and inclusive
-- Welcome feedback gracefully
-- Help others learn and grow
-- Avoid harassment or discrimination
-- Report issues to maintainers
-
-All contributors are expected to uphold this code and treat each other with kindness and respect.
-
-## License
-
-By contributing to this project, you agree that your contributions will be licensed under the MIT License. See [LICENSE](LICENSE) file for details.
-
-## Questions?
-
-- Check the [README](README.md)
-- Review [LEARNING-ROADMAP.md](LEARNING-ROADMAP.md)
-- Look at existing examples
-- Open an issue for discussion
-
-Thank you for contributing! 🙏
+Если вы не уверены, откройте issue или PR с вопросом до больших изменений.

@@ -1,204 +1,204 @@
-# Security Policy
+# Политика безопасности
 
-## Overview
+## Обзор
 
-The security of the Claude How To project is important to us. This document outlines our security practices and describes how to report security vulnerabilities responsibly.
+Безопасность проекта Claude How To важна для нас. Этот документ описывает наши практики безопасности и объясняет, как ответственно сообщать об уязвимостях.
 
-## Supported Versions
+## Поддерживаемые версии
 
-We provide security updates for the following versions:
+Мы предоставляем обновления безопасности для следующих версий:
 
-| Version | Status | Support Until |
+| Версия | Статус | Поддержка до |
 |---------|--------|---------------|
 | Latest (main) | ✅ Active | Current + 6 months |
 | 1.x releases | ✅ Active | Until next major version |
 
-**Note**: As an educational guide project, we focus on maintaining current best practices and documentation security rather than traditional version support. Updates are applied directly to the main branch.
+**Примечание**: поскольку это образовательный проект-гид, мы сосредоточены на поддержании актуальных best practices и безопасности документации, а не на традиционной версии-поддержке. Обновления применяются напрямую в main branch.
 
-## Security Practices
+## Практики безопасности
 
-### Code Security
+### Безопасность кода
 
-1. **Dependency Management**
-   - All Python dependencies are pinned in `requirements.txt`
-   - Regular updates via dependabot and manual review
-   - Security scanning with Bandit on every commit
-   - Pre-commit hooks for security checks
+1. **Управление зависимостями**
+   - Все Python-зависимости зафиксированы в `requirements.txt`
+   - Регулярные обновления через dependabot и ручную проверку
+   - Проверка безопасности Bandit на каждом коммите
+   - Pre-commit hooks для проверок безопасности
 
-2. **Code Quality**
-   - Linting with Ruff catches common issues
-   - Type checking with mypy prevents type-related vulnerabilities
-   - Pre-commit hooks enforce standards
-   - All changes reviewed before merging
+2. **Качество кода**
+   - Линтинг с Ruff помогает ловить типовые проблемы
+   - Проверка типов с mypy предотвращает уязвимости, связанные с типами
+   - Pre-commit hooks обеспечивают соблюдение стандартов
+   - Все изменения проверяются перед merge
 
-3. **Access Control**
-   - Branch protection on `main` branch
-   - Required reviews before merge
-   - Status checks must pass before merge
-   - Limited write access to repository
+3. **Контроль доступа**
+   - Branch protection на `main` branch
+   - Обязательные ревью перед merge
+   - Status checks должны проходить перед merge
+   - Ограниченный write access к репозиторию
 
-### Documentation Security
+### Безопасность документации
 
-1. **No Secrets in Examples**
-   - All API keys in examples are placeholders
-   - Credentials are never hardcoded
-   - `.env.example` files show required variables
-   - Clear warnings about secret management
+1. **Никаких секретов в примерах**
+   - Все API keys в примерах являются заглушками
+   - Credentials никогда не хардкодятся
+   - Файлы `.env.example` показывают необходимые переменные
+   - Есть явные предупреждения про управление секретами
 
-2. **Security Best Practices**
-   - Examples demonstrate secure patterns
-   - Security warnings highlighted in documentation
-   - Links to official security guides
-   - Credential handling discussed in relevant sections
+2. **Лучшие практики безопасности**
+   - Примеры демонстрируют безопасные паттерны
+   - Предупреждения по безопасности выделены в документации
+   - Есть ссылки на официальные security guides
+   - Обращение с credentials обсуждается в релевантных разделах
 
-3. **Content Review**
-   - All documentation reviewed for security issues
-   - Security considerations in contributing guidelines
-   - Validation of external links and references
+3. **Проверка контента**
+   - Вся документация проверяется на security issues
+   - В contributing guidelines есть security considerations
+   - Проверяются внешние ссылки и references
 
-### Dependency Security
+### Безопасность зависимостей
 
-1. **Scanning**
-   - Bandit scans all Python code for vulnerabilities
-   - Dependency vulnerability checks via GitHub security alerts
-   - Regular manual security audits
+1. **Сканирование**
+   - Bandit проверяет весь Python-код на уязвимости
+   - Проверки уязвимостей зависимостей через GitHub security alerts
+   - Регулярные ручные security audits
 
-2. **Updates**
-   - Security patches applied promptly
-   - Major versions evaluated carefully
-   - Changelog includes security-related updates
+2. **Обновления**
+   - Security patches применяются оперативно
+   - Major versions оцениваются осторожно
+   - Changelog включает security-related updates
 
-3. **Transparency**
-   - Security updates documented in commits
-   - Vulnerability disclosures handled responsibly
-   - Public security advisories when appropriate
+3. **Прозрачность**
+   - Security updates документируются в коммитах
+   - Vulnerability disclosures обрабатываются ответственно
+   - При необходимости публикуются public security advisories
 
-## Reporting a Vulnerability
+## Сообщение об уязвимости
 
-### Security Issues We Care About
+### Какие проблемы нас интересуют
 
-We appreciate reports on:
-- **Code vulnerabilities** in scripts or examples
-- **Dependency vulnerabilities** in Python packages
-- **Cryptography issues** in any code examples
-- **Authentication/Authorization flaws** in documentation
-- **Data exposure risks** in configuration examples
-- **Injection vulnerabilities** (SQL, command, etc.)
-- **SSRF/XXE/Path traversal** issues
+Мы благодарны за отчёты о:
+- **Уязвимостях кода** в скриптах или примерах
+- **Уязвимостях зависимостей** в Python-пакетах
+- **Проблемах криптографии** в любых примерах кода
+- **Ошибках аутентификации и авторизации** в документации
+- **Рисках утечки данных** в примерах конфигурации
+- **Уязвимостях инъекций** (SQL, command и т. д.)
+- **SSRF/XXE/Path traversal** проблемах
 
-### Security Issues Out of Scope
+### Что вне зоны ответственности
 
-These are outside the scope of this project:
-- Vulnerabilities in Claude Code itself (report to Anthropic)
-- Issues with external services or libraries (report to upstream)
-- Social engineering or user education (not applicable to this guide)
-- Theoretical vulnerabilities without proof of concept
-- Vulnerabilities in dependencies reported through official channels
+Вне scope этого проекта:
+- Уязвимости в самом Claude Code (сообщайте в Anthropic)
+- Проблемы внешних сервисов или библиотек (сообщайте upstream)
+- Social engineering или user education
+- Теоретические уязвимости без proof of concept
+- Уязвимости в зависимостях, уже отправленные по официальным каналам
 
-## How to Report
+## Как сообщить
 
-### Private Reporting (Preferred)
+### Private Reporting (предпочтительно)
 
-**For sensitive security issues, please use GitHub's private vulnerability reporting:**
+**Для чувствительных security issues используйте приватное vulnerability reporting GitHub:**
 
-1. Visit: https://github.com/luongnv89/claude-howto/security/advisories
-2. Click "Report a vulnerability"
-3. Fill in the vulnerability details
-4. Include:
-   - Clear description of the vulnerability
-   - Affected component (file, section, example)
-   - Potential impact
-   - Steps to reproduce (if applicable)
-   - Suggested fix (if you have one)
+1. Перейдите по ссылке: https://github.com/luongnv89/claude-howto/security/advisories
+2. Нажмите "Report a vulnerability"
+3. Заполните детали уязвимости
+4. Укажите:
+   - Чёткое описание уязвимости
+   - Затронутый компонент (файл, раздел, пример)
+   - Потенциальный impact
+   - Шаги воспроизведения, если они есть
+   - Предлагаемое исправление, если оно у вас есть
 
-**What happens next:**
-- We'll acknowledge receipt within 48 hours
-- We'll investigate and assess severity
-- We'll work with you to develop a fix
-- We'll coordinate disclosure timeline
-- We'll credit you in the security advisory (unless you prefer anonymity)
+**Что происходит дальше:**
+- Мы подтвердим получение в течение 48 часов
+- Проведём расследование и оценим severity
+- Будем работать с вами над исправлением
+- Согласуем сроки disclosure
+- Укажем вас в security advisory, если вы не против анонимности
 
 ### Public Reporting
 
-For non-sensitive issues or those already public:
+Для не чувствительных или уже публичных вопросов:
 
-1. **Open a GitHub Issue** with label `security`
-2. Include:
-   - Title: `[SECURITY]` followed by brief description
-   - Detailed description
-   - Affected file or section
-   - Potential impact
-   - Suggested fix
+1. **Откройте GitHub Issue** с label `security`
+2. Укажите:
+   - Заголовок: `[SECURITY]` и краткое описание
+   - Подробное описание
+   - Затронутый файл или раздел
+   - Потенциальный impact
+   - Предлагаемое исправление
 
-## Vulnerability Response Process
+## Процесс реагирования на уязвимость
 
 ### Assessment (24 hours)
 
-1. We acknowledge receipt of the report
-2. We assess severity using [CVSS v3.1](https://www.first.org/cvss/v3.1/specification-document)
-3. We determine if it's in scope
-4. We contact you with initial assessment
+1. Мы подтверждаем получение отчёта
+2. Оцениваем severity с помощью [CVSS v3.1](https://www.first.org/cvss/v3.1/specification-document)
+3. Определяем, входит ли проблема в scope
+4. Связываемся с вами с первичной оценкой
 
 ### Development (1-7 days)
 
-1. We develop a fix
-2. We review and test the fix
-3. We create a security advisory
-4. We prepare release notes
+1. Мы разрабатываем исправление
+2. Проверяем и тестируем исправление
+3. Создаём security advisory
+4. Готовим release notes
 
-### Disclosure (varies by severity)
+### Disclosure (зависит от severity)
 
 **Critical (CVSS 9.0-10.0)**
-- Fix released immediately
-- Public advisory issued
-- 24-hour advance notice to reporters
+- Исправление выпускается немедленно
+- Публикуется advisory
+- Репортерам отправляется предупреждение за 24 часа
 
 **High (CVSS 7.0-8.9)**
-- Fix released within 48-72 hours
-- 5-day advance notice to reporters
-- Public advisory on release
+- Исправление выпускается в течение 48-72 часов
+- Репортерам отправляется предупреждение за 5 дней
+- Advisory публикуется вместе с релизом
 
 **Medium (CVSS 4.0-6.9)**
-- Fix released in next regular update
-- Public advisory on release
+- Исправление включается в следующий обычный update
+- Advisory публикуется вместе с релизом
 
 **Low (CVSS 0.1-3.9)**
-- Fix included in next regular update
-- Advisory on release
+- Исправление включается в следующий обычный update
+- Advisory публикуется вместе с релизом
 
-### Publication
+### Публикация
 
-We publish security advisories that include:
-- Description of the vulnerability
-- Affected components
-- Severity assessment (CVSS score)
-- Fix version
-- Workarounds (if applicable)
-- Credit to reporter (with permission)
+Мы публикуем security advisories, которые включают:
+- Описание уязвимости
+- Затронутые компоненты
+- Оценку severity (CVSS score)
+- Версию исправления
+- Workarounds, если применимо
+- Credit reporter'у с его согласия
 
-## Best Practices for Reporters
+## Лучшие практики для репортов
 
-### Before Reporting
+### Перед отправкой
 
-- **Verify the issue**: Can you reproduce it consistently?
-- **Search existing issues**: Is it already reported?
-- **Check documentation**: Is there guidance on secure usage?
-- **Test the fix**: Does your suggested fix work?
+- **Проверьте проблему**: можно ли воспроизвести её стабильно?
+- **Поищите существующие issues**: не сообщал ли кто-то уже об этом?
+- **Проверьте документацию**: есть ли рекомендации по безопасному использованию?
+- **Проверьте исправление**: работает ли ваш вариант?
 
-### When Reporting
+### При отправке
 
-- **Be specific**: Provide exact file paths and line numbers
-- **Include context**: Why is this a security issue?
-- **Show impact**: What could an attacker do?
-- **Provide steps**: How can we reproduce it?
-- **Suggest fixes**: How would you fix it?
+- **Будьте конкретны**: указывайте точные пути к файлам и номера строк
+- **Дайте контекст**: почему это security issue?
+- **Покажите impact**: что может сделать атакующий?
+- **Опишите шаги**: как воспроизвести проблему?
+- **Предложите fixes**: как бы вы это исправили?
 
-### After Reporting
+### После отправки
 
-- **Be patient**: We have limited resources
-- **Be responsive**: Answer follow-up questions quickly
-- **Keep it confidential**: Don't publicly disclose before fix
-- **Respect coordination**: Follow our timeline for disclosure
+- **Наберитесь терпения**: ресурсы ограничены
+- **Будьте на связи**: быстро отвечайте на уточняющие вопросы
+- **Сохраняйте конфиденциальность**: не публикуйте до исправления
+- **Соблюдайте координацию**: следуйте нашему графику disclosure
 
 ## Security Headers and Configuration
 
@@ -279,7 +279,7 @@ pip-audit
 
 3. **Test security implications**
    - Can this be misused?
-   - What's the worst case?
+   - What is the worst case?
    - Are there edge cases?
 
 ## Security Resources
@@ -304,31 +304,31 @@ pip-audit
 
 ## Security Advisories Archive
 
-Past security advisories are available in the [GitHub Security Advisories](https://github.com/luongnv89/claude-howto/security/advisories) tab.
+Previous security advisories are available in the [GitHub Security Advisories](https://github.com/luongnv89/claude-howto/security/advisories) tab.
 
-## Contact
+## Контакт
 
-For security-related questions or to discuss security practices:
+По вопросам безопасности или для обсуждения security practices:
 
-1. **Private Security Report**: Use GitHub's private vulnerability reporting
-2. **General Security Questions**: Open a discussion with `[SECURITY]` tag
-3. **Security Policy Feedback**: Create an issue with `security` label
+1. **Private Security Report**: используйте приватное vulnerability reporting GitHub
+2. **General Security Questions**: откройте discussion с тегом `[SECURITY]`
+3. **Security Policy Feedback**: создайте issue с label `security`
 
-## Acknowledgments
+## Благодарности
 
-We appreciate the security researchers and community members who help keep this project secure. Contributors who report vulnerabilities responsibly will be acknowledged in our security advisories (unless they prefer anonymity).
+Мы ценим security researchers и участников сообщества, которые помогают сохранять проект безопасным. Контрибьюторы, сообщающие об уязвимостях ответственно, будут отмечены в наших security advisories, если они не захотят остаться анонимными.
 
-## Policy Updates
+## Обновления политики
 
-This security policy is reviewed and updated:
-- When new vulnerabilities are discovered
-- When security best practices evolve
-- When the project scope changes
-- Annually as a minimum
+Эта политика безопасности пересматривается и обновляется:
+- Когда обнаруживаются новые уязвимости
+- Когда меняются best practices по безопасности
+- Когда меняется scope проекта
+- Не реже одного раза в год
 
 **Last Updated**: January 2026
 **Next Review**: January 2027
 
 ---
 
-Thank you for helping keep Claude How To secure! 🔒
+Спасибо, что помогаете сохранять Claude How To безопасным! 🔒

@@ -3,71 +3,71 @@
   <img alt="Claude How To" src="resources/logos/claude-howto-logo.svg">
 </picture>
 
-# Claude Code Examples - Quick Reference Card
+# Claude Code Examples - Краткая справка
 
-## 🚀 Installation Quick Commands
+## 🚀 Быстрые команды установки
 
-### Slash Commands
+### Slash-команды
 ```bash
-# Install all
+# Установить всё
 cp 01-slash-commands/*.md .claude/commands/
 
-# Install specific
+# Установить конкретную команду
 cp 01-slash-commands/optimize.md .claude/commands/
 ```
 
 ### Memory
 ```bash
-# Project memory
+# Память проекта
 cp 02-memory/project-CLAUDE.md ./CLAUDE.md
 
-# Personal memory
+# Личная память
 cp 02-memory/personal-CLAUDE.md ~/.claude/CLAUDE.md
 ```
 
 ### Skills
 ```bash
-# Personal skills
+# Личные skills
 cp -r 03-skills/code-review ~/.claude/skills/
 
-# Project skills
+# Skills проекта
 cp -r 03-skills/code-review .claude/skills/
 ```
 
 ### Subagents
 ```bash
-# Install all
+# Установить всё
 cp 04-subagents/*.md .claude/agents/
 
-# Install specific
+# Установить конкретного подагента
 cp 04-subagents/code-reviewer.md .claude/agents/
 ```
 
 ### MCP
 ```bash
-# Set credentials
+# Задать учётные данные
 export GITHUB_TOKEN="your_token"
 export DATABASE_URL="postgresql://..."
 
-# Install config (project scope)
+# Установить конфиг (область проекта)
 cp 05-mcp/github-mcp.json .mcp.json
 
-# Or user scope: add to ~/.claude.json
+# Или в пользовательской области: добавьте в ~/.claude.json
 ```
 
 ### Hooks
 ```bash
-# Install hooks
+# Установить hooks
 mkdir -p ~/.claude/hooks
 cp 06-hooks/*.sh ~/.claude/hooks/
 chmod +x ~/.claude/hooks/*.sh
 
-# Configure in settings (~/.claude/settings.json)
+# Настроить в settings (~/.claude/settings.json)
 ```
 
 ### Plugins
 ```bash
-# Install from examples (if published)
+# Установить из примеров (если опубликованы)
 /plugin install pr-review
 /plugin install devops-automation
 /plugin install documentation
@@ -75,89 +75,89 @@ chmod +x ~/.claude/hooks/*.sh
 
 ### Checkpoints
 ```bash
-# Checkpoints are created automatically with every user prompt
-# To rewind, press Esc twice or use:
+# Checkpoints создаются автоматически для каждого пользовательского запроса
+# Чтобы откатиться, нажмите Esc дважды или используйте:
 /rewind
 
-# Then choose: Restore code and conversation, Restore conversation,
-# Restore code, Summarize from here, or Never mind
+# Затем выберите: восстановить код и разговор, восстановить разговор,
+# восстановить код, суммировать отсюда или не обращать внимания
 ```
 
-### Advanced Features
+### Продвинутые возможности
 ```bash
-# Configure in settings (.claude/settings.json)
-# See 09-advanced-features/config-examples.json
+# Настройка в settings (.claude/settings.json)
+# См. 09-advanced-features/config-examples.json
 
-# Planning mode
-/plan Task description
+# Режим планирования
+/plan Описание задачи
 
-# Permission modes (use --permission-mode flag)
-# default        - Ask for approval on risky actions
-# acceptEdits    - Auto-accept file edits, ask for others
-# plan           - Read-only analysis, no modifications
-# dontAsk        - Accept all actions except risky ones
-# auto           - Background classifier decides permissions automatically
-# bypassPermissions - Accept all actions (requires --dangerously-skip-permissions)
+# Режимы разрешений (используйте флаг `--permission-mode`)
+# default          - Запрашивает подтверждение для рискованных действий
+# acceptEdits      - Автоматически принимает правки файлов, спрашивает для остальных
+# plan             - Только чтение, без изменений
+# dontAsk          - Принимает все действия, кроме рискованных
+# auto             - Фоновый классификатор сам определяет разрешения
+# bypassPermissions - Принимает все действия (требует `--dangerously-skip-permissions`)
 
-# Session management
-/resume                # Resume a previous conversation
-/rename "name"         # Name the current session
-/fork                  # Fork the current session
-claude -c              # Continue most recent conversation
-claude -r "session"    # Resume session by name/ID
+# Управление сессиями
+/resume                # Возобновить предыдущий разговор
+/rename "name"         # Назвать текущую сессию
+/fork                  # Разветвить текущую сессию
+claude -c              # Продолжить самый последний разговор
+claude -r "session"    # Возобновить сессию по имени/ID
 ```
 
 ---
 
-## 📋 Feature Cheat Sheet
+## 📋 Сводка по возможностям
 
-| Feature | Install Path | Usage |
+| Возможность | Путь установки | Использование |
 |---------|-------------|-------|
-| **Slash Commands (55+)** | `.claude/commands/*.md` | `/command-name` |
-| **Memory** | `./CLAUDE.md` | Auto-loaded |
-| **Skills** | `.claude/skills/*/SKILL.md` | Auto-invoked |
-| **Subagents** | `.claude/agents/*.md` | Auto-delegated |
-| **MCP** | `.mcp.json` (project) or `~/.claude.json` (user) | `/mcp__server__action` |
-| **Hooks (25 events)** | `~/.claude/hooks/*.sh` | Event-triggered (4 types) |
-| **Plugins** | Via `/plugin install` | Bundles all |
-| **Checkpoints** | Built-in | `Esc+Esc` or `/rewind` |
-| **Planning Mode** | Built-in | `/plan <task>` |
-| **Permission Modes (6)** | Built-in | `--allowedTools`, `--permission-mode` |
-| **Sessions** | Built-in | `/session <command>` |
-| **Background Tasks** | Built-in | Run in background |
-| **Remote Control** | Built-in | WebSocket API |
-| **Web Sessions** | Built-in | `claude web` |
-| **Git Worktrees** | Built-in | `/worktree` |
-| **Auto Memory** | Built-in | Auto-saves to CLAUDE.md |
-| **Task List** | Built-in | `/task list` |
-| **Bundled Skills (5)** | Built-in | `/simplify`, `/loop`, `/claude-api`, `/voice`, `/browse` |
+| **Slash-команды (55+)** | `.claude/commands/*.md` | `/command-name` |
+| **Memory** | `./CLAUDE.md` | Загружается автоматически |
+| **Skills** | `.claude/skills/*/SKILL.md` | Запускаются автоматически |
+| **Subagents** | `.claude/agents/*.md` | Делегируются автоматически |
+| **MCP** | `.mcp.json` (project) или `~/.claude.json` (user) | `/mcp__server__action` |
+| **Hooks (25 событий)** | `~/.claude/hooks/*.sh` | Срабатывают по событиям (4 типа) |
+| **Plugins** | Через `/plugin install` | Собирают всё вместе |
+| **Checkpoints** | Встроено | `Esc+Esc` или `/rewind` |
+| **Режим планирования** | Встроено | `/plan <task>` |
+| **Режимы разрешений (6)** | Встроено | `--allowedTools`, `--permission-mode` |
+| **Сессии** | Встроено | `/session <command>` |
+| **Background Tasks** | Встроено | Выполняются в фоне |
+| **Удалённое управление** | Встроено | WebSocket API |
+| **Веб-сессии** | Встроено | `claude web` |
+| **Git Worktrees** | Встроено | `/worktree` |
+| **Автопамять** | Встроено | Автосохраняется в CLAUDE.md |
+| **Список задач** | Встроено | `/task list` |
+| **Встроенные skills (5)** | Встроено | `/simplify`, `/loop`, `/claude-api`, `/voice`, `/browse` |
 
 ---
 
-## 🎯 Common Use Cases
+## 🎯 Частые сценарии использования
 
-### Code Review
+### Ревью кода
 ```bash
-# Method 1: Slash command
+# Способ 1: slash-команда
 cp 01-slash-commands/optimize.md .claude/commands/
-# Use: /optimize
+# Использование: /optimize
 
-# Method 2: Subagent
+# Способ 2: subagent
 cp 04-subagents/code-reviewer.md .claude/agents/
-# Use: Auto-delegated
+# Использование: авто-делегирование
 
-# Method 3: Skill
+# Способ 3: skill
 cp -r 03-skills/code-review ~/.claude/skills/
-# Use: Auto-invoked
+# Использование: автоматический запуск
 
-# Method 4: Plugin (best)
+# Способ 4: plugin (полное решение)
 /plugin install pr-review
-# Use: /review-pr
+# Использование: /review-pr
 ```
 
-### Documentation
+### Документация
 ```bash
-# Slash command
+# Slash-команда
 cp 01-slash-commands/generate-api-docs.md .claude/commands/
 
 # Subagent
@@ -166,140 +166,140 @@ cp 04-subagents/documentation-writer.md .claude/agents/
 # Skill
 cp -r 03-skills/doc-generator ~/.claude/skills/
 
-# Plugin (complete solution)
+# Plugin (полное решение)
 /plugin install documentation
 ```
 
 ### DevOps
 ```bash
-# Complete plugin
+# Полный plugin
 /plugin install devops-automation
 
-# Commands: /deploy, /rollback, /status, /incident
+# Команды: /deploy, /rollback, /status, /incident
 ```
 
-### Team Standards
+### Стандарты команды
 ```bash
-# Project memory
+# Память проекта
 cp 02-memory/project-CLAUDE.md ./CLAUDE.md
 
-# Edit for your team
+# Отредактируйте под свою команду
 vim CLAUDE.md
 ```
 
-### Automation & Hooks
+### Автоматизация и hooks
 ```bash
-# Install hooks (25 events, 4 types: command, http, prompt, agent)
+# Установить hooks (25 событий, 4 типа: command, http, prompt, agent)
 mkdir -p ~/.claude/hooks
 cp 06-hooks/*.sh ~/.claude/hooks/
 chmod +x ~/.claude/hooks/*.sh
 
-# Examples:
+# Примеры:
 # - Pre-commit tests: pre-commit.sh
 # - Auto-format code: format-code.sh
 # - Security scanning: security-scan.sh
 
-# Auto Mode for fully autonomous workflows
+# Режим auto для полностью автономных workflows
 claude --enable-auto-mode -p "Refactor and test the auth module"
-# Or cycle modes interactively with Shift+Tab
+# Или переключайте режимы интерактивно через Shift+Tab
 ```
 
-### Safe Refactoring
+### Безопасный рефакторинг
 ```bash
-# Checkpoints are created automatically before each prompt
-# Try refactoring
-# If it works: continue
-# If it fails: press Esc+Esc or use /rewind to go back
+# Checkpoints создаются автоматически перед каждым запросом
+# Попробуйте рефакторинг
+# Если всё работает: продолжайте
+# Если нет: нажмите Esc+Esc или используйте /rewind, чтобы откатиться
 ```
 
-### Complex Implementation
+### Сложная реализация
 ```bash
-# Use planning mode
+# Используйте режим планирования
 /plan Implement user authentication system
 
-# Claude creates detailed plan
-# Review and approve
-# Claude implements systematically
+# Claude создаёт детальный план
+# Проверьте и одобрите
+# Claude реализует всё пошагово
 ```
 
-### CI/CD Integration
+### Интеграция CI/CD
 ```bash
-# Run in headless mode (non-interactive)
+# Запуск в headless-режиме (без интерактива)
 claude -p "Run all tests and generate report"
 
-# With permission mode for CI
+# С режимом разрешений для CI
 claude -p "Run tests" --permission-mode dontAsk
 
-# With Auto Mode for fully autonomous CI tasks
+# С режимом auto для полностью автономных CI-задач
 claude --enable-auto-mode -p "Run tests and fix failures"
 
-# With hooks for automation
-# See 09-advanced-features/README.md
+# С hooks для автоматизации
+# См. 09-advanced-features/README.md
 ```
 
-### Learning & Experimentation
+### Обучение и эксперименты
 ```bash
-# Use plan mode for safe analysis
+# Используйте режим plan для безопасного анализа
 claude --permission-mode plan
 
-# Experiment safely - checkpoints are created automatically
-# If you need to rewind: press Esc+Esc or use /rewind
+# Экспериментируйте безопасно - checkpoints создаются автоматически
+# Если нужно откатиться: нажмите Esc+Esc или используйте /rewind
 ```
 
-### Agent Teams
+### Команды агентов
 ```bash
-# Enable agent teams
+# Включить команды агентов
 export CLAUDE_AGENT_TEAMS=1
 
-# Or in settings.json
+# Или в settings.json
 { "agentTeams": { "enabled": true } }
 
-# Start with: "Implement feature X using a team approach"
+# Начните с: "Реализуй функцию X командным подходом"
 ```
 
-### Scheduled Tasks
+### Запланированные задачи
 ```bash
-# Run a command every 5 minutes
+# Запускать команду каждые 5 минут
 /loop 5m /check-status
 
-# One-time reminder
+# Одноразовое напоминание
 /loop 30m "remind me to check the deploy"
 ```
 
 ---
 
-## 📁 File Locations Reference
+## 📁 Справка по расположению файлов
 
 ```
-Your Project/
+Ваш проект/
 ├── .claude/
-│   ├── commands/              # Slash commands go here
-│   ├── agents/                # Subagents go here
-│   ├── skills/                # Project skills go here
-│   └── settings.json          # Project settings (hooks, etc.)
-├── .mcp.json                  # MCP configuration (project scope)
-├── CLAUDE.md                  # Project memory
+│   ├── commands/              # Здесь находятся slash-команды
+│   ├── agents/                # Здесь находятся subagents
+│   ├── skills/                # Здесь находятся project skills
+│   └── settings.json          # Настройки проекта (hooks и т. д.)
+├── .mcp.json                  # Конфигурация MCP (область проекта)
+├── CLAUDE.md                  # Память проекта
 └── src/
     └── api/
-        └── CLAUDE.md          # Directory-specific memory
+        └── CLAUDE.md          # Память для конкретного каталога
 
-User Home/
+Домашняя папка пользователя/
 ├── .claude/
-│   ├── commands/              # Personal commands
-│   ├── agents/                # Personal agents
-│   ├── skills/                # Personal skills
-│   ├── hooks/                 # Hook scripts
-│   ├── settings.json          # User settings
-│   ├── managed-settings.d/    # Managed settings (enterprise/org)
-│   └── CLAUDE.md              # Personal memory
-└── .claude.json               # Personal MCP config (user scope)
+│   ├── commands/              # Личные команды
+│   ├── agents/                # Личные агенты
+│   ├── skills/                # Личные skills
+│   ├── hooks/                 # Hook-скрипты
+│   ├── settings.json          # Настройки пользователя
+│   ├── managed-settings.d/    # Управляемые настройки (enterprise/org)
+│   └── CLAUDE.md              # Личная память
+└── .claude.json               # Личная конфигурация MCP (область пользователя)
 ```
 
 ---
 
-## 🔍 Finding Examples
+## 🔍 Поиск примеров
 
-### By Category
+### По категориям
 - **Slash Commands**: `01-slash-commands/`
 - **Memory**: `02-memory/`
 - **Skills**: `03-skills/`
@@ -311,70 +311,70 @@ User Home/
 - **Advanced Features**: `09-advanced-features/`
 - **CLI**: `10-cli/`
 
-### By Use Case
+### По сценарию использования
 - **Performance**: `01-slash-commands/optimize.md`
 - **Security**: `04-subagents/secure-reviewer.md`
 - **Testing**: `04-subagents/test-engineer.md`
 - **Docs**: `03-skills/doc-generator/`
 - **DevOps**: `07-plugins/devops-automation/`
 
-### By Complexity
-- **Simple**: Slash commands
-- **Medium**: Subagents, Memory
-- **Advanced**: Skills, Hooks
-- **Complete**: Plugins
+### По сложности
+- **Простые**: slash-команды
+- **Средние**: subagents, memory
+- **Продвинутые**: skills, hooks
+- **Полные**: plugins
 
 ---
 
-## 🎓 Learning Path
+## 🎓 Путь обучения
 
-### Day 1
+### День 1
 ```bash
-# Read overview
+# Прочитать обзор
 cat README.md
 
-# Install a command
+# Установить команду
 cp 01-slash-commands/optimize.md .claude/commands/
 
-# Try it
+# Попробовать
 /optimize
 ```
 
-### Day 2-3
+### День 2-3
 ```bash
-# Set up memory
+# Настроить memory
 cp 02-memory/project-CLAUDE.md ./CLAUDE.md
 vim CLAUDE.md
 
-# Install subagent
+# Установить subagent
 cp 04-subagents/code-reviewer.md .claude/agents/
 ```
 
-### Day 4-5
+### День 4-5
 ```bash
-# Set up MCP
+# Настроить MCP
 export GITHUB_TOKEN="your_token"
 cp 05-mcp/github-mcp.json .mcp.json
 
-# Try MCP commands
+# Попробовать команды MCP
 /mcp__github__list_prs
 ```
 
-### Week 2
+### Неделя 2
 ```bash
-# Install skill
+# Установить skill
 cp -r 03-skills/code-review ~/.claude/skills/
 
-# Let it auto-invoke
-# Just say: "Review this code for issues"
+# Пусть он вызывается автоматически
+# Просто скажите: "Проверь этот код на проблемы"
 ```
 
-### Week 3+
+### Неделя 3+
 ```bash
-# Install complete plugin
+# Установить полный plugin
 /plugin install pr-review
 
-# Use bundled features
+# Использовать встроенные возможности
 /review-pr
 /check-security
 /check-tests
@@ -382,125 +382,125 @@ cp -r 03-skills/code-review ~/.claude/skills/
 
 ---
 
-## New Features (March 2026)
+## Новые возможности (март 2026)
 
-| Feature | Description | Usage |
+| Возможность | Описание | Использование |
 |---------|-------------|-------|
-| **Auto Mode** | Fully autonomous operation with background classifier | `--enable-auto-mode` flag, `Shift+Tab` to cycle modes |
-| **Channels** | Discord and Telegram integration | `--channels` flag, Discord/Telegram bots |
-| **Voice Dictation** | Speak commands and context to Claude | `/voice` command |
-| **Hooks (25 events)** | Expanded hook system with 4 types | command, http, prompt, agent hook types |
-| **MCP Elicitation** | MCP servers can request user input at runtime | Auto-prompted when server needs clarification |
-| **WebSocket MCP** | WebSocket transport for MCP connections | Configure in `.mcp.json` with `ws://` URLs |
-| **Plugin LSP** | Language Server Protocol support for plugins | `userConfig`, `${CLAUDE_PLUGIN_DATA}` variable |
-| **Remote Control** | Control Claude Code via WebSocket API | `claude --remote` for external integrations |
-| **Web Sessions** | Browser-based Claude Code interface | `claude web` to launch |
-| **Desktop App** | Native desktop application | Download from claude.ai/download |
-| **Task List** | Manage background tasks | `/task list`, `/task status <id>` |
-| **Auto Memory** | Automatic memory saving from conversations | Claude auto-saves key context to CLAUDE.md |
-| **Git Worktrees** | Isolated workspaces for parallel development | `/worktree` to create isolated workspace |
-| **Model Selection** | Switch between Sonnet 4.6 and Opus 4.6 | `/model` or `--model` flag |
-| **Agent Teams** | Coordinate multiple agents on tasks | Enable with `CLAUDE_AGENT_TEAMS=1` env var |
-| **Scheduled Tasks** | Recurring tasks with `/loop` | `/loop 5m /command` or CronCreate tool |
-| **Chrome Integration** | Browser automation | `--chrome` flag or `/chrome` command |
-| **Keyboard Customization** | Custom keybindings | `/keybindings` command |
+| **Auto Mode** | Полностью автономная работа с фоновым классификатором | флаг `--enable-auto-mode`, `Shift+Tab` для переключения режимов |
+| **Channels** | Интеграция с Discord и Telegram | флаг `--channels`, боты Discord/Telegram |
+| **Voice Dictation** | Произносите команды и контекст для Claude | команда `/voice` |
+| **Hooks (25 events)** | Расширенная система hooks с 4 типами | типы hooks: command, http, prompt, agent |
+| **MCP Elicitation** | MCP-серверы могут запрашивать ввод пользователя во время выполнения | Автоматический запрос, когда серверу нужна уточняющая информация |
+| **WebSocket MCP** | WebSocket-транспорт для MCP-подключений | Настраивается в `.mcp.json` с URL `ws://` |
+| **Plugin LSP** | Поддержка Language Server Protocol для плагинов | `userConfig`, переменная `${CLAUDE_PLUGIN_DATA}` |
+| **Remote Control** | Управление Claude Code через WebSocket API | `claude --remote` для внешних интеграций |
+| **Web Sessions** | Браузерный интерфейс Claude Code | запуск через `claude web` |
+| **Desktop App** | Нативное desktop-приложение | Скачать с claude.ai/download |
+| **Task List** | Управление фоновыми задачами | `/task list`, `/task status <id>` |
+| **Auto Memory** | Автоматическое сохранение памяти из бесед | Claude автоматически сохраняет ключевой контекст в `CLAUDE.md` |
+| **Git Worktrees** | Изолированные рабочие пространства для параллельной разработки | `/worktree` для создания изолированного workspace |
+| **Model Selection** | Переключение между Sonnet 4.6 и Opus 4.6 | `/model` или флаг `--model` |
+| **Agent Teams** | Координация нескольких агентов над задачами | Включается переменной окружения `CLAUDE_AGENT_TEAMS=1` |
+| **Scheduled Tasks** | Повторяющиеся задачи через `/loop` | `/loop 5m /command` или инструмент CronCreate |
+| **Chrome Integration** | Автоматизация браузера | флаг `--chrome` или команда `/chrome` |
+| **Keyboard Customization** | Пользовательские горячие клавиши | команда `/keybindings` |
 
 ---
 
-## Tips & Tricks
+## Советы и приёмы
 
-### Customization
-- Start with examples as-is
-- Modify to fit your needs
-- Test before sharing with team
-- Version control your configurations
+### Кастомизация
+- Начинайте с примеров как есть
+- Подстраивайте под свои потребности
+- Проверяйте перед тем, как делиться с командой
+- Храните конфигурации в version control
 
-### Best Practices
-- Use memory for team standards
-- Use plugins for complete workflows
-- Use subagents for complex tasks
-- Use slash commands for quick tasks
+### Лучшие практики
+- Используйте memory для стандартов команды
+- Используйте plugins для полноценных workflows
+- Используйте subagents для сложных задач
+- Используйте slash-команды для быстрых задач
 
-### Troubleshooting
+### Устранение неполадок
 ```bash
-# Check file locations
+# Проверить расположение файлов
 ls -la .claude/commands/
 ls -la .claude/agents/
 
-# Verify YAML syntax
+# Проверить синтаксис YAML
 head -20 .claude/agents/code-reviewer.md
 
-# Test MCP connection
+# Проверить подключение MCP
 echo $GITHUB_TOKEN
 ```
 
 ---
 
-## 📊 Feature Matrix
+## 📊 Матрица возможностей
 
-| Need | Use This | Example |
+| Что нужно | Используйте это | Пример |
 |------|----------|---------|
-| Quick shortcut | Slash Command (55+) | `01-slash-commands/optimize.md` |
-| Team standards | Memory | `02-memory/project-CLAUDE.md` |
-| Auto workflow | Skill | `03-skills/code-review/` |
-| Specialized task | Subagent | `04-subagents/code-reviewer.md` |
-| External data | MCP (+ Elicitation, WebSocket) | `05-mcp/github-mcp.json` |
-| Event automation | Hook (25 events, 4 types) | `06-hooks/pre-commit.sh` |
-| Complete solution | Plugin (+ LSP support) | `07-plugins/pr-review/` |
-| Safe experiment | Checkpoint | `08-checkpoints/checkpoint-examples.md` |
-| Fully autonomous | Auto Mode | `--enable-auto-mode` or `Shift+Tab` |
-| Chat integrations | Channels | `--channels` (Discord, Telegram) |
+| Быстрый ярлык | Slash Command (55+) | `01-slash-commands/optimize.md` |
+| Стандарты команды | Memory | `02-memory/project-CLAUDE.md` |
+| Автоматический workflow | Skill | `03-skills/code-review/` |
+| Специализированная задача | Subagent | `04-subagents/code-reviewer.md` |
+| Внешние данные | MCP (+ Elicitation, WebSocket) | `05-mcp/github-mcp.json` |
+| Автоматизация по событиям | Hook (25 событий, 4 типа) | `06-hooks/pre-commit.sh` |
+| Полное решение | Plugin (+ поддержка LSP) | `07-plugins/pr-review/` |
+| Безопасный эксперимент | Checkpoint | `08-checkpoints/checkpoint-examples.md` |
+| Полная автономность | Auto Mode | `--enable-auto-mode` или `Shift+Tab` |
+| Чат-интеграции | Channels | `--channels` (Discord, Telegram) |
 | CI/CD pipeline | CLI | `10-cli/README.md` |
 
 ---
 
-## 🔗 Quick Links
+## 🔗 Быстрые ссылки
 
-- **Main Guide**: `README.md`
-- **Complete Index**: `INDEX.md`
-- **Summary**: `EXAMPLES_SUMMARY.md`
-- **Original Guide**: `claude_concepts_guide.md`
-
----
-
-## 📞 Common Questions
-
-**Q: Which should I use?**
-A: Start with slash commands, add features as needed.
-
-**Q: Can I mix features?**
-A: Yes! They work together. Memory + Commands + MCP = powerful.
-
-**Q: How do I share with team?**
-A: Commit `.claude/` directory to git.
-
-**Q: What about secrets?**
-A: Use environment variables, never hardcode.
-
-**Q: Can I modify examples?**
-A: Absolutely! They're templates to customize.
+- **Основной гайд**: `README.md`
+- **Полный индекс**: `INDEX.md`
+- **Сводка**: `EXAMPLES_SUMMARY.md`
+- **Исходный гайд**: `claude_concepts_guide.md`
 
 ---
 
-## ✅ Checklist
+## 📞 Частые вопросы
 
-Getting started checklist:
+**Q: Что использовать?**
+A: Начните со slash-команд и добавляйте возможности по мере необходимости.
 
-- [ ] Read `README.md`
-- [ ] Install 1 slash command
-- [ ] Try the command
-- [ ] Create project `CLAUDE.md`
-- [ ] Install 1 subagent
-- [ ] Set up 1 MCP integration
-- [ ] Install 1 skill
-- [ ] Try a complete plugin
-- [ ] Customize for your needs
-- [ ] Share with team
+**Q: Можно ли смешивать возможности?**
+A: Да. Они работают вместе. Memory + Commands + MCP = мощная комбинация.
+
+**Q: Как делиться с командой?**
+A: Закоммитьте каталог `.claude/` в git.
+
+**Q: Что насчёт секретов?**
+A: Используйте переменные окружения; никогда не хардкодьте их.
+
+**Q: Можно изменять примеры?**
+A: Да. Это шаблоны для настройки.
 
 ---
 
-**Quick Start**: `cat README.md`
+## ✅ Чеклист
 
-**Full Index**: `cat INDEX.md`
+Чеклист для начала работы:
 
-**This Card**: Keep it handy for quick reference!
+- [ ] Прочитать `README.md`
+- [ ] Установить 1 slash-команду
+- [ ] Попробовать команду
+- [ ] Создать проектный `CLAUDE.md`
+- [ ] Установить 1 subagent
+- [ ] Настроить 1 MCP-интеграцию
+- [ ] Установить 1 skill
+- [ ] Попробовать полный plugin
+- [ ] Настроить под свои нужды
+- [ ] Поделиться с командой
+
+---
+
+**Быстрый старт**: `cat README.md`
+
+**Полный индекс**: `cat INDEX.md`
+
+**Эта карточка**: держите под рукой для быстрой справки!

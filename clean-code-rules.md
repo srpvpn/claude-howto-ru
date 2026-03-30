@@ -1,108 +1,108 @@
-# Clean Code Rules for AI Code Generation
+# Правила чистого кода для генерации кода ИИ
 
-These rules guide code generation to produce maintainable, professional-quality code.
+Эти правила помогают генерировать поддерживаемый код профессионального качества.
 
-## Meaningful Names
-- Use intention-revealing names that explain why something exists
-- Avoid disinformation and meaningless distinctions (e.g., `data`, `info`, `manager`)
-- Use pronounceable, searchable names
-- Class names: nouns (e.g., `UserAccount`, `PaymentProcessor`)
-- Method names: verbs (e.g., `calculateTotal`, `sendEmail`)
-- Avoid mental mapping and encodings (Hungarian notation, prefixes)
+## Содержательные имена
+- Используйте имена, которые отражают намерение и объясняют, зачем существует сущность
+- Избегайте дезинформации и бессмысленных различий (например, `data`, `info`, `manager`)
+- Используйте произносимые и легко ищущиеся имена
+- Имена классов: существительные (например, `UserAccount`, `PaymentProcessor`)
+- Имена методов: глаголы (например, `calculateTotal`, `sendEmail`)
+- Избегайте ментального сопоставления и кодировок (венгерская нотация, префиксы)
 
-## Functions
-- Keep functions small (< 20 lines ideal)
-- Do one thing only - Single Responsibility Principle
-- One level of abstraction per function
-- Limit arguments: 0-2 ideal, 3 maximum, avoid flag arguments
-- No side effects - function should do what its name says
-- Separate commands (change state) from queries (return info)
-- Prefer exceptions over error codes
+## Функции
+- Держите функции маленькими (идеально: < 20 строк)
+- Одна функция = одна задача - принцип единственной ответственности
+- Один уровень абстракции на функцию
+- Ограничивайте число аргументов: идеально 0-2, максимум 3, избегайте flag-аргументов
+- Без побочных эффектов - функция должна делать то, что обещает имя
+- Разделяйте команды (меняют состояние) и запросы (возвращают информацию)
+- Предпочитайте исключения кодам ошибок
 
-## Comments
-- Code should be self-explanatory - avoid comments when possible
-- Good comments: legal info, warnings, TODOs, public API documentation
-- Bad comments: redundant, misleading, or explaining bad code
-- Never comment out code - delete it (version control preserves history)
-- If you need a comment, consider refactoring the code instead
+## Комментарии
+- Код должен быть самодокументируемым - по возможности избегайте комментариев
+- Хорошие комментарии: юридическая информация, предупреждения, TODO, документация публичного API
+- Плохие комментарии: дублирующие, вводящие в заблуждение или объясняющие плохой код
+- Никогда не комментируйте код вместо удаления - удаляйте его (история хранится в системе контроля версий)
+- Если вам нужен комментарий, сначала подумайте о рефакторинге
 
-## Formatting
-- Keep files small and focused
-- Vertical formatting: related concepts close together, blank lines separate concepts
-- Horizontal formatting: limit line length (80-120 characters)
-- Use consistent indentation and team style
-- Group related functions together
+## Форматирование
+- Держите файлы небольшими и сфокусированными
+- Вертикальное форматирование: связанные концепции ближе друг к другу, пустые строки разделяют идеи
+- Горизонтальное форматирование: ограничивайте длину строки (80-120 символов)
+- Используйте единый стиль отступов и команды
+- Группируйте связанные функции вместе
 
-## Objects and Data Structures
-- Objects: hide data behind abstractions, expose behavior through methods
-- Data structures: expose data, have minimal behavior
-- Law of Demeter: only talk to immediate friends, avoid `a.getB().getC().doSomething()`
-- Don't expose internal structure through getters/setters blindly
+## Объекты и структуры данных
+- Объекты: скрывают данные за абстракциями и открывают поведение через методы
+- Структуры данных: открывают данные и имеют минимальное поведение
+- Закон Деметры: общайтесь только с ближайшими "друзьями", избегайте `a.getB().getC().doSomething()`
+- Не раскрывайте внутреннюю структуру через getter/setter без необходимости
 
-## Error Handling
-- Use exceptions, not return codes or error flags
-- Write `try-catch-finally` first when code might fail
-- Provide context in exception messages
-- Don't return `null` - return empty collections or use Optional/Maybe
-- Don't pass `null` as arguments
+## Обработка ошибок
+- Используйте исключения, а не коды возврата или флаги ошибок
+- Пишите `try-catch-finally` первым делом, когда код может упасть
+- Добавляйте контекст в тексты исключений
+- Не возвращайте `null` - возвращайте пустые коллекции или используйте Optional/Maybe
+- Не передавайте `null` как аргумент
 
-## Classes
-- Small classes: measured by responsibilities, not lines
-- Single Responsibility Principle: one reason to change
-- High cohesion: class variables used by many methods
-- Low coupling: minimal dependencies between classes
-- Open/Closed Principle: open for extension, closed for modification
+## Классы
+- Маленькие классы: измеряйте их обязанностями, а не количеством строк
+- Принцип единственной ответственности: одна причина для изменения
+- Высокая связность: переменные класса используются многими методами
+- Слабая связанность: минимум зависимостей между классами
+- Принцип открытости/закрытости: открыт для расширения, закрыт для модификации
 
-## Unit Tests
-- Fast, Independent, Repeatable, Self-validating, Timely (F.I.R.S.T.)
-- One assert per test (or one concept)
-- Test code quality equals production code quality
-- Readable test names that describe what's being tested
-- Arrange-Act-Assert pattern
+## Unit-тесты
+- Быстрые, независимые, повторяемые, самопроверяемые, своевременные (F.I.R.S.T.)
+- Один assert на тест или одну проверяемую идею
+- Качество тестового кода не ниже production-кода
+- Читаемые названия тестов, которые описывают проверку
+- Паттерн Arrange-Act-Assert
 
-## Code Quality Principles
-- **DRY (Don't Repeat Yourself)**: No duplication
-- **YAGNI (You Aren't Gonna Need It)**: Don't build for hypothetical futures
-- **KISS (Keep It Simple)**: Avoid unnecessary complexity
-- **Boy Scout Rule**: Leave code cleaner than you found it
+## Принципы качества кода
+- **DRY (Don't Repeat Yourself)**: без дублирования
+- **YAGNI (You Aren't Gonna Need It)**: не стройте гипотезы о будущем
+- **KISS (Keep It Simple)**: избегайте лишней сложности
+- **Правило бойскаута**: оставляйте код чище, чем нашли
 
-## Code Smells to Avoid
-- Long functions or classes
-- Duplicate code
-- Dead code (unused variables, functions, parameters)
-- Feature envy (method more interested in other class)
-- Inappropriate intimacy (classes knowing too much about each other)
-- Long parameter lists
-- Primitive obsession (overusing primitives instead of small objects)
-- Switch/case statements (consider polymorphism)
-- Temporary fields (class variables only used sometimes)
+## Антипаттерны кода, которых стоит избегать
+- Длинные функции или классы
+- Дублирование кода
+- Мёртвый код (неиспользуемые переменные, функции, параметры)
+- Feature envy (метод слишком интересуется другим классом)
+- Inappropriate intimacy (классы знают друг о друге слишком много)
+- Слишком длинные списки параметров
+- Primitive obsession (злоупотребление примитивами вместо небольших объектов)
+- `switch/case` (рассмотрите полиморфизм)
+- Временные поля (переменные класса используются лишь иногда)
 
-## Concurrency
-- Keep concurrent code separate from other code
-- Limit scope of synchronized/locked data
-- Use thread-safe collections
-- Keep synchronized sections small
-- Know your execution models and primitives
+## Параллельность
+- Держите конкурентный код отдельно от остального
+- Ограничивайте область синхронизированных/заблокированных данных
+- Используйте потокобезопасные коллекции
+- Держите синхронизированные секции маленькими
+- Знайте свои модели выполнения и примитивы синхронизации
 
-## System Design
-- Separate construction from use (dependency injection)
-- Use factories, builders for complex object creation
-- Program to interfaces, not implementations
-- Favor composition over inheritance
-- Apply design patterns when they simplify, not to show off
+## Проектирование системы
+- Разделяйте создание и использование (dependency injection)
+- Используйте фабрики и билдеры для сложного создания объектов
+- Программируйте на уровне интерфейсов, а не реализаций
+- Предпочитайте композицию наследованию
+- Применяйте паттерны только когда они упрощают код, а не для демонстрации
 
-## Refactoring
-- Refactor continuously, not in big batches
-- Always have passing tests before and after
-- Small steps: one change at a time
-- Common refactorings: Extract Method, Rename, Move, Inline
+## Рефакторинг
+- Рефакторите постоянно, а не большими пакетами
+- До и после всегда должны быть проходящие тесты
+- Маленькие шаги: одно изменение за раз
+- Типовые рефакторинги: Extract Method, Rename, Move, Inline
 
-## Documentation
-- Self-documenting code > comments > external docs
-- Public APIs need clear documentation
-- Include examples in documentation
-- Keep docs close to code (ideally in code)
+## Документация
+- Самодокументируемый код > комментарии > внешняя документация
+- Публичные API нуждаются в понятной документации
+- Добавляйте примеры в документацию
+- Держите документацию рядом с кодом, по возможности прямо в нём
 
 ---
 
-**Core Philosophy**: Code is read 10x more than written. Optimize for readability and maintainability, not cleverness.
+**Основная философия**: код читают в 10 раз чаще, чем пишут. Оптимизируйте под читаемость и поддерживаемость, а не под изобретательность.
