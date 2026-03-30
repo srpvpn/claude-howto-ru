@@ -1,16 +1,16 @@
-# Quick Start - Brand Assets
+# Быстрый старт - брендовые материалы
 
-## Copy Assets to Your Project
+## Скопируйте материалы в свой проект
 
 ```bash
-# Copy all resources to your web project
+# Скопировать все ресурсы в веб-проект
 cp -r resources/ /path/to/your/website/
 
-# Or just the favicons for web
+# Или только favicons для web
 cp resources/favicons/* /path/to/your/website/public/
 ```
 
-## Add to HTML (Copy & Paste)
+## Добавить в HTML (copy & paste)
 
 ```html
 <!-- Favicons -->
@@ -21,7 +21,7 @@ cp resources/favicons/* /path/to/your/website/public/
 <meta name="theme-color" content="#000000">
 ```
 
-## Use in Markdown/Documentation
+## Использование в Markdown/документации
 
 ```markdown
 # Claude How To
@@ -31,21 +31,21 @@ cp resources/favicons/* /path/to/your/website/public/
 ![Icon](resources/icons/claude-howto-icon.svg)
 ```
 
-## Recommended Sizes
+## Рекомендуемые размеры
 
-| Purpose | Size | File |
+| Назначение | Размер | Файл |
 |---------|------|------|
-| Website header | 520×120 | `logos/claude-howto-logo.svg` |
-| App icon | 256×256 | `icons/claude-howto-icon.svg` |
-| Browser tab | 32×32 | `favicons/favicon-32.svg` |
-| Mobile home screen | 128×128 | `favicons/favicon-128.svg` |
+| Заголовок сайта | 520×120 | `logos/claude-howto-logo.svg` |
+| Иконка приложения | 256×256 | `icons/claude-howto-icon.svg` |
+| Вкладка браузера | 32×32 | `favicons/favicon-32.svg` |
+| Экран смартфона | 128×128 | `favicons/favicon-128.svg` |
 | Desktop app | 256×256 | `favicons/favicon-256.svg` |
-| Small avatar | 64×64 | `favicons/favicon-64.svg` |
+| Маленький аватар | 64×64 | `favicons/favicon-64.svg` |
 
-## Color Values
+## Значения цветов
 
 ```css
-/* Use these in your CSS */
+/* Используйте это в CSS */
 --color-primary: #000000;
 --color-secondary: #6B7280;
 --color-accent: #22C55E;
@@ -53,18 +53,18 @@ cp resources/favicons/* /path/to/your/website/public/
 --color-bg-dark: #0A0A0A;
 ```
 
-## Icon Design Meaning
+## Что означает дизайн иконки
 
-**Compass with Code Bracket**:
-- Compass ring = Navigation, structured learning path
-- Green north needle = Direction, progress, guidance
-- Black south needle = Grounding, solid foundation
-- `>` bracket = Terminal prompt, code, CLI context
-- Tick marks = Precision, structured steps
+**Компас с кодовым bracket'ом**:
+- Кольцо компаса = навигация, структурированный путь обучения
+- Зелёная северная стрелка = направление, прогресс, подсказка
+- Чёрная южная стрелка = опора, прочная база
+- Скобка `>` = терминальный prompt, код, CLI-контекст
+- Деления = точность, поэтапность
 
-This symbolizes "finding your way through code with clear guidance."
+Это символизирует "поиск пути в коде с понятным сопровождением".
 
-## What to Use Where
+## Что использовать и где
 
 ### Website
 - **Header**: Logo (`logos/claude-howto-logo.svg`)
@@ -72,18 +72,18 @@ This symbolizes "finding your way through code with clear guidance."
 - **Social preview**: Icon (`icons/claude-howto-icon.svg`)
 
 ### GitHub
-- **README badge**: Icon (`icons/claude-howto-icon.svg`) at 64-128px
-- **Repository avatar**: Icon (`icons/claude-howto-icon.svg`)
+- **README badge**: Icon (`icons/claude-howto-icon.svg`) в размере 64-128px
+- **Аватар репозитория**: Icon (`icons/claude-howto-icon.svg`)
 
 ### Social Media
-- **Profile picture**: Icon (`icons/claude-howto-icon.svg`)
-- **Banner**: Logo (`logos/claude-howto-logo.svg`)
-- **Thumbnail**: Icon at 256×256px
+- **Профиль**: Icon (`icons/claude-howto-icon.svg`)
+- **Баннер**: Logo (`logos/claude-howto-logo.svg`)
+- **Thumbnail**: Icon в 256×256px
 
 ### Documentation
-- **Chapter headers**: Logo or icon (scaled to fit)
-- **Navigation icons**: Favicon (32-64px)
+- **Заголовки глав**: Logo или icon (масштабировать по месту)
+- **Иконки разделов**: Favicon (32-64px)
 
 ---
 
-See [README.md](README.md) for complete documentation.
+См. [README.md](README.md) для полной документации.

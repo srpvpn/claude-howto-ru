@@ -1,18 +1,18 @@
 ╔════════════════════════════════════════════════════════════════════════════╗
-║                  CLAUDE HOW TO - COMPLETE ASSET MANIFEST                   ║
-║                      All Files Ready for Use                              ║
+║                  CLAUDE HOW TO - ПОЛНЫЙ МАНИФЕСТ РЕСУРСОВ                ║
+║                        Все файлы готовы к использованию                   ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 
-📦 FULL DIRECTORY MANIFEST
+📦 ПОЛНЫЙ МАНИФЕСТ КАТАЛОГА
 ═════════════════════════════════════════════════════════════════════════════
 
 resources/
 │
-├─ 📄 README.md                          (6.0K) Complete documentation
-├─ 📄 QUICK-START.md                     (2.5K) Copy & paste setup
+├─ 📄 README.md                          (6.0K) Полная документация
+├─ 📄 QUICK-START.md                     (2.5K) Настройка copy & paste
 ├─ 📄 DESIGN-SYSTEM.md                   (7.7K) Brand guidelines
-├─ 📄 INDEX.txt                          (12K)  Visual reference
-├─ 📄 MANIFEST.txt                       (this) File listing
+├─ 📄 INDEX.txt                          (12K)  Визуальная справка
+├─ 📄 MANIFEST.txt                       (this) Список файлов
 │
 ├─ 📁 logos/                             (8.0K total)
 │  └─ 📊 claude-howto-logo.svg          (8.0K) 800×200px main logo
@@ -29,10 +29,10 @@ resources/
 
 ═════════════════════════════════════════════════════════════════════════════
 
-📊 ASSET SUMMARY
+📊 СВОДКА ПО РЕСУРСАМ
 ═════════════════════════════════════════════════════════════════════════════
 
-CATEGORY        COUNT   PURPOSE
+CATEGORY        COUNT   НАЗНАЧЕНИЕ
 ────────────────────────────────────────────────────────────────────────────
 Logos           1       Main horizontal logo for headers/marketing
 Icons           1       App icon for avatars/thumbnails
@@ -43,57 +43,57 @@ TOTAL           12      Complete brand asset package
 
 ═════════════════════════════════════════════════════════════════════════════
 
-📄 DOCUMENTATION FILES - WHAT TO READ
+📄 ДОКУМЕНТАЦИОННЫЕ ФАЙЛЫ - ЧТО ЧИТАТЬ
 
 1️⃣  START HERE: QUICK-START.md
-    • Copy & paste HTML code
-    • Recommended sizes by use case
+    • Code snippets для копирования
+    • Рекомендуемые размеры по use case
     • CSS color variables
-    • Quick integration examples
+    • Быстрые примеры интеграции
     ⏱️  5 minute read
 
 2️⃣  FULL DETAILS: README.md
-    • Complete asset descriptions
-    • HTML/CSS integration guide
+    • Полные описания материалов
+    • HTML/CSS guide по интеграции
     • Favicon setup instructions
     • Accessibility & optimization
     ⏱️  15 minute read
 
 3️⃣  BRAND GUIDELINES: DESIGN-SYSTEM.md
-    • Visual identity principles
-    • Complete color system specs
-    • Icon geometry details
+    • Принципы визуальной идентичности
+    • Полные specs цветовой системы
+    • Детали геометрии иконки
     • Effects and filters
-    • Customization instructions
+    • Инструкции по кастомизации
     ⏱️  20 minute read
 
 4️⃣  VISUAL REFERENCE: INDEX.txt
-    • Directory structure diagram
-    • File quick reference table
-    • Design concept visualization
-    • Integration examples
+    • Диаграмма структуры каталога
+    • Таблица быстрой справки по файлам
+    • Визуализация концепции дизайна
+    • Примеры интеграции
     ⏱️  10 minute read
 
 ═════════════════════════════════════════════════════════════════════════════
 
-🎯 QUICK USAGE GUIDE
+🎯 БЫСТРОЕ РУКОВОДСТВО ПО ИСПОЛЬЗОВАНИЮ
 
-FOR WEBSITES (HTML):
+ДЛЯ САЙТОВ (HTML):
   <link rel="icon" type="image/svg+xml" href="/resources/favicons/favicon-32.svg">
   <link rel="apple-touch-icon" href="/resources/favicons/favicon-128.svg">
 
-FOR MARKDOWN:
+ДЛЯ MARKDOWN:
   ![Claude How To](resources/icons/claude-howto-icon.svg)
 
-FOR REACT/NEXT.JS:
+ДЛЯ REACT/NEXT.JS:
   import icon from './resources/icons/claude-howto-icon.svg';
 
-FOR CSS BACKGROUND:
+ДЛЯ CSS BACKGROUND:
   background-image: url('resources/icons/claude-howto-icon.svg');
 
 ═════════════════════════════════════════════════════════════════════════════
 
-🎨 FILE SELECTION BY USE CASE
+🎨 ВЫБОР ФАЙЛОВ ПО СЦЕНАРИЮ
 
 USE CASE                    FILE                        SIZE
 ─────────────────────────────────────────────────────────────────────────────
@@ -109,7 +109,7 @@ Old browsers (fallback)     favicons/favicon-16.svg         16×16px
 
 ═════════════════════════════════════════════════════════════════════════════
 
-✅ VERIFICATION CHECKLIST
+✅ ЧЕКЛИСТ ПРОВЕРКИ
 
 SVG Assets:
   ✓ logos/claude-howto-logo.svg       Main logo
@@ -129,9 +129,9 @@ Documentation:
 
 ═════════════════════════════════════════════════════════════════════════════
 
-🎨 DESIGN CONCEPT
+🎨 КОНЦЕПЦИЯ ДИЗАЙНА
 
-The icon represents the Claude How To learning journey with ascending hexagons:
+Иконка представляет путь обучения Claude How To через восходящие шестиугольники:
 
               🔶 MINT
         Advanced Features
@@ -157,23 +157,23 @@ All colors: WCAG AAA accessible (8.2:1+ contrast)
 
 ═════════════════════════════════════════════════════════════════════════════
 
-📥 HOW TO INTEGRATE
+📥 КАК ИНТЕГРИРОВАТЬ
 
-STEP 1: Copy files
+ШАГ 1: Скопируйте файлы
   cp -r resources/ /path/to/your/project/
 
-STEP 2: Read documentation
+ШАГ 2: Прочитайте документацию
   Start with resources/QUICK-START.md
 
-STEP 3: Add to HTML
+ШАГ 3: Добавьте в HTML
   Copy provided code snippets (see QUICK-START.md)
 
-STEP 4: Customize (optional)
+ШАГ 4: Настройте (optional)
   Reference DESIGN-SYSTEM.md for color changes
 
 ═════════════════════════════════════════════════════════════════════════════
 
-📋 FILE SPECIFICATIONS
+📋 СПЕЦИФИКАЦИИ ФАЙЛОВ
 
 Format:             SVG (Scalable Vector Graphics)
 Scalability:        Any size, no pixelation
@@ -186,7 +186,7 @@ Animated:           Static (can be animated with CSS/JS)
 
 ═════════════════════════════════════════════════════════════════════════════
 
-🚀 NEXT STEPS
+🚀 ДАЛЬШЕЕ ДВИЖЕНИЕ
 
 IMMEDIATE:
   1. Read resources/QUICK-START.md
@@ -218,17 +218,3 @@ LONG TERM:
 ═════════════════════════════════════════════════════════════════════════════
 
 📞 NEED HELP?
-
-1. Quick setup?          → Read QUICK-START.md
-2. Full reference?       → Read README.md
-3. Brand guidelines?     → Read DESIGN-SYSTEM.md
-4. Visual overview?      → Read INDEX.txt
-5. Find a specific file? → Read this MANIFEST.txt
-
-═════════════════════════════════════════════════════════════════════════════
-
-Generated: January 2026
-Design System: v1.0
-All files production-ready ✅
-
-═════════════════════════════════════════════════════════════════════════════

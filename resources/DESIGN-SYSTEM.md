@@ -1,10 +1,10 @@
-# Claude How To - Design System
+# Claude How To - Дизайн-система
 
-## Visual Identity
+## Визуальная идентичность
 
-### Icon Design Concept: Compass with Code Bracket
+### Концепция иконки: Compass с Code Bracket
 
-The Claude How To icon uses a **compass with a `>` code bracket** to represent guided navigation through code:
+Иконка Claude How To использует **compass с кодовой скобкой `>`**, чтобы показать навигацию через код:
 
 ```
      N (green)
@@ -16,64 +16,64 @@ W ───>─── E     Compass = Guidance/Direction
      S (black)
 ```
 
-This creates:
-- **Visual Clarity**: Immediately communicates "code navigation guide"
-- **Symbolic Meaning**: Compass = finding your way; `>` = code/terminal
-- **Scalability**: Works at any size from 16px to 512px
-- **Brand Alignment**: Matches the developer tool aesthetic with minimal palette
+Это даёт:
+- **Визуальную ясность**: сразу понятно, что это гид по навигации в коде
+- **Смысловую нагрузку**: compass = поиск пути; `>` = code/terminal
+- **Масштабируемость**: работает от 16px до 512px
+- **Соответствие бренду**: минималистичная палитра в духе developer tools
 
 ---
 
-## Color System
+## Цветовая система
 
-### Palette
+### Палитра
 
-| Color | Hex | RGB | Usage |
+| Цвет | Hex | RGB | Использование |
 |-------|-----|-----|-------|
-| Black (Primary) | `#000000` | 0, 0, 0 | Main strokes, text, south needle |
-| White (Background) | `#FFFFFF` | 255, 255, 255 | Light backgrounds |
-| Gray (Secondary) | `#6B7280` | 107, 114, 128 | Minor tick marks, secondary text |
-| Bright Green (Accent) | `#22C55E` | 34, 197, 94 | North needle, center dot, accent lines |
-| Near Black (Dark BG) | `#0A0A0A` | 10, 10, 10 | Dark mode backgrounds |
+| Black (Primary) | `#000000` | 0, 0, 0 | Основные штрихи, текст, южная стрелка |
+| White (Background) | `#FFFFFF` | 255, 255, 255 | Светлый фон |
+| Gray (Secondary) | `#6B7280` | 107, 114, 128 | Малые деления, вторичный текст |
+| Bright Green (Accent) | `#22C55E` | 34, 197, 94 | Северная стрелка, центральная точка, акценты |
+| Near Black (Dark BG) | `#0A0A0A` | 10, 10, 10 | Фоны тёмного режима |
 
-### Contrast Ratios (WCAG)
+### Контрастность (WCAG)
 
 - Black on White: **21:1** AAA
 - Gray on White: **4.6:1** AA
-- Green on White: **3.2:1** (decorative only, not for text)
+- Green on White: **3.2:1** (только декоративно, не для текста)
 - White on Dark: **19.5:1** AAA
 
-### Accent Color Rule
+### Правило для акцентного цвета
 
-**Bright Green (#22C55E) is reserved for highlights only:**
-- Compass north needle
-- Center dot
-- Accent underlines/borders
-- Never as a background color
-- Never for body text
+**Bright Green (#22C55E) зарезервирован только для акцентов:**
+- Северная стрелка компаса
+- Центральная точка
+- Акцентные подчеркивания/границы
+- Никогда не использовать как background
+- Никогда не использовать для основного текста
 
 ---
 
-## Typography
+## Типографика
 
-### Logo Font
-- **Family**: Inter, SF Pro Display, -apple-system, Segoe UI, sans-serif
+### Шрифт логотипа
+- **Семейство**: Inter, SF Pro Display, -apple-system, Segoe UI, sans-serif
 - **"Claude"**: 42px, weight 700 (bold), Black
 - **"How-To"**: 32px, weight 500 (medium), Gray (#6B7280)
 - **Subtitle**: 10px, weight 500, Gray, letter-spacing 1.5px, uppercase
 
-### Interface Font
-- **Family**: Inter, SF Pro, system fonts (sans-serif)
+### Интерфейсный шрифт
+- **Семейство**: Inter, SF Pro, system fonts (sans-serif)
 - **Weight**: 400-600
-- **Style**: Clean, readable
+- **Стиль**: чистый, читаемый
 
 ---
 
-## Icon Details
+## Детали иконки
 
-### Compass Specifications
+### Спецификация компаса
 
-The compass mark is built from these geometric elements:
+Марк компаса собран из следующих геометрических элементов:
 
 ```
 Element             | Stroke/Fill    | Color
@@ -88,7 +88,7 @@ South needle        | filled polygon | Black / White (dark mode)
 Center dot          | filled circle  | #22C55E (always green)
 ```
 
-### Size Progression
+### Прогрессия размеров
 
 ```
 16px  → Ring + needles + chevron only (minimal)
@@ -100,27 +100,27 @@ Center dot          | filled circle  | #22C55E (always green)
 
 ---
 
-## Sizing Guidelines
+## Рекомендации по размерам
 
-### Logo Sizing
+### Размер логотипа
 
-- **Minimum**: 200px width (for web)
-- **Recommended**: 520px (native size)
-- **Maximum**: Unlimited (vector format)
-- **Aspect Ratio**: ~4.3:1 (width:height)
+- **Минимум**: 200px width (для web)
+- **Рекомендуемый**: 520px (native size)
+- **Максимум**: без ограничений (vector format)
+- **Соотношение сторон**: ~4.3:1 (width:height)
 
-### Icon Sizing
+### Размер иконки
 
-- **Minimum**: 16px (favicon)
-- **Recommended**: 64-256px (apps, avatars)
-- **Maximum**: Unlimited (vector format)
-- **Aspect Ratio**: 1:1 (square)
+- **Минимум**: 16px (favicon)
+- **Рекомендуемый**: 64-256px (apps, avatars)
+- **Максимум**: без ограничений (vector format)
+- **Соотношение сторон**: 1:1 (square)
 
 ---
 
-## Spacing & Alignment
+## Отступы и выравнивание
 
-### Logo Spacing
+### Отступы логотипа
 
 ```
 ┌─────────────────────────────────────┐
@@ -134,42 +134,42 @@ Center dot          | filled circle  | #22C55E (always green)
 └─────────────────────────────────────┘
 ```
 
-### Icon Center Point
+### Центральная точка иконки
 
-All icons center at the midpoint of their canvas:
-- 128×128 for 256px canvas
-- 64×64 for 128px canvas
-- Maintains alignment with other UI elements
-
----
-
-## Accessibility
-
-### Color Contrast
-- All text meets WCAG AA (4.5:1 minimum)
-- Green accent is decorative, not informational
-- No red-green color dependency
-
-### Scalability
-- Vector format ensures clarity at any size
-- Geometric shapes remain recognizable at 16px
-- Progressive detail based on available size
+Все иконки центрируются в середине canvas:
+- 128×128 для canvas 256px
+- 64×64 для canvas 128px
+- Это обеспечивает выравнивание с другими UI-элементами
 
 ---
 
-## Application Examples
+## Доступность
+
+### Контрастность
+- Весь текст соответствует WCAG AA (минимум 4.5:1)
+- Зелёный акцент декоративный, не информационный
+- Нет зависимости от красно-зелёной палитры
+
+### Масштабируемость
+- Векторный формат обеспечивает чёткость на любом размере
+- Геометрические формы остаются узнаваемыми на 16px
+- Детализация растёт по мере увеличения размера
+
+---
+
+## Примеры применения
 
 ### Web Header
 - Size: 520×120px logo
 - File: `logos/claude-howto-logo.svg`
 - Background: White or dark (#0A0A0A)
-- Padding: 20px minimum
+- Padding: минимум 20px
 
 ### App Icon
 - Size: 256×256px
 - File: `icons/claude-howto-icon.svg`
 - Background: White or dark
-- Use: App shortcuts, avatars
+- Use: ярлыки приложений, аватары
 
 ### Browser Favicon
 - Size: 32px (primary), 16px (fallback)
@@ -187,58 +187,33 @@ All icons center at the midpoint of their canvas:
 
 ---
 
-## File Format Details
+## Детали формата файлов
 
 ### SVG Structure
 
-All SVG files are flat design:
-- No gradients (solid colors only)
-- No filter effects (no blur, glow, or shadow)
-- Clean stroke and fill geometry
-- ViewBox for responsive scaling
-- Readable, commented code
+Все SVG файлы выполнены в flat design:
+- Без градиентов (только solid colors)
+- Без filter effects (никаких blur, glow или shadow)
+- Чистая stroke и fill geometry
+- ViewBox для responsive scaling
+- Читаемый, прокомментированный код
 
-### Cross-Browser Compatibility
+### Совместимость с браузерами
 
 - Chrome/Edge: Full support
 - Firefox: Full support
 - Safari: Full support
 - iOS Safari: Full support
-- All modern browsers: Full support
+- Все современные браузеры: Full support
 
 ---
 
-## Customization
+## Кастомизация
 
-### Changing the Accent Color
+### Изменение акцентного цвета
 
-To create variants with a different accent:
+Чтобы создать вариант с другим accent color:
 
-1. Replace all instances of `#22C55E` with your accent color
-2. Ensure contrast ratio stays above 3:1 for decorative elements
-3. Keep black/white/gray structure unchanged
-
-### Scaling
-
-```css
-svg {
-  width: 256px;
-  height: 256px;
-}
-```
-
-SVGs scale automatically via viewBox — no transforms needed.
-
----
-
-## Version Control
-
-Track design changes in git:
-- Version SVG files normally (they're text)
-- Tag releases with design changes
-- Include DESIGN-SYSTEM.md in commits
-
----
-
-**Last Updated**: February 2026
-**Design System Version**: 3.0
+1. Замените все вхождения `#22C55E` на ваш акцентный цвет
+2. Убедитесь, что контрастность остаётся выше 3:1 для декоративных элементов
+3. Оставьте структуру black/white/gray без изменений

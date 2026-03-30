@@ -3,114 +3,114 @@
   <img alt="Claude How To" src="logos/claude-howto-logo.svg">
 </picture>
 
-# Claude How To - Brand Assets
+# Claude How To - Брендовые материалы
 
-Complete collection of logos, icons, and favicons for the Claude How To project. All assets use the V3.0 design: a compass with code bracket (`>`) symbol, representing guided navigation through code — using a Black/White/Gray palette with Bright Green (#22C55E) accent.
+Полная коллекция логотипов, иконок и favicons для проекта Claude How To. Все материалы используют дизайн V3.0: compass со знаком code bracket (`>`), который символизирует навигацию по коду под руководством подсказок — в палитре Black/White/Gray с акцентом Bright Green (#22C55E).
 
-## Directory Structure
+## Структура каталога
 
 ```
 resources/
 ├── logos/
-│   ├── claude-howto-logo.svg       # Main logo - Light mode (520×120px)
-│   └── claude-howto-logo-dark.svg  # Main logo - Dark mode (520×120px)
+│   ├── claude-howto-logo.svg       # Основной логотип - светлая тема (520×120px)
+│   └── claude-howto-logo-dark.svg  # Основной логотип - тёмная тема (520×120px)
 ├── icons/
-│   ├── claude-howto-icon.svg       # App icon - Light mode (256×256px)
-│   └── claude-howto-icon-dark.svg  # App icon - Dark mode (256×256px)
+│   ├── claude-howto-icon.svg       # Иконка приложения - светлая тема (256×256px)
+│   └── claude-howto-icon-dark.svg  # Иконка приложения - тёмная тема (256×256px)
 └── favicons/
     ├── favicon-16.svg              # Favicon - 16×16px
-    ├── favicon-32.svg              # Favicon - 32×32px (primary)
+    ├── favicon-32.svg              # Favicon - 32×32px (основной)
     ├── favicon-64.svg              # Favicon - 64×64px
     ├── favicon-128.svg             # Favicon - 128×128px
     └── favicon-256.svg             # Favicon - 256×256px
 ```
 
-Additional assets in `assets/logo/`:
+Дополнительные материалы в `assets/logo/`:
 ```
 assets/logo/
-├── logo-full.svg       # Mark + wordmark (horizontal)
-├── logo-mark.svg       # Compass symbol only (120×120px)
-├── logo-wordmark.svg   # Text only
-├── logo-icon.svg       # App icon (512×512, rounded)
-├── favicon.svg         # 16×16 optimized
-├── logo-white.svg      # White version for dark backgrounds
-└── logo-black.svg      # Black monochrome version
+├── logo-full.svg       # Знак + wordmark (горизонтальный)
+├── logo-mark.svg       # Только символ compass (120×120px)
+├── logo-wordmark.svg   # Только текст
+├── logo-icon.svg       # Иконка приложения (512×512, rounded)
+├── favicon.svg         # Оптимизированный 16×16
+├── logo-white.svg      # Белая версия для тёмных фонов
+└── logo-black.svg     # Чёрная монохромная версия
 ```
 
-## Assets Overview
+## Обзор материалов
 
-### Design Concept (V3.0)
+### Концепция дизайна (V3.0)
 
-**Compass with Code Bracket** — guidance meets code:
-- **Compass Ring** = Navigation, finding your way
-- **North Needle (Green)** = Direction, progress on the learning path
-- **South Needle (Black)** = Grounding, solid foundation
-- **`>` Bracket** = Terminal prompt, code, CLI context
-- **Tick Marks** = Precision, structured learning
+**Compass with Code Bracket** — навигация встречается с кодом:
+- **Compass Ring** = навигация, поиск пути
+- **North Needle (Green)** = направление, прогресс на пути обучения
+- **South Needle (Black)** = опора, прочная база
+- **`>` Bracket** = terminal prompt, code, CLI-контекст
+- **Tick Marks** = точность, структурированное обучение
 
-### Logos
+### Логотипы
 
-**Files**:
-- `logos/claude-howto-logo.svg` (Light mode)
-- `logos/claude-howto-logo-dark.svg` (Dark mode)
+**Файлы**:
+- `logos/claude-howto-logo.svg` (светлая тема)
+- `logos/claude-howto-logo-dark.svg` (тёмная тема)
 
-**Specifications**:
-- **Size**: 520×120 px
-- **Purpose**: Main header/branding logo with wordmark
-- **Usage**:
-  - Website headers
+**Спецификации**:
+- **Размер**: 520×120 px
+- **Назначение**: основной header/branding-логотип с wordmark
+- **Использование**:
+  - Заголовки сайта
   - README badges
-  - Marketing materials
-  - Print materials
-- **Format**: SVG (fully scalable)
-- **Modes**: Light (white background) & Dark (#0A0A0A background)
+  - Маркетинговые материалы
+  - Печатные материалы
+- **Формат**: SVG (полностью масштабируемый)
+- **Режимы**: светлый (белый фон) и тёмный (#0A0A0A background)
 
-### Icons
+### Иконки
 
-**Files**:
-- `icons/claude-howto-icon.svg` (Light mode)
-- `icons/claude-howto-icon-dark.svg` (Dark mode)
+**Файлы**:
+- `icons/claude-howto-icon.svg` (светлая тема)
+- `icons/claude-howto-icon-dark.svg` (тёмная тема)
 
-**Specifications**:
-- **Size**: 256×256 px
-- **Purpose**: Application icon, avatars, thumbnails
-- **Usage**:
+**Спецификации**:
+- **Размер**: 256×256 px
+- **Назначение**: иконка приложения, аватары, thumbnails
+- **Использование**:
   - App icons
   - Profile avatars
   - Social media thumbnails
   - Documentation headers
-- **Format**: SVG (fully scalable)
-- **Modes**: Light (white background) & Dark (#0A0A0A background)
+- **Формат**: SVG (полностью масштабируемый)
+- **Режимы**: светлый (белый фон) и тёмный (#0A0A0A background)
 
-**Design Elements**:
-- Compass ring with cardinal and intercardinal tick marks
-- Green north needle (direction/guidance)
-- Black south needle (foundation)
-- `>` code bracket at center (terminal/CLI)
-- Green center dot accent
+**Элементы дизайна**:
+- Compass ring с cardinal и intercardinal tick marks
+- Зелёная северная стрелка (direction/guidance)
+- Чёрная южная стрелка (foundation)
+- `>` code bracket в центре (terminal/CLI)
+- Зелёная центральная точка-акцент
 
 ### Favicons
 
-Optimized versions at multiple sizes for web use:
+Оптимизированные версии в нескольких размерах для web:
 
-| File | Size | DPI | Usage |
+| Файл | Размер | DPI | Использование |
 |------|------|-----|-------|
-| `favicon-16.svg` | 16×16 px | 1x | Browser tabs (older browsers) |
-| `favicon-32.svg` | 32×32 px | 1x | Standard browser favicon |
+| `favicon-16.svg` | 16×16 px | 1x | Вкладки браузера (старые браузеры) |
+| `favicon-32.svg` | 32×32 px | 1x | Стандартный favicon |
 | `favicon-64.svg` | 64×64 px | 1x-2x | High-DPI displays |
 | `favicon-128.svg` | 128×128 px | 2x | Apple touch icon, bookmarks |
-| `favicon-256.svg` | 256×256 px | 4x | Modern browsers, PWA icons |
+| `favicon-256.svg` | 256×256 px | 4x | Современные браузеры, PWA icons |
 
-**Optimization Notes**:
-- 16px: Minimal geometry — ring, needles, chevron only
-- 32px: Adds cardinal tick marks
-- 64px+: Full detail with intercardinal ticks
-- All maintain visual consistency with main icon
-- SVG format ensures crisp display at any size
+**Примечания по оптимизации**:
+- 16px: минимальная геометрия — ring, needles, chevron only
+- 32px: добавляет cardinal tick marks
+- 64px+: полный уровень детализации с intercardinal ticks
+- Все варианты сохраняют визуальную согласованность с основной иконкой
+- SVG format обеспечивает чёткое отображение на любом размере
 
-## HTML Integration
+## HTML-интеграция
 
-### Basic Favicon Setup
+### Базовая настройка favicon
 
 ```html
 <!-- Browser favicon -->
@@ -124,7 +124,7 @@ Optimized versions at multiple sizes for web use:
 <link rel="icon" type="image/svg+xml" href="/resources/favicons/favicon-256.svg" sizes="256x256">
 ```
 
-### Complete Setup
+### Полная настройка
 
 ```html
 <head>
@@ -146,18 +146,18 @@ Optimized versions at multiple sizes for web use:
 </head>
 ```
 
-## Color Palette
+## Цветовая палитра
 
-### Primary Colors
-- **Black**: `#000000` (Primary text, strokes, south needle)
-- **White**: `#FFFFFF` (Light backgrounds)
-- **Gray**: `#6B7280` (Secondary text, minor tick marks)
+### Основные цвета
+- **Black**: `#000000` (основной текст, strokes, south needle)
+- **White**: `#FFFFFF` (светлые фоны)
+- **Gray**: `#6B7280` (вторичный текст, мелкие деления)
 
-### Accent Color
-- **Bright Green**: `#22C55E` (North needle, center dot, accent lines — highlights only, never as background)
+### Акцентный цвет
+- **Bright Green**: `#22C55E` (north needle, center dot, accent lines — только для highlights, никогда как background)
 
-### Dark Mode
-- **Background**: `#0A0A0A` (Near-black)
+### Тёмный режим
+- **Background**: `#0A0A0A` (near-black)
 
 ### CSS Variables
 ```css
@@ -179,41 +179,41 @@ colors: {
 }
 ```
 
-### Usage Guidelines
-- Use black for primary text and structural elements
-- Use gray for secondary/supporting elements
-- Use green **only** for highlights — needle, dots, accent lines
-- Never use green as a background color
-- Maintain WCAG AA contrast (4.5:1 minimum)
+### Рекомендации по использованию
+- Используйте black для основного текста и структурных элементов
+- Используйте gray для второстепенных элементов
+- Используйте green **только** для highlights — стрелка, точки, акцентные линии
+- Никогда не используйте green как фон
+- Поддерживайте WCAG AA contrast (минимум 4.5:1)
 
-## Design Guidelines
+## Рекомендации по дизайну
 
-### Logo Usage
-- Use on white or dark (#0A0A0A) backgrounds
-- Scale proportionally
-- Include clear space around logo (minimum: logo height / 2)
-- Use provided light/dark variants for appropriate backgrounds
+### Использование логотипа
+- Используйте на белом или тёмном (#0A0A0A) фоне
+- Масштабируйте пропорционально
+- Оставляйте свободное пространство вокруг логотипа (минимум: logo height / 2)
+- Используйте светлую или тёмную версию в зависимости от фона
 
-### Icon Usage
-- Use at standard sizes: 16, 32, 64, 128, 256px
-- Maintain the compass proportions
-- Scale proportionally
+### Использование иконки
+- Используйте стандартные размеры: 16, 32, 64, 128, 256px
+- Сохраняйте пропорции compass
+- Масштабируйте пропорционально
 
-### Favicon Usage
-- Use appropriate size for context
-- 16-32px: Browser tabs, bookmarks
-- 64px: Favicon site icons
+### Использование favicon
+- Выбирайте размер по контексту
+- 16-32px: browser tabs, bookmarks
+- 64px: favicon site icons
 - 128px+: Apple/Android home screens
 
-## SVG Optimization
+## Оптимизация SVG
 
-All SVG files are flat design with no gradients or filters:
-- Clean stroke-based geometry
-- No embedded rasters
-- Optimized paths
+Все SVG файлы выполнены в flat design без градиентов и фильтров:
+- Чистая stroke-based geometry
+- Без встроенных rasters
+- Оптимизированные paths
 - Responsive viewBox
 
-For web optimization:
+Для web-оптимизации:
 ```bash
 # Compress SVG while maintaining quality
 svgo --config='{
@@ -229,7 +229,7 @@ svgo --config='{
 
 ## PNG Conversion
 
-To convert SVG to PNG for older browser support:
+Чтобы конвертировать SVG в PNG для поддержки старых браузеров:
 
 ```bash
 # Using ImageMagick
@@ -241,26 +241,20 @@ inkscape -D -z --file=favicon-256.svg --export-png=favicon-256.png
 
 ## Accessibility
 
-- High contrast color ratios (WCAG AA compliant — 4.5:1 minimum)
-- Clean geometric shapes recognizable at all sizes
-- Scalable vector format
-- No text in icons (text added separately in wordmark)
-- No red-green color dependency for meaning
+- Высокая контрастность цветов (WCAG AA compliant — минимум 4.5:1)
+- Чистые геометрические формы, узнаваемые на любом размере
+- Масштабируемый векторный формат
+- В иконках нет текста (текст добавляется отдельно в wordmark)
+- Нет зависимости от красно-зелёной палитры для смысла
 
 ## Attribution
 
-These assets are part of the Claude How To project.
+Эти материалы являются частью проекта Claude How To.
 
-**License**: MIT (see project LICENSE file)
+**Лицензия**: MIT (см. файл LICENSE в проекте)
 
 ## Version History
 
 - **v3.0** (February 2026): Compass-bracket design with Black/White/Gray + Green accent palette
 - **v2.0** (January 2026): Claude-inspired 12-ray starburst design with emerald palette
 - **v1.0** (January 2026): Original hexagon-based progression icon design
-
----
-
-**Last Updated**: February 2026
-**Current Version**: 3.0 (Compass-Bracket)
-**All Assets**: Production-ready SVG, fully scalable, WCAG AA accessible
