@@ -259,7 +259,7 @@ Claude ищет memory-файлы в таком порядке, при этом 
 
 ```mermaid
 graph TD
-    A["Managed Policy<br/>/Library/.../ClaudeCode/CLAUDE.md"] -->|highest priority| A2["Managed Drop-ins<br/>managed-settings.d/"]
+    A["Managed Policy<br/>/Library/.../ClaudeCode/CLAUDE.md"] -->|наивысший приоритет| A2["Managed Drop-ins<br/>managed-settings.d/"]
     A2 --> B["Project Memory<br/>./CLAUDE.md"]
     B --> C["Project Rules<br/>./.claude/rules/*.md"]
     C --> D["User Memory<br/>~/.claude/CLAUDE.md"]
@@ -267,8 +267,8 @@ graph TD
     E --> F["Local Project Memory<br/>./CLAUDE.local.md"]
     F --> G["Auto Memory<br/>~/.claude/projects/.../memory/"]
 
-    B -->|imports| H["@docs/architecture.md"]
-    H -->|imports| I["@docs/api-standards.md"]
+    B -->|импортирует| H["@docs/architecture.md"]
+    H -->|импортирует| I["@docs/api-standards.md"]
 
     style A fill:#fce4ec,stroke:#333,color:#333
     style A2 fill:#fce4ec,stroke:#333,color:#333
@@ -287,7 +287,7 @@ graph TD
 В больших monorepo некоторые `CLAUDE.md` могут быть не нужны для текущей работы. Настройка `claudeMdExcludes` позволяет исключить конкретные файлы `CLAUDE.md`, чтобы они не загружались в контекст:
 
 ```jsonc
-// In ~/.claude/settings.json or .claude/settings.json
+// В ~/.claude/settings.json или .claude/settings.json
 {
   "claudeMdExcludes": [
     "packages/legacy-app/CLAUDE.md",
@@ -304,17 +304,17 @@ graph TD
 
 ## Иерархия settings-файлов
 
-Claude Code settings (включая `autoMemoryDirectory`, `claudeMdExcludes` и другие настройки) разрешаются из пятиуровневой иерархии, где более высокие уровни имеют приоритет:
+Настройки Claude Code (включая `autoMemoryDirectory`, `claudeMdExcludes` и другие параметры) разрешаются из пятиуровневой иерархии, где более высокие уровни имеют приоритет:
 
-| Level | Location | Scope |
+| Уровень | Расположение | Область |
 |-------|----------|-------|
-| 1 (Highest) | Managed policy (system-level) | Organization-wide enforcement |
-| 2 | `managed-settings.d/` (v2.1.83+) | Modular policy drop-ins, merged alphabetically |
-| 3 | `~/.claude/settings.json` | User preferences |
-| 4 | `.claude/settings.json` | Project-level (committed to git) |
-| 5 (Lowest) | `.claude/settings.local.json` | Local overrides (git-ignored) |
+| 1 (наивысший) | Managed policy (system-level) | Политики на уровне организации |
+| 2 | `managed-settings.d/` (v2.1.83+) | Модульные policy drop-ins, объединяемые по алфавиту |
+| 3 | `~/.claude/settings.json` | Пользовательские настройки |
+| 4 | `.claude/settings.json` | Уровень проекта (коммитится в git) |
+| 5 (самый низкий) | `.claude/settings.local.json` | Локальные переопределения (игнорируются git) |
 
-**Platform-specific configuration (v2.1.51+):**
+**Платформенно-специфичная конфигурация (v2.1.51+):**
 
 Настройки также можно задавать через:
 - **macOS**: Property list (plist) files
@@ -334,13 +334,13 @@ your-project/
 │       ├── code-style.md
 │       ├── testing.md
 │       ├── security.md
-│       └── api/                  # Subdirectories supported
+│       └── api/                  # Поддерживаются подкаталоги
 │           ├── conventions.md
 │           └── validation.md
 
 ~/.claude/
 ├── CLAUDE.md
-└── rules/                        # User-level rules (all projects)
+└── rules/                        # Правила уровня пользователя (все проекты)
     ├── personal-style.md
     └── preferred-patterns.md
 ```
@@ -364,12 +364,12 @@ paths: src/api/**/*.ts
 - Include error handling for all operations
 ```
 
-**Примеры Glob Pattern:**
+**Примеры glob-шаблонов:**
 
-- `**/*.ts` - All TypeScript files
-- `src/**/*` - All files under src/
-- `src/**/*.{ts,tsx}` - Multiple extensions
-- `{src,lib}/**/*.ts, tests/**/*.test.ts` - Multiple patterns
+- `**/*.ts` - все TypeScript-файлы
+- `src/**/*` - все файлы внутри `src/`
+- `src/**/*.{ts,tsx}` - несколько расширений
+- `{src,lib}/**/*.ts, tests/**/*.test.ts` - несколько шаблонов
 
 ### Подкаталоги и Symlinks
 
@@ -380,7 +380,7 @@ paths: src/api/**/*.ts
 
 ## Таблица расположений Memory
 
-| Location | Scope | Priority | Shared | Access | Best For |
+| Расположение | Область | Приоритет | Общий доступ | Доступ | Лучше всего подходит для |
 |----------|-------|----------|--------|--------|----------|
 | `/Library/Application Support/ClaudeCode/CLAUDE.md` (macOS) | Managed Policy | 1 (Highest) | Organization | System | Company-wide policies |
 | `/etc/claude-code/CLAUDE.md` (Linux/WSL) | Managed Policy | 1 (Highest) | Organization | System | Organization standards |

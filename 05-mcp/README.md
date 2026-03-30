@@ -73,7 +73,7 @@ graph TB
 
 ## Способы установки MCP
 
-Claude Code поддерживает несколько транспортных протоколов для подключения к MCP server:
+Claude Code поддерживает несколько транспортных протоколов для подключения к MCP-серверу:
 
 ### HTTP-транспорт (рекомендуется)
 
@@ -88,7 +88,7 @@ claude mcp add --transport http secure-api https://api.example.com/mcp \
 
 ### Stdio-транспорт (локально)
 
-Для локально запущенных MCP servers:
+Для локально запущенных MCP-серверов:
 
 ```bash
 # Локальный сервер Node.js
@@ -124,7 +124,7 @@ claude mcp add --transport stdio my-server -- cmd /c npx -y @some/package
 
 ### Аутентификация OAuth 2.0
 
-Claude Code поддерживает OAuth 2.0 для MCP servers, которым это требуется. При подключении к OAuth-enabled серверу Claude Code обрабатывает весь поток аутентификации:
+Claude Code поддерживает OAuth 2.0 для MCP-серверов, которым это требуется. При подключении к OAuth-enabled серверу Claude Code обрабатывает весь поток аутентификации:
 
 ```bash
 # Подключиться к MCP-серверу с OAuth (интерактивный сценарий)
@@ -149,7 +149,7 @@ claude mcp add --transport http my-service https://my-service.example.com/mcp \
 
 #### Переопределение OAuth metadata discovery
 
-Если ваш MCP server возвращает ошибки на стандартном OAuth metadata endpoint (`/.well-known/oauth-authorization-server`), но публикует рабочий OIDC endpoint, можно указать Claude Code получать OAuth metadata с другого URL. Установите `authServerMetadataUrl` в объекте `oauth` вашей конфигурации server:
+Если ваш MCP-сервер возвращает ошибки на стандартном OAuth metadata endpoint (`/.well-known/oauth-authorization-server`), но публикует рабочий OIDC endpoint, можно указать Claude Code получать OAuth metadata с другого URL. Установите `authServerMetadataUrl` в объекте `oauth` конфигурации сервера:
 
 ```json
 {
@@ -169,7 +169,7 @@ URL должен использовать `https://`. Эта опция треб
 
 ### Claude.ai MCP Connectors
 
-MCP servers, настроенные в вашем аккаунте Claude.ai, автоматически доступны в Claude Code. Это значит, что любые MCP connections, созданные через веб-интерфейс Claude.ai, будут доступны без дополнительной настройки.
+MCP-серверы, настроенные в вашем аккаунте Claude.ai, автоматически доступны в Claude Code. Это значит, что любые MCP connections, созданные через веб-интерфейс Claude.ai, будут доступны без дополнительной настройки.
 
 Claude.ai MCP connectors также доступны в `--print` mode (v2.1.83+), что позволяет использовать их неинтерактивно и в скриптах.
 

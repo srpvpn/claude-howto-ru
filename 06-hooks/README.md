@@ -5,7 +5,7 @@
 
 # Hooks
 
-Hooks — это автоматические скрипты, которые запускаются в ответ на конкретные события во время сессий Claude Code. Они обеспечивают автоматизацию, валидацию, управление разрешениями и пользовательские workflow.
+Hooks — это автоматические скрипты, которые запускаются в ответ на конкретные события во время сессий Claude Code. Они обеспечивают автоматизацию, валидацию, управление разрешениями и пользовательские workflows.
 
 <a id="overview"></a>
 ## Обзор
@@ -88,7 +88,7 @@ Claude Code поддерживает четыре типа hooks:
 
 ### HTTP hooks
 
-> Added in v2.1.63.
+> Добавлено в v2.1.63.
 
 Удалённые webhook-endpoint'ы, которые получают тот же JSON-ввод, что и command hooks. HTTP hooks отправляют JSON через POST на URL и получают JSON-ответ. При включённом sandboxing HTTP hooks проходят через sandbox. Для подстановки переменных окружения в URL требуется явный список `allowedEnvVars` в целях безопасности.
 
@@ -178,7 +178,7 @@ Claude Code поддерживает **25 hook events**:
 
 Срабатывает после того, как Claude создаёт параметры tool, и до обработки. Используйте это, чтобы проверить или изменить входные данные tool.
 
-**Configuration:**
+**Конфигурация:**
 ```json
 {
   "hooks": {
@@ -197,9 +197,9 @@ Claude Code поддерживает **25 hook events**:
 }
 ```
 
-**Common matchers:** `Task`, `Bash`, `Glob`, `Grep`, `Read`, `Edit`, `Write`, `WebFetch`, `WebSearch`
+**Распространённые matcher-ы:** `Task`, `Bash`, `Glob`, `Grep`, `Read`, `Edit`, `Write`, `WebFetch`, `WebSearch`
 
-**Output control:**
+**Управление выводом:**
 - `permissionDecision`: `"allow"`, `"deny"`, or `"ask"`
 - `permissionDecisionReason`: Explanation for decision
 - `updatedInput`: Modified tool input parameters

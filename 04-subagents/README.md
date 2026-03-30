@@ -257,9 +257,9 @@ Claude Code включает несколько встроенных subagents, 
 
 ### Subagent Bash
 
-| Property | Value |
+| Свойство | Значение |
 |----------|-------|
-| **Model** | Inherits from parent |
+| **Model** | Наследуется от родителя |
 | **Tools** | Bash |
 | **Purpose** | Выполнять команды терминала в отдельном окне контекста |
 
@@ -267,7 +267,7 @@ Claude Code включает несколько встроенных subagents, 
 
 ### Subagent настройки status line
 
-| Property | Value |
+| Свойство | Значение |
 |----------|-------|
 | **Model** | Sonnet |
 | **Tools** | Read, Write, Bash |
@@ -277,10 +277,10 @@ Claude Code включает несколько встроенных subagents, 
 
 ### Subagent справки по Claude Code
 
-| Property | Value |
+| Свойство | Значение |
 |----------|-------|
-| **Model** | Haiku (fast, low-latency) |
-| **Tools** | Read-only |
+| **Model** | Haiku (быстрый, с низкой задержкой) |
+| **Tools** | Только чтение |
 | **Purpose** | Отвечать на вопросы о возможностях Claude Code и его использовании |
 
 **Когда используется**: когда пользователи спрашивают, как работает Claude Code или как использовать конкретные функции.
@@ -328,7 +328,7 @@ mkdir -p ~/.claude/agents
 
 ### Автоматическое делегирование
 
-Claude proactively делегирует задачи на основе:
+Claude проактивно делегирует задачи на основе:
 - описания задачи в вашем запросе
 - поля `description` в конфигурации subagent
 - текущего контекста и доступных инструментов
@@ -344,7 +344,7 @@ description: Expert code review specialist. Use PROACTIVELY after writing or mod
 
 ### Явный вызов
 
-You can explicitly request a specific subagent:
+Вы можете явно запросить конкретный subagent:
 
 ```
 > Use the test-runner subagent to fix failing tests
@@ -362,13 +362,13 @@ You can explicitly request a specific subagent:
 
 ### Агент на всю сессию
 
-Run an entire session using a specific agent as the main agent:
+Можно провести всю сессию с конкретным агентом как основным:
 
 ```bash
-# Via CLI flag
+# Через CLI-флаг
 claude --agent code-reviewer
 
-# Via settings.json
+# Через settings.json
 {
   "agent": "code-reviewer"
 }
@@ -376,7 +376,7 @@ claude --agent code-reviewer
 
 ### Просмотр доступных агентов
 
-Use the `claude agents` command to list all configured agents from all sources:
+Используйте команду `claude agents`, чтобы вывести всех настроенных агентов из всех источников:
 
 ```bash
 claude agents

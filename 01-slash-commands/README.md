@@ -9,16 +9,16 @@
 
 Slash-команды — это ярлыки, которые управляют поведением Claude во время интерактивной сессии. Они бывают нескольких типов:
 
-- **Built-in commands**: встроенные команды Claude Code (`/help`, `/clear`, `/model`)
+- **Встроенные команды**: встроенные команды Claude Code (`/help`, `/clear`, `/model`)
 - **Skills**: пользовательские команды, оформленные как файлы `SKILL.md` (`/optimize`, `/pr`)
-- **Plugin commands**: команды из установленных plugins (`/frontend-design:frontend-design`)
-- **MCP prompts**: команды от MCP-серверов (`/mcp__github__list_prs`)
+- **Команды плагинов**: команды из установленных plugins (`/frontend-design:frontend-design`)
+- **MCP-prompts**: команды от MCP-серверов (`/mcp__github__list_prs`)
 
-> **Примечание**: пользовательские slash-команды были объединены со skills. Файлы в `.claude/commands/` всё ещё работают, но skills (`.claude/skills/`) теперь рекомендуемый подход. Оба варианта создают ярлыки `/command-name`. См. [Skills Guide](../03-skills/) для полной справки.
+> **Примечание**: пользовательские slash-команды были объединены со skills. Файлы в `.claude/commands/` всё ещё работают, но skills (`.claude/skills/`) теперь рекомендуемый подход. Оба варианта создают ярлыки `/command-name`. См. [руководство по Skills](../03-skills/) для полной справки.
 
 ## Справка по встроенным командам
 
-Встроенные команды — это ярлыки для частых действий. Доступно **55+ built-in commands** и **5 bundled skills**. Введите `/` в Claude Code, чтобы увидеть полный список, или `/` и любые буквы, чтобы отфильтровать его.
+Встроенные команды — это ярлыки для частых действий. Доступно **55+ встроенных команд** и **5 встроенных skills**. Введите `/` в Claude Code, чтобы увидеть полный список, или `/` и любые буквы, чтобы отфильтровать его.
 
 | Команда | Назначение |
 |---------|---------|
@@ -84,7 +84,7 @@ Slash-команды — это ярлыки, которые управляют 
 | `/vim` | Переключить Vim/Normal modes |
 | `/voice` | Переключить push-to-talk voice dictation |
 
-### Bundled Skills
+### Встроенные Skills
 
 Эти skills поставляются вместе с Claude Code и вызываются как slash-команды:
 
@@ -106,53 +106,53 @@ Slash-команды — это ярлыки, которые управляют 
 
 ### Последние изменения
 
-- `/fork` renamed to `/branch` with `/fork` kept as alias (v2.1.77)
-- `/output-style` deprecated (v2.1.73)
-- `/review` deprecated in favor of the `code-review` plugin
-- `/effort` command added with `max` level requiring Opus 4.6
-- `/voice` command added for push-to-talk voice dictation
-- `/schedule` command added for creating/managing scheduled tasks
-- `/color` command added for prompt bar customization
-- `/model` picker now shows human-readable labels (e.g., "Sonnet 4.6") instead of raw model IDs
-- `/resume` supports `/continue` alias
-- MCP prompts are available as `/mcp__<server>__<prompt>` commands (see [MCP Prompts as Commands](#mcp-prompts-as-commands))
+- `/fork` переименована в `/branch`, при этом `/fork` сохранена как alias (v2.1.77)
+- `/output-style` помечена как deprecated (v2.1.73)
+- `/review` помечена как deprecated в пользу плагина `code-review`
+- добавлена команда `/effort`, где уровень `max` требует Opus 4.6
+- добавлена команда `/voice` для push-to-talk voice dictation
+- добавлена команда `/schedule` для создания и управления scheduled tasks
+- добавлена команда `/color` для настройки prompt bar
+- picker у `/model` теперь показывает читаемые названия (например, `"Sonnet 4.6"`), а не сырые ID моделей
+- `/resume` поддерживает alias `/continue`
+- MCP-prompts доступны как команды `/mcp__<server>__<prompt>` (см. [MCP-prompts как команды](#mcp-prompts-как-команды))
 
-## Custom Commands (Now Skills)
+## Пользовательские команды (теперь Skills)
 
 Пользовательские slash-команды были **объединены со skills**. Оба подхода создают команды, которые можно вызвать через `/command-name`:
 
-| Approach | Location | Status |
+| Подход | Расположение | Статус |
 |----------|----------|--------|
-| **Skills (Recommended)** | `.claude/skills/<name>/SKILL.md` | Current standard |
-| **Legacy Commands** | `.claude/commands/<name>.md` | Still works |
+| **Skills (рекомендуется)** | `.claude/skills/<name>/SKILL.md` | Текущий стандарт |
+| **Legacy Commands** | `.claude/commands/<name>.md` | Всё ещё работают |
 
 Если skill и command имеют одно имя, **приоритет у skill**. Например, когда существуют и `.claude/commands/review.md`, и `.claude/skills/review/SKILL.md`, используется версия skill.
 
-### Migration Path
+### Путь миграции
 
 Ваши существующие файлы `.claude/commands/` продолжают работать без изменений. Чтобы мигрировать на skills:
 
-**Before (Command):**
+**Было (command):**
 ```
 .claude/commands/optimize.md
 ```
 
-**After (Skill):**
+**Стало (skill):**
 ```
 .claude/skills/optimize/SKILL.md
 ```
 
-### Why Skills?
+### Почему Skills
 
 Skills дают дополнительные возможности по сравнению с legacy commands:
 
-- **Directory structure**: объединяйте скрипты, шаблоны и reference files
-- **Auto-invocation**: Claude может запускать skills автоматически, когда это уместно
-- **Invocation control**: выбирайте, кто может вызывать — пользователь, Claude или оба
-- **Subagent execution**: запускайте skills в изолированных контекстах с `context: fork`
-- **Progressive disclosure**: загружайте дополнительные файлы только по необходимости
+- **Структура каталогов**: объединяйте скрипты, шаблоны и reference files
+- **Автовызов**: Claude может запускать skills автоматически, когда это уместно
+- **Управление вызовом**: выбирайте, кто может запускать skill — пользователь, Claude или оба
+- **Выполнение через subagent**: запускайте skills в изолированных контекстах с `context: fork`
+- **Постепенное раскрытие**: загружайте дополнительные файлы только по необходимости
 
-### Creating a Custom Command as a Skill
+### Создание пользовательской команды как Skill
 
 Создайте каталог с файлом `SKILL.md`:
 
@@ -160,92 +160,92 @@ Skills дают дополнительные возможности по сра�
 mkdir -p .claude/skills/my-command
 ```
 
-**File:** `.claude/skills/my-command/SKILL.md`
+**Файл:** `.claude/skills/my-command/SKILL.md`
 
 ```yaml
 ---
 name: my-command
-description: What this command does and when to use it
+description: Что делает эта команда и когда её использовать
 ---
 
 # My Command
 
-Instructions for Claude to follow when this command is invoked.
+Инструкции для Claude, которым нужно следовать при вызове этой команды.
 
-1. First step
-2. Second step
-3. Third step
+1. Первый шаг
+2. Второй шаг
+3. Третий шаг
 ```
 
-### Frontmatter Reference
+### Справка по frontmatter
 
-| Field | Purpose | Default |
+| Поле | Назначение | По умолчанию |
 |-------|---------|---------|
-| `name` | Command name (becomes `/name`) | Directory name |
-| `description` | Brief description (helps Claude know when to use it) | First paragraph |
-| `argument-hint` | Expected arguments for auto-completion | None |
-| `allowed-tools` | Tools the command can use without permission | Inherits |
-| `model` | Specific model to use | Inherits |
-| `disable-model-invocation` | If `true`, only user can invoke (not Claude) | `false` |
-| `user-invocable` | If `false`, hide from `/` menu | `true` |
-| `context` | Set to `fork` to run in isolated subagent | None |
-| `agent` | Agent type when using `context: fork` | `general-purpose` |
-| `hooks` | Skill-scoped hooks (PreToolUse, PostToolUse, Stop) | None |
+| `name` | Имя команды, которое становится `/name` | Имя каталога |
+| `description` | Краткое описание, помогающее Claude понять, когда использовать команду | Первый абзац |
+| `argument-hint` | Ожидаемые аргументы для автодополнения | Нет |
+| `allowed-tools` | Инструменты, которые команда может использовать без запроса разрешения | Наследуется |
+| `model` | Конкретная модель для использования | Наследуется |
+| `disable-model-invocation` | Если `true`, запускать может только пользователь, но не Claude | `false` |
+| `user-invocable` | Если `false`, команда скрыта из меню `/` | `true` |
+| `context` | Значение `fork` запускает команду в изолированном subagent | Нет |
+| `agent` | Тип агента при использовании `context: fork` | `general-purpose` |
+| `hooks` | Hooks, привязанные к этому skill (`PreToolUse`, `PostToolUse`, `Stop`) | Нет |
 
-### Arguments
+### Аргументы
 
-Commands can receive arguments:
+Команды могут принимать аргументы:
 
-**All arguments with `$ARGUMENTS`:**
+**Все аргументы через `$ARGUMENTS`:**
 
 ```yaml
 ---
 name: fix-issue
-description: Fix a GitHub issue by number
+description: Исправить GitHub issue по номеру
 ---
 
-Fix issue #$ARGUMENTS following our coding standards
+Исправь issue #$ARGUMENTS в соответствии с нашими стандартами кодирования
 ```
 
-Usage: `/fix-issue 123` → `$ARGUMENTS` becomes "123"
+Использование: `/fix-issue 123` → `$ARGUMENTS` станет `"123"`
 
-**Individual arguments with `$0`, `$1`, etc.:**
+**Отдельные аргументы через `$0`, `$1` и т. д.:**
 
 ```yaml
 ---
 name: review-pr
-description: Review a PR with priority
+description: Выполнить review PR с указанием приоритета
 ---
 
-Review PR #$0 with priority $1
+Проведи review PR #$0 с приоритетом $1
 ```
 
-Usage: `/review-pr 456 high` → `$0`="456", `$1`="high"
+Использование: `/review-pr 456 high` → `$0`=`"456"`, `$1`=`"high"`
 
-### Dynamic Context with Shell Commands
+### Динамический контекст через shell-команды
 
 Выполняйте bash-команды перед prompt с помощью `!`command``:
 
 ```yaml
 ---
 name: commit
-description: Create a git commit with context
+description: Создать git commit с контекстом
 allowed-tools: Bash(git *)
 ---
 
-## Context
+## Контекст
 
-- Current git status: !`git status`
-- Current git diff: !`git diff HEAD`
-- Current branch: !`git branch --show-current`
-- Recent commits: !`git log --oneline -5`
+- Текущий git status: !`git status`
+- Текущий git diff: !`git diff HEAD`
+- Текущая ветка: !`git branch --show-current`
+- Последние коммиты: !`git log --oneline -5`
 
-## Your task
+## Ваша задача
 
-Based on the above changes, create a single git commit.
+На основе изменений выше создай один git commit.
 ```
 
-### File References
+### Ссылки на файлы
 
 Подключайте содержимое файлов с помощью `@`:
 
@@ -254,9 +254,9 @@ Review the implementation in @src/utils/helpers.js
 Compare @src/old-version.js with @src/new-version.js
 ```
 
-## Plugin Commands
+## Команды плагинов
 
-Plugins can provide custom commands:
+Плагины могут предоставлять пользовательские команды:
 
 ```
 /plugin-name:command-name
@@ -264,53 +264,53 @@ Plugins can provide custom commands:
 
 Или просто `/command-name`, если нет конфликта имён.
 
-**Examples:**
+**Примеры:**
 ```bash
 /frontend-design:frontend-design
 /commit-commands:commit
 ```
 
-## MCP Prompts as Commands
+## MCP-prompts как команды
 
-MCP servers can expose prompts as slash commands:
+MCP-серверы могут публиковать prompts как slash-команды:
 
 ```
 /mcp__<server-name>__<prompt-name> [arguments]
 ```
 
-**Examples:**
+**Примеры:**
 ```bash
 /mcp__github__list_prs
 /mcp__github__pr_review 456
 /mcp__jira__create_issue "Bug title" high
 ```
 
-### MCP Permission Syntax
+### Синтаксис разрешений MCP
 
 Управляйте доступом к MCP-серверам через permissions:
 
-- `mcp__github` - Access entire GitHub MCP server
-- `mcp__github__*` - Wildcard access to all tools
-- `mcp__github__get_issue` - Specific tool access
+- `mcp__github` - доступ ко всему GitHub MCP server
+- `mcp__github__*` - wildcard-доступ ко всем инструментам
+- `mcp__github__get_issue` - доступ к конкретному инструменту
 
-## Command Architecture
+## Архитектура команд
 
 ```mermaid
 graph TD
-    A["User Input: /command-name"] --> B{"Command Type?"}
-    B -->|Built-in| C["Execute Built-in"]
-    B -->|Skill| D["Load SKILL.md"]
-    B -->|Plugin| E["Load Plugin Command"]
-    B -->|MCP| F["Execute MCP Prompt"]
+    A["Ввод пользователя: /command-name"] --> B{"Тип команды?"}
+    B -->|Built-in| C["Выполнить встроенную команду"]
+    B -->|Skill| D["Загрузить SKILL.md"]
+    B -->|Plugin| E["Загрузить команду плагина"]
+    B -->|MCP| F["Выполнить MCP-prompt"]
 
-    D --> G["Parse Frontmatter"]
-    G --> H["Substitute Variables"]
-    H --> I["Execute Shell Commands"]
-    I --> J["Send to Claude"]
-    J --> K["Return Results"]
+    D --> G["Разобрать frontmatter"]
+    G --> H["Подставить переменные"]
+    H --> I["Выполнить shell-команды"]
+    I --> J["Передать в Claude"]
+    J --> K["Вернуть результат"]
 ```
 
-## Command Lifecycle
+## Жизненный цикл команды
 
 ```mermaid
 sequenceDiagram
@@ -319,234 +319,234 @@ sequenceDiagram
     participant FS as File System
     participant CLI as Shell/Bash
 
-    User->>Claude: Types /optimize
-    Claude->>FS: Searches .claude/skills/ and .claude/commands/
-    FS-->>Claude: Returns optimize/SKILL.md
-    Claude->>Claude: Parses frontmatter
-    Claude->>CLI: Executes !`command` substitutions
-    CLI-->>Claude: Command outputs
-    Claude->>Claude: Substitutes $ARGUMENTS
-    Claude->>User: Processes prompt
-    Claude->>User: Returns results
+    User->>Claude: Вводит /optimize
+    Claude->>FS: Ищет в .claude/skills/ и .claude/commands/
+    FS-->>Claude: Возвращает optimize/SKILL.md
+    Claude->>Claude: Разбирает frontmatter
+    Claude->>CLI: Выполняет подстановки !`command`
+    CLI-->>Claude: Возвращает вывод команд
+    Claude->>Claude: Подставляет $ARGUMENTS
+    Claude->>User: Обрабатывает prompt
+    Claude->>User: Возвращает результат
 ```
 
-## Available Commands in This Folder
+## Доступные команды в этой папке
 
 Эти example-команды можно установить как skills или legacy commands.
 
-### 1. `/optimize` - Code Optimization
+### 1. `/optimize` - Оптимизация кода
 
 Анализирует код на проблемы производительности, memory leaks и возможности оптимизации.
 
-**Usage:**
+**Использование:**
 ```
 /optimize
-[Paste your code]
+[Вставьте свой код]
 ```
 
-### 2. `/pr` - Pull Request Preparation
+### 2. `/pr` - Подготовка pull request
 
 Проводит через checklist подготовки PR, включая linting, testing и форматирование commit.
 
-**Usage:**
+**Использование:**
 ```
 /pr
 ```
 
-**Screenshot:**
+**Скриншот:**
 ![/pr](pr-slash-command.png)
 
-### 3. `/generate-api-docs` - API Documentation Generator
+### 3. `/generate-api-docs` - Генератор API-документации
 
 Генерирует полную API-документацию из исходного кода.
 
-**Usage:**
+**Использование:**
 ```
 /generate-api-docs
 ```
 
-### 4. `/commit` - Git Commit with Context
+### 4. `/commit` - Git commit с контекстом
 
 Создаёт git commit с динамическим контекстом из репозитория.
 
-**Usage:**
+**Использование:**
 ```
-/commit [optional message]
+/commit [необязательное сообщение]
 ```
 
-### 5. `/push-all` - Stage, Commit, and Push
+### 5. `/push-all` - Индексировать, закоммитить и отправить
 
 Ставит все изменения, создаёт commit и отправляет в remote с проверками безопасности.
 
-**Usage:**
+**Использование:**
 ```
 /push-all
 ```
 
-**Safety Checks:**
-- Secrets: `.env*`, `*.key`, `*.pem`, `credentials.json`
-- API Keys: Detects real keys vs. placeholders
-- Large files: `>10MB` without Git LFS
-- Build artifacts: `node_modules/`, `dist/`, `__pycache__/`
+**Проверки безопасности:**
+- Секреты: `.env*`, `*.key`, `*.pem`, `credentials.json`
+- API-ключи: отличает реальные ключи от плейсхолдеров
+- Крупные файлы: `>10MB` без Git LFS
+- Артефакты сборки: `node_modules/`, `dist/`, `__pycache__/`
 
-### 6. `/doc-refactor` - Documentation Restructuring
+### 6. `/doc-refactor` - Реструктуризация документации
 
 Перестраивает документацию проекта для большей ясности и доступности.
 
-**Usage:**
+**Использование:**
 ```
 /doc-refactor
 ```
 
-### 7. `/setup-ci-cd` - CI/CD Pipeline Setup
+### 7. `/setup-ci-cd` - Настройка CI/CD-пайплайна
 
 Реализует pre-commit hooks и GitHub Actions для контроля качества.
 
-**Usage:**
+**Использование:**
 ```
 /setup-ci-cd
 ```
 
-### 8. `/unit-test-expand` - Test Coverage Expansion
+### 8. `/unit-test-expand` - Расширение покрытия тестами
 
 Увеличивает покрытие тестами, находя непокрытые ветки и edge cases.
 
-**Usage:**
+**Использование:**
 ```
 /unit-test-expand
 ```
 
-## Installation
+## Установка
 
-### As Skills (Recommended)
+### Как Skills (рекомендуется)
 
 Скопируйте в каталог skills:
 
 ```bash
-# Create skills directory
+# Создать каталог skills
 mkdir -p .claude/skills
 
-# For each command file, create a skill directory
+# Для каждого файла команды создать каталог skill
 for cmd in optimize pr commit; do
   mkdir -p .claude/skills/$cmd
   cp 01-slash-commands/$cmd.md .claude/skills/$cmd/SKILL.md
 done
 ```
 
-### As Legacy Commands
+### Как Legacy Commands
 
 Скопируйте в каталог commands:
 
 ```bash
-# Project-wide (team)
+# На уровне проекта (для команды)
 mkdir -p .claude/commands
 cp 01-slash-commands/*.md .claude/commands/
 
-# Personal use
+# Для личного использования
 mkdir -p ~/.claude/commands
 cp 01-slash-commands/*.md ~/.claude/commands/
 ```
 
-## Creating Your Own Commands
+## Создание собственных команд
 
-### Skill Template (Recommended)
+### Шаблон Skill (рекомендуется)
 
 Создайте `.claude/skills/my-command/SKILL.md`:
 
 ```yaml
 ---
 name: my-command
-description: What this command does. Use when [trigger conditions].
+description: Что делает эта команда. Используйте, когда [условия срабатывания].
 argument-hint: [optional-args]
 allowed-tools: Bash(npm *), Read, Grep
 ---
 
-# Command Title
+# Название команды
 
-## Context
+## Контекст
 
-- Current branch: !`git branch --show-current`
-- Related files: @package.json
+- Текущая ветка: !`git branch --show-current`
+- Связанные файлы: @package.json
 
-## Instructions
+## Инструкции
 
-1. First step
-2. Second step with argument: $ARGUMENTS
-3. Third step
+1. Первый шаг
+2. Второй шаг с аргументом: $ARGUMENTS
+3. Третий шаг
 
-## Output Format
+## Формат вывода
 
-- How to format the response
-- What to include
+- Как оформить ответ
+- Что включить
 ```
 
-### User-Only Command (No Auto-Invocation)
+### Команда только для пользователя (без автовызова)
 
 Для команд с побочными эффектами, которые Claude не должен запускать автоматически:
 
 ```yaml
 ---
 name: deploy
-description: Deploy to production
+description: Развернуть в production
 disable-model-invocation: true
 allowed-tools: Bash(npm *), Bash(git *)
 ---
 
-Deploy the application to production:
+Разверните приложение в production:
 
-1. Run tests
-2. Build application
-3. Push to deployment target
-4. Verify deployment
+1. Запустите тесты
+2. Соберите приложение
+3. Отправьте в среду развёртывания
+4. Проверьте результат развёртывания
 ```
 
-## Best Practices
+## Лучшие практики
 
-| Do | Don't |
+| Делайте | Не делайте |
 |------|---------|
-| Используйте ясные, action-oriented названия | Создавайте команды для одноразовых задач |
-| Добавляйте `description` с trigger conditions | Встраивайте сложную логику в команды |
+| Используйте ясные, ориентированные на действие названия | Создавайте команды для одноразовых задач |
+| Добавляйте `description` с условиями срабатывания | Встраивайте сложную логику в команды |
 | Держите команды сфокусированными на одной задаче | Хардкодьте чувствительную информацию |
 | Используйте `disable-model-invocation` для side effects | Пропускайте поле description |
 | Используйте префикс `!` для динамического контекста | Предполагайте, что Claude знает текущее состояние |
-| Организуйте связанные файлы в skill directories | Складывайте всё в один файл |
+| Организуйте связанные файлы в каталогах skills | Складывайте всё в один файл |
 
-## Troubleshooting
+## Устранение неполадок
 
-### Command Not Found
+### Команда не найдена
 
-**Solutions:**
+**Что проверить:**
 - Проверьте, что файл находится в `.claude/skills/<name>/SKILL.md` или `.claude/commands/<name>.md`
 - Убедитесь, что поле `name` в frontmatter соответствует ожидаемому имени команды
 - Перезапустите сессию Claude Code
 - Запустите `/help`, чтобы увидеть доступные команды
 
-### Command Not Executing as Expected
+### Команда работает не так, как ожидалось
 
-**Solutions:**
+**Что проверить:**
 - Добавьте более конкретные инструкции
 - Включите примеры в skill-файл
 - Проверьте `allowed-tools`, если используете bash-команды
-- Сначала протестируйте на простых input
+- Сначала протестируйте на простых входных данных
 
-### Skill vs Command Conflict
+### Конфликт Skill и Command
 
 Если оба варианта имеют одно имя, **приоритет у skill**. Удалите один из них или переименуйте.
 
-## Related Guides
+## Связанные руководства
 
-- **[Skills](../03-skills/)** - Полная справка по skills (auto-invoked capabilities)
-- **[Memory](../02-memory/)** - Persistent context с CLAUDE.md
+- **[Skills](../03-skills/)** - Полная справка по skills с автоактивацией
+- **[Memory](../02-memory/)** - Постоянный контекст через CLAUDE.md
 - **[Subagents](../04-subagents/)** - Делегированные AI-агенты
 - **[Plugins](../07-plugins/)** - Сборники команд
-- **[Hooks](../06-hooks/)** - Event-driven automation
+- **[Hooks](../06-hooks/)** - Автоматизация по событиям
 
-## Additional Resources
+## Дополнительные материалы
 
-- [Official Interactive Mode Documentation](https://code.claude.com/docs/en/interactive-mode) - Built-in commands reference
-- [Official Skills Documentation](https://code.claude.com/docs/en/skills) - Complete skills reference
-- [CLI Reference](https://code.claude.com/docs/en/cli-reference) - Command-line options
+- [Official Interactive Mode Documentation](https://code.claude.com/docs/en/interactive-mode) - справка по встроенным командам
+- [Official Skills Documentation](https://code.claude.com/docs/en/skills) - полная справка по skills
+- [CLI Reference](https://code.claude.com/docs/en/cli-reference) - опции командной строки
 
 ---
 
-*Часть серии [Claude How To](../) guide series*
+*Часть серии руководств [Claude How To](../)*

@@ -31,20 +31,20 @@ Skills используют архитектуру **progressive disclosure** �
 
 ```mermaid
 graph TB
-    subgraph "Level 1: Metadata (Always Loaded)"
+    subgraph "Уровень 1: метаданные (загружаются всегда)"
         A["YAML Frontmatter"]
         A1["~100 токенов на skill"]
         A2["name + description"]
     end
 
-    subgraph "Level 2: Instructions (When Triggered)"
+    subgraph "Уровень 2: инструкции (при активации)"
         B["SKILL.md Body"]
-        B1["Under 5k tokens"]
+        B1["Менее 5k токенов"]
         B2["Рабочие процессы и инструкции"]
     end
 
-    subgraph "Level 3: Resources (As Needed)"
-        C["Bundled Files"]
+    subgraph "Уровень 3: ресурсы (по необходимости)"
+        C["Вложенные файлы"]
         C1["Практически без ограничений"]
         C2["Скрипты, шаблоны, документация"]
     end
@@ -55,9 +55,9 @@ graph TB
 
 | Уровень | Когда загружается | Стоимость в токенах | Содержимое |
 |-------|------------|------------|---------|
-| **Level 1: Metadata** | Всегда, при старте | ~100 токенов на Skill | `name` и `description` из YAML frontmatter |
-| **Level 2: Instructions** | Когда skill активируется | Меньше 5k токенов | Тело `SKILL.md` с инструкциями и пояснениями |
-| **Level 3+: Resources** | По необходимости | Практически неограниченно | Вложенные файлы, которые выполняются через bash без загрузки содержимого в контекст |
+| **Уровень 1: метаданные** | Всегда, при старте | ~100 токенов на Skill | `name` и `description` из YAML frontmatter |
+| **Уровень 2: инструкции** | Когда skill активируется | Меньше 5k токенов | Тело `SKILL.md` с инструкциями и пояснениями |
+| **Уровень 3+: ресурсы** | По необходимости | Практически неограниченно | Вложенные файлы, которые выполняются через bash без загрузки содержимого в контекст |
 
 Это означает, что вы можете установить много Skills без штрафа за контекст: Claude знает только о существовании каждого Skill и о том, когда его использовать, пока он не будет реально активирован.
 
@@ -121,15 +121,15 @@ my-skill/
 ```yaml
 ---
 name: your-skill-name
-description: Brief description of what this Skill does and when to use it
+description: Кратко опишите, что делает этот skill и когда его использовать
 ---
 
-# Your Skill Name
+# Название вашего skill
 
-## Instructions
+## Инструкции
 Дайте Claude понятные пошаговые инструкции.
 
-## Examples
+## Примеры
 Покажите конкретные примеры использования этого Skill.
 ```
 
@@ -143,7 +143,7 @@ description: Brief description of what this Skill does and when to use it
 ```yaml
 ---
 name: my-skill
-description: What this skill does and when to use it
+description: Что делает этот skill и когда его использовать
 argument-hint: "[filename] [format]"        # Hint for autocomplete
 disable-model-invocation: true              # Only user can invoke
 user-invocable: false                       # Hide from slash menu
@@ -265,18 +265,18 @@ Fix GitHub issue $ARGUMENTS following our coding standards.
 ```yaml
 ---
 name: pr-summary
-description: Summarize changes in a pull request
+description: Суммировать изменения в pull request
 context: fork
 agent: Explore
 ---
 
-## Pull request context
-- PR diff: !`gh pr diff`
-- PR comments: !`gh pr view --comments`
-- Changed files: !`gh pr diff --name-only`
+## Контекст pull request
+- Diff PR: !`gh pr diff`
+- Комментарии PR: !`gh pr view --comments`
+- Изменённые файлы: !`gh pr diff --name-only`
 
-## Your task
-Summarize this pull request...
+## Ваша задача
+Суммируйте этот pull request...
 ```
 
 Команды выполняются сразу; Claude видит только итоговый вывод. По умолчанию команды запускаются в `bash`. Укажите `shell: powershell` в frontmatter, чтобы использовать PowerShell.
@@ -308,15 +308,15 @@ agent: Explore
 ```yaml
 ---
 name: deep-research
-description: Research a topic thoroughly
+description: Тщательно исследовать тему
 context: fork
 agent: Explore
 ---
 
-Research $ARGUMENTS thoroughly:
-1. Find relevant files using Glob and Grep
-2. Read and analyze the code
-3. Summarize findings with specific file references
+Тщательно исследуйте $ARGUMENTS:
+1. Найдите релевантные файлы с помощью Glob и Grep
+2. Прочитайте и проанализируйте код
+3. Суммируйте выводы с конкретными ссылками на файлы
 ```
 
 ## Практические примеры
@@ -341,52 +341,52 @@ Research $ARGUMENTS thoroughly:
 ```yaml
 ---
 name: code-review-specialist
-description: Comprehensive code review with security, performance, and quality analysis. Use when users ask to review code, analyze code quality, evaluate pull requests, or mention code review, security analysis, or performance optimization.
+description: Полный code review с анализом безопасности, производительности и качества. Используйте, когда пользователь просит провести review кода, оценить его качество, проверить pull request или упоминает анализ безопасности либо оптимизацию производительности.
 ---
 
 # Skill для code review
 
 Этот skill даёт полноценные возможности для code review с акцентом на:
 
-1. **Security Analysis**
+1. **Анализ безопасности**
    - Ошибки аутентификации/авторизации
    - Риски утечки данных
    - Уязвимости инъекций
    - Криптографические слабые места
 
-2. **Performance Review**
+2. **Проверка производительности**
    - Эффективность алгоритмов (анализ Big O)
    - Оптимизация памяти
    - Оптимизация запросов к базе данных
    - Возможности кэширования
 
-3. **Code Quality**
+3. **Качество кода**
    - Принципы SOLID
    - Паттерны проектирования
    - Соглашения об именовании
    - Покрытие тестами
 
-4. **Maintainability**
+4. **Поддерживаемость**
    - Читаемость кода
    - Размер функций (желательно < 50 строк)
    - Цикломатическая сложность
    - Безопасность типов
 
-## Review Template
+## Шаблон review
 
-For each piece of code reviewed, provide:
+Для каждого рассмотренного фрагмента кода укажите:
 
-### Summary
-- Overall quality assessment (1-5)
-- Key findings count
-- Recommended priority areas
+### Краткая сводка
+- Общая оценка качества (1-5)
+- Количество ключевых замечаний
+- Рекомендуемые приоритетные области
 
-### Critical Issues (if any)
-- **Issue**: Clear description
-- **Location**: File and line number
-- **Impact**: Why this matters
-- **Severity**: Critical/High/Medium
-- **Fix**: Code example
+### Критические проблемы (если есть)
+- **Проблема**: чёткое описание
+- **Местоположение**: файл и номер строки
+- **Влияние**: почему это важно
+- **Серьёзность**: Critical/High/Medium
+- **Исправление**: пример кода
 
 Для подробных чеклистов см. [templates/review-checklist.md](templates/review-checklist.md).
 ```
@@ -643,7 +643,7 @@ Skill(deploy *)
 
 **Скрыть отдельные skills** можно, добавив `disable-model-invocation: true` в их frontmatter.
 
-## Best Practices
+## Лучшие практики
 
 ### 1. Делайте описания конкретными
 
@@ -660,7 +660,7 @@ Skill(deploy *)
 
 Добавляйте ключевые слова в описания, которые совпадают с запросами пользователей:
 ```yaml
-description: Analyze Excel spreadsheets, generate pivot tables, create charts. Use when working with Excel files, spreadsheets, or .xlsx files.
+description: Анализировать Excel-таблицы, строить сводные таблицы и создавать графики. Используйте при работе с Excel-файлами, spreadsheets или файлами .xlsx.
 ```
 
 ### 4. Держите `SKILL.md` меньше 500 строк
@@ -670,13 +670,13 @@ description: Analyze Excel spreadsheets, generate pivot tables, create charts. U
 ### 5. Ссылайтесь на поддерживающие файлы
 
 ```markdown
-## Additional resources
+## Дополнительные ресурсы
 
-- For complete API details, see [reference.md](reference.md)
-- For usage examples, see [examples.md](examples.md)
+- Полные детали API см. в [reference.md](reference.md)
+- Примеры использования см. в [examples.md](examples.md)
 ```
 
-### Do's
+### Что делать
 
 - Используйте понятные и описательные имена
 - Добавляйте исчерпывающие инструкции
@@ -685,7 +685,7 @@ description: Analyze Excel spreadsheets, generate pivot tables, create charts. U
 - Проверяйте на реальных сценариях
 - Документируйте зависимости
 
-### Don'ts
+### Чего не делать
 
 - Не создавайте skills для одноразовых задач
 - Не дублируйте уже существующую функциональность
@@ -693,7 +693,7 @@ description: Analyze Excel spreadsheets, generate pivot tables, create charts. U
 - Не пропускайте поле description
 - Не устанавливайте skills из недоверенных источников без проверки
 
-## Troubleshooting
+## Устранение неполадок
 
 ### Краткая памятка
 
@@ -710,17 +710,17 @@ description: Analyze Excel spreadsheets, generate pivot tables, create charts. U
 
 Если Claude не использует ваш skill, когда это ожидается:
 
-1. Check the description includes keywords users would naturally say
-2. Verify the skill appears when asking "What skills are available?"
-3. Try rephrasing your request to match the description
-4. Invoke directly with `/skill-name` to test
+1. Проверьте, что в `description` есть ключевые слова, которые пользователь реально употребляет
+2. Убедитесь, что skill появляется при вопросе `"What skills are available?"`
+3. Попробуйте переформулировать запрос так, чтобы он совпадал с описанием
+4. Для проверки вызовите skill напрямую через `/skill-name`
 
 ### Skill срабатывает слишком часто
 
 Если Claude использует skill, когда вам это не нужно:
 
-1. Make the description more specific
-2. Add `disable-model-invocation: true` for manual-only invocation
+1. Сделайте описание более конкретным
+2. Добавьте `disable-model-invocation: true`, если skill должен вызываться только вручную
 
 ### Claude не видит все Skills
 
