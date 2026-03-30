@@ -3,104 +3,106 @@
   <img alt="Claude How To" src="../resources/logos/claude-howto-logo.svg">
 </picture>
 
-# Advanced Features
+# Продвинутые возможности
 
-Comprehensive guide to Claude Code's advanced capabilities including planning mode, extended thinking, auto mode, background tasks, permission modes, print mode (non-interactive), session management, interactive features, channels, voice dictation, remote control, web sessions, desktop app, task list, prompt suggestions, git worktrees, sandboxing, managed settings, and configuration.
+Подробное руководство по продвинутым возможностям Claude Code, включая planning mode, extended thinking, auto mode, background tasks, permission modes, print mode (non-interactive), session management, interactive features, channels, voice dictation, remote control, web sessions, desktop app, task list, prompt suggestions, git worktrees, sandboxing, managed settings и configuration.
 
-## Table of Contents
+## Содержание
 
-1. [Overview](#overview)
-2. [Planning Mode](#planning-mode)
-3. [Extended Thinking](#extended-thinking)
-4. [Auto Mode](#auto-mode)
-5. [Background Tasks](#background-tasks)
-6. [Scheduled Tasks](#scheduled-tasks)
-7. [Permission Modes](#permission-modes)
-8. [Headless Mode](#headless-mode)
-9. [Session Management](#session-management)
-10. [Interactive Features](#interactive-features)
-11. [Voice Dictation](#voice-dictation)
-12. [Channels](#channels)
-13. [Chrome Integration](#chrome-integration)
-14. [Remote Control](#remote-control)
-15. [Web Sessions](#web-sessions)
-16. [Desktop App](#desktop-app)
-17. [Task List](#task-list)
-18. [Prompt Suggestions](#prompt-suggestions)
+1. [Обзор](#overview)
+2. [Режим планирования](#planning-mode)
+3. [Расширенное мышление](#extended-thinking)
+4. [Автоматический режим](#auto-mode)
+5. [Фоновые задачи](#background-tasks)
+6. [Запланированные задачи](#scheduled-tasks)
+7. [Режимы разрешений](#permission-modes)
+8. [Безголовый режим](#headless-mode)
+9. [Управление сессиями](#session-management)
+10. [Интерактивные возможности](#interactive-features)
+11. [Голосовой ввод](#voice-dictation)
+12. [Каналы](#channels)
+13. [Интеграция с Chrome](#chrome-integration)
+14. [Удалённое управление](#remote-control)
+15. [Веб-сессии](#web-sessions)
+16. [Настольное приложение](#desktop-app)
+17. [Список задач](#task-list)
+18. [Подсказки к промптам](#prompt-suggestions)
 19. [Git Worktrees](#git-worktrees)
-20. [Sandboxing](#sandboxing)
-21. [Managed Settings (Enterprise)](#managed-settings-enterprise)
-22. [Configuration and Settings](#configuration-and-settings)
-23. [Best Practices](#best-practices)
-24. [Related Concepts](#related-concepts)
+20. [Песочница](#sandboxing)
+21. [Управляемые настройки (Enterprise)](#managed-settings-enterprise)
+22. [Конфигурация и настройки](#configuration-and-settings)
+23. [Лучшие практики](#best-practices)
+24. [Связанные концепции](#related-concepts)
 
 ---
 
-## Overview
+<a id="overview"></a>
+## Обзор
 
-Advanced features in Claude Code extend the core capabilities with planning, reasoning, automation, and control mechanisms. These features enable sophisticated workflows for complex development tasks, code review, automation, and multi-session management.
+Продвинутые возможности Claude Code расширяют базовый набор функций за счёт планирования, рассуждения, автоматизации и механизмов управления. Они позволяют строить сложные рабочие процессы для нестандартных задач разработки, code review, автоматизации и работы с несколькими сессиями одновременно.
 
-**Key advanced features include:**
-- **Planning Mode**: Create detailed implementation plans before coding
-- **Extended Thinking**: Deep reasoning for complex problems
-- **Auto Mode**: Background safety classifier reviews each action before execution (Research Preview)
-- **Background Tasks**: Run long operations without blocking the conversation
-- **Permission Modes**: Control what Claude can do (`default`, `acceptEdits`, `plan`, `auto`, `dontAsk`, `bypassPermissions`)
-- **Print Mode**: Run Claude Code non-interactively for automation and CI/CD (`claude -p`)
-- **Session Management**: Manage multiple work sessions
-- **Interactive Features**: Keyboard shortcuts, multi-line input, and command history
-- **Voice Dictation**: Push-to-talk voice input with 20-language STT support
-- **Channels**: MCP servers push messages into running sessions (Research Preview)
-- **Remote Control**: Control Claude Code from Claude.ai or the Claude app
-- **Web Sessions**: Run Claude Code in the browser at claude.ai/code
-- **Desktop App**: Standalone app for visual diff review and multiple sessions
-- **Task List**: Persistent task tracking across context compactions
-- **Prompt Suggestions**: Smart command suggestions based on context
-- **Git Worktrees**: Isolated worktree branches for parallel work
-- **Sandboxing**: OS-level filesystem and network isolation
-- **Managed Settings**: Enterprise deployment via plist, Registry, or managed files
-- **Configuration**: Customize behavior with JSON configuration files
+**Ключевые продвинутые возможности включают:**
+- **Режим планирования**: создавать подробные планы реализации до начала кода
+- **Расширенное мышление**: глубокое рассуждение для сложных задач
+- **Автоматический режим**: фоновый классификатор безопасности проверяет каждое действие перед выполнением (Research Preview)
+- **Фоновые задачи**: запускать долгие операции, не блокируя разговор
+- **Режимы разрешений**: управлять тем, что может делать Claude (`default`, `acceptEdits`, `plan`, `auto`, `dontAsk`, `bypassPermissions`)
+- **Режим печати**: запускать Claude Code без интерактива для автоматизации и CI/CD (`claude -p`)
+- **Управление сессиями**: работать с несколькими сессиями
+- **Интерактивные возможности**: горячие клавиши, многострочный ввод и история команд
+- **Голосовой ввод**: вводить запросы голосом с поддержкой STT на 20 языках
+- **Каналы**: MCP-серверы отправляют сообщения в запущенные сессии (Research Preview)
+- **Удалённое управление**: управлять Claude Code из Claude.ai или приложения Claude
+- **Веб-сессии**: запускать Claude Code в браузере на claude.ai/code
+- **Настольное приложение**: отдельное приложение для визуального просмотра diff и нескольких сессий
+- **Список задач**: постоянный трекинг задач даже после сжатия контекста
+- **Подсказки к промптам**: умные подсказки команд на основе контекста
+- **Git Worktrees**: изолированные ветки worktree для параллельной работы
+- **Песочница**: изоляция файловой системы и сети на уровне ОС
+- **Управляемые настройки**: корпоративное развёртывание через plist, Registry или управляемые файлы
+- **Конфигурация**: настройка поведения через JSON-файлы конфигурации
 
 ---
 
-## Planning Mode
+<a id="planning-mode"></a>
+## Режим планирования
 
-Planning mode allows Claude to think through complex tasks before implementing them, creating a detailed plan that you can review and approve.
+Режим планирования позволяет Claude обдумать сложную задачу до реализации и создать подробный план, который можно проверить и одобрить.
 
-### What is Planning Mode?
+### Что такое режим планирования?
 
-Planning mode is a two-phase approach:
-1. **Planning Phase**: Claude analyzes the task and creates a detailed implementation plan
-2. **Implementation Phase**: After approval, Claude executes the plan
+Режим планирования состоит из двух фаз:
+1. **Фаза планирования**: Claude анализирует задачу и создаёт подробный план реализации
+2. **Фаза выполнения**: После одобрения Claude выполняет план
 
-### When to Use Planning Mode
+### Когда использовать режим планирования
 
-✅ Use planning mode for:
-- Complex multi-file refactoring
-- New feature implementations
-- Architectural changes
-- Database migrations
-- Major API redesigns
+✅ Используйте режим планирования для:
+- Сложного многофайлового рефакторинга
+- Реализации новых функций
+- Архитектурных изменений
+- Миграций базы данных
+- Крупных переработок API
 
-❌ Don't use planning mode for:
-- Simple bug fixes
-- Formatting changes
-- Single-file edits
-- Quick queries
+❌ Не используйте режим планирования для:
+- Простых исправлений ошибок
+- Изменений форматирования
+- Правок в одном файле
+- Быстрых запросов
 
-### Activating Planning Mode
+### Как включить режим планирования
 
-**Slash command**:
+**Slash-команда**:
 ```bash
 /plan Implement user authentication system
 ```
 
-**CLI flag**:
+**CLI-флаг**:
 ```bash
 claude --permission-mode plan
 ```
 
-**Set as default**:
+**Сделать по умолчанию**:
 ```json
 {
   "permissions": {
@@ -109,61 +111,61 @@ claude --permission-mode plan
 }
 ```
 
-**Keyboard shortcut**:
-- `Shift + Tab` - Toggle permission modes (including plan)
-- `Alt + M` - Toggle permission modes (Windows/Linux)
+**Сочетание клавиш**:
+- `Shift + Tab` - Переключать режимы разрешений (включая plan)
+- `Alt + M` - Переключать режимы разрешений (Windows/Linux)
 
-### Benefits of Planning Mode
+### Преимущества режима планирования
 
-- **Structured implementation approach**: Detailed breakdown of implementation steps
-- **Review and approval**: Approve or adjust the plan before execution
-- **Risk identification**: Identify potential issues before implementation
-- **Clear phases**: Organized implementation phases and milestones
+- **Структурированный подход к реализации**: детальная разбивка шагов реализации
+- **Проверка и одобрение**: можно утвердить или скорректировать план до выполнения
+- **Выявление рисков**: потенциальные проблемы видны до начала реализации
+- **Понятные фазы**: упорядоченные этапы внедрения и контрольные точки
 
-### Example: Feature Implementation
+### Пример: реализация функции
 
 ```
-User: /plan Add a real-time notification system
+Пользователь: /plan Добавь систему уведомлений в реальном времени
 
-Claude: I'll create a plan for implementing real-time notifications.
+Claude: Я составлю план внедрения уведомлений в реальном времени.
 
-## Implementation Plan
+## План реализации
 
-### Phase 1: Infrastructure Setup
-1. Install WebSocket libraries (socket.io)
-2. Set up WebSocket server
-3. Configure connection management
+### Фаза 1: Настройка инфраструктуры
+1. Установить библиотеки WebSocket (socket.io)
+2. Поднять сервер WebSocket
+3. Настроить управление подключениями
 
-### Phase 2: Backend Implementation
-4. Create notification service
-5. Implement notification queue
-6. Add database schema for notifications
-7. Create API endpoints
+### Фаза 2: Реализация backend
+4. Создать сервис уведомлений
+5. Реализовать очередь уведомлений
+6. Добавить схему базы данных для уведомлений
+7. Создать API endpoints
 
-### Phase 3: Frontend Integration
-8. Set up WebSocket client
-9. Create notification UI components
-10. Implement notification state management
-11. Add notification permissions
+### Фаза 3: Интеграция frontend
+8. Настроить WebSocket client
+9. Создать UI-компоненты уведомлений
+10. Реализовать управление состоянием уведомлений
+11. Добавить разрешения на уведомления
 
-### Phase 4: Testing & Deployment
-12. Write unit tests
-13. Write integration tests
-14. Update documentation
-15. Deploy to staging
+### Фаза 4: Тестирование и развёртывание
+12. Написать unit tests
+13. Написать integration tests
+14. Обновить документацию
+15. Развернуть в staging
 
-Estimated time: 3-4 hours
-Files to modify: 12
-New files to create: 8
+Оценка времени: 3-4 часа
+Файлов для изменения: 12
+Новых файлов для создания: 8
 
-Ready to proceed? (yes/no/modify plan)
+Продолжить? (yes/no/modify plan)
 
-User: yes
+Пользователь: yes
 
-Claude: [Begins implementation following the plan]
+Claude: [Начинает реализацию по плану]
 ```
 
-### Plan Modifications
+### Изменения плана
 
 ```
 User: Modify the plan - skip the queue for now, we'll add it later
@@ -176,148 +178,149 @@ User: Looks good, proceed
 Claude: [Implements modified plan]
 ```
 
-### Planning Mode Configuration
+### Конфигурация режима планирования
 
-Planning mode is activated via the CLI flag or slash command:
+Режим планирования включается через CLI-флаг или slash-команду:
 
 ```bash
-# Activate plan mode via CLI
+# Включить режим планирования через CLI
 claude --permission-mode plan
 
-# Or use the /plan slash command inside the REPL
+# Или использовать slash-команду /plan внутри REPL
 /plan Implement user authentication system
 ```
 
-**Model alias for planning**: Use `opusplan` as a model alias to use Opus for planning and Sonnet for execution:
+**Алиас модели для планирования**: используйте `opusplan`, чтобы применять Opus для планирования, а Sonnet для выполнения:
 
 ```bash
 claude --model opusplan "design and implement the new API"
 ```
 
-**Edit plan externally**: Press `Ctrl+G` to open the current plan in your external editor for detailed modifications.
+**Редактирование плана во внешнем редакторе**: нажмите `Ctrl+G`, чтобы открыть текущий план во внешнем редакторе и внести подробные изменения.
 
 ---
 
-## Extended Thinking
+<a id="extended-thinking"></a>
+## Расширенное мышление
 
-Extended thinking allows Claude to spend more time reasoning about complex problems before providing a solution.
+Расширенное мышление позволяет Claude тратить больше времени на рассуждение о сложных проблемах перед выдачей решения.
 
-### What is Extended Thinking?
+### Что такое расширенное мышление?
 
-Extended thinking is a deliberate, step-by-step reasoning process where Claude:
-- Breaks down complex problems
-- Considers multiple approaches
-- Evaluates trade-offs
-- Reasons through edge cases
+Расширенное мышление — это осознанный пошаговый процесс рассуждения, в котором Claude:
+- разбирает сложные проблемы на части
+- рассматривает несколько подходов
+- оценивает компромиссы
+- прогоняет крайние случаи
 
-### Activating Extended Thinking
+### Как включить расширенное мышление
 
-**Keyboard shortcut**:
-- `Option + T` (macOS) / `Alt + T` (Windows/Linux) - Toggle extended thinking
+**Сочетание клавиш**:
+- `Option + T` (macOS) / `Alt + T` (Windows/Linux) - Переключать расширенное мышление
 
-**Automatic activation**:
-- Enabled by default for all models (Opus 4.6, Sonnet 4.6, Haiku 4.5)
-- Opus 4.6: Adaptive reasoning with effort levels: `low` (○), `medium` (◐), `high` (●), `max` (Opus 4.6 only)
-- Other models: Fixed budget up to 31,999 tokens
+**Автоматическая активация**:
+- Включено по умолчанию для всех моделей (Opus 4.6, Sonnet 4.6, Haiku 4.5)
+- Opus 4.6: адаптивное рассуждение с уровнями effort: `low` (○), `medium` (◐), `high` (●), `max` (только Opus 4.6)
+- Другие модели: фиксированный бюджет до 31 999 токенов
 
-**Configuration methods**:
-- Toggle: `Alt+T` / `Option+T`, or via `/config`
-- View reasoning: `Ctrl+O` (verbose mode)
-- Set effort: `/effort` command or `--effort` flag
+**Способы настройки**:
+- Переключение: `Alt+T` / `Option+T`, или через `/config`
+- Просмотр рассуждений: `Ctrl+O` (режим verbose)
+- Установка effort: команда `/effort` или флаг `--effort`
 
-**Custom budget**:
+**Пользовательский бюджет**:
 ```bash
 export MAX_THINKING_TOKENS=1024
 ```
 
-**Effort level** (Opus 4.6 only):
+**Уровень effort** (только Opus 4.6):
 ```bash
 export CLAUDE_CODE_EFFORT_LEVEL=high   # low (○), medium (◐), high (●), or max (Opus 4.6 only)
 ```
 
-**CLI flag**:
+**CLI-флаг**:
 ```bash
 claude --effort high "complex architectural review"
 ```
 
-**Slash command**:
+**Slash-команда**:
 ```
 /effort high
 ```
 
-> **Note:** The keyword "ultrathink" in prompts activates deep reasoning mode. Effort levels `low`, `medium`, `high`, and `max` (Opus 4.6 only) control how much reasoning Claude performs.
+> **Примечание:** ключевое слово `ultrathink` в промптах включает режим глубокого рассуждения. Уровни effort `low`, `medium`, `high` и `max` (только Opus 4.6) определяют, сколько рассуждений выполняет Claude.
 
-### Benefits of Extended Thinking
+### Преимущества расширенного мышления
 
-- **Deep reasoning**: Spend more time thinking about complex problems
-- **Better architectural decisions**: Make informed choices with comprehensive evaluation
-- **Consideration of edge cases**: Think through potential issues and scenarios
-- **Thorough analysis**: Structured approach to complex problem-solving
+- **Глубокое рассуждение**: больше времени на обдумывание сложных проблем
+- **Лучшие архитектурные решения**: обоснованный выбор на основе полной оценки
+- **Учёт крайних случаев**: продумывание потенциальных проблем и сценариев
+- **Тщательный анализ**: структурированный подход к решению сложных задач
 
-### Example: Architectural Decision
+### Пример: архитектурное решение
 
 ```
-User: /think Should we use microservices or a monolith for our e-commerce platform?
+Пользователь: /think Стоит ли использовать микросервисы или монолит для нашей e-commerce платформы?
 
-Claude: Let me think through this architectural decision carefully...
+Claude: Давайте тщательно обдумаю это архитектурное решение...
 
 <extended_thinking>
-## Context Analysis
-- Team size: 5 developers
-- Expected traffic: 10k daily users initially
-- Need to scale to 100k+ users
-- Limited DevOps resources
-- 6-month timeline to MVP
+## Анализ контекста
+- Размер команды: 5 разработчиков
+- Ожидаемая нагрузка: сначала 10 тыс. пользователей в день
+- Нужно масштабироваться до 100 тыс.+ пользователей
+- Ограниченные DevOps-ресурсы
+- Срок до MVP: 6 месяцев
 
-## Approach 1: Microservices
-Pros:
-+ Independent scaling
-+ Technology flexibility
-+ Team independence
-+ Fault isolation
+## Подход 1: Микросервисы
+Плюсы:
++ Независимое масштабирование
++ Гибкость в выборе технологий
++ Независимость команд
++ Изоляция сбоев
 
-Cons:
-- Operational complexity
-- Network overhead
-- Distributed tracing needed
-- Requires DevOps expertise
-- Slower initial development
+Минусы:
+- Операционная сложность
+- Сетевые накладные расходы
+- Нужен distributed tracing
+- Требуется опыт DevOps
+- Более медленная начальная разработка
 
-## Approach 2: Monolith
-Pros:
-+ Simpler deployment
-+ Faster initial development
-+ Easier debugging
-+ Lower operational overhead
-+ Single codebase
+## Подход 2: Монолит
+Плюсы:
++ Более простое развёртывание
++ Более быстрая начальная разработка
++ Более простая отладка
++ Меньше операционных накладных расходов
++ Единая кодовая база
 
-Cons:
-- Scaling challenges later
-- All-or-nothing deployments
-- Technology lock-in
-- Potential for tight coupling
+Минусы:
+- Сложности масштабирования позже
+- Развёртывания по принципу all-or-nothing
+- Привязка к технологиям
+- Риск тесной связности
 
-## Decision Factors
-1. Team size (5 devs) → Favors monolith
-2. DevOps resources (limited) → Favors monolith
-3. Timeline (6 months) → Favors monolith
-4. Future scale (100k users) → Achievable with monolith + caching
-5. Complexity budget → Limited
+## Факторы решения
+1. Размер команды (5 разработчиков) → в пользу монолита
+2. DevOps-ресурсы (ограничены) → в пользу монолита
+3. Сроки (6 месяцев) → в пользу монолита
+4. Будущий масштаб (100 тыс. пользователей) → достижим с монолитом + кэшированием
+5. Бюджет на сложность → ограничен
 
-## Recommendation
-Start with a **modular monolith**:
-- Single deployment unit
-- Clear module boundaries
-- Clean interfaces between modules
-- Prepare for future extraction to microservices if needed
+## Рекомендация
+Начните с **модульного монолита**:
+- Единица развёртывания одна
+- Чёткие границы модулей
+- Аккуратные интерфейсы между модулями
+- Подготовка к будущему выделению микросервисов при необходимости
 
-This gives you:
-✓ Fast initial development
-✓ Low operational complexity
-✓ Option to extract services later
-✓ Clear architecture
+Это даст вам:
+✓ Быструю начальную разработку
+✓ Низкую операционную сложность
+✓ Возможность позже выделить сервисы
+✓ Понятную архитектуру
 
-Migration path: When you reach 50k+ users or specific modules need independent scaling, extract those modules into microservices.
+Путь миграции: когда вы достигнете 50 тыс.+ пользователей или отдельным модулям потребуется независимое масштабирование, выделите эти модули в микросервисы.
 </extended_thinking>
 
 **Recommendation**: Implement a modular monolith with clean module boundaries.
@@ -325,7 +328,7 @@ Migration path: When you reach 50k+ users or specific modules need independent s
 This approach balances your current constraints (team size, timeline, DevOps resources) with future scalability needs. You can migrate specific modules to microservices later when there's a clear business need.
 ```
 
-### Extended Thinking Configuration
+### Конфигурация расширенного мышления
 
 Extended thinking is controlled via environment variables, keyboard shortcuts, and CLI flags:
 
@@ -341,32 +344,33 @@ Toggle during a session with `Alt+T` / `Option+T`, set effort with `/effort`, or
 
 ---
 
-## Auto Mode
+<a id="auto-mode"></a>
+## Автоматический режим
 
-Auto Mode is a Research Preview permission mode (March 2026) that uses a background safety classifier to review each action before execution. It allows Claude to work autonomously while blocking dangerous operations.
+Автоматический режим — это режим разрешений из Research Preview (март 2026), который использует фоновый классификатор безопасности для проверки каждого действия перед выполнением. Он позволяет Claude работать автономно, блокируя опасные операции.
 
-### Requirements
+### Требования
 
-- **Plan**: Team plan (Enterprise and API rolling out)
-- **Model**: Claude Sonnet 4.6 or Opus 4.6
-- **Classifier**: Runs on Claude Sonnet 4.6 (adds extra token cost)
+- **План**: командный план (Enterprise и API внедряются постепенно)
+- **Модель**: Claude Sonnet 4.6 или Opus 4.6
+- **Классификатор**: работает на Claude Sonnet 4.6 (добавляет расход токенов)
 
-### Enabling Auto Mode
+### Включение автоматического режима
 
 ```bash
-# Unlock auto mode with CLI flag
+# Включить автоматический режим через CLI-флаг
 claude --enable-auto-mode
 
-# Then cycle to it with Shift+Tab in the REPL
+# Затем переключаться на него через Shift+Tab в REPL
 ```
 
-Or set it as the default permission mode:
+Или сделать его режимом разрешений по умолчанию:
 
 ```bash
 claude --permission-mode auto
 ```
 
-Setting via config:
+Настройка через конфиг:
 ```json
 {
   "permissions": {
@@ -375,74 +379,75 @@ Setting via config:
 }
 ```
 
-### How the Classifier Works
+### Как работает классификатор
 
-The background classifier evaluates each action using the following decision order:
+Фоновый классификатор оценивает каждое действие в следующем порядке:
 
-1. **Allow/deny rules** -- Explicit permission rules are checked first
-2. **Read-only/edits auto-approved** -- File reads and edits pass automatically
-3. **Classifier** -- The background classifier reviews the action
-4. **Fallback** -- Falls back to prompting after 3 consecutive or 20 total blocks
+1. **Правила allow/deny** -- сначала проверяются явные правила разрешений
+2. **Авторазрешение для чтения/правок** -- операции чтения файлов и правок проходят автоматически
+3. **Классификатор** -- фоновый классификатор проверяет действие
+4. **Запасной сценарий** -- после 3 подряд или 20 всего блокировок возвращается запрос пользователю
 
-### Default Blocked Actions
+### Действия, блокируемые по умолчанию
 
-Auto mode blocks the following by default:
+Автоматический режим по умолчанию блокирует следующее:
 
-| Blocked Action | Example |
-|----------------|---------|
+| Заблокированное действие | Пример |
+|--------------------------|---------|
 | Pipe-to-shell installs | `curl \| bash` |
-| Sending sensitive data externally | API keys, credentials over network |
-| Production deploys | Deploy commands targeting production |
-| Mass deletion | `rm -rf` on large directories |
-| IAM changes | Permission and role modifications |
-| Force push to main | `git push --force origin main` |
+| Отправка чувствительных данных наружу | API keys, credentials over network |
+| Развёртывание в production | Команды развёртывания, нацеленные на production |
+| Массовое удаление | `rm -rf` on large directories |
+| Изменения IAM | Изменения разрешений и ролей |
+| Force push в main | `git push --force origin main` |
 
-### Default Allowed Actions
+### Действия, разрешённые по умолчанию
 
-| Allowed Action | Example |
-|----------------|---------|
-| Local file operations | Read, write, edit project files |
-| Declared dependency installs | `npm install`, `pip install` from manifest |
-| Read-only HTTP | `curl` for fetching documentation |
-| Pushing to current branch | `git push origin feature-branch` |
+| Разрешённое действие | Пример |
+|----------------------|---------|
+| Локальные файловые операции | Чтение, запись и редактирование файлов проекта |
+| Установка объявленных зависимостей | `npm install`, `pip install` из манифеста |
+| HTTP только для чтения | `curl` для получения документации |
+| Push в текущую ветку | `git push origin feature-branch` |
 
-### Configuring Auto Mode
+### Настройка автоматического режима
 
-**Print default rules as JSON**:
+**Вывести правила по умолчанию в JSON**:
 ```bash
 claude auto-mode defaults
 ```
 
-**Configure trusted infrastructure** via the `autoMode.environment` managed setting for enterprise deployments. This allows administrators to define trusted CI/CD environments, deployment targets, and infrastructure patterns.
+**Настройка доверенной инфраструктуры** выполняется через managed setting `autoMode.environment` для корпоративных развёртываний. Это позволяет администраторам задавать доверенные CI/CD-среды, цели деплоя и шаблоны инфраструктуры.
 
-### Fallback Behavior
+### Поведение при запасном сценарии
 
-When the classifier is uncertain, auto mode falls back to prompting the user:
-- After **3 consecutive** classifier blocks
-- After **20 total** classifier blocks in a session
+Если классификатор не уверен, автоматический режим возвращается к запросу у пользователя:
+- после **3 подряд** блокировок классификатора
+- после **20 всего** блокировок классификатора в одной сессии
 
-This ensures the user always retains control when the classifier cannot confidently approve an action.
+Это гарантирует, что пользователь всегда сохраняет контроль, когда классификатор не может уверенно одобрить действие.
 
 ---
 
-## Background Tasks
+<a id="background-tasks"></a>
+## Фоновые задачи
 
-Background tasks allow long-running operations to execute without blocking your conversation.
+Фоновые задачи позволяют длительным операциям выполняться, не блокируя разговор.
 
-### What Are Background Tasks?
+### Что такое фоновые задачи?
 
-Background tasks run asynchronously while you continue working:
-- Long test suites
-- Build processes
-- Database migrations
-- Deployment scripts
-- Analysis tools
+Фоновые задачи выполняются асинхронно, пока вы продолжаете работать:
+- длинные тестовые прогоны
+- сборки
+- миграции базы данных
+- скрипты деплоя
+- инструменты анализа
 
-**Basic Usage:**
+**Базовое использование:**
 ```bash
-User: Run tests in background
+Пользователь: Запусти тесты в фоне
 
-Claude: Started task bg-1234
+Claude: Задача bg-1234 запущена
 
 /task list           # Show all tasks
 /task status bg-1234 # Check progress
@@ -450,35 +455,35 @@ Claude: Started task bg-1234
 /task cancel bg-1234 # Cancel task
 ```
 
-### Starting Background Tasks
+### Запуск фоновых задач
 
 ```
-User: Run the full test suite in the background
+Пользователь: Запусти полный тестовый набор в фоне
 
-Claude: Starting tests in background (task-id: bg-1234)
-You can continue working while tests run.
+Claude: Запускаю тесты в фоне (task-id: bg-1234)
+Вы можете продолжать работать, пока тесты идут.
 
-[You can continue the conversation]
+[Вы можете продолжить разговор]
 
-User: Meanwhile, let's refactor the auth module
+Пользователь: А пока давай отрефакторим модуль auth
 
-Claude: [Works on auth module while tests run in background]
+Claude: [Работает над модулем auth, пока тесты выполняются в фоне]
 
-[Later, when tests complete]
+[Позже, когда тесты завершатся]
 
-Claude: 📢 Background task bg-1234 completed:
+Claude: 📢 Фоновая задача bg-1234 завершена:
 ✅ 245 tests passed
 ❌ 3 tests failed
-View results: /task show bg-1234
+Результаты: /task show bg-1234
 ```
 
-### Managing Background Tasks
+### Управление фоновыми задачами
 
 **List active tasks**:
 ```
-User: /task list
+Пользователь: /task list
 
-Active background tasks:
+Активные фоновые задачи:
 1. [bg-1234] Running tests (50% complete, 2min remaining)
 2. [bg-1235] Building Docker image (25% complete, 8min remaining)
 3. [bg-1236] Deploying to staging (90% complete, 30sec remaining)
@@ -486,55 +491,55 @@ Active background tasks:
 
 **Check task status**:
 ```
-User: /task status bg-1234
+Пользователь: /task status bg-1234
 
-Task bg-1234: Running tests
-Status: In progress
-Progress: 120/245 tests (49%)
-Started: 2025-11-08 10:30:15
-Estimated completion: 2025-11-08 10:34:22
+Задача bg-1234: тесты выполняются
+Статус: в процессе
+Прогресс: 120/245 тестов (49%)
+Запущено: 2025-11-08 10:30:15
+Ожидаемое завершение: 2025-11-08 10:34:22
 ```
 
 **View task output**:
 ```
-User: /task show bg-1234
+Пользователь: /task show bg-1234
 
-[Shows live output from the test run]
+[Показывает живой вывод тестового прогона]
 ```
 
 **Cancel task**:
 ```
-User: /task cancel bg-1234
+Пользователь: /task cancel bg-1234
 
-Cancelled background task bg-1234
+Фоновая задача bg-1234 отменена
 ```
 
-### Example: Parallel Development
+### Пример: параллельная разработка
 
 ```
-User: Run the build in the background
+Пользователь: Запусти сборку в фоне
 
-Claude: Starting build... (task-id: bg-5001)
+Claude: Запускаю сборку... (task-id: bg-5001)
 
-User: Also run the linter in background
+Пользователь: И ещё линтер в фоне
 
-Claude: Starting linter... (task-id: bg-5002)
+Claude: Запускаю линтер... (task-id: bg-5002)
 
-User: While those run, let's implement the new API endpoint
+Пользователь: Пока они идут, давай реализуем новый API endpoint
 
-Claude: [Implements API endpoint while build and linter run]
+Claude: [Реализует API endpoint, пока идут сборка и линтер]
 
-[10 minutes later]
+[10 минут спустя]
 
-Claude: 📢 Build completed successfully (bg-5001)
-📢 Linter found 12 issues (bg-5002)
+Claude: 📢 Сборка успешно завершена (bg-5001)
+📢 Линтер нашёл 12 проблем (bg-5002)
 
-User: Show me the linter issues
+Пользователь: Покажи проблемы линтера
 
-Claude: [Shows linter output from bg-5002]
+Claude: [Показывает вывод линтера из bg-5002]
 ```
 
-### Configuration
+### Конфигурация
 
 ```json
 {
@@ -550,71 +555,72 @@ Claude: [Shows linter output from bg-5002]
 
 ---
 
-## Scheduled Tasks
+<a id="scheduled-tasks"></a>
+## Запланированные задачи
 
-Scheduled Tasks let you run prompts automatically on a recurring schedule or as one-time reminders. Tasks are session-scoped — they run while Claude Code is active and are cleared when the session ends. Available since v2.1.72+.
+Запланированные задачи позволяют запускать промпты автоматически по повторяющемуся расписанию или как одноразовые напоминания. Эти задачи привязаны к сессии: они работают, пока Claude Code запущен, и очищаются при завершении сессии. Доступно начиная с v2.1.72+.
 
-### The `/loop` command
+### Команда `/loop`
 
 ```bash
-# Explicit interval
-/loop 5m check if the deployment finished
+# Явный интервал
+/loop 5m проверь, завершился ли деплой
 
-# Natural language
-/loop check build status every 30 minutes
+# Естественный язык
+/loop проверяй статус сборки каждые 30 минут
 ```
 
-Standard 5-field cron expressions are also supported for precise scheduling.
+Для точного планирования также поддерживаются стандартные 5-полевые cron-выражения.
 
-### One-time reminders
+### Одноразовые напоминания
 
-Set reminders that fire once at a specific time:
+Задавайте напоминания, которые срабатывают один раз в конкретное время:
 
 ```
-remind me at 3pm to push the release branch
-in 45 minutes, run the integration tests
+напомни мне в 3 дня запушить release-ветку
+через 45 минут запусти integration tests
 ```
 
-### Managing scheduled tasks
+### Управление запланированными задачами
 
-| Tool | Description |
-|------|-------------|
-| `CronCreate` | Create a new scheduled task |
-| `CronList` | List all active scheduled tasks |
-| `CronDelete` | Remove a scheduled task |
+| Инструмент | Описание |
+|------------|-------------|
+| `CronCreate` | Создать новую запланированную задачу |
+| `CronList` | Показать все активные запланированные задачи |
+| `CronDelete` | Удалить запланированную задачу |
 
-**Limits and behavior**:
-- Up to **50 scheduled tasks** per session
-- Session-scoped — cleared when the session ends
-- Recurring tasks auto-expire after **3 days**
-- Tasks only fire while Claude Code is running — no catch-up for missed fires
+**Ограничения и поведение**:
+- до **50 запланированных задач** на одну сессию
+- привязка к сессии — всё очищается при её завершении
+- повторяющиеся задачи автоматически истекают через **3 дня**
+- задачи срабатывают только пока Claude Code запущен — пропущенные срабатывания не догоняются
 
-### Behavior details
+### Детали поведения
 
-| Aspect | Detail |
+| Аспект | Детали |
 |--------|--------|
-| **Recurring jitter** | Up to 10% of the interval (max 15 minutes) |
-| **One-shot jitter** | Up to 90 seconds on :00/:30 boundaries |
-| **Missed fires** | No catch-up — skipped if Claude Code was not running |
-| **Persistence** | Not persisted across restarts |
+| **Джиттер повторения** | До 10% интервала (максимум 15 минут) |
+| **Джиттер одноразового запуска** | До 90 секунд на границах :00/:30 |
+| **Пропущенные срабатывания** | Без догонки — пропускаются, если Claude Code не работал |
+| **Сохранность** | Не сохраняется между перезапусками |
 
-### Cloud Scheduled Tasks
+### Облачные запланированные задачи
 
-Use `/schedule` to create Cloud scheduled tasks that run on Anthropic infrastructure:
+Используйте `/schedule`, чтобы создавать облачные запланированные задачи, которые выполняются на инфраструктуре Anthropic:
 
 ```
 /schedule daily at 9am run the test suite and report failures
 ```
 
-Cloud scheduled tasks persist across restarts and do not require Claude Code to be running locally.
+Облачные запланированные задачи сохраняются между перезапусками и не требуют, чтобы Claude Code был запущен локально.
 
-### Disabling scheduled tasks
+### Отключение запланированных задач
 
 ```bash
 export CLAUDE_CODE_DISABLE_CRON=1
 ```
 
-### Example: monitoring a deployment
+### Пример: мониторинг деплоя
 
 ```
 /loop 5m check the deployment status of the staging environment.
@@ -622,46 +628,47 @@ export CLAUDE_CODE_DISABLE_CRON=1
         If it failed, show the error logs.
 ```
 
-> **Tip**: Scheduled tasks are session-scoped. For persistent automation that survives restarts, use CI/CD pipelines, GitHub Actions, or Desktop App scheduled tasks instead.
+> **Совет**: запланированные задачи привязаны к сессии. Для постоянной автоматизации, которая переживает перезапуски, используйте CI/CD-пайплайны, GitHub Actions или запланированные задачи в Desktop App.
 
 ---
 
-## Permission Modes
+<a id="permission-modes"></a>
+## Режимы разрешений
 
-Permission modes control what actions Claude can take without explicit approval.
+Режимы разрешений определяют, какие действия Claude может выполнять без явного одобрения.
 
-### Available Permission Modes
+### Доступные режимы разрешений
 
-| Mode | Behavior |
+| Режим | Поведение |
 |---|---|
-| `default` | Read files only; prompts for all other actions |
-| `acceptEdits` | Read and edit files; prompts for commands |
-| `plan` | Read files only (research mode, no edits) |
-| `auto` | All actions with background safety classifier checks (Research Preview) |
-| `bypassPermissions` | All actions, no permission checks (dangerous) |
-| `dontAsk` | Only pre-approved tools execute; all others denied |
+| `default` | Только чтение файлов; для всех остальных действий запрашивает подтверждение |
+| `acceptEdits` | Чтение и правка файлов; для команд запрашивает подтверждение |
+| `plan` | Только чтение файлов (режим исследования, без правок) |
+| `auto` | Все действия проходят проверки фонового классификатора безопасности (Research Preview) |
+| `bypassPermissions` | Все действия без проверок разрешений (опасно) |
+| `dontAsk` | Выполняются только заранее одобренные инструменты; все остальные отклоняются |
 
-Cycle through modes with `Shift+Tab` in the CLI. Set a default with the `--permission-mode` flag or the `permissions.defaultMode` setting.
+Переключайтесь между режимами с помощью `Shift+Tab` в CLI. Режим по умолчанию задаётся флагом `--permission-mode` или настройкой `permissions.defaultMode`.
 
-### Activation Methods
+### Способы включения
 
-**Keyboard shortcut**:
+**Сочетание клавиш**:
 ```bash
-Shift + Tab  # Cycle through all 6 modes
+Shift + Tab  # Переключать все 6 режимов
 ```
 
-**Slash command**:
+**Slash-команда**:
 ```bash
-/plan                  # Enter plan mode
+/plan                  # Войти в режим планирования
 ```
 
-**CLI flag**:
+**CLI-флаг**:
 ```bash
 claude --permission-mode plan
 claude --permission-mode auto
 ```
 
-**Setting**:
+**Настройка**:
 ```json
 {
   "permissions": {
@@ -670,112 +677,113 @@ claude --permission-mode auto
 }
 ```
 
-### Permission Mode Examples
+### Примеры режимов разрешений
 
-#### Default Mode
-Claude asks for confirmation on significant actions:
-
-```
-User: Fix the bug in auth.ts
-
-Claude: I need to modify src/auth.ts to fix the bug.
-The change will update the password validation logic.
-
-Approve this change? (yes/no/show)
-```
-
-#### Plan Mode
-Review implementation plan before execution:
+#### Режим `default`
+Claude запрашивает подтверждение для значимых действий:
 
 ```
-User: /plan Implement user authentication system
+Пользователь: Исправь баг в auth.ts
 
-Claude: I'll create a plan for implementing authentication.
+Claude: Мне нужно изменить src/auth.ts, чтобы исправить баг.
+Изменение обновит логику проверки пароля.
 
-## Implementation Plan
-[Detailed plan with phases and steps]
-
-Ready to proceed? (yes/no/modify)
+Одобрить это изменение? (yes/no/show)
 ```
 
-#### Accept Edits Mode
-Automatically accept file modifications:
+#### Режим `plan`
+Сначала просмотрите план реализации, затем выполняйте:
 
 ```
-User: acceptEdits
-User: Fix the bug in auth.ts
+Пользователь: /plan Реализуй систему аутентификации пользователей
 
-Claude: [Makes changes without asking]
+Claude: Я составлю план реализации аутентификации.
+
+## План реализации
+[Подробный план с фазами и шагами]
+
+Готовы продолжить? (yes/no/modify)
 ```
 
-### Use Cases
+#### Режим `acceptEdits`
+Автоматически принимать изменения файлов:
+
+```
+Пользователь: acceptEdits
+Пользователь: Исправь баг в auth.ts
+
+Claude: [Вносит изменения без запроса подтверждения]
+```
+
+### Сценарии использования
 
 **Code Review**:
 ```
-User: claude --permission-mode plan
-User: Review this PR and suggest improvements
+Пользователь: claude --permission-mode plan
+Пользователь: Проверь этот PR и предложи улучшения
 
-Claude: [Reads code, provides feedback, but cannot modify]
+Claude: [Читает код, даёт обратную связь, но не может вносить изменения]
 ```
 
-**Pair Programming**:
+**Параллельное программирование**:
 ```
-User: claude --permission-mode default
-User: Let's implement the feature together
+Пользователь: claude --permission-mode default
+Пользователь: Давай реализуем эту функцию вместе
 
-Claude: [Asks for approval before each change]
+Claude: [Запрашивает подтверждение перед каждым изменением]
 ```
 
-**Automated Tasks**:
+**Автоматизированные задачи**:
 ```
-User: claude --permission-mode acceptEdits
-User: Fix all linting issues in the codebase
+Пользователь: claude --permission-mode acceptEdits
+Пользователь: Исправь все linting-ошибки в кодовой базе
 
-Claude: [Auto-accepts file edits without asking]
+Claude: [Автоматически принимает правки файлов без запроса]
 ```
 
 ---
 
-## Headless Mode
+<a id="headless-mode"></a>
+## Безголовый режим
 
-Print mode (`claude -p`) allows Claude Code to run without interactive input, perfect for automation and CI/CD. This is the non-interactive mode, replacing the older `--headless` flag.
+Режим печати (`claude -p`) позволяет запускать Claude Code без интерактивного ввода — идеально для автоматизации и CI/CD. Это неинтерактивный режим, пришедший на смену старому флагу `--headless`.
 
-### What is Print Mode?
+### Что такое режим печати?
 
-Print mode enables:
-- Automated script execution
-- CI/CD integration
-- Batch processing
-- Scheduled tasks
+Режим печати позволяет:
+- автоматизировать выполнение скриптов
+- интегрировать CI/CD
+- обрабатывать пакеты задач
+- запускать запланированные задачи
 
-### Running in Print Mode (Non-Interactive)
+### Запуск в режиме печати (без интерактива)
 
 ```bash
-# Run specific task
-claude -p "Run all tests"
+# Запустить конкретную задачу
+claude -p "Запусти все тесты"
 
-# Process piped content
+# Обработать данные из пайпа
 cat error.log | claude -p "Analyze these errors"
 
-# CI/CD integration (GitHub Actions)
+# Интеграция с CI/CD (GitHub Actions)
 - name: AI Code Review
   run: claude -p "Review PR"
 ```
 
-### Additional Print Mode Usage Examples
+### Дополнительные примеры режима печати
 
 ```bash
-# Run a specific task with output capture
-claude -p "Run all tests and generate coverage report"
+# Запустить конкретную задачу с захватом вывода
+claude -p "Запусти все тесты и сгенерируй отчёт о покрытии"
 
-# With structured output
-claude -p --output-format json "Analyze code quality"
+# Со структурированным выводом
+claude -p --output-format json "Проанализируй качество кода"
 
-# With input from stdin
-echo "Analyze code quality" | claude -p "explain this"
+# С вводом из stdin
+echo "Проанализируй качество кода" | claude -p "объясни это"
 ```
 
-### Example: CI/CD Integration
+### Пример: интеграция с CI/CD
 
 **GitHub Actions**:
 ```yaml
@@ -820,61 +828,62 @@ jobs:
             });
 ```
 
-### Print Mode Configuration
+### Конфигурация режима печати
 
-Print mode (`claude -p`) supports several flags for automation:
+Режим печати (`claude -p`) поддерживает несколько флагов для автоматизации:
 
 ```bash
-# Limit autonomous turns
+# Ограничить число автономных ходов
 claude -p --max-turns 5 "refactor this module"
 
-# Structured JSON output
+# Структурированный JSON-вывод
 claude -p --output-format json "analyze this codebase"
 
-# With schema validation
+# С проверкой схемы
 claude -p --json-schema '{"type":"object","properties":{"issues":{"type":"array"}}}' \
   "find bugs in this code"
 
-# Disable session persistence
+# Отключить сохранение сессии
 claude -p --no-session-persistence "one-off analysis"
 ```
 
 ---
 
-## Session Management
+<a id="session-management"></a>
+## Управление сессиями
 
-Manage multiple Claude Code sessions effectively.
+Эффективно управляйте несколькими сессиями Claude Code.
 
-### Session Management Commands
+### Команды управления сессиями
 
-| Command | Description |
+| Команда | Описание |
 |---------|-------------|
-| `/resume` | Resume a conversation by ID or name |
-| `/rename` | Name the current session |
-| `/fork` | Fork current session into a new branch |
-| `claude -c` | Continue most recent conversation |
-| `claude -r "session"` | Resume session by name or ID |
+| `/resume` | Возобновить разговор по ID или имени |
+| `/rename` | Назвать текущую сессию |
+| `/fork` | Разветвить текущую сессию в новую ветку |
+| `claude -c` | Продолжить самый последний разговор |
+| `claude -r "session"` | Возобновить сессию по имени или ID |
 
-### Resuming Sessions
+### Возобновление сессий
 
-**Continue last conversation**:
+**Продолжить последний разговор**:
 ```bash
 claude -c
 ```
 
-**Resume a named session**:
+**Возобновить именованную сессию**:
 ```bash
 claude -r "auth-refactor" "finish this PR"
 ```
 
-**Rename the current session** (inside the REPL):
+**Переименовать текущую сессию** (внутри REPL):
 ```
 /rename auth-refactor
 ```
 
-### Forking Sessions
+### Форк сессий
 
-Fork a session to try an alternative approach without losing the original:
+Создайте форк сессии, чтобы попробовать альтернативный подход, не теряя исходную:
 
 ```
 /fork
@@ -885,60 +894,61 @@ Or from the CLI:
 claude --resume auth-refactor --fork-session "try OAuth instead"
 ```
 
-### Session Persistence
+### Сохранение сессии
 
-Sessions are automatically saved and can be resumed:
+Сессии автоматически сохраняются и могут быть возобновлены:
 
 ```bash
-# Continue last conversation
+# Продолжить последний разговор
 claude -c
 
-# Resume specific session by name or ID
+# Возобновить конкретную сессию по имени или ID
 claude -r "auth-refactor"
 
-# Resume and fork for experimentation
+# Возобновить и форкнуть для экспериментов
 claude --resume auth-refactor --fork-session "alternative approach"
 ```
 
 ---
 
-## Interactive Features
+<a id="interactive-features"></a>
+## Интерактивные возможности
 
-### Keyboard Shortcuts
+### Сочетания клавиш
 
-Claude Code supports keyboard shortcuts for efficiency. Here's the complete reference from official docs:
+Claude Code поддерживает горячие клавиши для удобной работы. Ниже приведена полная справка из официальной документации:
 
-| Shortcut | Description |
+| Сочетание | Описание |
 |----------|-------------|
-| `Ctrl+C` | Cancel current input/generation |
-| `Ctrl+D` | Exit Claude Code |
-| `Ctrl+G` | Edit plan in external editor |
-| `Ctrl+L` | Clear terminal screen |
-| `Ctrl+O` | Toggle verbose output (view reasoning) |
-| `Ctrl+R` | Reverse search history |
-| `Ctrl+T` | Toggle task list view |
-| `Ctrl+B` | Background running tasks |
-| `Esc+Esc` | Rewind code/conversation |
-| `Shift+Tab` / `Alt+M` | Toggle permission modes |
-| `Option+P` / `Alt+P` | Switch model |
-| `Option+T` / `Alt+T` | Toggle extended thinking |
+| `Ctrl+C` | Отменить текущий ввод/генерацию |
+| `Ctrl+D` | Выйти из Claude Code |
+| `Ctrl+G` | Редактировать план во внешнем редакторе |
+| `Ctrl+L` | Очистить экран терминала |
+| `Ctrl+O` | Переключить подробный вывод (просмотр рассуждений) |
+| `Ctrl+R` | Обратный поиск по истории |
+| `Ctrl+T` | Показать или скрыть список задач |
+| `Ctrl+B` | Фоновые выполняющиеся задачи |
+| `Esc+Esc` | Откат кода/разговора |
+| `Shift+Tab` / `Alt+M` | Переключать режимы разрешений |
+| `Option+P` / `Alt+P` | Переключать модель |
+| `Option+T` / `Alt+T` | Переключать расширенное мышление |
 
-**Line Editing (standard readline shortcuts):**
+**Редактирование строк (стандартные сочетания readline):**
 
-| Shortcut | Action |
+| Сочетание | Действие |
 |----------|--------|
-| `Ctrl + A` | Move to line start |
-| `Ctrl + E` | Move to line end |
-| `Ctrl + K` | Cut to end of line |
-| `Ctrl + U` | Cut to start of line |
-| `Ctrl + W` | Delete word backward |
-| `Ctrl + Y` | Paste (yank) |
-| `Tab` | Autocomplete |
-| `↑ / ↓` | Command history |
+| `Ctrl + A` | Перейти в начало строки |
+| `Ctrl + E` | Перейти в конец строки |
+| `Ctrl + K` | Вырезать до конца строки |
+| `Ctrl + U` | Вырезать до начала строки |
+| `Ctrl + W` | Удалить слово назад |
+| `Ctrl + Y` | Вставить (yank) |
+| `Tab` | Автодополнение |
+| `↑ / ↓` | История команд |
 
-### Customizing keybindings
+### Настройка привязок клавиш
 
-Create custom keyboard shortcuts by running `/keybindings`, which opens `~/.claude/keybindings.json` for editing (v2.1.18+).
+Создавайте собственные сочетания клавиш через `/keybindings`, которая открывает `~/.claude/keybindings.json` для редактирования (v2.1.18+).
 
 **Configuration format**:
 
@@ -964,54 +974,54 @@ Create custom keyboard shortcuts by running `/keybindings`, which opens `~/.clau
 }
 ```
 
-Set a binding to `null` to unbind a default shortcut.
+Чтобы снять стандартную привязку, задайте `null`.
 
-### Available contexts
+### Доступные контексты
 
-Keybindings are scoped to specific UI contexts:
+Привязки клавиш работают в рамках конкретных UI-контекстов:
 
-| Context | Key Actions |
+| Контекст | Основные действия |
 |---------|-------------|
 | **Chat** | `submit`, `cancel`, `cycleMode`, `modelPicker`, `thinkingToggle`, `undo`, `externalEditor`, `stash`, `imagePaste` |
 | **Confirmation** | `yes`, `no`, `previous`, `next`, `nextField`, `cycleMode`, `toggleExplanation` |
 | **Global** | `interrupt`, `exit`, `toggleTodos`, `toggleTranscript` |
-| **Autocomplete** | `accept`, `dismiss`, `next`, `previous` |
+| **Автодополнение** | `accept`, `dismiss`, `next`, `previous` |
 | **HistorySearch** | `search`, `previous`, `next` |
-| **Settings** | Context-specific settings navigation |
-| **Tabs** | Tab switching and management |
-| **Help** | Help panel navigation |
+| **Settings** | Навигация по настройкам, зависящая от контекста |
+| **Tabs** | Переключение и управление вкладками |
+| **Help** | Навигация по панели справки |
 
-There are 18 contexts total including `Transcript`, `Task`, `ThemePicker`, `Attachments`, `Footer`, `MessageSelector`, `DiffDialog`, `ModelPicker`, and `Select`.
+Всего доступно 18 контекстов, включая `Transcript`, `Task`, `ThemePicker`, `Attachments`, `Footer`, `MessageSelector`, `DiffDialog`, `ModelPicker` и `Select`.
 
-### Chord support
+### Поддержка chord-последовательностей
 
-Keybindings support chord sequences (multi-key combinations):
+Привязки клавиш поддерживают chord-последовательности (многоклавишные комбинации):
 
 ```
-"ctrl+k ctrl+s"   → Two-key sequence: press ctrl+k, then ctrl+s
-"ctrl+shift+p"    → Simultaneous modifier keys
+"ctrl+k ctrl+s"   → Двухклавишная последовательность: нажмите ctrl+k, затем ctrl+s
+"ctrl+shift+p"    → Одновременные клавиши-модификаторы
 ```
 
-**Keystroke syntax**:
+**Синтаксис сочетаний клавиш**:
 - **Modifiers**: `ctrl`, `alt` (or `opt`), `shift`, `meta` (or `cmd`)
 - **Uppercase implies Shift**: `K` is equivalent to `shift+k`
 - **Special keys**: `escape`, `enter`, `return`, `tab`, `space`, `backspace`, `delete`, arrow keys
 
-### Reserved and conflicting keys
+### Зарезервированные и конфликтующие клавиши
 
-| Key | Status | Notes |
+| Клавиша | Статус | Примечания |
 |-----|--------|-------|
-| `Ctrl+C` | Reserved | Cannot be rebound (interrupt) |
-| `Ctrl+D` | Reserved | Cannot be rebound (exit) |
-| `Ctrl+B` | Terminal conflict | tmux prefix key |
-| `Ctrl+A` | Terminal conflict | GNU Screen prefix key |
-| `Ctrl+Z` | Terminal conflict | Process suspend |
+| `Ctrl+C` | Зарезервирована | Нельзя переназначить (interrupt) |
+| `Ctrl+D` | Зарезервирована | Нельзя переназначить (exit) |
+| `Ctrl+B` | Конфликт с терминалом | tmux prefix key |
+| `Ctrl+A` | Конфликт с терминалом | Клавиша префикса GNU Screen |
+| `Ctrl+Z` | Конфликт с терминалом | Приостановка процесса |
 
-> **Tip**: If a shortcut does not work, check for conflicts with your terminal emulator or multiplexer.
+> **Совет**: если сочетание не работает, проверьте конфликты с терминальным эмулятором или мультиплексором.
 
-### Tab Completion
+### Завершение по Tab
 
-Claude Code provides intelligent tab completion:
+Claude Code предоставляет интеллектуальное завершение по Tab:
 
 ```
 User: /rew<TAB>
@@ -1026,9 +1036,9 @@ User: /plugin <TAB>
 → /plugin disable
 ```
 
-### Command History
+### История команд
 
-Access previous commands:
+Доступ к предыдущим командам:
 
 ```
 User: <↑>  # Previous command
@@ -1038,65 +1048,65 @@ User: Ctrl+R  # Search history
 (reverse-i-search)`test': run all tests
 ```
 
-### Multi-line Input
+### Многострочный ввод
 
-For complex queries, use multi-line mode:
+Для сложных запросов используйте многострочный режим:
 
 ```bash
-User: \
-> Long complex prompt
-> spanning multiple lines
+Пользователь: \
+> Длинный сложный промпт
+> на несколько строк
 > \end
 ```
 
-**Example:**
+**Пример:**
 
 ```
-User: \
-> Implement a user authentication system
-> with the following requirements:
+Пользователь: \
+> Реализуй систему аутентификации пользователей
+> со следующими требованиями:
 > - JWT tokens
-> - Email verification
-> - Password reset
-> - 2FA support
+> - проверка email
+> - сброс пароля
+> - поддержка 2FA
 > \end
 
-Claude: [Processes the multi-line request]
+Claude: [Обрабатывает многострочный запрос]
 ```
 
-### Inline Editing
+### Встроенное редактирование
 
-Edit commands before sending:
+Редактируйте команды перед отправкой:
 
 ```
 User: Deploy to prodcution<Backspace><Backspace>uction
 
-[Edit in-place before sending]
+[Редактирование на месте перед отправкой]
 ```
 
-### Vim Mode
+### Режим Vim
 
-Enable Vi/Vim keybindings for text editing:
+Включите привязки клавиш Vi/Vim для редактирования текста:
 
 **Activation**:
-- Use `/vim` command or `/config` to enable
-- Mode switching with `Esc` for NORMAL, `i/a/o` for INSERT
+- Используйте команду `/vim` или `/config`, чтобы включить
+- Переключение режимов через `Esc` для NORMAL и `i/a/o` для INSERT
 
-**Navigation keys**:
-- `h` / `l` - Move left/right
-- `j` / `k` - Move down/up
-- `w` / `b` / `e` - Move by word
-- `0` / `$` - Move to line start/end
-- `gg` / `G` - Jump to start/end of text
+**Клавиши навигации**:
+- `h` / `l` - Влево/вправо
+- `j` / `k` - Вниз/вверх
+- `w` / `b` / `e` - По словам
+- `0` / `$` - В начало/конец строки
+- `gg` / `G` - В начало/конец текста
 
-**Text objects**:
-- `iw` / `aw` - Inner/around word
-- `i"` / `a"` - Inner/around quoted string
-- `i(` / `a(` - Inner/around parentheses
+**Текстовые объекты**:
+- `iw` / `aw` - Внутри/вокруг слова
+- `i"` / `a"` - Внутри/вокруг строки в кавычках
+- `i(` / `a(` - Внутри/вокруг скобок
 
-### Bash Mode
+### Режим Bash
 
-Execute shell commands directly with `!` prefix:
+Выполняйте shell-команды напрямую с префиксом `!`:
 
 ```bash
 ! npm test
@@ -1104,56 +1114,58 @@ Execute shell commands directly with `!` prefix:
 ! cat src/index.js
 ```
 
-Use this for quick command execution without switching contexts.
+Используйте это для быстрого запуска команд без переключения контекста.
 
 ---
 
-## Voice Dictation
+<a id="voice-dictation"></a>
+## Голосовой ввод
 
-Voice Dictation provides push-to-talk voice input for Claude Code, allowing you to speak your prompts instead of typing them.
+Голосовой ввод предоставляет режим push-to-talk для Claude Code, позволяя диктовать промпты вместо ввода с клавиатуры.
 
-### Activating Voice Dictation
+### Активация голосового ввода
 
 ```
 /voice
 ```
 
-### Features
+### Возможности
 
-| Feature | Description |
+| Возможность | Описание |
 |---------|-------------|
-| **Push-to-talk** | Hold a key to record, release to send |
-| **20 languages** | Speech-to-text supports 20 languages |
-| **Custom keybinding** | Configure the push-to-talk key via `/keybindings` |
-| **Account requirement** | Requires a Claude.ai account for STT processing |
+| **Нажал и говори** | Удерживайте клавишу для записи, отпустите для отправки |
+| **20 языков** | Распознавание речи поддерживает 20 языков |
+| **Пользовательская привязка клавиш** | Настраивается через `/keybindings` |
+| **Требуется аккаунт** | Для обработки STT нужен аккаунт Claude.ai |
 
-### Configuration
+### Конфигурация
 
-Customize the push-to-talk keybinding in your keybindings file (`/keybindings`). Voice dictation uses your Claude.ai account for speech-to-text processing.
+Настройте привязку push-to-talk в файле keybindings (`/keybindings`). Голосовой ввод использует ваш аккаунт Claude.ai для распознавания речи.
 
 ---
 
-## Channels
+<a id="channels"></a>
+## Каналы
 
-Channels (Research Preview) allow MCP servers to push messages into running Claude Code sessions, enabling real-time integrations with external services.
+Каналы (Research Preview) позволяют MCP-серверам отправлять сообщения в запущенные сессии Claude Code, обеспечивая интеграции с внешними сервисами в реальном времени.
 
-### Subscribing to Channels
+### Подписка на каналы
 
 ```bash
-# Subscribe to channel plugins at startup
+# Подписаться на плагины каналов при запуске
 claude --channels discord,telegram
 ```
 
-### Supported Integrations
+### Поддерживаемые интеграции
 
-| Integration | Description |
+| Интеграция | Описание |
 |-------------|-------------|
-| **Discord** | Receive and respond to Discord messages in your session |
-| **Telegram** | Receive and respond to Telegram messages in your session |
+| **Discord** | Получать и отвечать на сообщения Discord в вашей сессии |
+| **Telegram** | Получать и отвечать на сообщения Telegram в вашей сессии |
 
-### Configuration
+### Конфигурация
 
-**Managed setting** for enterprise deployments:
+**Managed setting** для корпоративных развёртываний:
 
 ```json
 {
@@ -1161,28 +1173,29 @@ claude --channels discord,telegram
 }
 ```
 
-The `allowedChannelPlugins` managed setting controls which channel plugins are permitted across the organization.
+Managed setting `allowedChannelPlugins` определяет, какие плагины каналов разрешены в организации.
 
-### How It Works
+### Как это работает
 
-1. MCP servers act as channel plugins that connect to external services
-2. Incoming messages are pushed into the active Claude Code session
-3. Claude can read and respond to messages within the session context
-4. Channel plugins must be approved via the `allowedChannelPlugins` managed setting
+1. MCP-серверы выступают как плагины каналов, подключённые к внешним сервисам
+2. Входящие сообщения отправляются в активную сессию Claude Code
+3. Claude может читать сообщения и отвечать на них в контексте сессии
+4. Плагины каналов должны быть разрешены через managed setting `allowedChannelPlugins`
 
 ---
 
-## Chrome Integration
+<a id="chrome-integration"></a>
+## Интеграция с Chrome
 
-Chrome Integration connects Claude Code to your Chrome or Microsoft Edge browser for live web automation and debugging. This is a beta feature available since v2.0.73+ (Edge support added in v1.0.36+).
+Интеграция с Chrome подключает Claude Code к браузеру Chrome или Microsoft Edge для живой веб-автоматизации и отладки. Это beta-функция, доступная с v2.0.73+ (поддержка Edge добавлена в v1.0.36+).
 
-### Enabling Chrome Integration
+### Включение интеграции с Chrome
 
 **At startup**:
 
 ```bash
-claude --chrome      # Enable Chrome connection
-claude --no-chrome   # Disable Chrome connection
+claude --chrome      # Включить подключение к Chrome
+claude --no-chrome   # Отключить подключение к Chrome
 ```
 
 **Within a session**:
@@ -1191,51 +1204,52 @@ claude --no-chrome   # Disable Chrome connection
 /chrome
 ```
 
-Select "Enabled by default" to activate Chrome Integration for all future sessions. Claude Code shares your browser's login state, so it can interact with authenticated web apps.
+Выберите "Enabled by default", чтобы включить интеграцию с Chrome для всех будущих сессий. Claude Code использует состояние входа в браузере, поэтому может работать с веб-приложениями, где уже выполнена аутентификация.
 
-### Capabilities
+### Возможности
 
-| Capability | Description |
-|------------|-------------|
-| **Live debugging** | Read console logs, inspect DOM elements, debug JavaScript in real time |
-| **Design verification** | Compare rendered pages against design mockups |
-| **Form validation** | Test form submissions, input validation, and error handling |
-| **Web app testing** | Interact with authenticated apps (Gmail, Google Docs, Notion, etc.) |
-| **Data extraction** | Scrape and process content from web pages |
-| **Session recording** | Record browser interactions as GIF files |
+| Возможность | Описание |
+|-------------|-----------|
+| **Живая отладка** | Читать логи консоли, инспектировать DOM и отлаживать JavaScript в реальном времени |
+| **Проверка дизайна** | Сравнивать отрисованные страницы с макетами |
+| **Проверка форм** | Тестировать отправку форм, валидацию ввода и обработку ошибок |
+| **Тестирование веб-приложений** | Взаимодействовать с аутентифицированными приложениями (Gmail, Google Docs, Notion и т. д.) |
+| **Извлечение данных** | Собирать и обрабатывать контент со страниц |
+| **Запись сессии** | Записывать взаимодействия с браузером в GIF-файлы |
 
-### Site-level permissions
+### Разрешения на уровне сайта
 
-The Chrome extension manages per-site access. Grant or revoke access for specific sites at any time through the extension popup. Claude Code only interacts with sites you have explicitly allowed.
+Расширение Chrome управляет доступом по сайтам. Разрешайте или отзывайте доступ для конкретных сайтов в любой момент через popup расширения. Claude Code взаимодействует только с теми сайтами, которые вы явно разрешили.
 
-### How it works
+### Как это работает
 
-Claude Code controls the browser in a visible window — you can watch actions happen in real time. When the browser encounters a login page or CAPTCHA, Claude pauses and waits for you to handle it manually before continuing.
+Claude Code управляет браузером в видимом окне — вы можете наблюдать действия в реальном времени. Когда браузер встречает страницу входа или CAPTCHA, Claude ставит выполнение на паузу и ждёт, пока вы решите это вручную.
 
-### Known limitations
+### Известные ограничения
 
-- **Browser support**: Chrome and Edge only — Brave, Arc, and other Chromium browsers are not supported
-- **WSL**: Not available in Windows Subsystem for Linux
-- **Third-party providers**: Not supported with Bedrock, Vertex, or Foundry API providers
-- **Service worker idle**: The Chrome extension service worker may go idle during extended sessions
+- **Поддержка браузеров**: только Chrome и Edge — Brave, Arc и другие браузеры на Chromium не поддерживаются
+- **WSL**: недоступно в Windows Subsystem for Linux
+- **Сторонние провайдеры**: не поддерживаются с Bedrock, Vertex или Foundry API providers
+- **Простой service worker**: service worker расширения Chrome может переходить в idle во время длительных сессий
 
-> **Tip**: Chrome Integration is a beta feature. Browser support may expand in future releases.
+> **Совет**: интеграция с Chrome — beta-функция. Поддержка браузеров может расшириться в будущих релизах.
 
 ---
 
-## Remote Control
+<a id="remote-control"></a>
+## Удалённое управление
 
-Remote Control lets you continue a locally running Claude Code session from your phone, tablet, or any browser. Your local session keeps running on your machine — nothing moves to the cloud. Available on Pro, Max, Team, and Enterprise plans (v2.1.51+).
+Удалённое управление позволяет продолжить локально запущенную сессию Claude Code с телефона, планшета или любого браузера. Локальная сессия продолжает работать на вашей машине — ничего не уходит в облако. Доступно на планах Pro, Max, Team и Enterprise (v2.1.51+).
 
-### Starting Remote Control
+### Запуск удалённого управления
 
 **From the CLI**:
 
 ```bash
-# Start with default session name
+# Запустить с именем сессии по умолчанию
 claude remote-control
 
-# Start with a custom name
+# Запустить с собственным именем
 claude remote-control --name "Auth Refactor"
 ```
 
@@ -1248,90 +1262,90 @@ claude remote-control --name "Auth Refactor"
 
 **Available flags**:
 
-| Flag | Description |
+| Флаг | Описание |
 |------|-------------|
-| `--name "title"` | Custom session title for easy identification |
-| `--verbose` | Show detailed connection logs |
-| `--sandbox` | Enable filesystem and network isolation |
-| `--no-sandbox` | Disable sandboxing (default) |
+| `--name "title"` | Пользовательский заголовок сессии для удобной идентификации |
+| `--verbose` | Показывать подробные журналы подключения |
+| `--sandbox` | Включить изоляцию файловой системы и сети |
+| `--no-sandbox` | Отключить sandboxing (по умолчанию) |
 
-### Connecting to a session
+### Подключение к сессии
 
-Three ways to connect from another device:
+Есть три способа подключиться с другого устройства:
 
-1. **Session URL** — Printed to the terminal when the session starts; open in any browser
-2. **QR code** — Press `spacebar` after starting to display a scannable QR code
-3. **Find by name** — Browse your sessions at claude.ai/code or in the Claude mobile app (iOS/Android)
+1. **Session URL** — выводится в терминал при старте сессии; откройте в любом браузере
+2. **QR code** — нажмите `spacebar` после запуска, чтобы показать сканируемый QR-код
+3. **По имени** — найдите сессию на claude.ai/code или в мобильном приложении Claude (iOS/Android)
 
-### Security
+### Безопасность
 
-- **No inbound ports** opened on your machine
-- **Outbound HTTPS only** over TLS
-- **Scoped credentials** — multiple short-lived, narrowly scoped tokens
-- **Session isolation** — each remote session is independent
+- **Нет входящих портов** на вашей машине
+- **Только исходящий HTTPS** поверх TLS
+- **Scoped credentials** — несколько краткоживущих токенов с узкой областью действия
+- **Изоляция сессий** — каждая удалённая сессия независима
 
-### Remote Control vs Claude Code on the web
+### Удалённое управление vs Claude Code в вебе
 
-| Aspect | Remote Control | Claude Code on Web |
+| Аспект | Удалённое управление | Claude Code в вебе |
 |--------|---------------|-------------------|
-| **Execution** | Runs on your machine | Runs on Anthropic cloud |
-| **Local tools** | Full access to local MCP servers, files, and CLI | No local dependencies |
-| **Use case** | Continue local work from another device | Start fresh from any browser |
+| **Выполнение** | Работает на вашей машине | Работает в облаке Anthropic |
+| **Локальные инструменты** | Полный доступ к локальным MCP-серверам, файлам и CLI | Без локальных зависимостей |
+| **Сценарий** | Продолжить локальную работу с другого устройства | Начать с нуля из любого браузера |
 
-### Limitations
+### Ограничения
 
-- One remote session per Claude Code instance
-- Terminal must stay open on the host machine
-- Session times out after ~10 minutes if the network is unreachable
+- Одна удалённая сессия на экземпляр Claude Code
+- Терминал должен оставаться открытым на хост-машине
+- Сессия завершается примерно через 10 минут, если сеть недоступна
 
-### Use cases
+### Сценарии использования
 
-- Control Claude Code from a mobile device or tablet while away from your desk
-- Use the richer claude.ai UI while maintaining local tool execution
-- Quick code reviews on the go with your full local development environment
+- Управлять Claude Code с телефона или планшета, находясь вдали от рабочего места
+- Использовать более насыщенный интерфейс claude.ai, сохраняя локальное выполнение инструментов
+- Быстро делать проверку кода на ходу, сохраняя полную локальную среду разработки
 
 ---
 
-## Web Sessions
+## Веб-сессии
 
-Web Sessions allow you to run Claude Code directly in the browser at claude.ai/code, or create web sessions from the CLI.
+Веб-сессии позволяют запускать Claude Code прямо в браузере на claude.ai/code или создавать веб-сессии из CLI.
 
-### Creating a Web Session
+### Создание веб-сессии
 
 ```bash
-# Create a new web session from the CLI
+# Создать новую веб-сессию из CLI
 claude --remote "implement the new API endpoints"
 ```
 
-This starts a Claude Code session on claude.ai that you can access from any browser.
+Это создаёт сессию Claude Code на claude.ai, к которой можно получить доступ из любого браузера.
 
-### Resuming Web Sessions Locally
+### Возобновление веб-сессий локально
 
-If you started a session on the web and want to continue it locally:
+Если вы начали сессию в вебе и хотите продолжить её локально:
 
 ```bash
-# Resume a web session in the local terminal
+# Возобновить веб-сессию в локальном терминале
 claude --teleport
 ```
 
-Or from within an interactive REPL:
+Или из интерактивного REPL:
 ```
 /teleport
 ```
 
-### Use Cases
+### Сценарии использования
 
-- Start work on one machine and continue on another
-- Share a session URL with team members
-- Use the web UI for visual diff review, then switch to terminal for execution
+- Начать работу на одной машине и продолжить на другой
+- Поделиться URL сессии с участниками команды
+- Использовать веб-интерфейс для визуального просмотра diff, а затем переключиться в терминал для выполнения
 
 ---
 
-## Desktop App
+## Настольное приложение
 
-The Claude Code Desktop App provides a standalone application with visual diff review, parallel sessions, and integrated connectors. Available for macOS and Windows (Pro, Max, Team, and Enterprise plans).
+Desktop App Claude Code — это отдельное приложение с визуальным просмотром diff, параллельными сессиями и встроенными коннекторами. Доступно для macOS и Windows (планы Pro, Max, Team и Enterprise).
 
-### Installation
+### Установка
 
 Download from [claude.ai](https://claude.ai) for your platform:
 - **macOS**: Universal build (Apple Silicon and Intel)
@@ -1339,28 +1353,28 @@ Download from [claude.ai](https://claude.ai) for your platform:
 
 See the [Desktop Quickstart](https://code.claude.com/docs/en/desktop-quickstart) for setup instructions.
 
-### Handing off from CLI
+### Передача из CLI
 
-Transfer your current CLI session to the Desktop App:
+Перенесите текущую CLI-сессию в Desktop App:
 
 ```
 /desktop
 ```
 
-### Core features
+### Основные возможности
 
-| Feature | Description |
+| Возможность | Описание |
 |---------|-------------|
-| **Diff view** | File-by-file visual review with inline comments; Claude reads comments and revises |
-| **App preview** | Auto-starts dev servers with an embedded browser for live verification |
-| **PR monitoring** | GitHub CLI integration with auto-fix CI failures and auto-merge when checks pass |
-| **Parallel sessions** | Multiple sessions in the sidebar with automatic Git worktree isolation |
-| **Scheduled tasks** | Recurring tasks (hourly, daily, weekdays, weekly) that run while the app is open |
-| **Rich rendering** | Code, markdown, and diagram rendering with syntax highlighting |
+| **Просмотр diff** | Визуальный обзор по файлам с inline-комментариями; Claude читает комментарии и вносит правки |
+| **Предпросмотр приложения** | Автоматически запускает dev-серверы со встроенным браузером для живой проверки |
+| **Мониторинг PR** | Интеграция с GitHub CLI, автоисправление падений CI и auto-merge после успешных проверок |
+| **Параллельные сессии** | Несколько сессий в боковой панели с автоматической изоляцией Git worktree |
+| **Запланированные задачи** | Повторяющиеся задачи (почасовые, ежедневные, по будням, еженедельные), которые выполняются, пока приложение открыто |
+| **Богатый рендеринг** | Отрисовка кода, markdown и диаграмм с подсветкой синтаксиса |
 
-### App preview configuration
+### Конфигурация предпросмотра приложения
 
-Configure dev server behavior in `.claude/launch.json`:
+Настройте поведение dev-сервера в `.claude/launch.json`:
 
 ```json
 {
@@ -1371,82 +1385,84 @@ Configure dev server behavior in `.claude/launch.json`:
 }
 ```
 
-### Connectors
+### Коннекторы
 
-Connect external services for richer context:
+Подключайте внешние сервисы для более богатого контекста:
 
-| Connector | Capability |
+| Коннектор | Возможность |
 |-----------|------------|
-| **GitHub** | PR monitoring, issue tracking, code review |
+| **GitHub** | Мониторинг PR, отслеживание задач, проверка кода |
 | **Slack** | Notifications, channel context |
 | **Linear** | Issue tracking, sprint management |
 | **Notion** | Documentation, knowledge base access |
 | **Asana** | Task management, project tracking |
 | **Calendar** | Schedule awareness, meeting context |
 
-> **Note**: Connectors are not available for remote (cloud) sessions.
+> **Примечание**: коннекторы недоступны для удалённых (cloud) сессий.
 
-### Remote and SSH sessions
+### Удалённые и SSH-сессии
 
-- **Remote sessions**: Run on Anthropic cloud infrastructure; continue even when the app is closed. Accessible from claude.ai/code or the Claude mobile app
-- **SSH sessions**: Connect to remote machines over SSH with full access to the remote filesystem and tools. Claude Code must be installed on the remote machine
+- **Удалённые сессии**: работают на облачной инфраструктуре Anthropic; продолжают работать даже после закрытия приложения. Доступны с claude.ai/code или из мобильного приложения Claude
+- **SSH-сессии**: подключение к удалённым машинам по SSH с полным доступом к файловой системе и инструментам. На удалённой машине должен быть установлен Claude Code
 
-### Permission modes in Desktop
+### Режимы разрешений в Desktop
 
-The Desktop App supports the same 4 permission modes as the CLI:
+Desktop App поддерживает те же 4 режима разрешений, что и CLI:
 
-| Mode | Behavior |
-|------|----------|
-| **Ask permissions** (default) | Review and approve every edit and command |
-| **Auto accept edits** | File edits auto-approved; commands require manual approval |
-| **Plan mode** | Review approach before any changes are made |
-| **Bypass permissions** | Automatic execution (sandbox-only, admin-controlled) |
+| Режим | Поведение |
+|-------|----------|
+| **Запрашивать разрешение** (по умолчанию) | Проверять и одобрять каждую правку и команду |
+| **Авто-приём правок** | Изменения файлов принимаются автоматически; команды требуют ручного подтверждения |
+| **Режим планирования** | Сначала просмотреть подход, затем вносить изменения |
+| **Обход разрешений** | Автоматическое выполнение (только в песочнице, под контролем администратора) |
 
-### Enterprise features
+### Корпоративные возможности
 
-- **Admin console**: Control Code tab access and permission settings for the organization
-- **MDM deployment**: Deploy via MDM on macOS or MSIX on Windows
-- **SSO integration**: Require single sign-on for organization members
-- **Managed settings**: Centrally manage team configuration and model availability
+- **Admin console**: управление доступом к вкладке Code и настройками разрешений для организации
+- **MDM deployment**: развёртывание через MDM на macOS или MSIX на Windows
+- **SSO integration**: обязательный single sign-on для участников организации
+- **Managed settings**: централизованное управление конфигурацией команды и доступными моделями
 
 ---
 
-## Task List
+<a id="task-list"></a>
+## Список задач
 
-The Task List feature provides persistent task tracking that survives context compactions (when the conversation history is trimmed to fit the context window).
+Функция Task List обеспечивает постоянный трекинг задач, который переживает сжатие контекста (когда история разговора урезается, чтобы поместиться в окно контекста).
 
-### Toggling the Task List
+### Переключение Task List
 
-Press `Ctrl+T` to toggle the task list view on or off during a session.
+Нажмите `Ctrl+T`, чтобы включать или отключать список задач во время сессии.
 
-### Persistent Tasks
+### Постоянные задачи
 
-Tasks persist across context compactions, ensuring that long-running work items are not lost when the conversation context is trimmed. This is particularly useful for complex, multi-step implementations.
+Задачи сохраняются между сжатиями контекста, поэтому долгие рабочие элементы не теряются, когда история разговора сокращается. Это особенно полезно для сложных многосоставных реализаций.
 
-### Named Task Directories
+### Именованные каталоги задач
 
-Use the `CLAUDE_CODE_TASK_LIST_ID` environment variable to create named task directories shared across sessions:
+Используйте переменную окружения `CLAUDE_CODE_TASK_LIST_ID`, чтобы создавать именованные каталоги задач, общие между сессиями:
 
 ```bash
 export CLAUDE_CODE_TASK_LIST_ID=my-project-sprint-3
 ```
 
-This allows multiple sessions to share the same task list, making it useful for team workflows or multi-session projects.
+Это позволяет нескольким сессиям использовать один и тот же список задач, что полезно для командных процессов и проектов с несколькими сессиями.
 
 ---
 
-## Prompt Suggestions
+<a id="prompt-suggestions"></a>
+## Подсказки к промптам
 
-Prompt Suggestions display grayed-out example commands based on your git history and current conversation context.
+Подсказки к промптам показывают серым цветом примеры команд на основе вашей git-истории и текущего контекста разговора.
 
-### How It Works
+### Как это работает
 
-- Suggestions appear as grayed-out text below your input prompt
-- Press `Tab` to accept the suggestion
-- Press `Enter` to accept and immediately submit
-- Suggestions are context-aware, drawing from git history and conversation state
+- Подсказки появляются серым текстом под строкой ввода
+- Нажмите `Tab`, чтобы принять подсказку
+- Нажмите `Enter`, чтобы принять и сразу отправить
+- Подсказки учитывают контекст, используя git-историю и состояние разговора
 
-### Disabling Prompt Suggestions
+### Отключение подсказок к промптам
 
 ```bash
 export CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION=false
@@ -1454,29 +1470,31 @@ export CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION=false
 
 ---
 
-## Git Worktrees
+<a id="git-worktrees"></a>
+<a id="git-worktrees"></a>
+## Изолированные worktree
 
-Git Worktrees allow you to start Claude Code in an isolated worktree, enabling parallel work on different branches without stashing or switching.
+Git Worktrees позволяют запускать Claude Code в изолированном worktree, чтобы параллельно работать в разных ветках без stash и переключения.
 
-### Starting in a Worktree
+### Запуск в worktree
 
 ```bash
-# Start Claude Code in an isolated worktree
+# Запустить Claude Code в изолированном worktree
 claude --worktree
 # or
 claude -w
 ```
 
-### Worktree Location
+### Расположение worktree
 
-Worktrees are created at:
+Worktree создаются в:
 ```
 <repo>/.claude/worktrees/<name>
 ```
 
-### Sparse Checkout for Monorepos
+### Избирательная выборка для monorepo
 
-Use the `worktree.sparsePaths` setting to perform sparse-checkout in monorepos, reducing disk usage and clone time:
+Используйте настройку `worktree.sparsePaths`, чтобы выполнять sparse-checkout в monorepo и уменьшать расход диска и время клонирования:
 
 ```json
 {
@@ -1486,19 +1504,19 @@ Use the `worktree.sparsePaths` setting to perform sparse-checkout in monorepos, 
 }
 ```
 
-### Worktree Tools and Hooks
+### Инструменты и хуки worktree
 
-| Item | Description |
-|------|-------------|
-| `ExitWorktree` | Tool to exit and clean up the current worktree |
-| `WorktreeCreate` | Hook event fired when a worktree is created |
-| `WorktreeRemove` | Hook event fired when a worktree is removed |
+| Элемент | Описание |
+|---------|-------------|
+| `ExitWorktree` | Инструмент для выхода и очистки текущего worktree |
+| `WorktreeCreate` | Событие hook, срабатывающее при создании worktree |
+| `WorktreeRemove` | Событие hook, срабатывающее при удалении worktree |
 
-### Auto-Cleanup
+### Автоочистка
 
-If no changes are made in the worktree, it is automatically cleaned up when the session ends.
+Если в worktree не было изменений, он автоматически очищается при завершении сессии.
 
-### Use Cases
+### Сценарии использования
 
 - Work on a feature branch while keeping main branch untouched
 - Run tests in isolation without affecting the working directory
@@ -1507,11 +1525,12 @@ If no changes are made in the worktree, it is automatically cleaned up when the 
 
 ---
 
-## Sandboxing
+<a id="sandboxing"></a>
+## Песочница
 
-Sandboxing provides OS-level filesystem and network isolation for Bash commands executed by Claude Code. This is complementary to permission rules and provides an additional security layer.
+Sandboxing предоставляет изоляцию файловой системы и сети на уровне ОС для Bash-команд, выполняемых Claude Code. Это дополняет правила разрешений и добавляет ещё один уровень защиты.
 
-### Enabling Sandboxing
+### Включение Sandboxing
 
 **Slash command**:
 ```
@@ -1524,18 +1543,18 @@ claude --sandbox       # Enable sandboxing
 claude --no-sandbox    # Disable sandboxing
 ```
 
-### Configuration Settings
+### Параметры конфигурации
 
-| Setting | Description |
-|---------|-------------|
-| `sandbox.enabled` | Enable or disable sandboxing |
-| `sandbox.failIfUnavailable` | Fail if sandboxing cannot be activated |
-| `sandbox.filesystem.allowWrite` | Paths allowed for write access |
-| `sandbox.filesystem.allowRead` | Paths allowed for read access |
-| `sandbox.filesystem.denyRead` | Paths denied for read access |
-| `sandbox.enableWeakerNetworkIsolation` | Enable weaker network isolation on macOS |
+| Параметр | Описание |
+|----------|-------------|
+| `sandbox.enabled` | Включить или отключить sandboxing |
+| `sandbox.failIfUnavailable` | Завершать с ошибкой, если sandboxing нельзя активировать |
+| `sandbox.filesystem.allowWrite` | Пути, которым разрешена запись |
+| `sandbox.filesystem.allowRead` | Пути, которым разрешено чтение |
+| `sandbox.filesystem.denyRead` | Пути, которым запрещено чтение |
+| `sandbox.enableWeakerNetworkIsolation` | Включить более слабую изоляцию сети на macOS |
 
-### Example Configuration
+### Пример конфигурации
 
 ```json
 {
@@ -1552,37 +1571,38 @@ claude --no-sandbox    # Disable sandboxing
 }
 ```
 
-### How It Works
+### Как это работает
 
-- Bash commands run in a sandboxed environment with restricted filesystem access
-- Network access can be isolated to prevent unintended external connections
-- Works alongside permission rules for defense in depth
-- On macOS, use `sandbox.enableWeakerNetworkIsolation` for network restrictions (full network isolation is not available on macOS)
+- Bash-команды выполняются в sandboxed-среде с ограниченным доступом к файловой системе
+- Доступ к сети можно изолировать, чтобы предотвратить нежелательные внешние подключения
+- Работает вместе с правилами разрешений по принципу defense in depth
+- На macOS для сетевых ограничений используйте `sandbox.enableWeakerNetworkIsolation` (полная изоляция сети на macOS недоступна)
 
-### Use Cases
+### Сценарии использования
 
-- Running untrusted or generated code safely
-- Preventing accidental modifications to files outside the project
-- Restricting network access during automated tasks
+- Безопасный запуск недоверенного или сгенерированного кода
+- Предотвращение случайных изменений файлов вне проекта
+- Ограничение доступа к сети во время автоматизированных задач
 
 ---
 
-## Managed Settings (Enterprise)
+<a id="managed-settings-enterprise"></a>
+## Управляемые настройки (Enterprise)
 
-Managed Settings enable enterprise administrators to deploy Claude Code configuration across an organization using platform-native management tools.
+Managed Settings позволяют корпоративным администраторам разворачивать конфигурацию Claude Code по всей организации с помощью нативных средств управления платформы.
 
-### Deployment Methods
+### Способы развёртывания
 
-| Platform | Method | Since |
-|----------|--------|-------|
+| Платформа | Способ | С версии |
+|-----------|--------|---------|
 | macOS | Managed plist files (MDM) | v2.1.51+ |
-| Windows | Windows Registry | v2.1.51+ |
-| Cross-platform | Managed configuration files | v2.1.51+ |
+| Windows | Реестр Windows | v2.1.51+ |
+| Кроссплатформенно | Управляемые файлы конфигурации | v2.1.51+ |
 | Cross-platform | Managed drop-ins (`managed-settings.d/` directory) | v2.1.83+ |
 
-### Managed Drop-ins
+### Управляемые drop-in-файлы
 
-Since v2.1.83, administrators can deploy multiple managed settings files into a `managed-settings.d/` directory. Files are merged in alphabetical order, allowing modular configuration across teams:
+Начиная с v2.1.83 администраторы могут размещать несколько managed settings files в каталоге `managed-settings.d/`. Файлы объединяются в алфавитном порядке, что позволяет строить модульную конфигурацию для разных команд:
 
 ```
 ~/.claude/managed-settings.d/
@@ -1591,17 +1611,17 @@ Since v2.1.83, administrators can deploy multiple managed settings files into a 
   20-project-overrides.json
 ```
 
-### Available Managed Settings
+### Доступные управляемые настройки
 
-| Setting | Description |
-|---------|-------------|
-| `disableBypassPermissionsMode` | Prevent users from enabling bypass permissions |
-| `availableModels` | Restrict which models users can select |
-| `allowedChannelPlugins` | Control which channel plugins are permitted |
-| `autoMode.environment` | Configure trusted infrastructure for auto mode |
-| Custom policies | Organization-specific permission and tool policies |
+| Параметр | Описание |
+|----------|-------------|
+| `disableBypassPermissionsMode` | Запретить пользователям включать bypass permissions |
+| `availableModels` | Ограничить набор моделей, которые могут выбирать пользователи |
+| `allowedChannelPlugins` | Управлять разрешёнными channel plugins |
+| `autoMode.environment` | Настроить доверенную инфраструктуру для auto mode |
+| Пользовательские политики | Политики разрешений и инструментов, специфичные для организации |
 
-### Example: macOS Plist
+### Пример: macOS Plist
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1622,17 +1642,18 @@ Since v2.1.83, administrators can deploy multiple managed settings files into a 
 
 ---
 
-## Configuration and Settings
+<a id="configuration-and-settings"></a>
+## Конфигурация и настройки
 
-### Configuration File Locations
+### Расположение файлов конфигурации
 
-1. **Global config**: `~/.claude/config.json`
-2. **Project config**: `./.claude/config.json`
-3. **User config**: `~/.config/claude-code/settings.json`
+1. **Глобальная конфигурация**: `~/.claude/config.json`
+2. **Конфигурация проекта**: `./.claude/config.json`
+3. **Пользовательская конфигурация**: `~/.config/claude-code/settings.json`
 
-### Complete Configuration Example
+### Полный пример конфигурации
 
-**Core advanced features configuration:**
+**Базовая конфигурация продвинутых возможностей:**
 
 ```json
 {
@@ -1655,7 +1676,7 @@ Since v2.1.83, administrators can deploy multiple managed settings files into a 
 }
 ```
 
-**Extended configuration example:**
+**Расширенный пример конфигурации:**
 
 ```json
 {
@@ -1686,25 +1707,25 @@ Since v2.1.83, administrators can deploy multiple managed settings files into a 
 }
 ```
 
-### Environment Variables
+### Переменные окружения
 
-Override config with environment variables:
+Переопределяйте конфигурацию через переменные окружения:
 
 ```bash
-# Model selection
+# Выбор модели
 export ANTHROPIC_MODEL=claude-opus-4-6
 export ANTHROPIC_DEFAULT_OPUS_MODEL=claude-opus-4-6
 export ANTHROPIC_DEFAULT_SONNET_MODEL=claude-sonnet-4-6
 export ANTHROPIC_DEFAULT_HAIKU_MODEL=claude-haiku-4-5
 
-# API configuration
+# Конфигурация API
 export ANTHROPIC_API_KEY=sk-ant-...
 
-# Thinking configuration
+# Конфигурация thinking
 export MAX_THINKING_TOKENS=16000
 export CLAUDE_CODE_EFFORT_LEVEL=high
 
-# Feature toggles
+# Переключатели функций
 export CLAUDE_CODE_DISABLE_AUTO_MEMORY=true
 export CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=true
 export CLAUDE_CODE_DISABLE_CRON=1
@@ -1716,22 +1737,22 @@ export CLAUDE_CODE_ENABLE_PROMPT_SUGGESTION=false
 export CLAUDE_CODE_ENABLE_TASKS=true
 export CLAUDE_CODE_SIMPLE=true              # Set by --bare flag
 
-# MCP configuration
+# Конфигурация MCP
 export MAX_MCP_OUTPUT_TOKENS=50000
 export ENABLE_TOOL_SEARCH=true
 
-# Task management
+# Управление задачами
 export CLAUDE_CODE_TASK_LIST_ID=my-project-tasks
 
-# Agent teams (experimental)
+# Команды агентов (экспериментально)
 export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=true
 
-# Subagent and plugin configuration
+# Конфигурация subagent и плагинов
 export CLAUDE_CODE_SUBAGENT_MODEL=sonnet
 export CLAUDE_CODE_PLUGIN_SEED_DIR=./my-plugins
 export CLAUDE_CODE_NEW_INIT=true
 
-# Subprocess and streaming
+# Подпроцессы и потоковая передача
 export CLAUDE_CODE_SUBPROCESS_ENV_SCRUB="SECRET_KEY,DB_PASSWORD"
 export CLAUDE_AUTOCOMPACT_PCT_OVERRIDE=80
 export CLAUDE_STREAM_IDLE_TIMEOUT_MS=30000
@@ -1739,22 +1760,22 @@ export ANTHROPIC_CUSTOM_MODEL_OPTION=my-custom-model
 export SLASH_COMMAND_TOOL_CHAR_BUDGET=50000
 ```
 
-### Configuration Management Commands
+### Команды управления конфигурацией
 
 ```
 User: /config
 [Opens interactive configuration menu]
 ```
 
-The `/config` command provides an interactive menu to toggle settings such as:
-- Extended thinking on/off
-- Verbose output
-- Permission mode
-- Model selection
+Команда `/config` открывает интерактивное меню, где можно переключать такие настройки, как:
+- Extended thinking вкл./выкл.
+- Подробный вывод
+- Режим разрешений
+- Выбор модели
 
-### Per-Project Configuration
+### Конфигурация на уровне проекта
 
-Create `.claude/config.json` in your project:
+Создайте `.claude/config.json` в своём проекте:
 
 ```json
 {
@@ -1779,56 +1800,58 @@ Create `.claude/config.json` in your project:
 
 ---
 
-## Best Practices
+<a id="best-practices"></a>
+## Лучшие практики
 
-### Planning Mode
-- ✅ Use for complex multi-step tasks
-- ✅ Review plans before approving
-- ✅ Modify plans when needed
-- ❌ Don't use for simple tasks
+### Режим планирования
+- ✅ Используйте для сложных многошаговых задач
+- ✅ Просматривайте планы перед одобрением
+- ✅ При необходимости изменяйте планы
+- ❌ Не используйте для простых задач
 
-### Extended Thinking
-- ✅ Use for architectural decisions
-- ✅ Use for complex problem-solving
-- ✅ Review the thinking process
-- ❌ Don't use for simple queries
+### Расширенное мышление
+- ✅ Используйте для архитектурных решений
+- ✅ Используйте для сложных задач поиска решения
+- ✅ Просматривайте ход рассуждений
+- ❌ Не используйте для простых запросов
 
-### Background Tasks
-- ✅ Use for long-running operations
-- ✅ Monitor task progress
-- ✅ Handle task failures gracefully
-- ❌ Don't start too many concurrent tasks
+### Фоновые задачи
+- ✅ Используйте для долгих операций
+- ✅ Следите за прогрессом задач
+- ✅ Корректно обрабатывайте сбои задач
+- ❌ Не запускайте слишком много параллельных задач
 
-### Permissions
-- ✅ Use `plan` for code review (read-only)
-- ✅ Use `default` for interactive development
-- ✅ Use `acceptEdits` for automation workflows
-- ✅ Use `auto` for autonomous work with safety guardrails
-- ❌ Don't use `bypassPermissions` unless absolutely necessary
+### Режимы разрешений
+- ✅ Используйте `plan` для code review (только чтение)
+- ✅ Используйте `default` для интерактивной разработки
+- ✅ Используйте `acceptEdits` для автоматизированных workflow
+- ✅ Используйте `auto` для автономной работы с защитными ограничителями
+- ❌ Не используйте `bypassPermissions`, если это не абсолютно необходимо
 
-### Sessions
-- ✅ Use separate sessions for different tasks
-- ✅ Save important session states
-- ✅ Clean up old sessions
-- ❌ Don't mix unrelated work in one session
+### Сессии
+- ✅ Используйте отдельные сессии для разных задач
+- ✅ Сохраняйте важные состояния сессий
+- ✅ Очищайте старые сессии
+- ❌ Не смешивайте несвязанные задачи в одной сессии
 
 ---
 
-## Additional Resources
+<a id="additional-resources"></a>
+## Связанные концепции
 
-For more information about Claude Code and related features:
+Подробнее о Claude Code и связанных возможностях:
 
 - [Official Interactive Mode Documentation](https://code.claude.com/docs/en/interactive-mode)
 - [Official Headless Mode Documentation](https://code.claude.com/docs/en/headless)
 - [CLI Reference](https://code.claude.com/docs/en/cli-reference)
-- [Checkpoints Guide](../08-checkpoints/) - Session management and rewinding
-- [Slash Commands](../01-slash-commands/) - Command reference
-- [Memory Guide](../02-memory/) - Persistent context
-- [Skills Guide](../03-skills/) - Autonomous capabilities
-- [Subagents Guide](../04-subagents/) - Delegated task execution
-- [MCP Guide](../05-mcp/) - External data access
-- [Hooks Guide](../06-hooks/) - Event-driven automation
-- [Plugins Guide](../07-plugins/) - Bundled extensions
+- [Checkpoints Guide](../08-checkpoints/) - Управление сессиями и откат
+- [Slash Commands](../01-slash-commands/) - Справочник команд
+- [Memory Guide](../02-memory/) - Постоянный контекст
+- [Skills Guide](../03-skills/) - Автономные возможности
+- [Subagents Guide](../04-subagents/) - Делегированное выполнение задач
+- [MCP Guide](../05-mcp/) - Доступ к внешним данным
+- [Hooks Guide](../06-hooks/) - Автоматизация, основанная на событиях
+- [Plugins Guide](../07-plugins/) - Встроенные расширения
 - [Official Scheduled Tasks Documentation](https://code.claude.com/docs/en/scheduled-tasks)
 - [Official Chrome Integration Documentation](https://code.claude.com/docs/en/chrome)
 - [Official Remote Control Documentation](https://code.claude.com/docs/en/remote-control)

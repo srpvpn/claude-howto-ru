@@ -1,39 +1,39 @@
-# ADR [Number]: [Title]
+# ADR [Number]: [Заголовок]
 
 ## Status
 [Proposed | Accepted | Deprecated | Superseded]
 
 ## Context
-What is the issue that we're seeing that is motivating this decision or change?
+Какая проблема или ситуация побуждает нас принять это решение или внести это изменение?
 
 ## Decision
-What is the change that we're proposing and/or doing?
+Какое изменение мы предлагаем и/или реализуем?
 
 ## Consequences
-What becomes easier or more difficult to do because of this change?
+Что станет проще или, наоборот, сложнее из-за этого изменения?
 
 ### Positive
-- Benefit 1
-- Benefit 2
+- Преимущество 1
+- Преимущество 2
 
 ### Negative
-- Drawback 1
-- Drawback 2
+- Недостаток 1
+- Недостаток 2
 
 ### Neutral
-- Consideration 1
-- Consideration 2
+- Нейтральное соображение 1
+- Нейтральное соображение 2
 
 ## Alternatives Considered
-What other options were considered and why were they not chosen?
+Какие ещё варианты рассматривались и почему они не были выбраны?
 
 ### Alternative 1
-Description and reason for not choosing.
+Описание и причина, по которой вариант не был выбран.
 
 ### Alternative 2
-Description and reason for not choosing.
+Описание и причина, по которой вариант не был выбран.
 
 ## References
-- Related ADRs
-- External documentation
-- Discussion links
+- Связанные ADR
+- Внешняя документация
+- Ссылки на обсуждения

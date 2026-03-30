@@ -3,24 +3,25 @@
   <img alt="Claude How To" src="../resources/logos/claude-howto-logo.svg">
 </picture>
 
-# Claude Code Plugins
+# Плагины Claude Code
 
-This folder contains complete plugin examples that bundle multiple Claude Code features into cohesive, installable packages.
+Эта папка содержит полные примеры плагинов, которые объединяют несколько возможностей Claude Code в цельные устанавливаемые пакеты.
 
-## Overview
+<a id="overview"></a>
+## Обзор
 
-Claude Code Plugins are bundled collections of customizations (slash commands, subagents, MCP servers, and hooks) that install with a single command. They represent the highest-level extension mechanism—combining multiple features into cohesive, shareable packages.
+Claude Code Plugins — это наборы настроек (slash commands, subagents, MCP servers и hooks), которые устанавливаются одной командой. Это самый высокий уровень механизма расширения, объединяющий несколько возможностей в цельные, удобные для распространения пакеты.
 
-## Plugin Architecture
+## Архитектура плагина
 
 ```mermaid
 graph TB
-    A["Plugin"]
+    A["Плагин"]
     B["Slash Commands"]
     C["Subagents"]
     D["MCP Servers"]
     E["Hooks"]
-    F["Configuration"]
+    F["Конфигурация"]
 
     A -->|bundles| B
     A -->|bundles| C
@@ -29,55 +30,55 @@ graph TB
     A -->|bundles| F
 ```
 
-## Plugin Loading Process
+## Процесс загрузки плагина
 
 ```mermaid
 sequenceDiagram
     participant User
     participant Claude as Claude Code
-    participant Plugin as Plugin Marketplace
-    participant Install as Installation
+    participant Plugin as Marketplace плагинов
+    participant Install as Установка
     participant SlashCmds as Slash Commands
     participant Subagents
     participant MCPServers as MCP Servers
     participant Hooks
-    participant Tools as Configured Tools
+    participant Tools as Настроенные инструменты
 
     User->>Claude: /plugin install pr-review
-    Claude->>Plugin: Download plugin manifest
-    Plugin-->>Claude: Return plugin definition
-    Claude->>Install: Extract components
-    Install->>SlashCmds: Configure
-    Install->>Subagents: Configure
-    Install->>MCPServers: Configure
-    Install->>Hooks: Configure
-    SlashCmds-->>Tools: Ready to use
-    Subagents-->>Tools: Ready to use
-    MCPServers-->>Tools: Ready to use
-    Hooks-->>Tools: Ready to use
-    Tools-->>Claude: Plugin installed ✅
+    Claude->>Plugin: Скачать манифест плагина
+    Plugin-->>Claude: Вернуть определение плагина
+    Claude->>Install: Извлечь компоненты
+    Install->>SlashCmds: Настроить
+    Install->>Subagents: Настроить
+    Install->>MCPServers: Настроить
+    Install->>Hooks: Настроить
+    SlashCmds-->>Tools: Готово к использованию
+    Subagents-->>Tools: Готово к использованию
+    MCPServers-->>Tools: Готово к использованию
+    Hooks-->>Tools: Готово к использованию
+    Tools-->>Claude: Плагин установлен ✅
 ```
 
-## Plugin Types & Distribution
+## Типы и распространение плагинов
 
-| Type | Scope | Shared | Authority | Examples |
+| Тип | Область | Общий доступ | Авторитет | Примеры |
 |------|-------|--------|-----------|----------|
-| Official | Global | All users | Anthropic | PR Review, Security Guidance |
-| Community | Public | All users | Community | DevOps, Data Science |
-| Organization | Internal | Team members | Company | Internal standards, tools |
-| Personal | Individual | Single user | Developer | Custom workflows |
+| Official | Глобально | Все пользователи | Anthropic | PR Review, Security Guidance |
+| Community | Публично | Все пользователи | Сообщество | DevOps, Data Science |
+| Organization | Внутренне | Члены команды | Компания | Внутренние стандарты, инструменты |
+| Personal | Индивидуально | Один пользователь | Разработчик | Пользовательские workflows |
 
-## Plugin Definition Structure
+## Структура определения плагина
 
-Plugin manifest uses JSON format in `.claude-plugin/plugin.json`:
+Манифест плагина использует JSON-формат в `.claude-plugin/plugin.json`:
 
 ```json
 {
   "name": "my-first-plugin",
-  "description": "A greeting plugin",
+  "description": "Плагин-приветствие",
   "version": "1.0.0",
   "author": {
-    "name": "Your Name"
+    "name": "Ваше имя"
   },
   "homepage": "https://example.com",
   "repository": "https://github.com/user/repo",
@@ -85,28 +86,28 @@ Plugin manifest uses JSON format in `.claude-plugin/plugin.json`:
 }
 ```
 
-## Plugin Structure Example
+## Пример структуры плагина
 
 ```
 my-plugin/
 ├── .claude-plugin/
-│   └── plugin.json       # Manifest (name, description, version, author)
-├── commands/             # Skills as Markdown files
+│   └── plugin.json       # Манифест (name, description, version, author)
+├── commands/             # Команды в виде Markdown-файлов
 │   ├── task-1.md
 │   ├── task-2.md
 │   └── workflows/
-├── agents/               # Custom agent definitions
+├── agents/               # Пользовательские определения агентов
 │   ├── specialist-1.md
 │   ├── specialist-2.md
 │   └── configs/
-├── skills/               # Agent Skills with SKILL.md files
+├── skills/               # Skills агента с файлами SKILL.md
 │   ├── skill-1.md
 │   └── skill-2.md
-├── hooks/                # Event handlers in hooks.json
+├── hooks/                # Обработчики событий в hooks.json
 │   └── hooks.json
-├── .mcp.json             # MCP server configurations
-├── .lsp.json             # LSP server configurations
-├── settings.json         # Default settings
+├── .mcp.json             # Конфигурации серверов MCP
+├── .lsp.json             # Конфигурации серверов LSP
+├── settings.json         # Настройки по умолчанию
 ├── templates/
 │   └── issue-template.md
 ├── scripts/
@@ -119,32 +120,32 @@ my-plugin/
     └── plugin.test.js
 ```
 
-### LSP server configuration
+### Конфигурация LSP-сервера
 
-Plugins can include Language Server Protocol (LSP) support for real-time code intelligence. LSP servers provide diagnostics, code navigation, and symbol information as you work.
+Плагины могут включать поддержку Language Server Protocol (LSP) для интеллектуальных подсказок кода в реальном времени. LSP-серверы предоставляют diagnostics, навигацию по коду и информацию о символах во время работы.
 
-**Configuration locations**:
-- `.lsp.json` file in the plugin root directory
-- Inline `lsp` key in `plugin.json`
+**Расположение конфигурации**:
+- Файл `.lsp.json` в корне плагина
+- Встроенный ключ `lsp` в `plugin.json`
 
-#### Field reference
+#### Описание полей
 
-| Field | Required | Description |
+| Поле | Обязательно | Описание |
 |-------|----------|-------------|
-| `command` | Yes | LSP server binary (must be in PATH) |
-| `extensionToLanguage` | Yes | Maps file extensions to language IDs |
-| `args` | No | Command-line arguments for the server |
-| `transport` | No | Communication method: `stdio` (default) or `socket` |
-| `env` | No | Environment variables for the server process |
-| `initializationOptions` | No | Options sent during LSP initialization |
-| `settings` | No | Workspace configuration passed to the server |
-| `workspaceFolder` | No | Override the workspace folder path |
-| `startupTimeout` | No | Maximum time (ms) to wait for server startup |
-| `shutdownTimeout` | No | Maximum time (ms) for graceful shutdown |
-| `restartOnCrash` | No | Automatically restart if the server crashes |
-| `maxRestarts` | No | Maximum restart attempts before giving up |
+| `command` | Да | Бинарник LSP-сервера (должен быть в PATH) |
+| `extensionToLanguage` | Да | Сопоставляет расширения файлов с language IDs |
+| `args` | Нет | Аргументы командной строки для сервера |
+| `transport` | Нет | Способ связи: `stdio` (по умолчанию) или `socket` |
+| `env` | Нет | Переменные окружения для процесса сервера |
+| `initializationOptions` | Нет | Параметры, отправляемые при инициализации LSP |
+| `settings` | Нет | Конфигурация workspace, передаваемая серверу |
+| `workspaceFolder` | Нет | Переопределение пути к папке workspace |
+| `startupTimeout` | Нет | Максимальное время (мс) ожидания запуска сервера |
+| `shutdownTimeout` | Нет | Максимальное время (мс) для корректного завершения |
+| `restartOnCrash` | Нет | Автоматически перезапускать сервер при падении |
+| `maxRestarts` | Нет | Максимальное число попыток перезапуска |
 
-#### Example configurations
+#### Примеры конфигурации
 
 **Go (gopls)**:
 
@@ -192,28 +193,28 @@ Plugins can include Language Server Protocol (LSP) support for real-time code in
 }
 ```
 
-#### Available LSP plugins
+#### Доступные LSP-плагины
 
-The official marketplace includes pre-configured LSP plugins:
+Официальный marketplace включает заранее настроенные LSP-плагины:
 
-| Plugin | Language | Server Binary | Install Command |
+| Плагин | Язык | Бинарник сервера | Команда установки |
 |--------|----------|---------------|----------------|
 | `pyright-lsp` | Python | `pyright-langserver` | `pip install pyright` |
 | `typescript-lsp` | TypeScript/JavaScript | `typescript-language-server` | `npm install -g typescript-language-server typescript` |
-| `rust-lsp` | Rust | `rust-analyzer` | Install via `rustup component add rust-analyzer` |
+| `rust-lsp` | Rust | `rust-analyzer` | Установить через `rustup component add rust-analyzer` |
 
-#### LSP capabilities
+#### Возможности LSP
 
-Once configured, LSP servers provide:
+После настройки LSP-серверы предоставляют:
 
-- **Instant diagnostics** — errors and warnings appear immediately after edits
-- **Code navigation** — go to definition, find references, implementations
-- **Hover information** — type signatures and documentation on hover
-- **Symbol listing** — browse symbols in the current file or workspace
+- **Мгновенные diagnostics** — ошибки и предупреждения появляются сразу после правок
+- **Навигация по коду** — переход к определению, поиск ссылок и реализаций
+- **Информация при наведении** — сигнатуры типов и документация при hover
+- **Список символов** — просмотр символов в текущем файле или workspace
 
-## Plugin Options (v2.1.83+)
+## Параметры плагина (v2.1.83+)
 
-Plugins can declare user-configurable options in the manifest via `userConfig`. Values marked `sensitive: true` are stored in the system keychain rather than plain-text settings files:
+Плагины могут объявлять пользовательские параметры в манифесте через `userConfig`. Значения с `sensitive: true` хранятся в системном keychain, а не в текстовых файлах настроек:
 
 ```json
 {
@@ -221,20 +222,20 @@ Plugins can declare user-configurable options in the manifest via `userConfig`. 
   "version": "1.0.0",
   "userConfig": {
     "apiKey": {
-      "description": "API key for the service",
+      "description": "API-ключ для сервиса",
       "sensitive": true
     },
     "region": {
-      "description": "Deployment region",
+      "description": "Регион развёртывания",
       "default": "us-east-1"
     }
   }
 }
 ```
 
-## Persistent Plugin Data (`${CLAUDE_PLUGIN_DATA}`) (v2.1.78+)
+## Постоянные данные плагина (`${CLAUDE_PLUGIN_DATA}`) (v2.1.78+)
 
-Plugins have access to a persistent state directory via the `${CLAUDE_PLUGIN_DATA}` environment variable. This directory is unique per plugin and survives across sessions, making it suitable for caches, databases, and other persistent state:
+Плагины имеют доступ к постоянному каталогу состояния через переменную окружения `${CLAUDE_PLUGIN_DATA}`. Этот каталог уникален для каждого плагина и сохраняется между сессиями, поэтому подходит для кешей, баз данных и другого постоянного состояния:
 
 ```json
 {
@@ -248,11 +249,11 @@ Plugins have access to a persistent state directory via the `${CLAUDE_PLUGIN_DAT
 }
 ```
 
-The directory is created automatically when the plugin is installed. Files stored here persist until the plugin is uninstalled.
+Каталог создаётся автоматически при установке плагина. Файлы, сохранённые здесь, остаются до удаления плагина.
 
-## Inline Plugin via Settings (`source: 'settings'`) (v2.1.80+)
+## Inline-плагин через settings (`source: 'settings'`) (v2.1.80+)
 
-Plugins can be defined inline in settings files as marketplace entries using the `source: 'settings'` field. This allows embedding a plugin definition directly without requiring a separate repository or marketplace:
+Плагины можно определять прямо в файлах настроек как записи marketplace с помощью поля `source: 'settings'`. Это позволяет встроить определение плагина напрямую, без отдельного repository или marketplace:
 
 ```json
 {
@@ -271,9 +272,9 @@ Plugins can be defined inline in settings files as marketplace entries using the
 }
 ```
 
-## Plugin Settings
+## Настройки плагина
 
-Plugins can ship a `settings.json` file to provide default configuration. This currently supports the `agent` key, which sets the main thread agent for the plugin:
+Плагины могут поставляться с файлом `settings.json`, чтобы задавать конфигурацию по умолчанию. Сейчас это поддерживает ключ `agent`, который задаёт основной агент потока для плагина:
 
 ```json
 {
@@ -281,28 +282,28 @@ Plugins can ship a `settings.json` file to provide default configuration. This c
 }
 ```
 
-When a plugin includes `settings.json`, its defaults are applied on installation. Users can override these settings in their own project or user configuration.
+Когда плагин включает `settings.json`, его значения по умолчанию применяются при установке. Пользователи могут переопределить эти настройки в своей проектной или пользовательской конфигурации.
 
-## Standalone vs Plugin Approach
+## Подход standalone против плагина
 
-| Approach | Command Names | Configuration | Best For |
+| Подход | Имена команд | Конфигурация | Лучше всего подходит для |
 |----------|---------------|---|---|
-| **Standalone** | `/hello` | Manual setup in CLAUDE.md | Personal, project-specific |
-| **Plugins** | `/plugin-name:hello` | Automated via plugin.json | Sharing, distribution, team use |
+| **Standalone** | `/hello` | Ручная настройка в CLAUDE.md | Личных, проектных сценариев |
+| **Plugins** | `/plugin-name:hello` | Автоматически через plugin.json | Совместного использования, распространения, командного использования |
 
-Use **standalone slash commands** for quick personal workflows. Use **plugins** when you want to bundle multiple features, share with a team, or publish for distribution.
+Используйте **standalone slash commands** для быстрых личных workflow. Используйте **плагины**, когда нужно объединить несколько возможностей, поделиться ими с командой или опубликовать их для распространения.
 
-## Practical Examples
+## Практические примеры
 
-### Example 1: PR Review Plugin
+### Пример 1: плагин для PR Review
 
-**File:** `.claude-plugin/plugin.json`
+**Файл:** `.claude-plugin/plugin.json`
 
 ```json
 {
   "name": "pr-review",
   "version": "1.0.0",
-  "description": "Complete PR review workflow with security, testing, and docs",
+  "description": "Полный workflow ревью pull request с проверками безопасности, тестов и документации",
   "author": {
     "name": "Anthropic"
   },
@@ -311,49 +312,49 @@ Use **standalone slash commands** for quick personal workflows. Use **plugins** 
 }
 ```
 
-**File:** `commands/review-pr.md`
+**Файл:** `commands/review-pr.md`
 
 ```markdown
 ---
 name: Review PR
-description: Start comprehensive PR review with security and testing checks
+description: Начать комплексный PR review с проверками безопасности и тестов
 ---
 
 # PR Review
 
-This command initiates a complete pull request review including:
+Эта команда запускает полный review pull request, включая:
 
-1. Security analysis
-2. Test coverage verification
-3. Documentation updates
-4. Code quality checks
-5. Performance impact assessment
+1. Анализ безопасности
+2. Проверку покрытия тестами
+3. Обновление документации
+4. Проверку качества кода
+5. Оценку влияния на производительность
 ```
 
-**File:** `agents/security-reviewer.md`
+**Файл:** `agents/security-reviewer.md`
 
 ```yaml
 ---
 name: security-reviewer
-description: Security-focused code review
+description: Ревью кода с фокусом на безопасности
 tools: read, grep, diff
 ---
 
 # Security Reviewer
 
-Specializes in finding security vulnerabilities:
-- Authentication/authorization issues
-- Data exposure
-- Injection attacks
-- Secure configuration
+Специализируется на поиске уязвимостей безопасности:
+- Проблемы аутентификации и авторизации
+- Утечки данных
+- Инъекционные атаки
+- Безопасная конфигурация
 ```
 
-**Installation:**
+**Установка:**
 
 ```bash
 /plugin install pr-review
 
-# Result:
+# Результат:
 # ✅ 3 slash commands installed
 # ✅ 3 subagents configured
 # ✅ 2 MCP servers connected
@@ -361,9 +362,9 @@ Specializes in finding security vulnerabilities:
 # ✅ Ready to use!
 ```
 
-### Example 2: DevOps Plugin
+### Пример 2: DevOps-плагин
 
-**Components:**
+**Компоненты:**
 
 ```
 devops-automation/
@@ -390,9 +391,9 @@ devops-automation/
     └── health-check.sh
 ```
 
-### Example 3: Documentation Plugin
+### Пример 3: плагин для документации
 
-**Bundled Components:**
+**Встроенные компоненты:**
 
 ```
 documentation/
@@ -416,7 +417,7 @@ documentation/
 
 ## Plugin Marketplace
 
-The official Anthropic-managed plugin directory is `anthropics/claude-plugins-official`. Enterprise admins can also create private plugin marketplaces for internal distribution.
+Официальный каталог plugin под управлением Anthropic - это `anthropics/claude-plugins-official`. Enterprise admins также могут создавать private plugin marketplaces для внутреннего распространения.
 
 ```mermaid
 graph TB
@@ -447,9 +448,9 @@ graph TB
     style D fill:#fff3e0,stroke:#333,color:#333
 ```
 
-### Marketplace Configuration
+### Конфигурация marketplace
 
-Enterprise and advanced users can control marketplace behavior through settings:
+Enterprise и advanced users могут управлять поведением marketplace через settings:
 
 | Setting | Description |
 |---------|-------------|
@@ -457,15 +458,15 @@ Enterprise and advanced users can control marketplace behavior through settings:
 | `strictKnownMarketplaces` | Control which marketplaces users are allowed to add |
 | `deniedPlugins` | Admin-managed blocklist to prevent specific plugins from being installed |
 
-### Additional Marketplace Features
+### Дополнительные возможности marketplace
 
 - **Default git timeout**: Increased from 30s to 120s for large plugin repositories
 - **Custom npm registries**: Plugins can specify custom npm registry URLs for dependency resolution
 - **Version pinning**: Lock plugins to specific versions for reproducible environments
 
-### Marketplace definition schema
+### Схема определения marketplace
 
-Plugin marketplaces are defined in `.claude-plugin/marketplace.json`:
+Plugin marketplaces определяются в `.claude-plugin/marketplace.json`:
 
 ```json
 {
@@ -503,9 +504,9 @@ Plugin marketplaces are defined in `.claude-plugin/marketplace.json`:
 | `plugins[].version` | No | Semantic version string |
 | `plugins[].author` | No | Plugin author name |
 
-### Plugin source types
+### Типы источников plugin
 
-Plugins can be sourced from multiple locations:
+Plugins могут поступать из нескольких источников:
 
 | Source | Syntax | Example |
 |--------|--------|---------|
@@ -516,35 +517,35 @@ Plugins can be sourced from multiple locations:
 | **npm** | `{ "source": "npm", "package": "..." }` | `{ "source": "npm", "package": "@acme/claude-plugin", "version": "^2.0" }` |
 | **pip** | `{ "source": "pip", "package": "..." }` | `{ "source": "pip", "package": "claude-data-plugin", "version": ">=1.0" }` |
 
-GitHub and git sources support optional `ref` (branch/tag) and `sha` (commit hash) fields for version pinning.
+Источники GitHub и git поддерживают необязательные поля `ref` (branch/tag) и `sha` (commit hash) для фиксации версии.
 
-### Distribution methods
+### Способы распространения
 
-**GitHub (recommended)**:
+**GitHub (рекомендуется)**:
 ```bash
 # Users add your marketplace
 /plugin marketplace add owner/repo-name
 ```
 
-**Other git services** (full URL required):
+**Другие git-сервисы** (нужен полный URL):
 ```bash
 /plugin marketplace add https://gitlab.com/org/marketplace-repo.git
 ```
 
-**Private repositories**: Supported via git credential helpers or environment tokens. Users must have read access to the repository.
+**Private repositories**: поддерживаются через git credential helpers или токены окружения. У пользователей должен быть доступ на чтение к repository.
 
-**Official marketplace submission**: Submit plugins to the Anthropic-curated marketplace for broader distribution.
+**Отправка в official marketplace**: отправляйте plugins в curated marketplace от Anthropic для более широкого распространения.
 
-### Strict mode
+### Строгий режим
 
-Control how marketplace definitions interact with local `plugin.json` files:
+Определяет, как marketplace definitions взаимодействуют с локальными файлами `plugin.json`:
 
 | Setting | Behavior |
 |---------|----------|
 | `strict: true` (default) | Local `plugin.json` is authoritative; marketplace entry supplements it |
 | `strict: false` | Marketplace entry is the entire plugin definition |
 
-**Organization restrictions** with `strictKnownMarketplaces`:
+**Ограничения организации** с `strictKnownMarketplaces`:
 
 | Value | Effect |
 |-------|--------|
@@ -561,9 +562,9 @@ Control how marketplace definitions interact with local `plugin.json` files:
 }
 ```
 
-> **Warning**: In strict mode with `strictKnownMarketplaces`, users can only install plugins from allowlisted marketplaces. This is useful for enterprise environments requiring controlled plugin distribution.
+> **Предупреждение**: в strict mode с `strictKnownMarketplaces` пользователи могут устанавливать plugins только из allowlist-ленных marketplaces. Это полезно для enterprise-сред, где нужен контролируемый вывод plugins.
 
-## Plugin Installation & Lifecycle
+## Установка и жизненный цикл plugin
 
 ```mermaid
 graph LR
@@ -580,23 +581,23 @@ graph LR
     J -->|Back| G
 ```
 
-## Plugin Features Comparison
+## Сравнение возможностей plugin
 
 | Feature | Slash Command | Skill | Subagent | Plugin |
 |---------|---------------|-------|----------|--------|
-| **Installation** | Manual copy | Manual copy | Manual config | One command |
-| **Setup Time** | 5 minutes | 10 minutes | 15 minutes | 2 minutes |
-| **Bundling** | Single file | Single file | Single file | Multiple |
-| **Versioning** | Manual | Manual | Manual | Automatic |
-| **Team Sharing** | Copy file | Copy file | Copy file | Install ID |
-| **Updates** | Manual | Manual | Manual | Auto-available |
-| **Dependencies** | None | None | None | May include |
-| **Marketplace** | No | No | No | Yes |
+| **Installation** | Ручное копирование | Ручное копирование | Ручная настройка | Одна команда |
+| **Setup Time** | 5 минут | 10 минут | 15 минут | 2 минуты |
+| **Bundling** | Один файл | Один файл | Один файл | Несколько |
+| **Versioning** | Вручную | Вручную | Вручную | Автоматически |
+| **Team Sharing** | Копирование файла | Копирование файла | Копирование файла | Install ID |
+| **Updates** | Вручную | Вручную | Вручную | Доступны автоматически |
+| **Dependencies** | Нет | Нет | Нет | Может включать |
+| **Marketplace** | Нет | Нет | Нет | Да |
 | **Distribution** | Repository | Repository | Repository | Marketplace |
 
-## Plugin CLI Commands
+## CLI-команды plugin
 
-All plugin operations are available as CLI commands:
+Все операции с plugin доступны как CLI-команды:
 
 ```bash
 claude plugin install <name>@<marketplace>   # Install from a marketplace
@@ -607,115 +608,115 @@ claude plugin disable <name>                 # Disable a plugin
 claude plugin validate                       # Validate plugin structure
 ```
 
-## Installation Methods
+## Способы установки
 
-### From Marketplace
+### Из marketplace
 ```bash
 /plugin install plugin-name
 # or from CLI:
 claude plugin install plugin-name@marketplace-name
 ```
 
-### Enable / Disable (with auto-detected scope)
+### Включить / отключить (с автоматически определяемой областью)
 ```bash
 /plugin enable plugin-name
 /plugin disable plugin-name
 ```
 
-### Local Plugin (for development)
+### Локальный plugin (для разработки)
 ```bash
 # CLI flag for local testing (repeatable for multiple plugins)
 claude --plugin-dir ./path/to/plugin
 claude --plugin-dir ./plugin-a --plugin-dir ./plugin-b
 ```
 
-### From Git Repository
+### Из Git repository
 ```bash
 /plugin install github:username/repo
 ```
 
-## When to Create a Plugin
+## Когда создавать plugin
 
 ```mermaid
 graph TD
-    A["Should I create a plugin?"]
-    A -->|Need multiple components| B{"Multiple commands<br/>or subagents<br/>or MCPs?"}
-    B -->|Yes| C["✅ Create Plugin"]
-    B -->|No| D["Use Individual Feature"]
-    A -->|Team workflow| E{"Share with<br/>team?"}
-    E -->|Yes| C
-    E -->|No| F["Keep as Local Setup"]
-    A -->|Complex setup| G{"Needs auto<br/>configuration?"}
-    G -->|Yes| C
-    G -->|No| D
+    A["Нужно ли создавать плагин?"]
+    A -->|Нужно несколько компонентов| B{"Несколько команд<br/>или subagents<br/>или MCP?"}
+    B -->|Да| C["✅ Создать плагин"]
+    B -->|Нет| D["Использовать отдельную возможность"]
+    A -->|Командный workflow| E{"Поделиться с<br/>командой?"}
+    E -->|Да| C
+    E -->|Нет| F["Оставить как локальную настройку"]
+    A -->|Сложная настройка| G{"Нужна авто<br/>конфигурация?"}
+    G -->|Да| C
+    G -->|Нет| D
 ```
 
-### Plugin Use Cases
+### Сценарии использования plugin
 
-| Use Case | Recommendation | Why |
+| Сценарий использования | Рекомендация | Почему |
 |----------|-----------------|-----|
-| **Team Onboarding** | ✅ Use Plugin | Instant setup, all configurations |
+| **Team Onboarding** | ✅ Use Plugin | Мгновенная настройка, все конфигурации |
 | **Framework Setup** | ✅ Use Plugin | Bundles framework-specific commands |
 | **Enterprise Standards** | ✅ Use Plugin | Central distribution, version control |
-| **Quick Task Automation** | ❌ Use Command | Overkill complexity |
-| **Single Domain Expertise** | ❌ Use Skill | Too heavy, use skill instead |
-| **Specialized Analysis** | ❌ Use Subagent | Create manually or use skill |
-| **Live Data Access** | ❌ Use MCP | Standalone, don't bundle |
+| **Quick Task Automation** | ❌ Use Command | Слишком громоздко |
+| **Single Domain Expertise** | ❌ Use Skill | Слишком тяжело, лучше skill |
+| **Specialized Analysis** | ❌ Use Subagent | Создайте вручную или используйте skill |
+| **Live Data Access** | ❌ Use MCP | Отдельно, не упаковывать |
 
-## Testing a Plugin
+## Тестирование plugin
 
-Before publishing, test your plugin locally using the `--plugin-dir` CLI flag (repeatable for multiple plugins):
+Перед публикацией протестируйте plugin локально с помощью CLI-флага `--plugin-dir` (можно повторять для нескольких plugins):
 
 ```bash
 claude --plugin-dir ./my-plugin
 claude --plugin-dir ./my-plugin --plugin-dir ./another-plugin
 ```
 
-This launches Claude Code with your plugin loaded, allowing you to:
-- Verify all slash commands are available
-- Test subagents and agents function correctly
-- Confirm MCP servers connect properly
-- Validate hook execution
-- Check LSP server configurations
-- Check for any configuration errors
+Это запускает Claude Code с загруженным plugin и позволяет:
+- Проверить, что все slash commands доступны
+- Убедиться, что subagents и agents работают корректно
+- Подтвердить корректное подключение MCP servers
+- Проверить выполнение hooks
+- Проверить конфигурации LSP server
+- Найти возможные ошибки конфигурации
 
-## Hot-Reload
+## Hot-reload
 
-Plugins support hot-reload during development. When you modify plugin files, Claude Code can detect changes automatically. You can also force a reload with:
+Plugins поддерживают hot-reload во время разработки. Когда вы изменяете файлы plugin, Claude Code может автоматически обнаруживать изменения. Также можно принудительно перезагрузить их:
 
 ```bash
 /reload-plugins
 ```
 
-This re-reads all plugin manifests, commands, agents, skills, hooks, and MCP/LSP configurations without restarting the session.
+Это заново считывает все plugin manifests, commands, agents, skills, hooks и MCP/LSP configurations без перезапуска сессии.
 
-## Managed Settings for Plugins
+## Managed settings для plugin
 
-Administrators can control plugin behavior across an organization using managed settings:
+Administrators могут управлять поведением plugin во всей организации с помощью managed settings:
 
 | Setting | Description |
 |---------|-------------|
-| `enabledPlugins` | Allowlist of plugins that are enabled by default |
-| `deniedPlugins` | Blocklist of plugins that cannot be installed |
-| `extraKnownMarketplaces` | Add additional marketplace sources beyond the defaults |
-| `strictKnownMarketplaces` | Restrict which marketplaces users are allowed to add |
-| `allowedChannelPlugins` | Control which plugins are permitted per release channel |
+| `enabledPlugins` | Allowlist plugins, включённых по умолчанию |
+| `deniedPlugins` | Blocklist plugins, которые нельзя установить |
+| `extraKnownMarketplaces` | Добавить дополнительные источники marketplace помимо стандартных |
+| `strictKnownMarketplaces` | Ограничить, какие marketplace пользователи могут добавлять |
+| `allowedChannelPlugins` | Управлять тем, какие plugins разрешены в каждом release channel |
 
-These settings can be applied at the organization level via managed configuration files and take precedence over user-level settings.
+Эти настройки можно применять на уровне организации через managed configuration files, и они имеют приоритет над пользовательскими настройками.
 
-## Plugin Security
+## Безопасность plugin
 
-Plugin subagents run in a restricted sandbox. The following frontmatter keys are **not allowed** in plugin subagent definitions:
+Subagents plugin работают в ограниченном sandbox. Следующие keys frontmatter **не разрешены** в определениях plugin subagent:
 
-- `hooks` -- Subagents cannot register event handlers
-- `mcpServers` -- Subagents cannot configure MCP servers
-- `permissionMode` -- Subagents cannot override the permission model
+- `hooks` -- subagents не могут регистрировать event handlers
+- `mcpServers` -- subagents не могут настраивать MCP servers
+- `permissionMode` -- subagents не могут переопределять permission model
 
-This ensures that plugins cannot escalate privileges or modify the host environment beyond their declared scope.
+Это гарантирует, что plugins не смогут повышать привилегии или изменять host environment за пределами заявленной области.
 
-## Publishing a Plugin
+## Публикация plugin
 
-**Steps to publish:**
+**Шаги публикации:**
 
 1. Create plugin structure with all components
 2. Write `.claude-plugin/plugin.json` manifest
@@ -726,13 +727,13 @@ This ensures that plugins cannot escalate privileges or modify the host environm
 7. Published on marketplace
 8. Users can install with one command
 
-**Example submission:**
+**Пример submission:**
 
 ```markdown
 # PR Review Plugin
 
 ## Description
-Complete PR review workflow with security, testing, and documentation checks.
+Полный workflow ревью pull request с проверками безопасности, тестов и документации.
 
 ## What's Included
 - 3 slash commands for different review types
@@ -765,9 +766,9 @@ Complete PR review workflow with security, testing, and documentation checks.
 - CodeQL (optional)
 ```
 
-## Plugin vs Manual Configuration
+## Plugin vs ручная конфигурация
 
-**Manual Setup (2+ hours):**
+**Ручная настройка (2+ часа):**
 - Install slash commands one by one
 - Create subagents individually
 - Configure MCPs separately
@@ -775,7 +776,7 @@ Complete PR review workflow with security, testing, and documentation checks.
 - Document everything
 - Share with team (hope they configure correctly)
 
-**With Plugin (2 minutes):**
+**С plugin (2 минуты):**
 ```bash
 /plugin install pr-review
 # ✅ Everything installed and configured
@@ -783,31 +784,31 @@ Complete PR review workflow with security, testing, and documentation checks.
 # ✅ Team can reproduce exact setup
 ```
 
-## Best Practices
+## Лучшие практики
 
-### Do's ✅
-- Use clear, descriptive plugin names
-- Include comprehensive README
-- Version your plugin properly (semver)
-- Test all components together
-- Document requirements clearly
-- Provide usage examples
-- Include error handling
-- Tag appropriately for discovery
-- Maintain backward compatibility
-- Keep plugins focused and cohesive
-- Include comprehensive tests
-- Document all dependencies
+### Что делать ✅
+- Используйте понятные, описательные names plugin
+- Добавляйте исчерпывающий README
+- Правильно version-ируйте plugin (semver)
+- Тестируйте все components вместе
+- Чётко документируйте requirements
+- Приводите примеры использования
+- Добавляйте обработку ошибок
+- Правильно тегируйте для discovery
+- Сохраняйте backward compatibility
+- Держите plugins сфокусированными и цельными
+- Добавляйте полные tests
+- Документируйте все dependencies
 
-### Don'ts ❌
-- Don't bundle unrelated features
-- Don't hardcode credentials
-- Don't skip testing
-- Don't forget documentation
-- Don't create redundant plugins
-- Don't ignore versioning
-- Don't overcomplicate component dependencies
-- Don't forget to handle errors gracefully
+### Чего не делать ❌
+- Не объединяйте несвязанные возможности
+- Не хардкодьте credentials
+- Не пропускайте testing
+- Не забывайте документацию
+- Не создавайте дублирующие plugins
+- Не игнорируйте versioning
+- Не усложняйте dependencies компонентов
+- Не забывайте корректно обрабатывать ошибки
 
 ## Installation Instructions
 
@@ -868,16 +869,16 @@ Complete PR review workflow with security, testing, and documentation checks.
 /plugin uninstall plugin-name
 ```
 
-## Related Concepts
+## Связанные возможности
 
-The following Claude Code features work together with plugins:
+С plugins хорошо работают следующие возможности Claude Code:
 
-- **[Slash Commands](../01-slash-commands/)** - Individual commands bundled in plugins
-- **[Memory](../02-memory/)** - Persistent context for plugins
-- **[Skills](../03-skills/)** - Domain expertise that can be wrapped into plugins
-- **[Subagents](../04-subagents/)** - Specialized agents included as plugin components
-- **[MCP Servers](../05-mcp/)** - Model Context Protocol integrations bundled in plugins
-- **[Hooks](../06-hooks/)** - Event handlers that trigger plugin workflows
+- **[Slash Commands](../01-slash-commands/)** - отдельные команды, упакованные в plugins
+- **[Memory](../02-memory/)** - постоянный контекст для plugins
+- **[Skills](../03-skills/)** - предметная экспертиза, которую можно упаковать в plugins
+- **[Subagents](../04-subagents/)** - специализированные agents, включённые как компоненты plugin
+- **[MCP Servers](../05-mcp/)** - интеграции Model Context Protocol, упакованные в plugins
+- **[Hooks](../06-hooks/)** - обработчики событий, запускающие workflows plugin
 
 ## Complete Example Workflow
 

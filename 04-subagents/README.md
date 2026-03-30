@@ -3,86 +3,91 @@
   <img alt="Claude How To" src="../resources/logos/claude-howto-logo.svg">
 </picture>
 
-# Subagents - Complete Reference Guide
+# Subagents - Полное справочное руководство
 
-Subagents are specialized AI assistants that Claude Code can delegate tasks to. Each subagent has a specific purpose, uses its own context window separate from the main conversation, and can be configured with specific tools and a custom system prompt.
+<a id="overview"></a>
 
-## Table of Contents
+Subagents - это специализированные AI-ассистенты, которым Claude Code может делегировать задачи. У каждого subagent есть своё назначение, собственное окно контекста, отделённое от основного разговора, и его можно настроить с конкретными инструментами и кастомным system prompt.
 
-1. [Overview](#overview)
-2. [Key Benefits](#key-benefits)
-3. [File Locations](#file-locations)
-4. [Configuration](#configuration)
-5. [Built-in Subagents](#built-in-subagents)
-6. [Managing Subagents](#managing-subagents)
-7. [Using Subagents](#using-subagents)
-8. [Resumable Agents](#resumable-agents)
-9. [Chaining Subagents](#chaining-subagents)
-10. [Persistent Memory for Subagents](#persistent-memory-for-subagents)
-11. [Background Subagents](#background-subagents)
-12. [Worktree Isolation](#worktree-isolation)
-13. [Restrict Spawnable Subagents](#restrict-spawnable-subagents)
-14. [`claude agents` CLI Command](#claude-agents-cli-command)
-15. [Agent Teams (Experimental)](#agent-teams-experimental)
-16. [Plugin Subagent Security](#plugin-subagent-security)
-17. [Architecture](#architecture)
-18. [Context Management](#context-management)
-19. [When to Use Subagents](#when-to-use-subagents)
-20. [Best Practices](#best-practices)
-21. [Example Subagents in This Folder](#example-subagents-in-this-folder)
-22. [Installation Instructions](#installation-instructions)
-23. [Related Concepts](#related-concepts)
+## Содержание
 
----
-
-## Overview
-
-Subagents enable delegated task execution in Claude Code by:
-
-- Creating **isolated AI assistants** with separate context windows
-- Providing **customized system prompts** for specialized expertise
-- Enforcing **tool access control** to limit capabilities
-- Preventing **context pollution** from complex tasks
-- Enabling **parallel execution** of multiple specialized tasks
-
-Each subagent operates independently with a clean slate, receiving only the specific context necessary for their task, then returning results to the main agent for synthesis.
-
-**Quick Start**: Use the `/agents` command to create, view, edit, and manage your subagents interactively.
+1. [Обзор](#overview)
+2. [Ключевые преимущества](#key-benefits)
+3. [Расположение файлов](#file-locations)
+4. [Конфигурация](#configuration)
+5. [Встроенные Subagents](#built-in-subagents)
+6. [Управление Subagents](#managing-subagents)
+7. [Использование Subagents](#using-subagents)
+8. [Возобновляемые агенты](#resumable-agents)
+9. [Цепочки Subagents](#chaining-subagents)
+10. [Постоянная память для Subagents](#persistent-memory-for-subagents)
+11. [Фоновые Subagents](#background-subagents)
+12. [Изоляция worktree](#worktree-isolation)
+13. [Ограничение spawnable Subagents](#restrict-spawnable-subagents)
+14. [Команда CLI `claude agents`](#claude-agents-cli-command)
+15. [Команды команд (экспериментально)](#agent-teams-experimental)
+16. [Безопасность plugin subagent](#plugin-subagent-security)
+17. [Архитектура](#architecture)
+18. [Управление контекстом](#context-management)
+19. [Когда использовать Subagents](#when-to-use-subagents)
+20. [Лучшие практики](#best-practices)
+21. [Примеры Subagents в этой папке](#example-subagents-in-this-folder)
+22. [Инструкции по установке](#installation-instructions)
+23. [Связанные концепции](#related-concepts)
 
 ---
 
-## Key Benefits
+<a id="key-benefits"></a>
+## Обзор
 
-| Benefit | Description |
+Subagents позволяют делегировать выполнение задач в Claude Code за счёт:
+
+- создания **изолированных AI-ассистентов** с отдельными окнами контекста
+- предоставления **настроенных system prompt** для узкой экспертизы
+- применения **контроля доступа к инструментам** для ограничения возможностей
+- предотвращения **загрязнения контекста** сложными задачами
+- возможности **параллельного выполнения** нескольких специализированных задач
+
+Каждый subagent работает независимо и «с чистого листа», получает только тот контекст, который нужен для его задачи, а затем возвращает результат основному agent для объединения.
+
+**Быстрый старт**: используйте команду `/agents`, чтобы интерактивно создавать, просматривать, редактировать и управлять subagent.
+
+<a id="file-locations"></a>
+---
+
+## Ключевые преимущества
+
+| Преимущество | Описание |
 |---------|-------------|
-| **Context preservation** | Operates in separate context, preventing pollution of main conversation |
-| **Specialized expertise** | Fine-tuned for specific domains with higher success rates |
-| **Reusability** | Use across different projects and share with teams |
-| **Flexible permissions** | Different tool access levels for different subagent types |
-| **Scalability** | Multiple agents work on different aspects simultaneously |
+| **Сохранение контекста** | Работает в отдельном контексте и не загрязняет основной разговор |
+| **Специализированная экспертиза** | Настроен под конкретные области и даёт более высокий процент успеха |
+| **Повторное использование** | Можно применять в разных проектах и делиться с командами |
+| **Гибкие разрешения** | Разные уровни доступа к инструментам для разных типов subagent |
+| **Масштабируемость** | Несколько agent работают над разными аспектами одновременно |
 
 ---
 
-## File Locations
+## Расположение файлов
 
-Subagent files can be stored in multiple locations with different scopes:
+Файлы subagent можно хранить в нескольких местах с разными областями действия:
 
-| Priority | Type | Location | Scope |
+| Приоритет | Тип | Расположение | Область действия |
 |----------|------|----------|-------|
-| 1 (highest) | **CLI-defined** | Via `--agents` flag (JSON) | Session only |
-| 2 | **Project subagents** | `.claude/agents/` | Current project |
-| 3 | **User subagents** | `~/.claude/agents/` | All projects |
-| 4 (lowest) | **Plugin agents** | Plugin `agents/` directory | Via plugins |
+| 1 (highest) | **Определённые через CLI** | Через флаг `--agents` (JSON) | Только текущая сессия |
+| 2 | **Проектные subagent** | `.claude/agents/` | Текущий проект |
+| 3 | **Пользовательские subagent** | `~/.claude/agents/` | Все проекты |
+| 4 (lowest) | **Plugin agents** | Директория `agents/` плагина | Через plugins |
 
-When duplicate names exist, higher-priority sources take precedence.
+Если имена совпадают, приоритет всегда у источника с более высоким уровнем.
 
 ---
 
-## Configuration
+<a id="configuration"></a>
+## Конфигурация
 
-### File Format
+### Формат файла
 
-Subagents are defined in YAML frontmatter followed by the system prompt in markdown:
+Subagent задаются через YAML frontmatter, а затем следует system prompt в Markdown:
 
 ```yaml
 ---
@@ -108,34 +113,34 @@ hooks:  # Optional - component-scoped hooks
           command: "./scripts/security-check.sh"
 ---
 
-Your subagent's system prompt goes here. This can be multiple paragraphs
-and should clearly define the subagent's role, capabilities, and approach
-to solving problems.
+Здесь размещается system prompt вашего subagent. Он может состоять из нескольких абзацев
+и должен чётко определять роль subagent, его возможности и подход
+к решению задач.
 ```
 
-### Configuration Fields
+### Поля конфигурации
 
-| Field | Required | Description |
+| Поле | Обязательно | Описание |
 |-------|----------|-------------|
-| `name` | Yes | Unique identifier (lowercase letters and hyphens) |
-| `description` | Yes | Natural language description of purpose. Include "use PROACTIVELY" to encourage automatic invocation |
-| `tools` | No | Comma-separated list of specific tools. Omit to inherit all tools. Supports `Agent(agent_name)` syntax to restrict spawnable subagents |
-| `disallowedTools` | No | Comma-separated list of tools the subagent must not use |
-| `model` | No | Model to use: `sonnet`, `opus`, `haiku`, full model ID, or `inherit`. Defaults to configured subagent model |
+| `name` | Yes | Уникальный идентификатор (строчные буквы и дефисы) |
+| `description` | Yes | Описание назначения на естественном языке. Добавьте "use PROACTIVELY", чтобы стимулировать автоматический запуск |
+| `tools` | No | Список конкретных инструментов через запятую. Если не указан, наследуются все инструменты. Поддерживает синтаксис `Agent(agent_name)` для ограничения spawnable subagents |
+| `disallowedTools` | No | Список инструментов через запятую, которые subagent не должен использовать |
+| `model` | No | Модель для использования: `sonnet`, `opus`, `haiku`, полный model ID или `inherit`. По умолчанию используется настроенная модель subagent |
 | `permissionMode` | No | `default`, `acceptEdits`, `dontAsk`, `bypassPermissions`, `plan` |
-| `maxTurns` | No | Maximum number of agentic turns the subagent can take |
-| `skills` | No | Comma-separated list of skills to preload. Injects full skill content into the subagent's context at startup |
-| `mcpServers` | No | MCP servers to make available to the subagent |
-| `hooks` | No | Component-scoped hooks (PreToolUse, PostToolUse, Stop) |
-| `memory` | No | Persistent memory directory scope: `user`, `project`, or `local` |
-| `background` | No | Set to `true` to always run this subagent as a background task |
-| `effort` | No | Reasoning effort level: `low`, `medium`, `high`, or `max` |
-| `isolation` | No | Set to `worktree` to give the subagent its own git worktree |
-| `initialPrompt` | No | Auto-submitted first turn when the subagent runs as the main agent |
+| `maxTurns` | No | Максимальное число agentic turns, которое может сделать subagent |
+| `skills` | No | Список skills через запятую для предварительной загрузки. Полностью внедряет содержимое skill в контекст subagent при старте |
+| `mcpServers` | No | MCP servers, доступные subagent |
+| `hooks` | No | Hooks уровня компонента (PreToolUse, PostToolUse, Stop) |
+| `memory` | No | Область постоянной памяти: `user`, `project` или `local` |
+| `background` | No | Установите `true`, чтобы всегда запускать этот subagent как background task |
+| `effort` | No | Уровень reasoning effort: `low`, `medium`, `high` или `max` |
+| `isolation` | No | Установите `worktree`, чтобы дать subagent собственный git worktree |
+| `initialPrompt` | No | Первый автоматически отправляемый turn, когда subagent запускается как основной agent |
 
-### Tool Configuration Options
+### Варианты конфигурации инструментов
 
-**Option 1: Inherit All Tools (omit the field)**
+**Вариант 1: наследовать все инструменты (поле не указывать)**
 ```yaml
 ---
 name: full-access-agent
@@ -143,7 +148,7 @@ description: Agent with all available tools
 ---
 ```
 
-**Option 2: Specify Individual Tools**
+**Вариант 2: указать отдельные инструменты**
 ```yaml
 ---
 name: limited-agent
@@ -152,7 +157,7 @@ tools: Read, Grep, Glob, Bash
 ---
 ```
 
-**Option 3: Conditional Tool Access**
+**Вариант 3: условный доступ к инструментам**
 ```yaml
 ---
 name: conditional-agent
@@ -161,9 +166,9 @@ tools: Read, Bash(npm:*), Bash(test:*)
 ---
 ```
 
-### CLI-Based Configuration
+### Конфигурация через CLI
 
-Define subagents for a single session using the `--agents` flag with JSON format:
+Определяйте subagents для одной сессии с помощью флага `--agents` в формате JSON:
 
 ```bash
 claude --agents '{
@@ -176,7 +181,7 @@ claude --agents '{
 }'
 ```
 
-**JSON Format for `--agents` flag:**
+**Формат JSON для флага `--agents`:**
 
 ```json
 {
@@ -189,118 +194,118 @@ claude --agents '{
 }
 ```
 
-**Priority of Agent Definitions:**
+**Приоритет определений агентов:**
 
-Agent definitions are loaded with this priority order (first match wins):
+Определения агентов загружаются в таком порядке приоритета (первое совпадение выигрывает):
 1. **CLI-defined** - `--agents` flag (session only, JSON)
 2. **Project-level** - `.claude/agents/` (current project)
 3. **User-level** - `~/.claude/agents/` (all projects)
 4. **Plugin-level** - Plugin `agents/` directory
 
-This allows CLI definitions to override all other sources for a single session.
+Это позволяет CLI-определениям переопределять все остальные источники в рамках одной сессии.
 
 ---
 
-## Built-in Subagents
+## Встроенные Subagents
 
-Claude Code includes several built-in subagents that are always available:
+Claude Code включает несколько встроенных subagents, которые всегда доступны:
 
-| Agent | Model | Purpose |
-|-------|-------|---------|
-| **general-purpose** | Inherits | Complex, multi-step tasks |
-| **Plan** | Inherits | Research for plan mode |
-| **Explore** | Haiku | Read-only codebase exploration (quick/medium/very thorough) |
-| **Bash** | Inherits | Terminal commands in separate context |
-| **statusline-setup** | Sonnet | Configure status line |
-| **Claude Code Guide** | Haiku | Answer Claude Code feature questions |
+| Агент | Модель | Назначение |
+|-------|-------|-------------|
+| **general-purpose** | Наследуется | Сложные многошаговые задачи |
+| **Plan** | Наследуется | Исследование для plan mode |
+| **Explore** | Haiku | Только чтение, исследование кодовой базы (quick/medium/very thorough) |
+| **Bash** | Наследуется | Выполнение команд терминала в отдельном контексте |
+| **statusline-setup** | Sonnet | Настройка status line |
+| **Claude Code Guide** | Haiku | Ответы на вопросы о возможностях Claude Code |
 
-### General-Purpose Subagent
+### Subagent общего назначения
 
 | Property | Value |
 |----------|-------|
 | **Model** | Inherits from parent |
 | **Tools** | All tools |
-| **Purpose** | Complex research tasks, multi-step operations, code modifications |
+| **Purpose** | Сложные исследовательские задачи, многошаговые операции, изменения кода |
 
-**When used**: Tasks requiring both exploration and modification with complex reasoning.
+**Когда используется**: задачи, где нужны и исследование, и изменение кода, с нетривиальным reasoning.
 
-### Plan Subagent
+### Subagent Plan
 
 | Property | Value |
 |----------|-------|
 | **Model** | Inherits from parent |
 | **Tools** | Read, Glob, Grep, Bash |
-| **Purpose** | Used automatically in plan mode to research codebase |
+| **Purpose** | Автоматически используется в plan mode для исследования кодовой базы |
 
-**When used**: When Claude needs to understand the codebase before presenting a plan.
+**Когда используется**: когда Claude должен понять кодовую базу до того, как показать план.
 
-### Explore Subagent
+### Subagent Explore
 
 | Property | Value |
 |----------|-------|
 | **Model** | Haiku (fast, low-latency) |
 | **Mode** | Strictly read-only |
 | **Tools** | Glob, Grep, Read, Bash (read-only commands only) |
-| **Purpose** | Fast codebase searching and analysis |
+| **Purpose** | Быстрый поиск и анализ кодовой базы |
 
-**When used**: When searching/understanding code without making changes.
+**Когда используется**: когда нужно искать и понимать код без внесения изменений.
 
-**Thoroughness Levels** - Specify the depth of exploration:
-- **"quick"** - Fast searches with minimal exploration, good for finding specific patterns
-- **"medium"** - Moderate exploration, balanced speed and thoroughness, default approach
-- **"very thorough"** - Comprehensive analysis across multiple locations and naming conventions, may take longer
+**Уровни тщательности** - задают глубину исследования:
+- **"quick"** - быстрый поиск с минимальным исследованием, хорошо для поиска конкретных паттернов
+- **"medium"** - умеренное исследование, баланс скорости и полноты, значение по умолчанию
+- **"very thorough"** - всесторонний анализ по нескольким местам и соглашениям именования, может занять больше времени
 
-### Bash Subagent
+### Subagent Bash
 
 | Property | Value |
 |----------|-------|
 | **Model** | Inherits from parent |
 | **Tools** | Bash |
-| **Purpose** | Execute terminal commands in a separate context window |
+| **Purpose** | Выполнять команды терминала в отдельном окне контекста |
 
-**When used**: When running shell commands that benefit from isolated context.
+**Когда используется**: когда shell-команды выигрывают от изолированного контекста.
 
-### Statusline Setup Subagent
+### Subagent настройки status line
 
 | Property | Value |
 |----------|-------|
 | **Model** | Sonnet |
 | **Tools** | Read, Write, Bash |
-| **Purpose** | Configure the Claude Code status line display |
+| **Purpose** | Настраивать отображение status line в Claude Code |
 
-**When used**: When setting up or customizing the status line.
+**Когда используется**: при настройке или кастомизации status line.
 
-### Claude Code Guide Subagent
+### Subagent справки по Claude Code
 
 | Property | Value |
 |----------|-------|
 | **Model** | Haiku (fast, low-latency) |
 | **Tools** | Read-only |
-| **Purpose** | Answer questions about Claude Code features and usage |
+| **Purpose** | Отвечать на вопросы о возможностях Claude Code и его использовании |
 
-**When used**: When users ask questions about how Claude Code works or how to use specific features.
+**Когда используется**: когда пользователи спрашивают, как работает Claude Code или как использовать конкретные функции.
 
 ---
 
-## Managing Subagents
+## Управление Subagents
 
-### Using the `/agents` Command (Recommended)
+### Использование команды `/agents` (рекомендуется)
 
 ```bash
 /agents
 ```
 
-This provides an interactive menu to:
-- View all available subagents (built-in, user, and project)
-- Create new subagents with guided setup
-- Edit existing custom subagents and tool access
-- Delete custom subagents
-- See which subagents are active when duplicates exist
+Это открывает интерактивное меню, где можно:
+- просматривать все доступные subagents (встроенные, пользовательские и проектные)
+- создавать новые subagents с пошаговой настройкой
+- редактировать существующие кастомные subagents и доступ к инструментам
+- удалять кастомные subagents
+- видеть, какие subagents активны при наличии дубликатов
 
-### Direct File Management
+### Прямое управление файлами
 
 ```bash
-# Create a project subagent
+# Создать project subagent
 mkdir -p .claude/agents
 cat > .claude/agents/test-runner.md << 'EOF'
 ---
@@ -313,22 +318,22 @@ run the appropriate tests. If tests fail, analyze the failures and fix
 them while preserving the original test intent.
 EOF
 
-# Create a user subagent (available in all projects)
+# Создать user subagent (доступен во всех проектах)
 mkdir -p ~/.claude/agents
 ```
 
 ---
 
-## Using Subagents
+## Использование Subagents
 
-### Automatic Delegation
+### Автоматическое делегирование
 
-Claude proactively delegates tasks based on:
-- Task description in your request
-- The `description` field in subagent configurations
-- Current context and available tools
+Claude proactively делегирует задачи на основе:
+- описания задачи в вашем запросе
+- поля `description` в конфигурации subagent
+- текущего контекста и доступных инструментов
 
-To encourage proactive use, include "use PROACTIVELY" or "MUST BE USED" in your `description` field:
+Чтобы стимулировать проактивное использование, добавьте `"use PROACTIVELY"` или `"MUST BE USED"` в поле `description`:
 
 ```yaml
 ---
@@ -337,7 +342,7 @@ description: Expert code review specialist. Use PROACTIVELY after writing or mod
 ---
 ```
 
-### Explicit Invocation
+### Явный вызов
 
 You can explicitly request a specific subagent:
 
@@ -347,15 +352,15 @@ You can explicitly request a specific subagent:
 > Ask the debugger subagent to investigate this error
 ```
 
-### @-Mention Invocation
+### Вызов через @-упоминание
 
-Use the `@` prefix to guarantee a specific subagent is invoked (bypasses automatic delegation heuristics):
+Используйте префикс `@`, чтобы гарантированно вызвать конкретный subagent (обходит эвристику автоматического делегирования):
 
 ```
 > @"code-reviewer (agent)" review the auth module
 ```
 
-### Session-Wide Agent
+### Агент на всю сессию
 
 Run an entire session using a specific agent as the main agent:
 
@@ -369,7 +374,7 @@ claude --agent code-reviewer
 }
 ```
 
-### Listing Available Agents
+### Просмотр доступных агентов
 
 Use the `claude agents` command to list all configured agents from all sources:
 
@@ -379,9 +384,9 @@ claude agents
 
 ---
 
-## Resumable Agents
+## Возобновляемые агенты
 
-Subagents can continue previous conversations with full context preserved:
+Subagents могут продолжать предыдущие разговоры с сохранением полного контекста:
 
 ```bash
 # Initial invocation
@@ -392,43 +397,43 @@ Subagents can continue previous conversations with full context preserved:
 > Resume agent abc123 and now analyze the authorization logic as well
 ```
 
-**Use cases**:
-- Long-running research across multiple sessions
-- Iterative refinement without losing context
-- Multi-step workflows maintaining context
+**Сценарии использования**:
+- долгие исследования через несколько сессий
+- итеративная доработка без потери контекста
+- многошаговые рабочие процессы с сохранением контекста
 
 ---
 
-## Chaining Subagents
+## Цепочки Subagents
 
-Execute multiple subagents in sequence:
+Запускайте несколько subagents последовательно:
 
 ```bash
 > First use the code-analyzer subagent to find performance issues,
   then use the optimizer subagent to fix them
 ```
 
-This enables complex workflows where the output of one subagent feeds into another.
+Это позволяет строить сложные workflows, где результат одного subagent используется другим.
 
 ---
 
-## Persistent Memory for Subagents
+## Постоянная память для Subagents
 
-The `memory` field gives subagents a persistent directory that survives across conversations. This allows subagents to build up knowledge over time, storing notes, findings, and context that persist between sessions.
+Поле `memory` даёт subagents постоянный каталог, который переживает разговоры. Это позволяет subagent накапливать знания со временем, сохраняя заметки, находки и контекст между сессиями.
 
-### Memory Scopes
+### Области памяти
 
-| Scope | Directory | Use Case |
-|-------|-----------|----------|
-| `user` | `~/.claude/agent-memory/<name>/` | Personal notes and preferences across all projects |
-| `project` | `.claude/agent-memory/<name>/` | Project-specific knowledge shared with the team |
-| `local` | `.claude/agent-memory-local/<name>/` | Local project knowledge not committed to version control |
+| Область | Каталог | Сценарий использования |
+|-------|-----------|----------------------|
+| `user` | `~/.claude/agent-memory/<name>/` | Личные заметки и предпочтения для всех проектов |
+| `project` | `.claude/agent-memory/<name>/` | Знания, специфичные для проекта, общие для команды |
+| `local` | `.claude/agent-memory-local/<name>/` | Локальные знания проекта, не попадающие в version control |
 
-### How It Works
+### Как это работает
 
-- The first 200 lines of `MEMORY.md` in the memory directory are automatically loaded into the subagent's system prompt
-- The `Read`, `Write`, and `Edit` tools are automatically enabled for the subagent to manage its memory files
-- The subagent can create additional files in its memory directory as needed
+- Первые 200 строк `MEMORY.md` в каталоге памяти автоматически загружаются в system prompt subagent
+- Инструменты `Read`, `Write` и `Edit` автоматически доступны subagent для управления файлами памяти
+- При необходимости subagent может создавать дополнительные файлы в своём каталоге памяти
 
 ### Example Configuration
 
@@ -459,11 +464,11 @@ graph LR
 
 ---
 
-## Background Subagents
+## Фоновые Subagents
 
-Subagents can run in the background, freeing up the main conversation for other tasks.
+Subagents могут работать в фоне, освобождая основной разговор для других задач.
 
-### Configuration
+### Конфигурация
 
 Set `background: true` in the frontmatter to always run the subagent as a background task:
 
@@ -475,14 +480,14 @@ description: Performs long-running analysis tasks in the background
 ---
 ```
 
-### Keyboard Shortcuts
+### Горячие клавиши
 
-| Shortcut | Action |
+| Сочетание | Действие |
 |----------|--------|
-| `Ctrl+B` | Background a currently running subagent task |
-| `Ctrl+F` | Kill all background agents (press twice to confirm) |
+| `Ctrl+B` | Перевести текущую задачу subagent в фон |
+| `Ctrl+F` | Завершить все фоновые агенты (нажмите дважды для подтверждения) |
 
-### Disabling Background Tasks
+### Отключение фоновых задач
 
 Set the environment variable to disable background task support entirely:
 
@@ -492,11 +497,11 @@ export CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1
 
 ---
 
-## Worktree Isolation
+## Изоляция worktree
 
-The `isolation: worktree` setting gives a subagent its own git worktree, allowing it to make changes independently without affecting the main working tree.
+Параметр `isolation: worktree` даёт subagent собственный git worktree, позволяя ему вносить изменения независимо, не затрагивая основное рабочее дерево.
 
-### Configuration
+### Конфигурация
 
 ```yaml
 ---
@@ -507,7 +512,7 @@ tools: Read, Write, Edit, Bash, Grep, Glob
 ---
 ```
 
-### How It Works
+### Как это работает
 
 ```mermaid
 graph TB
@@ -523,19 +528,19 @@ graph TB
     style Return fill:#fff3e0,stroke:#333,color:#333
 ```
 
-- The subagent operates in its own git worktree on a separate branch
-- If the subagent makes no changes, the worktree is automatically cleaned up
-- If changes exist, the worktree path and branch name are returned to the main agent for review or merging
+- Subagent работает в собственном git worktree на отдельной ветке
+- Если subagent не вносит изменений, worktree автоматически очищается
+- Если изменения есть, путь к worktree и имя ветки возвращаются основному agent для ревью или merge
 
 ---
 
-## Restrict Spawnable Subagents
+## Ограничение spawnable Subagents
 
-You can control which subagents a given subagent is allowed to spawn by using the `Agent(agent_type)` syntax in the `tools` field. This provides a way to allowlist specific subagents for delegation.
+Вы можете контролировать, каких subagents разрешено создавать данному subagent, используя синтаксис `Agent(agent_type)` в поле `tools`. Это позволяет формировать allowlist для делегирования.
 
-> **Note**: In v2.1.63, the `Task` tool was renamed to `Agent`. Existing `Task(...)` references still work as aliases.
+> **Примечание**: в v2.1.63 инструмент `Task` был переименован в `Agent`. Существующие ссылки вида `Task(...)` по-прежнему работают как алиасы.
 
-### Example
+### Пример
 
 ```yaml
 ---
@@ -552,39 +557,39 @@ In this example, the `coordinator` subagent can only spawn the `worker` and `res
 
 ---
 
-## `claude agents` CLI Command
+## CLI-команда `claude agents`
 
-The `claude agents` command lists all configured agents grouped by source (built-in, user-level, project-level):
+Команда `claude agents` выводит все настроенные агенты, сгруппированные по источнику (built-in, user-level, project-level):
 
 ```bash
 claude agents
 ```
 
-This command:
-- Shows all available agents from all sources
-- Groups agents by their source location
-- Indicates **overrides** when an agent at a higher priority level shadows one at a lower level (e.g., a project-level agent with the same name as a user-level agent)
+Эта команда:
+- показывает всех доступных агентов из всех источников
+- группирует агентов по месту происхождения
+- показывает **override**-ы, когда агент с более высоким приоритетом перекрывает агент с более низким приоритетом (например, project-level agent с тем же именем, что и user-level agent)
 
 ---
 
-## Agent Teams (Experimental)
+## Команды агентов (экспериментально)
 
-Agent Teams coordinate multiple Claude Code instances working together on complex tasks. Unlike subagents (which are delegated subtasks returning results), teammates work independently with their own context and communicate directly through a shared mailbox system.
+Agent Teams координируют несколько экземпляров Claude Code, работающих вместе над сложными задачами. В отличие от subagents, которые получают делегированные подзадачи и возвращают результат, teammates работают независимо, со своим контекстом, и общаются напрямую через общую mailbox-систему.
 
-> **Note**: Agent Teams is experimental and requires Claude Code v2.1.32+. Enable it before use.
+> **Примечание**: Agent Teams находится в экспериментальном статусе и требует Claude Code v2.1.32+. Включите его перед использованием.
 
-### Subagents vs Agent Teams
+### Subagents против Agent Teams
 
 | Aspect | Subagents | Agent Teams |
 |--------|-----------|-------------|
-| **Delegation model** | Parent delegates subtask, waits for result | Team lead assigns work, teammates execute independently |
-| **Context** | Fresh context per subtask, results distilled back | Each teammate maintains its own persistent context |
-| **Coordination** | Sequential or parallel, managed by parent | Shared task list with automatic dependency management |
-| **Communication** | Return values only | Inter-agent messaging via mailbox |
-| **Session resumption** | Supported | Not supported with in-process teammates |
-| **Best for** | Focused, well-defined subtasks | Large multi-file projects requiring parallel work |
+| **Модель делегирования** | Parent выдаёт подзадачу и ждёт результат | Team lead назначает работу, teammates выполняют её независимо |
+| **Контекст** | Свежий контекст на каждую подзадачу, результаты сводятся обратно | Каждый teammate хранит собственный постоянный контекст |
+| **Координация** | Последовательная или параллельная, управляется parent | Общий список задач с автоматическим управлением зависимостями |
+| **Коммуникация** | Только возвращаемые значения | Межагентные сообщения через mailbox |
+| **Возобновление сессии** | Поддерживается | Не поддерживается для in-process teammates |
+| **Лучше всего подходит для** | Сфокусированных, чётко определённых подзадач | Больших многофайловых проектов, требующих параллельной работы |
 
-### Enabling Agent Teams
+### Включение Agent Teams
 
 Set the environment variable or add it to your `settings.json`:
 
@@ -602,7 +607,7 @@ Or in `settings.json`:
 }
 ```
 
-### Starting a team
+### Запуск команды
 
 Once enabled, ask Claude to work with teammates in your prompt:
 
@@ -613,21 +618,21 @@ User: Build the authentication module. Use a team — one teammate for the API e
 
 Claude will create the team, assign tasks, and coordinate the work automatically.
 
-### Display modes
+### Режимы отображения
 
-Control how teammate activity is displayed:
+Управляйте тем, как отображается активность teammates:
 
-| Mode | Flag | Description |
+| Режим | Флаг | Описание |
 |------|------|-------------|
-| **Auto** | `--teammate-mode auto` | Automatically chooses the best display mode for your terminal |
-| **In-process** | `--teammate-mode in-process` | Shows teammate output inline in the current terminal (default) |
-| **Split-panes** | `--teammate-mode tmux` | Opens each teammate in a separate tmux or iTerm2 pane |
+| **Auto** | `--teammate-mode auto` | Автоматически выбирает лучший режим отображения для вашего терминала |
+| **In-process** | `--teammate-mode in-process` | Показывает вывод teammates прямо в текущем терминале (по умолчанию) |
+| **Split-panes** | `--teammate-mode tmux` | Открывает каждого teammate в отдельной панели tmux или iTerm2 |
 
 ```bash
 claude --teammate-mode tmux
 ```
 
-You can also set the display mode in `settings.json`:
+Также можно задать режим отображения в `settings.json`:
 
 ```json
 {
@@ -635,21 +640,21 @@ You can also set the display mode in `settings.json`:
 }
 ```
 
-> **Note**: Split-pane mode requires tmux or iTerm2. It is not available in VS Code terminal, Windows Terminal, or Ghostty.
+> **Примечание**: режим split-pane требует tmux или iTerm2. Он недоступен в терминале VS Code, Windows Terminal или Ghostty.
 
-### Navigation
+### Навигация
 
-Use `Shift+Down` to navigate between teammates in split-pane mode.
+Используйте `Shift+Down`, чтобы переключаться между teammates в режиме split-pane.
 
-### Team Configuration
+### Конфигурация команды
 
-Team configurations are stored at `~/.claude/teams/{team-name}/config.json`.
+Конфигурации команд хранятся в `~/.claude/teams/{team-name}/config.json`.
 
-### Architecture
+### Архитектура
 
 ```mermaid
 graph TB
-    Lead["Team Lead<br/>(Coordinator)"]
+    Lead["Team Lead<br/>(Координатор)"]
     TaskList["Shared Task List<br/>(Dependencies)"]
     Mailbox["Mailbox<br/>(Messages)"]
     T1["Teammate 1<br/>(Own Context)"]
@@ -676,75 +681,75 @@ graph TB
     style T3 fill:#e8f5e9,stroke:#333,color:#333
 ```
 
-**Key components**:
+**Ключевые компоненты**:
 
-- **Team Lead**: The main Claude Code session that creates the team, assigns tasks, and coordinates
-- **Shared Task List**: A synchronized list of tasks with automatic dependency tracking
-- **Mailbox**: An inter-agent messaging system for teammates to communicate status and coordinate
-- **Teammates**: Independent Claude Code instances, each with their own context window
+- **Team Lead**: основная сессия Claude Code, которая создаёт команду, назначает задачи и координирует работу
+- **Shared Task List**: синхронизированный список задач с автоматическим отслеживанием зависимостей
+- **Mailbox**: система межагентных сообщений, через которую teammates передают статус и координируют действия
+- **Teammates**: независимые экземпляры Claude Code, у каждого своё окно контекста
 
-### Task assignment and messaging
+### Назначение задач и обмен сообщениями
 
-The team lead breaks work into tasks and assigns them to teammates. The shared task list handles:
+Team lead разбивает работу на задачи и назначает их teammates. Общий список задач обеспечивает:
 
-- **Automatic dependency management** — tasks wait for their dependencies to complete
-- **Status tracking** — teammates update task status as they work
-- **Inter-agent messaging** — teammates send messages via the mailbox for coordination (e.g., "Database schema is ready, you can start writing queries")
+- **Автоматическое управление зависимостями** — задачи ждут завершения своих зависимостей
+- **Отслеживание статуса** — teammates обновляют статус по мере работы
+- **Межагентные сообщения** — teammates отправляют сообщения через mailbox для координации (например, "Схема базы готова, можно начинать писать запросы")
 
-### Plan approval workflow
+### Процесс утверждения плана
 
-For complex tasks, the team lead creates an execution plan before teammates begin work. The user reviews and approves the plan, ensuring the team's approach aligns with expectations before any code changes are made.
+Для сложных задач team lead создаёт план выполнения до того, как teammates начнут работу. Пользователь просматривает и утверждает план, чтобы подход команды соответствовал ожиданиям до внесения каких-либо изменений в код.
 
-### Hook events for teams
+### Hook-события для команд
 
-Agent Teams introduce two additional [hook events](../06-hooks/):
+Agent Teams добавляют два дополнительных [hook-события](../06-hooks/):
 
-| Event | Fires When | Use Case |
-|-------|-----------|----------|
-| `TeammateIdle` | A teammate finishes its current task and has no pending work | Trigger notifications, assign follow-up tasks |
-| `TaskCompleted` | A task in the shared task list is marked complete | Run validation, update dashboards, chain dependent work |
+| Событие | Срабатывает когда | Сценарий использования |
+|-------|------------------|----------------------|
+| `TeammateIdle` | teammate завершает текущую задачу и у него нет ожидающей работы | запускать уведомления, назначать последующие задачи |
+| `TaskCompleted` | задача в общем списке помечена как завершённая | запускать проверку, обновлять dashboards, цеплять зависимую работу |
 
-### Best practices
+### Лучшие практики
 
-- **Team size**: Keep teams at 3-5 teammates for optimal coordination
-- **Task sizing**: Break work into tasks that take 5-15 minutes each — small enough to parallelize, large enough to be meaningful
-- **Avoid file conflicts**: Assign different files or directories to different teammates to prevent merge conflicts
-- **Start simple**: Use in-process mode for your first team; switch to split-panes once comfortable
-- **Clear task descriptions**: Provide specific, actionable task descriptions so teammates can work independently
+- **Размер команды**: держите команды в пределах 3-5 teammates для оптимальной координации
+- **Размер задач**: разбивайте работу на задачи по 5-15 минут каждая — достаточно мелкие для параллелизации, но достаточно содержательные
+- **Избегайте конфликтов файлов**: назначайте разные файлы или каталоги разным teammates, чтобы не создавать merge conflicts
+- **Начинайте просто**: для первой команды используйте in-process mode; на split-panes переходите, когда будете готовы
+- **Чёткие описания задач**: давайте конкретные, выполнимые описания, чтобы teammates могли работать независимо
 
-### Limitations
+### Ограничения
 
-- **Experimental**: Feature behavior may change in future releases
-- **No session resumption**: In-process teammates cannot be resumed after a session ends
-- **One team per session**: Cannot create nested teams or multiple teams in a single session
-- **Fixed leadership**: The team lead role cannot be transferred to a teammate
-- **Split-pane restrictions**: tmux/iTerm2 required; not available in VS Code terminal, Windows Terminal, or Ghostty
-- **No cross-session teams**: Teammates exist only within the current session
+- **Экспериментально**: поведение функции может измениться в будущих релизах
+- **Без возобновления сессии**: in-process teammates нельзя возобновить после завершения сессии
+- **Одна команда на сессию**: нельзя создавать вложенные команды или несколько команд в одной сессии
+- **Фиксированное лидерство**: роль team lead нельзя передать teammate
+- **Ограничения split-pane**: требуется tmux/iTerm2; недоступно в терминале VS Code, Windows Terminal или Ghostty
+- **Без команд между сессиями**: teammates существуют только в рамках текущей сессии
 
-> **Warning**: Agent Teams is experimental. Test with non-critical work first and monitor teammate coordination for unexpected behavior.
-
----
-
-## Plugin Subagent Security
-
-Plugin-provided subagents have restricted frontmatter capabilities for security. The following fields are **not allowed** in plugin subagent definitions:
-
-- `hooks` - Cannot define lifecycle hooks
-- `mcpServers` - Cannot configure MCP servers
-- `permissionMode` - Cannot override permission settings
-
-This prevents plugins from escalating privileges or executing arbitrary commands through subagent hooks.
+> **Предупреждение**: Agent Teams находится в экспериментальном статусе. Сначала тестируйте на некритичной работе и следите за координацией teammates на случай неожиданного поведения.
 
 ---
 
-## Architecture
+## Безопасность plugin subagent
 
-### High-Level Architecture
+У subagents, предоставляемых plugin, ограничены возможности frontmatter ради безопасности. В определениях plugin subagent **не допускаются** следующие поля:
+
+- `hooks` - Нельзя определять lifecycle hooks
+- `mcpServers` - Нельзя настраивать MCP servers
+- `permissionMode` - Нельзя переопределять настройки разрешений
+
+Это не позволяет plugins повышать привилегии или выполнять произвольные команды через hooks subagent.
+
+---
+
+## Архитектура
+
+### Архитектура верхнего уровня
 
 ```mermaid
 graph TB
     User["User"]
-    Main["Main Agent<br/>(Coordinator)"]
+    Main["Основной агент<br/>(Координатор)"]
     Reviewer["Code Reviewer<br/>Subagent"]
     Tester["Test Engineer<br/>Subagent"]
     Docs["Documentation<br/>Subagent"]
@@ -759,12 +764,12 @@ graph TB
     Main -->|synthesizes| User
 ```
 
-### Subagent Lifecycle
+### Жизненный цикл Subagent
 
 ```mermaid
 sequenceDiagram
     participant User
-    participant MainAgent as Main Agent
+    participant MainAgent as Основной агент
     participant CodeReviewer as Code Reviewer<br/>Subagent
     participant Context as Separate<br/>Context Window
 
@@ -781,12 +786,12 @@ sequenceDiagram
 
 ---
 
-## Context Management
+## Управление контекстом
 
 ```mermaid
 graph TB
-    A["Main Agent Context<br/>50,000 tokens"]
-    B["Subagent 1 Context<br/>20,000 tokens"]
+    A["Контекст основного агента<br/>50,000 tokens"]
+    B["Контекст subagent 1<br/>20,000 tokens"]
     C["Subagent 2 Context<br/>20,000 tokens"]
     D["Subagent 3 Context<br/>20,000 tokens"]
 
@@ -804,67 +809,67 @@ graph TB
     style D fill:#fff9c4
 ```
 
-### Key Points
+### Ключевые моменты
 
-- Each subagent gets a **fresh context window** without the main conversation history
-- Only the **relevant context** is passed to the subagent for their specific task
-- Results are **distilled** back to the main agent
-- This prevents **context token exhaustion** on long projects
+- Каждый subagent получает **свежее окно контекста** без истории основного разговора
+- В subagent передаётся только **релевантный контекст** для его задачи
+- Результаты **сводятся** обратно в основной agent
+- Это предотвращает **исчерпание token-ов контекста** на длинных проектах
 
-### Performance Considerations
+### Соображения по производительности
 
-- **Context efficiency** - Agents preserve main context, enabling longer sessions
-- **Latency** - Subagents start with clean slate and may add latency gathering initial context
+- **Эффективность контекста** - agents сохраняют основной контекст, позволяя проводить более долгие сессии
+- **Задержка** - subagents начинают с чистого листа и могут добавлять задержку на сбор начального контекста
 
-### Key Behaviors
+### Ключевое поведение
 
-- **No nested spawning** - Subagents cannot spawn other subagents
-- **Background permissions** - Background subagents auto-deny any permissions that are not pre-approved
-- **Backgrounding** - Press `Ctrl+B` to background a currently running task
-- **Transcripts** - Subagent transcripts are stored at `~/.claude/projects/{project}/{sessionId}/subagents/agent-{agentId}.jsonl`
-- **Auto-compaction** - Subagent context auto-compacts at ~95% capacity (override with `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE` environment variable)
-
----
-
-## When to Use Subagents
-
-| Scenario | Use Subagent | Why |
-|----------|--------------|-----|
-| Complex feature with many steps | Yes | Separate concerns, prevent context pollution |
-| Quick code review | No | Unnecessary overhead |
-| Parallel task execution | Yes | Each subagent has own context |
-| Specialized expertise needed | Yes | Custom system prompts |
-| Long-running analysis | Yes | Prevents main context exhaustion |
-| Single task | No | Adds latency unnecessarily |
+- **Без вложенного spawn** - subagents не могут создавать другие subagents
+- **Разрешения в фоне** - фоновые subagents автоматически отклоняют любые разрешения, которые не были заранее одобрены
+- **Перевод в фон** - нажмите `Ctrl+B`, чтобы отправить текущую задачу в фон
+- **Транскрипты** - транскрипты subagent хранятся в `~/.claude/projects/{project}/{sessionId}/subagents/agent-{agentId}.jsonl`
+- **Автокомпактация** - контекст subagent автоматически компактизируется примерно при 95% заполнении (можно переопределить через переменную окружения `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE`)
 
 ---
 
-## Best Practices
+## Когда использовать Subagents
 
-### Design Principles
+| Сценарий | Использовать Subagent | Почему |
+|----------|---------------------|--------|
+| Сложная функция с множеством шагов | Да | Разделяет ответственность, предотвращает загрязнение контекста |
+| Быстрый code review | Нет | Лишний overhead |
+| Параллельное выполнение задач | Да | У каждого subagent свой контекст |
+| Нужна узкая экспертиза | Да | Кастомные system prompt |
+| Долгий анализ | Да | Не даёт основному контексту исчерпаться |
+| Одна задача | Нет | Лишняя задержка |
 
-**Do:**
-- Start with Claude-generated agents - Generate initial subagent with Claude, then iterate to customize
-- Design focused subagents - Single, clear responsibilities rather than one doing everything
-- Write detailed prompts - Include specific instructions, examples, and constraints
-- Limit tool access - Grant only necessary tools for the subagent's purpose
-- Version control - Check project subagents into version control for team collaboration
+---
 
-**Don't:**
-- Create overlapping subagents with same roles
-- Give subagents unnecessary tool access
-- Use subagents for simple, single-step tasks
-- Mix concerns in one subagent's prompt
-- Forget to pass necessary context
+## Лучшие практики
 
-### System Prompt Best Practices
+### Принципы проектирования
 
-1. **Be Specific About Role**
+**Делайте:**
+- Начинайте с сгенерированных Claude agents - сначала создайте базовый subagent через Claude, потом дорабатывайте
+- Проектируйте сфокусированные subagents - одна понятная ответственность, а не попытка делать всё
+- Пишите подробные prompt-ы - включайте конкретные инструкции, примеры и ограничения
+- Ограничивайте доступ к инструментам - выдавайте только то, что нужно для задачи subagent
+- Храните в version control - добавляйте project subagents в репозиторий для совместной работы
+
+**Не делайте:**
+- создавайте пересекающиеся subagents с одинаковыми ролями
+- давайте subagents лишний доступ к инструментам
+- используйте subagents для простых одношаговых задач
+- смешивайте разные ответственности в одном prompt subagent
+- забывайте передать нужный контекст
+
+### Лучшие практики для system prompt
+
+1. **Чётко определяйте роль**
    ```
    You are an expert code reviewer specializing in [specific areas]
    ```
 
-2. **Define Priorities Clearly**
+2. **Ясно задавайте приоритеты**
    ```
    Review priorities (in order):
    1. Security Issues
@@ -872,12 +877,12 @@ graph TB
    3. Code Quality
    ```
 
-3. **Specify Output Format**
+3. **Указывайте формат вывода**
    ```
    For each issue provide: Severity, Category, Location, Description, Fix, Impact
    ```
 
-4. **Include Action Steps**
+4. **Включайте шаги действий**
    ```
    When invoked:
    1. Run git diff to see recent changes
@@ -885,191 +890,191 @@ graph TB
    3. Begin review immediately
    ```
 
-### Tool Access Strategy
+### Стратегия доступа к инструментам
 
-1. **Start Restrictive**: Begin with only essential tools
-2. **Expand Only When Needed**: Add tools as requirements demand
-3. **Read-Only When Possible**: Use Read/Grep for analysis agents
-4. **Sandboxed Execution**: Limit Bash commands to specific patterns
+1. **Начинайте с ограничений**: стартуйте только с необходимыми инструментами
+2. **Расширяйте только по необходимости**: добавляйте инструменты по мере появления требований
+3. **По возможности только чтение**: используйте Read/Grep для аналитических agents
+4. **Песочница для выполнения**: ограничивайте Bash-команды конкретными шаблонами
 
 ---
 
-## Example Subagents in This Folder
+## Примеры Subagents в этой папке
 
-This folder contains ready-to-use example subagents:
+В этой папке лежат готовые к использованию примеры subagents:
 
 ### 1. Code Reviewer (`code-reviewer.md`)
 
-**Purpose**: Comprehensive code quality and maintainability analysis
+**Назначение**: комплексный анализ качества кода и поддерживаемости
 
 **Tools**: Read, Grep, Glob, Bash
 
-**Specialization**:
-- Security vulnerability detection
-- Performance optimization identification
-- Code maintainability assessment
-- Test coverage analysis
+**Специализация**:
+- выявление security уязвимостей
+- поиск возможностей для оптимизации производительности
+- оценка поддерживаемости кода
+- анализ покрытия тестами
 
-**Use When**: You need automated code reviews with focus on quality and security
+**Когда использовать**: когда нужен автоматизированный code review с фокусом на качестве и безопасности
 
 ---
 
 ### 2. Test Engineer (`test-engineer.md`)
 
-**Purpose**: Test strategy, coverage analysis, and automated testing
+**Назначение**: тестовая стратегия, анализ покрытия и автоматизированное тестирование
 
 **Tools**: Read, Write, Bash, Grep
 
-**Specialization**:
-- Unit test creation
-- Integration test design
-- Edge case identification
-- Coverage analysis (>80% target)
+**Специализация**:
+- создание unit-тестов
+- проектирование integration-тестов
+- выявление edge case-ов
+- анализ покрытия (цель >80%)
 
-**Use When**: You need comprehensive test suite creation or coverage analysis
+**Когда использовать**: когда нужен полный набор тестов или анализ покрытия
 
 ---
 
 ### 3. Documentation Writer (`documentation-writer.md`)
 
-**Purpose**: Technical documentation, API docs, and user guides
+**Назначение**: техническая документация, API docs и пользовательские гайды
 
 **Tools**: Read, Write, Grep
 
-**Specialization**:
-- API endpoint documentation
-- User guide creation
-- Architecture documentation
-- Code comment improvement
+**Специализация**:
+- документация API endpoint-ов
+- создание пользовательских гайдов
+- документация архитектуры
+- улучшение комментариев в коде
 
-**Use When**: You need to create or update project documentation
+**Когда использовать**: когда нужно создать или обновить документацию проекта
 
 ---
 
 ### 4. Secure Reviewer (`secure-reviewer.md`)
 
-**Purpose**: Security-focused code review with minimal permissions
+**Назначение**: code review с фокусом на безопасности и минимальными правами
 
 **Tools**: Read, Grep
 
-**Specialization**:
-- Security vulnerability detection
-- Authentication/authorization issues
-- Data exposure risks
-- Injection attack identification
+**Специализация**:
+- выявление security уязвимостей
+- проблемы аутентификации/авторизации
+- риски утечки данных
+- обнаружение injection-атак
 
-**Use When**: You need security audits without modification capabilities
+**Когда использовать**: когда нужны security audits без права на изменения
 
 ---
 
 ### 5. Implementation Agent (`implementation-agent.md`)
 
-**Purpose**: Full implementation capabilities for feature development
+**Назначение**: полные возможности реализации для разработки функций
 
 **Tools**: Read, Write, Edit, Bash, Grep, Glob
 
-**Specialization**:
-- Feature implementation
-- Code generation
-- Build and test execution
-- Codebase modification
+**Специализация**:
+- реализация функций
+- генерация кода
+- запуск сборки и тестов
+- изменение кодовой базы
 
-**Use When**: You need a subagent to implement features end-to-end
+**Когда использовать**: когда нужен subagent, который реализует функции end-to-end
 
 ---
 
 ### 6. Debugger (`debugger.md`)
 
-**Purpose**: Debugging specialist for errors, test failures, and unexpected behavior
+**Назначение**: специалист по отладке ошибок, падений тестов и неожиданного поведения
 
 **Tools**: Read, Edit, Bash, Grep, Glob
 
-**Specialization**:
-- Root cause analysis
-- Error investigation
-- Test failure resolution
-- Minimal fix implementation
+**Специализация**:
+- анализ root cause
+- расследование ошибок
+- исправление падений тестов
+- минимальная реализация фикса
 
-**Use When**: You encounter bugs, errors, or unexpected behavior
+**Когда использовать**: когда вы сталкиваетесь с багами, ошибками или неожиданным поведением
 
 ---
 
 ### 7. Data Scientist (`data-scientist.md`)
 
-**Purpose**: Data analysis expert for SQL queries and data insights
+**Назначение**: эксперт по анализу данных, SQL-запросам и insights
 
 **Tools**: Bash, Read, Write
 
-**Specialization**:
-- SQL query optimization
-- BigQuery operations
-- Data analysis and visualization
-- Statistical insights
+**Специализация**:
+- оптимизация SQL-запросов
+- операции BigQuery
+- анализ и визуализация данных
+- статистические выводы
 
-**Use When**: You need data analysis, SQL queries, or BigQuery operations
+**Когда использовать**: когда нужны анализ данных, SQL или операции BigQuery
 
 ---
 
-## Installation Instructions
+## Инструкции по установке
 
-### Method 1: Using /agents Command (Recommended)
+### Способ 1: через команду `/agents` (рекомендуется)
 
 ```bash
 /agents
 ```
 
-Then:
-1. Select 'Create New Agent'
-2. Choose project-level or user-level
-3. Describe your subagent in detail
-4. Select tools to grant access (or leave blank to inherit all)
-5. Save and use
+Далее:
+1. выберите `Create New Agent`
+2. выберите project-level или user-level
+3. подробно опишите subagent
+4. выберите инструменты для доступа (или оставьте пустым, чтобы наследовать все)
+5. сохраните и используйте
 
-### Method 2: Copy to Project
+### Способ 2: копирование в проект
 
-Copy the agent files to your project's `.claude/agents/` directory:
+Скопируйте файлы agents в каталог `.claude/agents/` вашего проекта:
 
 ```bash
-# Navigate to your project
+# Перейдите в ваш проект
 cd /path/to/your/project
 
-# Create agents directory if it doesn't exist
+# Создайте каталог agents, если его нет
 mkdir -p .claude/agents
 
-# Copy all agent files from this folder
+# Скопируйте все файлы agents из этой папки
 cp /path/to/04-subagents/*.md .claude/agents/
 
-# Remove the README (not needed in .claude/agents)
+# Удалите README (он не нужен в `.claude/agents`)
 rm .claude/agents/README.md
 ```
 
-### Method 3: Copy to User Directory
+### Способ 3: копирование в пользовательский каталог
 
-For agents available in all your projects:
+Для agents, доступных во всех ваших проектах:
 
 ```bash
-# Create user agents directory
+# Создайте пользовательский каталог agents
 mkdir -p ~/.claude/agents
 
-# Copy agents
+# Скопируйте agents
 cp /path/to/04-subagents/code-reviewer.md ~/.claude/agents/
 cp /path/to/04-subagents/debugger.md ~/.claude/agents/
-# ... copy others as needed
+# ... скопируйте остальные по необходимости
 ```
 
-### Verification
+### Проверка
 
-After installation, verify the agents are recognized:
+После установки проверьте, что agents распознаны:
 
 ```bash
 /agents
 ```
 
-You should see your installed agents listed alongside the built-in ones.
+Вы должны увидеть установленные agents рядом со встроенными.
 
 ---
 
-## File Structure
+## Структура файлов
 
 ```
 project/
@@ -1087,55 +1092,55 @@ project/
 
 ---
 
-## Related Concepts
+## Связанные концепции
 
-### Related Features
+### Связанные возможности
 
-- **[Slash Commands](../01-slash-commands/)** - Quick user-invoked shortcuts
-- **[Memory](../02-memory/)** - Persistent cross-session context
-- **[Skills](../03-skills/)** - Reusable autonomous capabilities
-- **[MCP Protocol](../05-mcp/)** - Real-time external data access
-- **[Hooks](../06-hooks/)** - Event-driven shell command automation
-- **[Plugins](../07-plugins/)** - Bundled extension packages
+- **[Slash Commands](../01-slash-commands/)** - Быстрые ярлыки, запускаемые пользователем
+- **[Memory](../02-memory/)** - Постоянный контекст между сессиями
+- **[Skills](../03-skills/)** - Переиспользуемые автономные возможности
+- **[MCP Protocol](../05-mcp/)** - Доступ к внешним данным в реальном времени
+- **[Hooks](../06-hooks/)** - Автоматизация shell-команд по событиям
+- **[Plugins](../07-plugins/)** - Пакеты расширений
 
-### Comparison with Other Features
+### Сравнение с другими возможностями
 
-| Feature | User-Invoked | Auto-Invoked | Persistent | External Access | Isolated Context |
+| Возможность | Пользовательский вызов | Автовызов | Постоянность | Внешний доступ | Изолированный контекст |
 |---------|--------------|--------------|-----------|------------------|------------------|
-| **Slash Commands** | Yes | No | No | No | No |
-| **Subagents** | Yes | Yes | No | No | Yes |
-| **Memory** | Auto | Auto | Yes | No | No |
-| **MCP** | Auto | Yes | No | Yes | No |
-| **Skills** | Yes | Yes | No | No | No |
+| **Slash Commands** | Да | Нет | Нет | Нет | Нет |
+| **Subagents** | Да | Да | Нет | Нет | Да |
+| **Memory** | Авто | Авто | Да | Нет | Нет |
+| **MCP** | Авто | Да | Нет | Да | Нет |
+| **Skills** | Да | Да | Нет | Нет | Нет |
 
-### Integration Pattern
+### Паттерн интеграции
 
 ```mermaid
 graph TD
-    User["User Request"] --> Main["Main Agent"]
-    Main -->|Uses| Memory["Memory<br/>(Context)"]
-    Main -->|Queries| MCP["MCP<br/>(Live Data)"]
-    Main -->|Invokes| Skills["Skills<br/>(Auto Tools)"]
-    Main -->|Delegates| Subagents["Subagents<br/>(Specialists)"]
+    User["Запрос пользователя"] --> Main["Основной агент"]
+    Main -->|Использует| Memory["Memory<br/>(Контекст)"]
+    Main -->|Запрашивает| MCP["MCP<br/>(Живые данные)"]
+    Main -->|Вызывает| Skills["Skills<br/>(Автоинструменты)"]
+    Main -->|Делегирует| Subagents["Subagents<br/>(Специалисты)"]
 
-    Subagents -->|Use| Memory
-    Subagents -->|Query| MCP
-    Subagents -->|Isolated| Context["Clean Context<br/>Window"]
+    Subagents -->|Используют| Memory
+    Subagents -->|Запрашивают| MCP
+    Subagents -->|Изолированы| Context["Чистое окно<br/>контекста"]
 ```
 
 ---
 
-## Additional Resources
+## Дополнительные ресурсы
 
-- [Official Subagents Documentation](https://code.claude.com/docs/en/sub-agents)
-- [CLI Reference](https://code.claude.com/docs/en/cli-reference) - `--agents` flag and other CLI options
-- [Plugins Guide](../07-plugins/) - For bundling agents with other features
-- [Skills Guide](../03-skills/) - For auto-invoked capabilities
-- [Memory Guide](../02-memory/) - For persistent context
-- [Hooks Guide](../06-hooks/) - For event-driven automation
+- [Официальная документация Subagents](https://code.claude.com/docs/en/sub-agents)
+- [Справка по CLI](https://code.claude.com/docs/en/cli-reference) - флаг `--agents` и другие опции CLI
+- [Руководство по Plugins](../07-plugins/) - для упаковки agents вместе с другими возможностями
+- [Руководство по Skills](../03-skills/) - для автовызываемых возможностей
+- [Руководство по Memory](../02-memory/) - для постоянного контекста
+- [Руководство по Hooks](../06-hooks/) - для автоматизации по событиям
 
 ---
 
-*Last updated: March 2026*
+*Последнее обновление: март 2026*
 
-*This guide covers complete subagent configuration, delegation patterns, and best practices for Claude Code.*
+*Это руководство охватывает полную конфигурацию subagent, паттерны делегирования и лучшие практики для Claude Code.*

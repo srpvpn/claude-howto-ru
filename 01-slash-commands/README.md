@@ -5,96 +5,96 @@
 
 # Slash Commands
 
-## Overview
+## Обзор
 
-Slash commands are shortcuts that control Claude's behavior during an interactive session. They come in several types:
+Slash-команды — это ярлыки, которые управляют поведением Claude во время интерактивной сессии. Они бывают нескольких типов:
 
-- **Built-in commands**: Provided by Claude Code (`/help`, `/clear`, `/model`)
-- **Skills**: User-defined commands created as `SKILL.md` files (`/optimize`, `/pr`)
-- **Plugin commands**: Commands from installed plugins (`/frontend-design:frontend-design`)
-- **MCP prompts**: Commands from MCP servers (`/mcp__github__list_prs`)
+- **Built-in commands**: встроенные команды Claude Code (`/help`, `/clear`, `/model`)
+- **Skills**: пользовательские команды, оформленные как файлы `SKILL.md` (`/optimize`, `/pr`)
+- **Plugin commands**: команды из установленных plugins (`/frontend-design:frontend-design`)
+- **MCP prompts**: команды от MCP-серверов (`/mcp__github__list_prs`)
 
-> **Note**: Custom slash commands have been merged into skills. Files in `.claude/commands/` still work, but skills (`.claude/skills/`) are now the recommended approach. Both create `/command-name` shortcuts. See the [Skills Guide](../03-skills/) for the full reference.
+> **Note**: Пользовательские slash-команды были объединены со skills. Файлы в `.claude/commands/` всё ещё работают, но skills (`.claude/skills/`) теперь рекомендуемый подход. Оба варианта создают ярлыки `/command-name`. См. [Skills Guide](../03-skills/) для полной справки.
 
-## Built-in Commands Reference
+## Справка по встроенным командам
 
-Built-in commands are shortcuts for common actions. There are **55+ built-in commands** and **5 bundled skills** available. Type `/` in Claude Code to see the full list, or type `/` followed by any letters to filter.
+Встроенные команды — это ярлыки для частых действий. Доступно **55+ built-in commands** и **5 bundled skills**. Введите `/` в Claude Code, чтобы увидеть полный список, или `/` и любые буквы, чтобы отфильтровать его.
 
 | Command | Purpose |
 |---------|---------|
-| `/add-dir <path>` | Add working directory |
-| `/agents` | Manage agent configurations |
-| `/branch [name]` | Branch conversation into a new session (alias: `/fork`). Note: `/fork` renamed to `/branch` in v2.1.77 |
-| `/btw <question>` | Side question without adding to history |
-| `/chrome` | Configure Chrome browser integration |
-| `/clear` | Clear conversation (aliases: `/reset`, `/new`) |
-| `/color [color\|default]` | Set prompt bar color |
-| `/compact [instructions]` | Compact conversation with optional focus instructions |
-| `/config` | Open Settings (alias: `/settings`) |
-| `/context` | Visualize context usage as colored grid |
-| `/copy [N]` | Copy assistant response to clipboard; `w` writes to file |
-| `/cost` | Show token usage statistics |
-| `/desktop` | Continue in Desktop app (alias: `/app`) |
-| `/diff` | Interactive diff viewer for uncommitted changes |
-| `/doctor` | Diagnose installation health |
-| `/effort [low\|medium\|high\|max\|auto]` | Set effort level. `max` requires Opus 4.6 |
-| `/exit` | Exit the REPL (alias: `/quit`) |
-| `/export [filename]` | Export the current conversation to a file or clipboard |
-| `/extra-usage` | Configure extra usage for rate limits |
-| `/fast [on\|off]` | Toggle fast mode |
-| `/feedback` | Submit feedback (alias: `/bug`) |
-| `/help` | Show help |
-| `/hooks` | View hook configurations |
-| `/ide` | Manage IDE integrations |
-| `/init` | Initialize `CLAUDE.md`. Set `CLAUDE_CODE_NEW_INIT=true` for interactive flow |
-| `/insights` | Generate session analysis report |
-| `/install-github-app` | Set up GitHub Actions app |
-| `/install-slack-app` | Install Slack app |
-| `/keybindings` | Open keybindings configuration |
-| `/login` | Switch Anthropic accounts |
-| `/logout` | Sign out from your Anthropic account |
-| `/mcp` | Manage MCP servers and OAuth |
-| `/memory` | Edit `CLAUDE.md`, toggle auto-memory |
-| `/mobile` | QR code for mobile app (aliases: `/ios`, `/android`) |
-| `/model [model]` | Select model with left/right arrows for effort |
-| `/passes` | Share free week of Claude Code |
-| `/permissions` | View/update permissions (alias: `/allowed-tools`) |
-| `/plan [description]` | Enter plan mode |
-| `/plugin` | Manage plugins |
-| `/pr-comments [PR]` | Fetch GitHub PR comments |
-| `/privacy-settings` | Privacy settings (Pro/Max only) |
-| `/release-notes` | View changelog |
-| `/reload-plugins` | Reload active plugins |
+| `/add-dir <path>` | Добавить рабочий каталог |
+| `/agents` | Управлять конфигурациями агентов |
+| `/branch [name]` | Ветвить разговор в новую сессию (alias: `/fork`). Note: `/fork` renamed to `/branch` in v2.1.77 |
+| `/btw <question>` | Задать побочный вопрос без добавления в историю |
+| `/chrome` | Настроить интеграцию с браузером Chrome |
+| `/clear` | Очистить разговор (aliases: `/reset`, `/new`) |
+| `/color [color\|default]` | Установить цвет prompt bar |
+| `/compact [instructions]` | Сжать разговор с опциональными инструкциями по фокусу |
+| `/config` | Открыть Settings (alias: `/settings`) |
+| `/context` | Визуализировать использование контекста в виде цветной сетки |
+| `/copy [N]` | Скопировать ответ ассистента в буфер обмена; `w` writes to file |
+| `/cost` | Показать статистику использования токенов |
+| `/desktop` | Продолжить в Desktop app (alias: `/app`) |
+| `/diff` | Интерактивный diff viewer для незакоммиченных изменений |
+| `/doctor` | Диагностировать состояние установки |
+| `/effort [low\|medium\|high\|max\|auto]` | Установить уровень effort. `max` requires Opus 4.6 |
+| `/exit` | Выйти из REPL (alias: `/quit`) |
+| `/export [filename]` | Экспортировать текущий разговор в файл или clipboard |
+| `/extra-usage` | Настроить дополнительное использование для rate limits |
+| `/fast [on\|off]` | Переключить fast mode |
+| `/feedback` | Отправить отзыв (alias: `/bug`) |
+| `/help` | Показать help |
+| `/hooks` | Просмотреть конфигурации hooks |
+| `/ide` | Управлять интеграциями IDE |
+| `/init` | Инициализировать `CLAUDE.md`. Set `CLAUDE_CODE_NEW_INIT=true` for interactive flow |
+| `/insights` | Сгенерировать session analysis report |
+| `/install-github-app` | Настроить GitHub Actions app |
+| `/install-slack-app` | Установить Slack app |
+| `/keybindings` | Открыть конфигурацию keybindings |
+| `/login` | Переключить Anthropic аккаунты |
+| `/logout` | Выйти из Anthropic аккаунта |
+| `/mcp` | Управлять MCP-серверами и OAuth |
+| `/memory` | Редактировать `CLAUDE.md`, переключать auto-memory |
+| `/mobile` | QR code для mobile app (aliases: `/ios`, `/android`) |
+| `/model [model]` | Выбрать модель с помощью стрелок влево/вправо для effort |
+| `/passes` | Поделиться бесплатной неделей Claude Code |
+| `/permissions` | Просмотреть/обновить permissions (alias: `/allowed-tools`) |
+| `/plan [description]` | Войти в plan mode |
+| `/plugin` | Управлять plugins |
+| `/pr-comments [PR]` | Получить комментарии GitHub PR |
+| `/privacy-settings` | Настройки приватности (Pro/Max only) |
+| `/release-notes` | Посмотреть changelog |
+| `/reload-plugins` | Перезагрузить активные plugins |
 | `/remote-control` | Remote control from claude.ai (alias: `/rc`) |
-| `/remote-env` | Configure default remote environment |
-| `/rename [name]` | Rename session |
-| `/resume [session]` | Resume conversation (alias: `/continue`) |
+| `/remote-env` | Настроить default remote environment |
+| `/rename [name]` | Переименовать сессию |
+| `/resume [session]` | Возобновить разговор (alias: `/continue`) |
 | `/review` | **Deprecated** — install the `code-review` plugin instead |
-| `/rewind` | Rewind conversation and/or code (alias: `/checkpoint`) |
-| `/sandbox` | Toggle sandbox mode |
-| `/schedule [description]` | Create/manage scheduled tasks |
-| `/security-review` | Analyze branch for security vulnerabilities |
-| `/skills` | List available skills |
-| `/stats` | Visualize daily usage, sessions, streaks |
-| `/status` | Show version, model, account |
-| `/statusline` | Configure status line |
-| `/tasks` | List/manage background tasks |
-| `/terminal-setup` | Configure terminal keybindings |
-| `/theme` | Change color theme |
-| `/vim` | Toggle Vim/Normal modes |
-| `/voice` | Toggle push-to-talk voice dictation |
+| `/rewind` | Отмотать разговор и/или код назад (alias: `/checkpoint`) |
+| `/sandbox` | Переключить sandbox mode |
+| `/schedule [description]` | Создать/управлять scheduled tasks |
+| `/security-review` | Проанализировать branch на уязвимости безопасности |
+| `/skills` | Показать доступные skills |
+| `/stats` | Визуализировать daily usage, sessions, streaks |
+| `/status` | Показать version, model, account |
+| `/statusline` | Настроить status line |
+| `/tasks` | Список/управление background tasks |
+| `/terminal-setup` | Настроить terminal keybindings |
+| `/theme` | Изменить color theme |
+| `/vim` | Переключить Vim/Normal modes |
+| `/voice` | Переключить push-to-talk voice dictation |
 
 ### Bundled Skills
 
-These skills ship with Claude Code and are invoked like slash commands:
+Эти skills поставляются вместе с Claude Code и вызываются как slash-команды:
 
 | Skill | Purpose |
 |-------|---------|
-| `/batch <instruction>` | Orchestrate large-scale parallel changes using worktrees |
-| `/claude-api` | Load Claude API reference for project language |
-| `/debug [description]` | Enable debug logging |
-| `/loop [interval] <prompt>` | Run prompt repeatedly on interval |
-| `/simplify [focus]` | Review changed files for code quality |
+| `/batch <instruction>` | Организовать крупные параллельные изменения с помощью worktrees |
+| `/claude-api` | Загрузить Claude API reference для языка проекта |
+| `/debug [description]` | Включить debug logging |
+| `/loop [interval] <prompt>` | Запускать prompt повторно с указанным интервалом |
+| `/simplify [focus]` | Проверить изменённые файлы на качество кода |
 
 ### Deprecated Commands
 
@@ -119,18 +119,18 @@ These skills ship with Claude Code and are invoked like slash commands:
 
 ## Custom Commands (Now Skills)
 
-Custom slash commands have been **merged into skills**. Both approaches create commands you can invoke with `/command-name`:
+Пользовательские slash-команды были **объединены со skills**. Оба подхода создают команды, которые можно вызвать через `/command-name`:
 
 | Approach | Location | Status |
 |----------|----------|--------|
 | **Skills (Recommended)** | `.claude/skills/<name>/SKILL.md` | Current standard |
 | **Legacy Commands** | `.claude/commands/<name>.md` | Still works |
 
-If a skill and a command share the same name, the **skill takes precedence**. For example, when both `.claude/commands/review.md` and `.claude/skills/review/SKILL.md` exist, the skill version is used.
+Если skill и command имеют одно имя, **приоритет у skill**. Например, когда существуют и `.claude/commands/review.md`, и `.claude/skills/review/SKILL.md`, используется версия skill.
 
 ### Migration Path
 
-Your existing `.claude/commands/` files continue to work without changes. To migrate to skills:
+Ваши существующие файлы `.claude/commands/` продолжают работать без изменений. Чтобы мигрировать на skills:
 
 **Before (Command):**
 ```
@@ -144,17 +144,17 @@ Your existing `.claude/commands/` files continue to work without changes. To mig
 
 ### Why Skills?
 
-Skills offer additional features over legacy commands:
+Skills дают дополнительные возможности по сравнению с legacy commands:
 
-- **Directory structure**: Bundle scripts, templates, and reference files
-- **Auto-invocation**: Claude can trigger skills automatically when relevant
-- **Invocation control**: Choose whether users, Claude, or both can invoke
-- **Subagent execution**: Run skills in isolated contexts with `context: fork`
-- **Progressive disclosure**: Load additional files only when needed
+- **Directory structure**: объединяйте скрипты, шаблоны и reference files
+- **Auto-invocation**: Claude может запускать skills автоматически, когда это уместно
+- **Invocation control**: выбирайте, кто может вызывать — пользователь, Claude или оба
+- **Subagent execution**: запускайте skills в изолированных контекстах с `context: fork`
+- **Progressive disclosure**: загружайте дополнительные файлы только по необходимости
 
 ### Creating a Custom Command as a Skill
 
-Create a directory with a `SKILL.md` file:
+Создайте каталог с файлом `SKILL.md`:
 
 ```bash
 mkdir -p .claude/skills/my-command
@@ -224,7 +224,7 @@ Usage: `/review-pr 456 high` → `$0`="456", `$1`="high"
 
 ### Dynamic Context with Shell Commands
 
-Execute bash commands before the prompt using `!`command``:
+Выполняйте bash-команды перед prompt с помощью `!`command``:
 
 ```yaml
 ---
@@ -247,7 +247,7 @@ Based on the above changes, create a single git commit.
 
 ### File References
 
-Include file contents using `@`:
+Подключайте содержимое файлов с помощью `@`:
 
 ```markdown
 Review the implementation in @src/utils/helpers.js
@@ -262,7 +262,7 @@ Plugins can provide custom commands:
 /plugin-name:command-name
 ```
 
-Or simply `/command-name` when there are no naming conflicts.
+Или просто `/command-name`, если нет конфликта имён.
 
 **Examples:**
 ```bash
@@ -287,7 +287,7 @@ MCP servers can expose prompts as slash commands:
 
 ### MCP Permission Syntax
 
-Control MCP server access in permissions:
+Управляйте доступом к MCP-серверам через permissions:
 
 - `mcp__github` - Access entire GitHub MCP server
 - `mcp__github__*` - Wildcard access to all tools
@@ -332,11 +332,11 @@ sequenceDiagram
 
 ## Available Commands in This Folder
 
-These example commands can be installed as skills or legacy commands.
+Эти example-команды можно установить как skills или legacy commands.
 
 ### 1. `/optimize` - Code Optimization
 
-Analyzes code for performance issues, memory leaks, and optimization opportunities.
+Анализирует код на проблемы производительности, memory leaks и возможности оптимизации.
 
 **Usage:**
 ```
@@ -346,7 +346,7 @@ Analyzes code for performance issues, memory leaks, and optimization opportuniti
 
 ### 2. `/pr` - Pull Request Preparation
 
-Guides through PR preparation checklist including linting, testing, and commit formatting.
+Проводит через checklist подготовки PR, включая linting, testing и форматирование commit.
 
 **Usage:**
 ```
@@ -358,7 +358,7 @@ Guides through PR preparation checklist including linting, testing, and commit f
 
 ### 3. `/generate-api-docs` - API Documentation Generator
 
-Generates comprehensive API documentation from source code.
+Генерирует полную API-документацию из исходного кода.
 
 **Usage:**
 ```
@@ -367,7 +367,7 @@ Generates comprehensive API documentation from source code.
 
 ### 4. `/commit` - Git Commit with Context
 
-Creates a git commit with dynamic context from your repository.
+Создаёт git commit с динамическим контекстом из репозитория.
 
 **Usage:**
 ```
@@ -376,7 +376,7 @@ Creates a git commit with dynamic context from your repository.
 
 ### 5. `/push-all` - Stage, Commit, and Push
 
-Stages all changes, creates a commit, and pushes to remote with safety checks.
+Ставит все изменения, создаёт commit и отправляет в remote с проверками безопасности.
 
 **Usage:**
 ```
@@ -391,7 +391,7 @@ Stages all changes, creates a commit, and pushes to remote with safety checks.
 
 ### 6. `/doc-refactor` - Documentation Restructuring
 
-Restructures project documentation for clarity and accessibility.
+Перестраивает документацию проекта для большей ясности и доступности.
 
 **Usage:**
 ```
@@ -400,7 +400,7 @@ Restructures project documentation for clarity and accessibility.
 
 ### 7. `/setup-ci-cd` - CI/CD Pipeline Setup
 
-Implements pre-commit hooks and GitHub Actions for quality assurance.
+Реализует pre-commit hooks и GitHub Actions для контроля качества.
 
 **Usage:**
 ```
@@ -409,7 +409,7 @@ Implements pre-commit hooks and GitHub Actions for quality assurance.
 
 ### 8. `/unit-test-expand` - Test Coverage Expansion
 
-Increases test coverage by targeting untested branches and edge cases.
+Увеличивает покрытие тестами, находя непокрытые ветки и edge cases.
 
 **Usage:**
 ```
@@ -420,7 +420,7 @@ Increases test coverage by targeting untested branches and edge cases.
 
 ### As Skills (Recommended)
 
-Copy to your skills directory:
+Скопируйте в каталог skills:
 
 ```bash
 # Create skills directory
@@ -435,7 +435,7 @@ done
 
 ### As Legacy Commands
 
-Copy to your commands directory:
+Скопируйте в каталог commands:
 
 ```bash
 # Project-wide (team)
@@ -451,7 +451,7 @@ cp 01-slash-commands/*.md ~/.claude/commands/
 
 ### Skill Template (Recommended)
 
-Create `.claude/skills/my-command/SKILL.md`:
+Создайте `.claude/skills/my-command/SKILL.md`:
 
 ```yaml
 ---
@@ -482,7 +482,7 @@ allowed-tools: Bash(npm *), Read, Grep
 
 ### User-Only Command (No Auto-Invocation)
 
-For commands with side effects that Claude shouldn't trigger automatically:
+Для команд с побочными эффектами, которые Claude не должен запускать автоматически:
 
 ```yaml
 ---
@@ -504,41 +504,41 @@ Deploy the application to production:
 
 | Do | Don't |
 |------|---------|
-| Use clear, action-oriented names | Create commands for one-time tasks |
-| Include `description` with trigger conditions | Build complex logic in commands |
-| Keep commands focused on single task | Hardcode sensitive information |
-| Use `disable-model-invocation` for side effects | Skip the description field |
-| Use `!` prefix for dynamic context | Assume Claude knows current state |
-| Organize related files in skill directories | Put everything in one file |
+| Используйте ясные, action-oriented названия | Создавайте команды для одноразовых задач |
+| Добавляйте `description` с trigger conditions | Встраивайте сложную логику в команды |
+| Держите команды сфокусированными на одной задаче | Хардкодьте чувствительную информацию |
+| Используйте `disable-model-invocation` для side effects | Пропускайте поле description |
+| Используйте префикс `!` для динамического контекста | Предполагайте, что Claude знает текущее состояние |
+| Организуйте связанные файлы в skill directories | Складывайте всё в один файл |
 
 ## Troubleshooting
 
 ### Command Not Found
 
 **Solutions:**
-- Check file is in `.claude/skills/<name>/SKILL.md` or `.claude/commands/<name>.md`
-- Verify the `name` field in frontmatter matches expected command name
-- Restart Claude Code session
-- Run `/help` to see available commands
+- Проверьте, что файл находится в `.claude/skills/<name>/SKILL.md` или `.claude/commands/<name>.md`
+- Убедитесь, что поле `name` в frontmatter соответствует ожидаемому имени команды
+- Перезапустите сессию Claude Code
+- Запустите `/help`, чтобы увидеть доступные команды
 
 ### Command Not Executing as Expected
 
 **Solutions:**
-- Add more specific instructions
-- Include examples in the skill file
-- Check `allowed-tools` if using bash commands
-- Test with simple inputs first
+- Добавьте более конкретные инструкции
+- Включите примеры в skill-файл
+- Проверьте `allowed-tools`, если используете bash-команды
+- Сначала протестируйте на простых input
 
 ### Skill vs Command Conflict
 
-If both exist with the same name, the **skill takes precedence**. Remove one or rename it.
+Если оба варианта имеют одно имя, **приоритет у skill**. Удалите один из них или переименуйте.
 
 ## Related Guides
 
-- **[Skills](../03-skills/)** - Full reference for skills (auto-invoked capabilities)
-- **[Memory](../02-memory/)** - Persistent context with CLAUDE.md
-- **[Subagents](../04-subagents/)** - Delegated AI agents
-- **[Plugins](../07-plugins/)** - Bundled command collections
+- **[Skills](../03-skills/)** - Полная справка по skills (auto-invoked capabilities)
+- **[Memory](../02-memory/)** - Persistent context с CLAUDE.md
+- **[Subagents](../04-subagents/)** - Делегированные AI-агенты
+- **[Plugins](../07-plugins/)** - Сборники команд
 - **[Hooks](../06-hooks/)** - Event-driven automation
 
 ## Additional Resources
@@ -549,4 +549,4 @@ If both exist with the same name, the **skill takes precedence**. Remove one or 
 
 ---
 
-*Part of the [Claude How To](../) guide series*
+*Часть серии [Claude How To](../) guide series*

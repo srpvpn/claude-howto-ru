@@ -3,26 +3,26 @@ name: api-documentation-generator
 description: Generate comprehensive, accurate API documentation from source code. Use when creating or updating API documentation, generating OpenAPI specs, or when users mention API docs, endpoints, or documentation.
 ---
 
-# API Documentation Generator Skill
+# Навык генерации API-документации
 
-## Generates
+## Что генерирует
 
-- OpenAPI/Swagger specifications
-- API endpoint documentation
-- SDK usage examples
-- Integration guides
-- Error code references
-- Authentication guides
+- Спецификации OpenAPI/Swagger
+- Документацию API-эндпоинтов
+- Примеры использования SDK
+- Руководства по интеграции
+- Справочники кодов ошибок
+- Руководства по аутентификации
 
-## Documentation Structure
+## Структура документации
 
-### For Each Endpoint
+### Для каждого эндпоинта
 
 ```markdown
 ## GET /api/v1/users/:id
 
 ### Description
-Brief explanation of what this endpoint does
+Краткое объяснение того, что делает этот endpoint
 
 ### Parameters
 

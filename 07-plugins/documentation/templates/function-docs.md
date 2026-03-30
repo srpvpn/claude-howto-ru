@@ -1,7 +1,7 @@
-# Function: `functionName`
+# Функция: `functionName`
 
 ## Description
-Brief description of what the function does.
+Краткое описание того, что делает функция.
 
 ## Signature
 ```typescript
@@ -10,29 +10,29 @@ function functionName(param1: Type1, param2: Type2): ReturnType
 
 ## Parameters
 
-| Parameter | Type | Required | Description |
+| Параметр | Тип | Обязателен | Описание |
 |-----------|------|----------|-------------|
-| param1 | Type1 | Yes | Description of param1 |
-| param2 | Type2 | No | Description of param2 |
+| param1 | Type1 | Да | Описание param1 |
+| param2 | Type2 | Нет | Описание param2 |
 
 ## Returns
 **Type**: `ReturnType`
 
-Description of what is returned.
+Описание того, что возвращается.
 
 ## Throws
-- `Error`: When invalid input is provided
-- `TypeError`: When wrong type is passed
+- `Error`: Когда передан некорректный ввод
+- `TypeError`: Когда передан неверный тип
 
 ## Examples
 
-### Basic Usage
+### Базовое использование
 ```typescript
 const result = functionName('value1', 'value2');
 console.log(result);
 ```
 
-### Advanced Usage
+### Продвинутое использование
 ```typescript
 const result = functionName(
   complexParam1,
@@ -41,10 +41,10 @@ const result = functionName(
 ```
 
 ## Notes
-- Additional notes or warnings
-- Performance considerations
-- Best practices
+- Дополнительные замечания или предупреждения
+- Соображения по производительности
+- Лучшие практики
 
 ## See Also
-- [Related Function](#)
-- [API Documentation](#)
+- [Связанная функция](#)
+- [Документация API](#)

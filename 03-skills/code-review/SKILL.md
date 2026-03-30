@@ -3,68 +3,68 @@ name: code-review-specialist
 description: Comprehensive code review with security, performance, and quality analysis. Use when users ask to review code, analyze code quality, evaluate pull requests, or mention code review, security analysis, or performance optimization.
 ---
 
-# Code Review Skill
+# Навык code review
 
-This skill provides comprehensive code review capabilities focusing on:
+Этот навык даёт полноценные возможности для code review с акцентом на:
 
-1. **Security Analysis**
-   - Authentication/authorization issues
-   - Data exposure risks
-   - Injection vulnerabilities
-   - Cryptographic weaknesses
-   - Sensitive data logging
+1. **Анализ безопасности**
+   - Ошибки аутентификации и авторизации
+   - Риски утечки данных
+   - Уязвимости инъекций
+   - Слабые места криптографии
+   - Логирование чувствительных данных
 
-2. **Performance Review**
-   - Algorithm efficiency (Big O analysis)
-   - Memory optimization
-   - Database query optimization
-   - Caching opportunities
-   - Concurrency issues
+2. **Проверка производительности**
+   - Эффективность алгоритмов (анализ Big O)
+   - Оптимизация памяти
+   - Оптимизация запросов к базе данных
+   - Возможности кэширования
+   - Проблемы конкурентности
 
-3. **Code Quality**
-   - SOLID principles
-   - Design patterns
-   - Naming conventions
-   - Documentation
-   - Test coverage
+3. **Качество кода**
+   - Принципы SOLID
+   - Паттерны проектирования
+   - Соглашения об именовании
+   - Документация
+   - Покрытие тестами
 
-4. **Maintainability**
-   - Code readability
-   - Function size (should be < 50 lines)
-   - Cyclomatic complexity
-   - Dependency management
-   - Type safety
+4. **Поддерживаемость**
+   - Читаемость кода
+   - Размер функций (желательно < 50 строк)
+   - Цикломатическая сложность
+   - Управление зависимостями
+   - Безопасность типов
 
-## Review Template
+## Шаблон ревью
 
-For each piece of code reviewed, provide:
+Для каждого проверенного фрагмента кода указывайте:
 
-### Summary
-- Overall quality assessment (1-5)
-- Key findings count
-- Recommended priority areas
+### Сводка
+- Общая оценка качества (1-5)
+- Количество ключевых находок
+- Рекомендуемые приоритетные области
 
-### Critical Issues (if any)
-- **Issue**: Clear description
-- **Location**: File and line number
-- **Impact**: Why this matters
-- **Severity**: Critical/High/Medium
-- **Fix**: Code example
+### Критические проблемы (если есть)
+- **Проблема**: Чёткое описание
+- **Расположение**: Файл и номер строки
+- **Влияние**: Почему это важно
+- **Серьёзность**: Critical/High/Medium
+- **Исправление**: Пример кода
 
-### Findings by Category
+### Находки по категориям
 
-#### Security (if issues found)
-List security vulnerabilities with examples
+#### Безопасность (если есть проблемы)
+Перечислите уязвимости безопасности с примерами
 
-#### Performance (if issues found)
-List performance problems with complexity analysis
+#### Производительность (если есть проблемы)
+Перечислите проблемы производительности с анализом сложности
 
-#### Quality (if issues found)
-List code quality issues with refactoring suggestions
+#### Качество (если есть проблемы)
+Перечислите проблемы качества кода с рекомендациями по рефакторингу
 
-#### Maintainability (if issues found)
-List maintainability problems with improvements
+#### Поддерживаемость (если есть проблемы)
+Перечислите проблемы поддерживаемости с предложениями по улучшению
 
-## Version History
+## История версий
 
-- v1.0.0 (2024-12-10): Initial release with security, performance, quality, and maintainability analysis
+- v1.0.0 (2024-12-10): Первый выпуск с анализом безопасности, производительности, качества и поддерживаемости

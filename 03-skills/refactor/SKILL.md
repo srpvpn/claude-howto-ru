@@ -3,21 +3,21 @@ name: code-refactor
 description: Systematic code refactoring based on Martin Fowler's methodology. Use when users ask to refactor code, improve code structure, reduce technical debt, clean up legacy code, eliminate code smells, or improve code maintainability. This skill guides through a phased approach with research, planning, and safe incremental implementation.
 ---
 
-# Code Refactoring Skill
+# Навык code refactoring
 
-A systematic approach to refactoring code based on Martin Fowler's *Refactoring: Improving the Design of Existing Code* (2nd Edition). This skill emphasizes safe, incremental changes backed by tests.
+Системный подход к рефакторингу кода на основе *Refactoring: Improving the Design of Existing Code* Мартина Фаулера (2-е издание). Навык делает упор на безопасные, небольшие изменения, подтверждённые тестами.
 
-> "Refactoring is the process of changing a software system in such a way that it does not alter the external behavior of the code yet improves its internal structure." — Martin Fowler
+> "Рефакторинг — это процесс изменения программной системы таким образом, чтобы внешнее поведение кода не менялось, а внутренняя структура улучшалась." — Martin Fowler
 
-## Core Principles
+## Основные принципы
 
-1. **Behavior Preservation**: External behavior must remain unchanged
-2. **Small Steps**: Make tiny, testable changes
-3. **Test-Driven**: Tests are the safety net
-4. **Continuous**: Refactoring is ongoing, not a one-time event
-5. **Collaborative**: User approval required at each phase
+1. **Сохранение поведения**: внешнее поведение не должно меняться
+2. **Маленькие шаги**: только небольшие и проверяемые изменения
+3. **Тесты прежде всего**: тесты — это страховка
+4. **Непрерывность**: рефакторинг — это постоянная практика, а не разовая акция
+5. **Совместная работа**: на каждом этапе нужно согласование с пользователем
 
-## Workflow Overview
+## Обзор рабочего процесса
 
 ```
 Phase 1: Research & Analysis
@@ -37,51 +37,51 @@ Phase 6: Review & Iteration
 
 ## Phase 1: Research & Analysis
 
-### Objectives
-- Understand the codebase structure and purpose
-- Identify the scope of refactoring
-- Gather context about business requirements
+### Цели
+- Понять структуру и назначение кодовой базы
+- Определить границы рефакторинга
+- Собрать контекст о бизнес-требованиях
 
-### Questions to Ask User
-Before starting, clarify:
+### Вопросы пользователю
+Перед началом уточните:
 
-1. **Scope**: Which files/modules/functions need refactoring?
-2. **Goals**: What problems are you trying to solve? (readability, performance, maintainability)
-3. **Constraints**: Are there any areas that should NOT be changed?
-4. **Timeline pressure**: Is this blocking other work?
-5. **Test status**: Do tests exist? Are they passing?
+1. **Объём**: какие файлы, модули или функции нужно рефакторить?
+2. **Цели**: какую проблему нужно решить? (читаемость, производительность, поддерживаемость)
+3. **Ограничения**: есть ли области, которые трогать нельзя?
+4. **Срочность**: мешает ли это другой работе?
+5. **Тесты**: существуют ли тесты и проходят ли они?
 
-### Actions
-- [ ] Read and understand the target code
-- [ ] Identify dependencies and integrations
-- [ ] Document current architecture
-- [ ] Note any existing technical debt markers (TODOs, FIXMEs)
+### Действия
+- [ ] Изучить целевой код
+- [ ] Определить зависимости и интеграции
+- [ ] Зафиксировать текущую архитектуру
+- [ ] Отметить технический долг (TODO, FIXME и т. п.)
 
-### Output
-Present findings to user:
-- Code structure summary
-- Identified problem areas
-- Initial recommendations
-- **Request approval to proceed**
+### Результат
+Покажите пользователю:
+- Сводку структуры кода
+- Выявленные проблемные области
+- Первичные рекомендации
+- **Запросите разрешение продолжить**
 
 ---
 
 ## Phase 2: Test Coverage Assessment
 
-### Why Tests Matter
-> "Refactoring without tests is like driving without a seatbelt." — Martin Fowler
+### Зачем нужны тесты
+> "Рефакторинг без тестов — это как вождение без ремня безопасности." — Martin Fowler
 
-Tests are the **key enabler** of safe refactoring. Without them, you risk introducing bugs.
+Тесты — это **ключевой фактор**, который делает безопасный рефакторинг возможным. Без них легко внести баги.
 
-### Assessment Steps
+### Шаги оценки
 
-1. **Check for existing tests**
+1. **Проверить наличие тестов**
    ```bash
-   # Look for test files
+   # Search for test files
    find . -name "*test*" -o -name "*spec*" | head -20
    ```
 
-2. **Run existing tests**
+2. **Запустить существующие тесты**
    ```bash
    # JavaScript/TypeScript
    npm test
@@ -93,7 +93,7 @@ Tests are the **key enabler** of safe refactoring. Without them, you risk introd
    mvn test
    ```
 
-3. **Check coverage (if available)**
+3. **Проверить покрытие (если доступно)**
    ```bash
    # JavaScript
    npm run test:coverage
@@ -102,96 +102,96 @@ Tests are the **key enabler** of safe refactoring. Without them, you risk introd
    pytest --cov=.
    ```
 
-### Decision Point: Ask User
+### Точка принятия решения
 
-**If tests exist and pass:**
-- Proceed to Phase 3
+**Если тесты есть и они проходят:**
+- Переходите к Phase 3
 
-**If tests are missing or incomplete:**
-Present options:
-1. Write tests first (recommended)
-2. Add tests incrementally during refactoring
-3. Proceed without tests (risky - requires user acknowledgment)
+**Если тестов нет или их мало:**
+Предложите варианты:
+1. Написать тесты сначала (рекомендуется)
+2. Добавлять тесты постепенно во время рефакторинга
+3. Продолжить без тестов (рискованно, требует согласия пользователя)
 
-**If tests are failing:**
-- STOP. Fix failing tests before refactoring
-- Ask user: Should we fix tests first?
+**Если тесты падают:**
+- Остановитесь. Сначала исправьте падающие тесты
+- Спросите пользователя: исправляем тесты сначала?
 
-### Test Writing Guidelines (if needed)
+### Если нужно писать тесты
 
-For each function being refactored, ensure tests cover:
-- Happy path (normal operation)
-- Edge cases (empty inputs, null, boundaries)
-- Error scenarios (invalid inputs, exceptions)
+Для каждой рефакторимой функции убедитесь, что тесты покрывают:
+- Happy path
+- Edge cases (пустые значения, null, границы)
+- Сценарии ошибок (невалидный ввод, исключения)
 
-Use the "red-green-refactor" cycle:
-1. Write failing test (red)
-2. Make it pass (green)
-3. Refactor
+Используйте цикл red-green-refactor:
+1. Написать падающий тест (red)
+2. Добиться его прохождения (green)
+3. Рефакторить
 
 ---
 
 ## Phase 3: Code Smell Identification
 
-### What Are Code Smells?
-Symptoms of deeper problems in code. They're not bugs, but indicators that the code could be improved.
+### Что такое code smells?
+Это симптомы более глубоких проблем в коде. Это не баги, но признаки того, что код можно улучшить.
 
-### Common Code Smells to Check
+### Что проверять
 
-See [references/code-smells.md](references/code-smells.md) for the complete catalog.
+См. [references/code-smells.md](references/code-smells.md) для полного каталога.
 
-#### Quick Reference
+#### Краткая памятка
 
-| Smell | Signs | Impact |
+| Code smell | Признаки | Влияние |
 |-------|-------|--------|
-| **Long Method** | Methods > 30-50 lines | Hard to understand, test, maintain |
-| **Duplicated Code** | Same logic in multiple places | Bug fixes needed in multiple places |
-| **Large Class** | Class with too many responsibilities | Violates Single Responsibility |
-| **Feature Envy** | Method uses another class's data more | Poor encapsulation |
-| **Primitive Obsession** | Overuse of primitives instead of objects | Missing domain concepts |
-| **Long Parameter List** | Methods with 4+ parameters | Hard to call correctly |
-| **Data Clumps** | Same data items appearing together | Missing abstraction |
-| **Switch Statements** | Complex switch/if-else chains | Hard to extend |
-| **Speculative Generality** | Code "just in case" | Unnecessary complexity |
-| **Dead Code** | Unused code | Confusion, maintenance burden |
+| **Long Method** | Методы > 30-50 строк | Сложно понимать, тестировать и сопровождать |
+| **Duplicated Code** | Одинаковая логика в нескольких местах | Исправления нужно вносить в нескольких местах |
+| **Large Class** | Класс с большим количеством обязанностей | Нарушает Single Responsibility |
+| **Feature Envy** | Метод чаще использует данные другого класса | Слабая инкапсуляция |
+| **Primitive Obsession** | Слишком много примитивов вместо объектов | Потеря доменных концепций |
+| **Long Parameter List** | Методы с 4+ параметрами | Сложно вызывать правильно |
+| **Data Clumps** | Одни и те же наборы данных встречаются вместе | Не хватает абстракции |
+| **Switch Statements** | Сложные switch/if-else цепочки | Трудно расширять |
+| **Speculative Generality** | Код "на всякий случай" | Лишняя сложность |
+| **Dead Code** | Неиспользуемый код | Путаница и издержки на поддержку |
 
-### Analysis Steps
+### Шаги анализа
 
-1. **Automated Analysis** (if scripts available)
+1. **Автоматический анализ** (если есть скрипты)
    ```bash
    python scripts/detect-smells.py <file>
    ```
 
-2. **Manual Review**
-   - Walk through code systematically
-   - Note each smell with location and severity
-   - Categorize by impact (Critical/High/Medium/Low)
+2. **Ручная проверка**
+   - Последовательно пройти по коду
+   - Зафиксировать каждый smell с местом и серьёзностью
+   - Классифицировать по влиянию (Critical/High/Medium/Low)
 
-3. **Prioritization**
-   Focus on smells that:
-   - Block current development
-   - Cause bugs or confusion
-   - Affect most-changed code paths
+3. **Приоритизация**
+   Сосредоточьтесь на smells, которые:
+   - Блокируют текущую разработку
+   - Вызывают баги или путаницу
+   - Затрагивают наиболее часто меняемые участки
 
-### Output: Smell Report
+### Результат: отчёт о smells
 
-Present to user:
-- List of identified smells with locations
-- Severity assessment for each
-- Recommended priority order
-- **Request approval on priorities**
+Покажите пользователю:
+- Список обнаруженных smells с местами
+- Оценку серьёзности для каждого
+- Рекомендуемый порядок приоритетов
+- **Запросите согласование приоритетов**
 
 ---
 
 ## Phase 4: Refactoring Plan Creation
 
-### Selecting Refactorings
+### Выбор рефакторинга
 
-For each smell, select an appropriate refactoring from the catalog.
+Для каждого smell выберите подходящий рефакторинг из каталога.
 
-See [references/refactoring-catalog.md](references/refactoring-catalog.md) for the complete list.
+См. [references/refactoring-catalog.md](references/refactoring-catalog.md) для полного списка.
 
-#### Smell-to-Refactoring Mapping
+#### Соответствие smell -> refactoring
 
 | Code Smell | Recommended Refactoring(s) |
 |------------|---------------------------|
@@ -206,221 +206,14 @@ See [references/refactoring-catalog.md](references/refactoring-catalog.md) for t
 | Speculative Generality | Collapse Hierarchy, Inline Class, Remove Dead Code |
 | Dead Code | Remove Dead Code |
 
-### Plan Structure
+### Структура плана
 
-Use the template at [templates/refactoring-plan.md](templates/refactoring-plan.md).
+Используйте шаблон из [templates/refactoring-plan.md](templates/refactoring-plan.md).
 
-For each refactoring:
-1. **Target**: What code will change
-2. **Smell**: What problem it addresses
-3. **Refactoring**: Which technique to apply
-4. **Steps**: Detailed micro-steps
-5. **Risks**: What could go wrong
-6. **Rollback**: How to undo if needed
-
-### Phased Approach
-
-**CRITICAL**: Introduce refactoring gradually in phases.
-
-**Phase A: Quick Wins** (Low risk, high value)
-- Rename variables for clarity
-- Extract obvious duplicate code
-- Remove dead code
-
-**Phase B: Structural Improvements** (Medium risk)
-- Extract methods from long functions
-- Introduce parameter objects
-- Move methods to appropriate classes
-
-**Phase C: Architectural Changes** (Higher risk)
-- Replace conditionals with polymorphism
-- Extract classes
-- Introduce design patterns
-
-### Decision Point: Present Plan to User
-
-Before implementation:
-- Show complete refactoring plan
-- Explain each phase and its risks
-- Get explicit approval for each phase
-- **Ask**: "Should I proceed with Phase A?"
-
----
-
-## Phase 5: Incremental Implementation
-
-### The Golden Rule
-> "Change → Test → Green? → Commit → Next step"
-
-### Implementation Rhythm
-
-For each refactoring step:
-
-1. **Pre-check**
-   - Tests are passing (green)
-   - Code compiles
-
-2. **Make ONE small change**
-   - Follow the mechanics from the catalog
-   - Keep changes minimal
-
-3. **Verify**
-   - Run tests immediately
-   - Check for compilation errors
-
-4. **If tests pass (green)**
-   - Commit with descriptive message
-   - Move to next step
-
-5. **If tests fail (red)**
-   - STOP immediately
-   - Undo the change
-   - Analyze what went wrong
-   - Ask user if unclear
-
-### Commit Strategy
-
-Each commit should be:
-- **Atomic**: One logical change
-- **Reversible**: Easy to revert
-- **Descriptive**: Clear commit message
-
-Example commit messages:
-```
-refactor: Extract calculateTotal() from processOrder()
-refactor: Rename 'x' to 'customerCount' for clarity
-refactor: Remove unused validateOldFormat() method
-```
-
-### Progress Reporting
-
-After each sub-phase, report to user:
-- Changes made
-- Tests still passing?
-- Any issues encountered
-- **Ask**: "Continue with next batch?"
-
----
-
-## Phase 6: Review & Iteration
-
-### Post-Refactoring Checklist
-
-- [ ] All tests passing
-- [ ] No new warnings/errors
-- [ ] Code compiles successfully
-- [ ] Behavior unchanged (manual verification)
-- [ ] Documentation updated if needed
-- [ ] Commit history is clean
-
-### Metrics Comparison
-
-Run complexity analysis before and after:
-```bash
-python scripts/analyze-complexity.py <file>
-```
-
-Present improvements:
-- Lines of code change
-- Cyclomatic complexity change
-- Maintainability index change
-
-### User Review
-
-Present final results:
-- Summary of all changes
-- Before/after code comparison
-- Metrics improvements
-- Remaining technical debt
-- **Ask**: "Are you satisfied with these changes?"
-
-### Next Steps
-
-Discuss with user:
-- Additional smells to address?
-- Schedule follow-up refactoring?
-- Apply similar changes elsewhere?
-
----
-
-## Important Guidelines
-
-### When to STOP and Ask
-
-Always pause and consult user when:
-- Unsure about business logic
-- Change might affect external APIs
-- Test coverage is inadequate
-- Significant architectural decision needed
-- Risk level increases
-- You encounter unexpected complexity
-
-### Safety Rules
-
-1. **Never refactor without tests** (unless user explicitly acknowledges risk)
-2. **Never make big changes** - break into tiny steps
-3. **Never skip the test run** after each change
-4. **Never continue if tests fail** - fix or rollback first
-5. **Never assume** - when in doubt, ask
-
-### What NOT to Do
-
-- Don't combine refactoring with feature additions
-- Don't refactor during production emergencies
-- Don't refactor code you don't understand
-- Don't over-engineer - keep it simple
-- Don't refactor everything at once
-
----
-
-## Quick Start Example
-
-### Scenario: Long Method with Duplication
-
-**Before:**
-```javascript
-function processOrder(order) {
-  // 150 lines of code with:
-  // - Duplicated validation logic
-  // - Inline calculations
-  // - Mixed responsibilities
-}
-```
-
-**Refactoring Steps:**
-
-1. **Ensure tests exist** for processOrder()
-2. **Extract** validation into validateOrder()
-3. **Test** - should pass
-4. **Extract** calculation into calculateOrderTotal()
-5. **Test** - should pass
-6. **Extract** notification into notifyCustomer()
-7. **Test** - should pass
-8. **Review** - processOrder() now orchestrates 3 clear functions
-
-**After:**
-```javascript
-function processOrder(order) {
-  validateOrder(order);
-  const total = calculateOrderTotal(order);
-  notifyCustomer(order, total);
-  return { order, total };
-}
-```
-
----
-
-## References
-
-- [Code Smells Catalog](references/code-smells.md) - Complete list of code smells
-- [Refactoring Catalog](references/refactoring-catalog.md) - Refactoring techniques
-- [Refactoring Plan Template](templates/refactoring-plan.md) - Planning template
-
-## Scripts
-
-- `scripts/analyze-complexity.py` - Analyze code complexity metrics
-- `scripts/detect-smells.py` - Automated smell detection
-
-## Version History
-
-- v1.0.0 (2025-01-15): Initial release with Fowler methodology, phased approach, user consultation points
+Для каждого рефакторинга укажите:
+1. **Цель**: какой код меняется
+2. **Smell**: какую проблему он решает
+3. **Refactoring**: какой приём применяется
+4. **Шаги**: подробные микро-шаги
+5. **Риски**: что может пойти не так
+6. **Rollback**: как откатить изменения при необходимости

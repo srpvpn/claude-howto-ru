@@ -5,11 +5,11 @@
 
 # CLI Reference
 
-## Overview
+## Обзор
 
-The Claude Code CLI (Command Line Interface) is the primary way to interact with Claude Code. It provides powerful options for running queries, managing sessions, configuring models, and integrating Claude into your development workflows.
+Claude Code CLI (Command Line Interface) — это основной способ взаимодействия с Claude Code. Он даёт мощные возможности для запуска запросов, управления сессиями, настройки моделей и интеграции Claude в рабочие процессы разработки.
 
-## Architecture
+## Архитектура
 
 ```mermaid
 graph TD
@@ -28,48 +28,48 @@ graph TD
 
 | Command | Description | Example |
 |---------|-------------|---------|
-| `claude` | Start interactive REPL | `claude` |
-| `claude "query"` | Start REPL with initial prompt | `claude "explain this project"` |
-| `claude -p "query"` | Print mode - query then exit | `claude -p "explain this function"` |
-| `cat file \| claude -p "query"` | Process piped content | `cat logs.txt \| claude -p "explain"` |
-| `claude -c` | Continue most recent conversation | `claude -c` |
-| `claude -c -p "query"` | Continue in print mode | `claude -c -p "check for type errors"` |
-| `claude -r "<session>" "query"` | Resume session by ID or name | `claude -r "auth-refactor" "finish this PR"` |
-| `claude update` | Update to latest version | `claude update` |
-| `claude mcp` | Configure MCP servers | See [MCP documentation](../05-mcp/) |
-| `claude mcp serve` | Run Claude Code as an MCP server | `claude mcp serve` |
-| `claude agents` | List all configured subagents | `claude agents` |
-| `claude auto-mode defaults` | Print auto mode default rules as JSON | `claude auto-mode defaults` |
-| `claude remote-control` | Start Remote Control server | `claude remote-control` |
-| `claude plugin` | Manage plugins (install, enable, disable) | `claude plugin install my-plugin` |
-| `claude auth login` | Log in (supports `--email`, `--sso`) | `claude auth login --email user@example.com` |
-| `claude auth logout` | Log out of current account | `claude auth logout` |
-| `claude auth status` | Check auth status (exit 0 if logged in, 1 if not) | `claude auth status` |
+| `claude` | Запустить интерактивный REPL | `claude` |
+| `claude "query"` | Запустить REPL с начальным prompt | `claude "explain this project"` |
+| `claude -p "query"` | Print mode - выполнить запрос и выйти | `claude -p "explain this function"` |
+| `cat file \| claude -p "query"` | Обработать данные из pipe | `cat logs.txt \| claude -p "explain"` |
+| `claude -c` | Продолжить последнюю беседу | `claude -c` |
+| `claude -c -p "query"` | Продолжить в print mode | `claude -c -p "check for type errors"` |
+| `claude -r "<session>" "query"` | Возобновить сессию по ID или имени | `claude -r "auth-refactor" "finish this PR"` |
+| `claude update` | Обновить до последней версии | `claude update` |
+| `claude mcp` | Настроить MCP servers | См. [MCP documentation](../05-mcp/) |
+| `claude mcp serve` | Запустить Claude Code как MCP server | `claude mcp serve` |
+| `claude agents` | Показать все настроенные subagents | `claude agents` |
+| `claude auto-mode defaults` | Вывести правила auto mode в JSON | `claude auto-mode defaults` |
+| `claude remote-control` | Запустить Remote Control server | `claude remote-control` |
+| `claude plugin` | Управлять plugins (install, enable, disable) | `claude plugin install my-plugin` |
+| `claude auth login` | Войти (поддерживает `--email`, `--sso`) | `claude auth login --email user@example.com` |
+| `claude auth logout` | Выйти из текущего аккаунта | `claude auth logout` |
+| `claude auth status` | Проверить статус авторизации (exit 0 если вошли, 1 если нет) | `claude auth status` |
 
 ## Core Flags
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `-p, --print` | Print response without interactive mode | `claude -p "query"` |
-| `-c, --continue` | Load most recent conversation | `claude --continue` |
-| `-r, --resume` | Resume specific session by ID or name | `claude --resume auth-refactor` |
-| `-v, --version` | Output version number | `claude -v` |
-| `-w, --worktree` | Start in isolated git worktree | `claude -w` |
-| `-n, --name` | Session display name | `claude -n "auth-refactor"` |
-| `--from-pr <number>` | Resume sessions linked to GitHub PR | `claude --from-pr 42` |
-| `--remote "task"` | Create web session on claude.ai | `claude --remote "implement API"` |
-| `--remote-control, --rc` | Interactive session with Remote Control | `claude --rc` |
-| `--teleport` | Resume web session locally | `claude --teleport` |
-| `--teammate-mode` | Agent team display mode | `claude --teammate-mode tmux` |
-| `--bare` | Minimal mode (skip hooks, skills, plugins, MCP, auto memory, CLAUDE.md) | `claude --bare` |
-| `--enable-auto-mode` | Unlock auto permission mode | `claude --enable-auto-mode` |
-| `--channels` | Subscribe to MCP channel plugins | `claude --channels discord,telegram` |
-| `--chrome` / `--no-chrome` | Enable/disable Chrome browser integration | `claude --chrome` |
-| `--effort` | Set thinking effort level | `claude --effort high` |
-| `--init` / `--init-only` | Run initialization hooks | `claude --init` |
-| `--maintenance` | Run maintenance hooks and exit | `claude --maintenance` |
-| `--disable-slash-commands` | Disable all skills and slash commands | `claude --disable-slash-commands` |
-| `--no-session-persistence` | Disable session saving (print mode) | `claude -p --no-session-persistence "query"` |
+| `-p, --print` | Вывести ответ без интерактивного режима | `claude -p "query"` |
+| `-c, --continue` | Загрузить последнюю беседу | `claude --continue` |
+| `-r, --resume` | Возобновить конкретную сессию по ID или имени | `claude --resume auth-refactor` |
+| `-v, --version` | Показать номер версии | `claude -v` |
+| `-w, --worktree` | Запустить в изолированном git worktree | `claude -w` |
+| `-n, --name` | Отображаемое имя сессии | `claude -n "auth-refactor"` |
+| `--from-pr <number>` | Возобновить сессии, привязанные к GitHub PR | `claude --from-pr 42` |
+| `--remote "task"` | Создать web session на claude.ai | `claude --remote "implement API"` |
+| `--remote-control, --rc` | Интерактивная сессия с Remote Control | `claude --rc` |
+| `--teleport` | Возобновить web session локально | `claude --teleport` |
+| `--teammate-mode` | Режим отображения agent team | `claude --teammate-mode tmux` |
+| `--bare` | Минимальный режим (без hooks, skills, plugins, MCP, auto memory, CLAUDE.md) | `claude --bare` |
+| `--enable-auto-mode` | Включить auto permission mode | `claude --enable-auto-mode` |
+| `--channels` | Подписаться на MCP channel plugins | `claude --channels discord,telegram` |
+| `--chrome` / `--no-chrome` | Включить/выключить интеграцию с Chrome browser | `claude --chrome` |
+| `--effort` | Установить уровень thinking effort | `claude --effort high` |
+| `--init` / `--init-only` | Запустить initialization hooks | `claude --init` |
+| `--maintenance` | Запустить maintenance hooks и выйти | `claude --maintenance` |
+| `--disable-slash-commands` | Отключить все skills и slash-команды | `claude --disable-slash-commands` |
+| `--no-session-persistence` | Отключить сохранение сессии (print mode) | `claude -p --no-session-persistence "query"` |
 
 ### Interactive vs Print Mode
 
@@ -81,7 +81,7 @@ graph LR
     C -->|Features| E["Single query<br>Scriptable<br>Pipeable<br>JSON output"]
 ```
 
-**Interactive Mode** (default):
+**Interactive Mode** (по умолчанию):
 ```bash
 # Start interactive session
 claude
@@ -106,11 +106,11 @@ claude -p "list todos" | grep "URGENT"
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `--model` | Set model (sonnet, opus, haiku, or full name) | `claude --model opus` |
-| `--fallback-model` | Automatic model fallback when overloaded | `claude -p --fallback-model sonnet "query"` |
-| `--agent` | Specify agent for session | `claude --agent my-custom-agent` |
-| `--agents` | Define custom subagents via JSON | See [Agents Configuration](#agents-configuration) |
-| `--effort` | Set effort level (low, medium, high, max) | `claude --effort high` |
+| `--model` | Установить модель (sonnet, opus, haiku, или full name) | `claude --model opus` |
+| `--fallback-model` | Автоматический fallback модели при перегрузке | `claude -p --fallback-model sonnet "query"` |
+| `--agent` | Указать agent для сессии | `claude --agent my-custom-agent` |
+| `--agents` | Определить custom subagents через JSON | См. [Agents Configuration](#agents-configuration) |
+| `--effort` | Установить уровень effort (low, medium, high, max) | `claude --effort high` |
 
 ### Model Selection Examples
 
@@ -135,9 +135,9 @@ claude --model opusplan "design and implement the caching layer"
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `--system-prompt` | Replace entire default prompt | `claude --system-prompt "You are a Python expert"` |
-| `--system-prompt-file` | Load prompt from file (print mode) | `claude -p --system-prompt-file ./prompt.txt "query"` |
-| `--append-system-prompt` | Append to default prompt | `claude --append-system-prompt "Always use TypeScript"` |
+| `--system-prompt` | Заменить весь default prompt | `claude --system-prompt "You are a Python expert"` |
+| `--system-prompt-file` | Загрузить prompt из файла (print mode) | `claude -p --system-prompt-file ./prompt.txt "query"` |
+| `--append-system-prompt` | Добавить к default prompt | `claude --append-system-prompt "Always use TypeScript"` |
 
 ### System Prompt Examples
 
@@ -166,13 +166,13 @@ claude -p --system-prompt-file ./prompts/code-reviewer.txt "review main.py"
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `--tools` | Restrict available built-in tools | `claude -p --tools "Bash,Edit,Read" "query"` |
-| `--allowedTools` | Tools that execute without prompting | `"Bash(git log:*)" "Read"` |
-| `--disallowedTools` | Tools removed from context | `"Bash(rm:*)" "Edit"` |
-| `--dangerously-skip-permissions` | Skip all permission prompts | `claude --dangerously-skip-permissions` |
-| `--permission-mode` | Begin in specified permission mode | `claude --permission-mode auto` |
-| `--permission-prompt-tool` | MCP tool for permission handling | `claude -p --permission-prompt-tool mcp_auth "query"` |
-| `--enable-auto-mode` | Unlock auto permission mode | `claude --enable-auto-mode` |
+| `--tools` | Ограничить доступные built-in tools | `claude -p --tools "Bash,Edit,Read" "query"` |
+| `--allowedTools` | Инструменты, которые выполняются без запроса | `"Bash(git log:*)" "Read"` |
+| `--disallowedTools` | Инструменты, убранные из контекста | `"Bash(rm:*)" "Edit"` |
+| `--dangerously-skip-permissions` | Пропустить все permission prompts | `claude --dangerously-skip-permissions` |
+| `--permission-mode` | Начать в указанном режиме разрешений | `claude --permission-mode auto` |
+| `--permission-prompt-tool` | MCP tool для обработки permissions | `claude -p --permission-prompt-tool mcp_auth "query"` |
+| `--enable-auto-mode` | Включить auto permission mode | `claude --enable-auto-mode` |
 
 ### Permission Examples
 
@@ -194,12 +194,12 @@ claude --disallowedTools "Bash(rm -rf:*)" "Bash(git push --force:*)"
 
 | Flag | Description | Options | Example |
 |------|-------------|---------|---------|
-| `--output-format` | Specify output format (print mode) | `text`, `json`, `stream-json` | `claude -p --output-format json "query"` |
-| `--input-format` | Specify input format (print mode) | `text`, `stream-json` | `claude -p --input-format stream-json` |
-| `--verbose` | Enable verbose logging | | `claude --verbose` |
-| `--include-partial-messages` | Include streaming events | Requires `stream-json` | `claude -p --output-format stream-json --include-partial-messages "query"` |
-| `--json-schema` | Get validated JSON matching schema | | `claude -p --json-schema '{"type":"object"}' "query"` |
-| `--max-budget-usd` | Maximum spend for print mode | | `claude -p --max-budget-usd 5.00 "query"` |
+| `--output-format` | Указать формат вывода (print mode) | `text`, `json`, `stream-json` | `claude -p --output-format json "query"` |
+| `--input-format` | Указать формат ввода (print mode) | `text`, `stream-json` | `claude -p --input-format stream-json` |
+| `--verbose` | Включить verbose logging | | `claude --verbose` |
+| `--include-partial-messages` | Включить streaming events | Requires `stream-json` | `claude -p --output-format stream-json --include-partial-messages "query"` |
+| `--json-schema` | Получить validated JSON по schema | | `claude -p --json-schema '{"type":"object"}' "query"` |
+| `--max-budget-usd` | Максимальная стоимость для print mode | | `claude -p --max-budget-usd 5.00 "query"` |
 
 ### Output Format Examples
 
@@ -222,10 +222,10 @@ claude -p --json-schema '{"type":"object","properties":{"bugs":{"type":"array"}}
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `--add-dir` | Add additional working directories | `claude --add-dir ../apps ../lib` |
+| `--add-dir` | Добавить дополнительные working directories | `claude --add-dir ../apps ../lib` |
 | `--setting-sources` | Comma-separated setting sources | `claude --setting-sources user,project` |
-| `--settings` | Load settings from file or JSON | `claude --settings ./settings.json` |
-| `--plugin-dir` | Load plugins from directory (repeatable) | `claude --plugin-dir ./my-plugin` |
+| `--settings` | Загружать settings из файла или JSON | `claude --settings ./settings.json` |
+| `--plugin-dir` | Загружать plugins из каталога (repeatable) | `claude --plugin-dir ./my-plugin` |
 
 ### Multi-Directory Example
 
@@ -241,9 +241,9 @@ claude --settings '{"model":"opus","verbose":true}' "complex task"
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `--mcp-config` | Load MCP servers from JSON | `claude --mcp-config ./mcp.json` |
-| `--strict-mcp-config` | Only use specified MCP config | `claude --strict-mcp-config --mcp-config ./mcp.json` |
-| `--channels` | Subscribe to MCP channel plugins | `claude --channels discord,telegram` |
+| `--mcp-config` | Загрузить MCP servers из JSON | `claude --mcp-config ./mcp.json` |
+| `--strict-mcp-config` | Использовать только указанный MCP config | `claude --strict-mcp-config --mcp-config ./mcp.json` |
+| `--channels` | Подписаться на MCP channel plugins | `claude --channels discord,telegram` |
 
 ### MCP Examples
 
@@ -259,8 +259,8 @@ claude --strict-mcp-config --mcp-config ./production-mcp.json "deploy to staging
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `--session-id` | Use specific session ID (UUID) | `claude --session-id "550e8400-..."` |
-| `--fork-session` | Create new session when resuming | `claude --resume abc123 --fork-session` |
+| `--session-id` | Использовать конкретный session ID (UUID) | `claude --session-id "550e8400-..."` |
+| `--fork-session` | Создавать новую сессию при resume | `claude --resume abc123 --fork-session` |
 
 ### Session Examples
 
@@ -280,7 +280,7 @@ claude --session-id "550e8400-e29b-41d4-a716-446655440000" "continue"
 
 ### Session Fork
 
-Create a branch from an existing session for experimentation:
+Создайте ветку от существующей сессии для экспериментов:
 
 ```bash
 # Fork a session to try a different approach
@@ -291,31 +291,31 @@ claude -r "feature-auth" --fork-session "test with different architecture"
 ```
 
 **Use Cases:**
-- Try alternative implementations without losing the original session
-- Experiment with different approaches in parallel
-- Create branches from successful work for variations
-- Test breaking changes without affecting the main session
+- Пробовать альтернативные реализации без потери оригинальной сессии
+- Экспериментировать с разными подходами параллельно
+- Создавать ветки от успешной работы для вариаций
+- Тестировать breaking changes без влияния на основную сессию
 
-The original session remains unchanged, and the fork becomes a new independent session.
+Оригинальная сессия остаётся неизменной, а fork становится новой независимой сессией.
 
 ## Advanced Features
 
 | Flag | Description | Example |
 |------|-------------|---------|
-| `--chrome` | Enable Chrome browser integration | `claude --chrome` |
-| `--no-chrome` | Disable Chrome browser integration | `claude --no-chrome` |
-| `--ide` | Auto-connect to IDE if available | `claude --ide` |
-| `--max-turns` | Limit agentic turns (non-interactive) | `claude -p --max-turns 3 "query"` |
-| `--debug` | Enable debug mode with filtering | `claude --debug "api,mcp"` |
-| `--enable-lsp-logging` | Enable verbose LSP logging | `claude --enable-lsp-logging` |
-| `--betas` | Beta headers for API requests | `claude --betas interleaved-thinking` |
-| `--plugin-dir` | Load plugins from directory (repeatable) | `claude --plugin-dir ./my-plugin` |
-| `--enable-auto-mode` | Unlock auto permission mode | `claude --enable-auto-mode` |
-| `--effort` | Set thinking effort level | `claude --effort high` |
-| `--bare` | Minimal mode (skip hooks, skills, plugins, MCP, auto memory, CLAUDE.md) | `claude --bare` |
-| `--channels` | Subscribe to MCP channel plugins | `claude --channels discord` |
-| `--fork-session` | Create new session ID when resuming | `claude --resume abc --fork-session` |
-| `--max-budget-usd` | Maximum spend (print mode) | `claude -p --max-budget-usd 5.00 "query"` |
+| `--chrome` | Включить интеграцию с Chrome browser | `claude --chrome` |
+| `--no-chrome` | Выключить интеграцию с Chrome browser | `claude --no-chrome` |
+| `--ide` | Автоматически подключаться к IDE, если доступно | `claude --ide` |
+| `--max-turns` | Ограничить agentic turns (non-interactive) | `claude -p --max-turns 3 "query"` |
+| `--debug` | Включить debug mode с фильтрацией | `claude --debug "api,mcp"` |
+| `--enable-lsp-logging` | Включить verbose LSP logging | `claude --enable-lsp-logging` |
+| `--betas` | Beta headers для API requests | `claude --betas interleaved-thinking` |
+| `--plugin-dir` | Загружать plugins из каталога (repeatable) | `claude --plugin-dir ./my-plugin` |
+| `--enable-auto-mode` | Включить auto permission mode | `claude --enable-auto-mode` |
+| `--effort` | Установить thinking effort level | `claude --effort high` |
+| `--bare` | Минимальный режим (skip hooks, skills, plugins, MCP, auto memory, CLAUDE.md) | `claude --bare` |
+| `--channels` | Подписаться на MCP channel plugins | `claude --channels discord` |
+| `--fork-session` | Создавать новый session ID при resume | `claude --resume abc --fork-session` |
+| `--max-budget-usd` | Максимальные траты (print mode) | `claude -p --max-budget-usd 5.00 "query"` |
 | `--json-schema` | Validated JSON output | `claude -p --json-schema '{"type":"object"}' "q"` |
 
 ### Advanced Examples
@@ -333,7 +333,7 @@ claude --ide "help me with this file"
 
 ## Agents Configuration
 
-The `--agents` flag accepts a JSON object defining custom subagents for a session.
+Флаг `--agents` принимает JSON-объект, который задаёт custom subagents для сессии.
 
 ### Agents JSON Format
 
@@ -404,7 +404,7 @@ claude -p --agents "$(cat agents.json)" --model sonnet "analyze performance"
 
 ### Agent Priority
 
-When multiple agent definitions exist, they are loaded in this priority order:
+Когда существует несколько определений agents, они загружаются в таком порядке:
 1. **CLI-defined** (`--agents` flag) - Session-specific
 2. **User-level** (`~/.claude/agents/`) - All projects
 3. **Project-level** (`.claude/agents/`) - Current project
@@ -417,7 +417,7 @@ CLI-defined agents override both user and project agents for the session.
 
 ### 1. CI/CD Integration
 
-Use Claude Code in your CI/CD pipelines for automated code review, testing, and documentation.
+Используйте Claude Code в CI/CD pipelines для автоматического code review, тестирования и документации.
 
 **GitHub Actions Example:**
 
@@ -478,7 +478,7 @@ pipeline {
 
 ### 2. Script Piping
 
-Process files, logs, and data through Claude for analysis.
+Обрабатывайте файлы, логи и данные через Claude для анализа.
 
 **Log Analysis:**
 
@@ -508,7 +508,7 @@ grep -r "TODO" src/ | claude -p "prioritize these TODOs by importance"
 
 ### 3. Multi-Session Workflows
 
-Manage complex projects with multiple conversation threads.
+Управляйте сложными проектами с несколькими conversation threads.
 
 ```bash
 # Start a feature branch session
@@ -526,7 +526,7 @@ claude -r "feature-payments" "continue with Stripe integration"
 
 ### 4. Custom Agent Configuration
 
-Define specialized agents for your team's workflows.
+Создавайте специализированных agents для workflow вашей команды.
 
 ```bash
 # Save agents config to file
@@ -556,7 +556,7 @@ claude --agents "$(cat ~/.claude/agents.json)" "review the auth module"
 
 ### 5. Batch Processing
 
-Process multiple queries with consistent settings.
+Обрабатывайте несколько запросов с одинаковыми настройками.
 
 ```bash
 # Process multiple files
@@ -579,7 +579,7 @@ done
 
 ### 6. Security-Conscious Development
 
-Use permission controls for safe operation.
+Используйте permission controls для безопасной работы.
 
 ```bash
 # Read-only security audit
@@ -599,7 +599,7 @@ claude -p --max-turns 2 \
 
 ### 7. JSON API Integration
 
-Use Claude as a programmable API for your tools with `jq` parsing.
+Используйте Claude как программируемый API для своих инструментов с помощью `jq`.
 
 ```bash
 # Get structured analysis
@@ -652,7 +652,7 @@ claude -p --output-format json "list improvements" | jq 'map({title: .title, pri
 
 ## Models
 
-Claude Code supports multiple models with different capabilities:
+Claude Code поддерживает несколько моделей с разными возможностями:
 
 | Model | ID | Context Window | Notes |
 |-------|-----|----------------|-------|
@@ -690,7 +690,7 @@ claude --effort high "complex review"
 export CLAUDE_CODE_EFFORT_LEVEL=high   # low, medium, high, or max (Opus 4.6 only)
 ```
 
-The "ultrathink" keyword in prompts activates deep reasoning. The `max` effort level is exclusive to Opus 4.6.
+Ключевое слово "ultrathink" в prompt'ах включает глубокое reasoning. Уровень `max` доступен только в Opus 4.6.
 
 ---
 
@@ -774,58 +774,58 @@ claude -p --output-format json "query"
 **Problem:** `claude: command not found`
 
 **Solutions:**
-- Install Claude Code: `npm install -g @anthropic-ai/claude-code`
-- Check PATH includes npm global bin directory
-- Try running with full path: `npx claude`
+- Установите Claude Code: `npm install -g @anthropic-ai/claude-code`
+- Проверьте, что PATH включает npm global bin directory
+- Попробуйте запустить через полный путь: `npx claude`
 
 ### API Key Issues
 
 **Problem:** Authentication failed
 
 **Solutions:**
-- Set API key: `export ANTHROPIC_API_KEY=your-key`
-- Check key is valid and has sufficient credits
-- Verify key permissions for the model requested
+- Установите API key: `export ANTHROPIC_API_KEY=your-key`
+- Проверьте, что ключ действителен и на нём достаточно credits
+- Убедитесь, что права ключа подходят для запрошенной модели
 
 ### Session Not Found
 
 **Problem:** Cannot resume session
 
 **Solutions:**
-- List available sessions to find correct name/ID
-- Sessions may expire after period of inactivity
-- Use `-c` to continue most recent session
+- Посмотрите доступные sessions, чтобы найти правильное имя/ID
+- Sessions могут истекать после периода неактивности
+- Используйте `-c` для продолжения самой последней session
 
 ### Output Format Issues
 
 **Problem:** JSON output is malformed
 
 **Solutions:**
-- Use `--json-schema` to enforce structure
-- Add explicit JSON instructions in prompt
-- Use `--output-format json` (not just asking for JSON in prompt)
+- Используйте `--json-schema`, чтобы зафиксировать структуру
+- Добавьте явные JSON-инструкции в prompt
+- Используйте `--output-format json` (а не просто просите JSON в prompt)
 
 ### Permission Denied
 
 **Problem:** Tool execution blocked
 
 **Solutions:**
-- Check `--permission-mode` setting
-- Review `--allowedTools` and `--disallowedTools` flags
-- Use `--dangerously-skip-permissions` for automation (with caution)
+- Проверьте настройку `--permission-mode`
+- Посмотрите флаги `--allowedTools` и `--disallowedTools`
+- Используйте `--dangerously-skip-permissions` для automation (с осторожностью)
 
 ---
 
 ## Additional Resources
 
-- **[Official CLI Reference](https://code.claude.com/docs/en/cli-reference)** - Complete command reference
-- **[Headless Mode Documentation](https://code.claude.com/docs/en/headless)** - Automated execution
-- **[Slash Commands](../01-slash-commands/)** - Custom shortcuts within Claude
-- **[Memory Guide](../02-memory/)** - Persistent context via CLAUDE.md
-- **[MCP Protocol](../05-mcp/)** - External tool integrations
-- **[Advanced Features](../09-advanced-features/)** - Planning mode, extended thinking
-- **[Subagents Guide](../04-subagents/)** - Delegated task execution
+- **[Official CLI Reference](https://code.claude.com/docs/en/cli-reference)** - Полная справка по командам
+- **[Headless Mode Documentation](https://code.claude.com/docs/en/headless)** - Автоматическое выполнение
+- **[Slash Commands](../01-slash-commands/)** - Пользовательские ярлыки внутри Claude
+- **[Memory Guide](../02-memory/)** - Постоянный контекст через CLAUDE.md
+- **[MCP Protocol](../05-mcp/)** - Интеграции с внешними инструментами
+- **[Advanced Features](../09-advanced-features/)** - planning mode, extended thinking
+- **[Subagents Guide](../04-subagents/)** - Делегированное выполнение задач
 
 ---
 
-*Part of the [Claude How To](../) guide series*
+*Часть серии [Claude How To](../) guide series*

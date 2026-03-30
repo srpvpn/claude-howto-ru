@@ -5,20 +5,21 @@
 
 # MCP (Model Context Protocol)
 
-This folder contains comprehensive documentation and examples for MCP server configurations and usage with Claude Code.
+Эта папка содержит полную документацию и примеры конфигурации MCP servers и их использования с Claude Code.
 
-## Overview
+<a id="overview"></a>
+## Обзор
 
-MCP (Model Context Protocol) is a standardized way for Claude to access external tools, APIs, and real-time data sources. Unlike Memory, MCP provides live access to changing data.
+MCP (Model Context Protocol) — это стандартизированный способ, с помощью которого Claude получает доступ к внешним инструментам, API и источникам данных в реальном времени. В отличие от Memory, MCP даёт живой доступ к изменяющимся данным.
 
-Key characteristics:
-- Real-time access to external services
-- Live data synchronization
-- Extensible architecture
-- Secure authentication
-- Tool-based interactions
+Ключевые характеристики:
+- Доступ к внешним сервисам в реальном времени
+- Синхронизация живых данных
+- Расширяемая архитектура
+- Безопасная аутентификация
+- Взаимодействие через инструменты
 
-## MCP Architecture
+## Архитектура MCP
 
 ```mermaid
 graph TB
@@ -41,7 +42,7 @@ graph TB
     style C fill:#e8f5e9,stroke:#333,color:#333
 ```
 
-## MCP Ecosystem
+## Экосистема MCP
 
 ```mermaid
 graph TB
@@ -70,11 +71,11 @@ graph TB
     style K fill:#e8f5e9,stroke:#333,color:#333
 ```
 
-## MCP Installation Methods
+## Способы установки MCP
 
-Claude Code supports multiple transport protocols for MCP server connections:
+Claude Code поддерживает несколько транспортных протоколов для подключения к MCP server:
 
-### HTTP Transport (Recommended)
+### HTTP-транспорт (рекомендуется)
 
 ```bash
 # Basic HTTP connection
@@ -85,9 +86,9 @@ claude mcp add --transport http secure-api https://api.example.com/mcp \
   --header "Authorization: Bearer your-token"
 ```
 
-### Stdio Transport (Local)
+### Stdio-транспорт (локально)
 
-For locally running MCP servers:
+Для локально запущенных MCP servers:
 
 ```bash
 # Local Node.js server
@@ -97,33 +98,33 @@ claude mcp add --transport stdio myserver -- npx @myorg/mcp-server
 claude mcp add --transport stdio myserver --env KEY=value -- npx server
 ```
 
-### SSE Transport (Deprecated)
+### SSE-транспорт (устарел)
 
-Server-Sent Events transport is deprecated in favor of `http` but still supported:
+Транспорт Server-Sent Events устарел в пользу `http`, но по-прежнему поддерживается:
 
 ```bash
 claude mcp add --transport sse legacy-server https://example.com/sse
 ```
 
-### WebSocket Transport
+### WebSocket-транспорт
 
-WebSocket transport for persistent bidirectional connections:
+WebSocket-транспорт для постоянных двунаправленных соединений:
 
 ```bash
 claude mcp add --transport ws realtime-server wss://example.com/mcp
 ```
 
-### Windows-Specific Note
+### Примечание для Windows
 
-On native Windows (not WSL), use `cmd /c` for npx commands:
+На нативном Windows (не WSL) используйте `cmd /c` для команд `npx`:
 
 ```bash
 claude mcp add --transport stdio my-server -- cmd /c npx -y @some/package
 ```
 
-### OAuth 2.0 Authentication
+### Аутентификация OAuth 2.0
 
-Claude Code supports OAuth 2.0 for MCP servers that require it. When connecting to an OAuth-enabled server, Claude Code handles the entire authentication flow:
+Claude Code поддерживает OAuth 2.0 для MCP servers, которым это требуется. При подключении к OAuth-enabled серверу Claude Code обрабатывает весь поток аутентификации:
 
 ```bash
 # Connect to an OAuth-enabled MCP server (interactive flow)
@@ -136,19 +137,19 @@ claude mcp add --transport http my-service https://my-service.example.com/mcp \
   --callback-port 8080
 ```
 
-| Feature | Description |
+| Возможность | Описание |
 |---------|-------------|
-| **Interactive OAuth** | Use `/mcp` to trigger the browser-based OAuth flow |
-| **Pre-configured OAuth clients** | Built-in OAuth clients for common services like Notion, Stripe, and others (v2.1.30+) |
-| **Pre-configured credentials** | `--client-id`, `--client-secret`, `--callback-port` flags for automated setup |
-| **Token storage** | Tokens are stored securely in your system keychain |
-| **Step-up auth** | Supports step-up authentication for privileged operations |
-| **Discovery caching** | OAuth discovery metadata is cached for faster reconnections |
-| **Metadata override** | `oauth.authServerMetadataUrl` in `.mcp.json` to override default OAuth metadata discovery |
+| **Interactive OAuth** | Используйте `/mcp`, чтобы запустить OAuth flow в браузере |
+| **Pre-configured OAuth clients** | Встроенные OAuth clients для популярных сервисов вроде Notion, Stripe и других (v2.1.30+) |
+| **Pre-configured credentials** | Флаги `--client-id`, `--client-secret`, `--callback-port` для автоматической настройки |
+| **Token storage** | Tokens безопасно хранятся в системном keychain |
+| **Step-up auth** | Поддерживает step-up authentication для привилегированных операций |
+| **Discovery caching** | OAuth discovery metadata кэшируются для более быстрых повторных подключений |
+| **Metadata override** | `oauth.authServerMetadataUrl` в `.mcp.json` для переопределения стандартного OAuth metadata discovery |
 
-#### Overriding OAuth Metadata Discovery
+#### Переопределение OAuth metadata discovery
 
-If your MCP server returns errors on the standard OAuth metadata endpoint (`/.well-known/oauth-authorization-server`) but exposes a working OIDC endpoint, you can tell Claude Code to fetch OAuth metadata from a specific URL. Set `authServerMetadataUrl` in the `oauth` object of your server config:
+Если ваш MCP server возвращает ошибки на стандартном OAuth metadata endpoint (`/.well-known/oauth-authorization-server`), но публикует рабочий OIDC endpoint, можно указать Claude Code получать OAuth metadata с другого URL. Установите `authServerMetadataUrl` в объекте `oauth` вашей конфигурации server:
 
 ```json
 {
@@ -164,23 +165,23 @@ If your MCP server returns errors on the standard OAuth metadata endpoint (`/.we
 }
 ```
 
-The URL must use `https://`. This option requires Claude Code v2.1.64 or later.
+URL должен использовать `https://`. Эта опция требует Claude Code v2.1.64 или новее.
 
 ### Claude.ai MCP Connectors
 
-MCP servers configured in your Claude.ai account are automatically available in Claude Code. This means any MCP connections you set up through the Claude.ai web interface will be accessible without additional configuration.
+MCP servers, настроенные в вашем аккаунте Claude.ai, автоматически доступны в Claude Code. Это значит, что любые MCP connections, созданные через веб-интерфейс Claude.ai, будут доступны без дополнительной настройки.
 
-Claude.ai MCP connectors are also available in `--print` mode (v2.1.83+), enabling non-interactive and scripted usage.
+Claude.ai MCP connectors также доступны в `--print` mode (v2.1.83+), что позволяет использовать их неинтерактивно и в скриптах.
 
-To disable Claude.ai MCP servers in Claude Code, set the `ENABLE_CLAUDEAI_MCP_SERVERS` environment variable to `false`:
+Чтобы отключить Claude.ai MCP servers в Claude Code, установите переменную окружения `ENABLE_CLAUDEAI_MCP_SERVERS` в значение `false`:
 
 ```bash
 ENABLE_CLAUDEAI_MCP_SERVERS=false claude
 ```
 
-> **Note:** This feature is only available for users logged in with Claude.ai accounts.
+> **Примечание:** эта функция доступна только пользователям, вошедшим через аккаунты Claude.ai.
 
-## MCP Setup Process
+## Процесс настройки MCP
 
 ```mermaid
 sequenceDiagram
@@ -200,74 +201,76 @@ sequenceDiagram
     Claude->>User: ✅ MCP connected!
 ```
 
-## MCP Tool Search
+## Поиск MCP tools
 
-When MCP tool descriptions exceed 10% of the context window, Claude Code automatically enables tool search to efficiently select the right tools without overwhelming the model context.
+Когда описания MCP tools превышают 10% окна контекста, Claude Code автоматически включает tool search, чтобы эффективно выбирать нужные tools, не перегружая контекст модели.
 
-| Setting | Value | Description |
+| Параметр | Значение | Описание |
 |---------|-------|-------------|
-| `ENABLE_TOOL_SEARCH` | `auto` (default) | Automatically enables when tool descriptions exceed 10% of context |
-| `ENABLE_TOOL_SEARCH` | `auto:<N>` | Automatically enables at a custom threshold of `N` tools |
-| `ENABLE_TOOL_SEARCH` | `true` | Always enabled regardless of tool count |
-| `ENABLE_TOOL_SEARCH` | `false` | Disabled; all tool descriptions sent in full |
+| `ENABLE_TOOL_SEARCH` | `auto` (default) | Автоматически включается, когда описания tools превышают 10% контекста |
+| `ENABLE_TOOL_SEARCH` | `auto:<N>` | Автоматически включается на настраиваемом пороге в `N` tools |
+| `ENABLE_TOOL_SEARCH` | `true` | Всегда включено независимо от количества tools |
+| `ENABLE_TOOL_SEARCH` | `false` | Отключено; все описания tools отправляются полностью |
 
-> **Note:** Tool search requires Sonnet 4 or later, or Opus 4 or later. Haiku models are not supported for tool search.
+> **Примечание:** tool search требует Sonnet 4 или новее, либо Opus 4 или новее. Модели Haiku не поддерживаются для tool search.
 
-## Dynamic Tool Updates
+## Динамические обновления tools
 
-Claude Code supports MCP `list_changed` notifications. When an MCP server dynamically adds, removes, or modifies its available tools, Claude Code receives the update and adjusts its tool list automatically -- no reconnection or restart required.
+Claude Code поддерживает MCP `list_changed` notifications. Когда MCP server динамически добавляет, удаляет или изменяет доступные tools, Claude Code получает обновление и автоматически корректирует список tools — без переподключения и без перезапуска.
 
 ## MCP Elicitation
 
-MCP servers can request structured input from the user via interactive dialogs (v2.1.49+). This allows an MCP server to ask for additional information mid-workflow -- for example, prompting for a confirmation, selecting from a list of options, or filling in required fields -- adding interactivity to MCP server interactions.
+MCP servers могут запрашивать у пользователя структурированный ввод через интерактивные диалоги (v2.1.49+). Это позволяет MCP server запросить дополнительную информацию прямо в середине workflow — например, подтверждение, выбор из списка вариантов или заполнение обязательных полей — и добавить интерактивность в взаимодействие с MCP server.
 
-## Tool Description and Instruction Cap
+## Лимит на описания и инструкции tools
 
-As of v2.1.84, Claude Code enforces a **2 KB cap** on tool descriptions and instructions per MCP server. This prevents individual servers from consuming excessive context with overly verbose tool definitions, reducing context bloat and keeping interactions efficient.
+Начиная с v2.1.84, Claude Code вводит **лимит 2 KB** на описания и инструкции tools для каждого MCP server. Это не позволяет отдельным servers слишком сильно раздувать контекст чрезмерно многословными определениями tools, уменьшая context bloat и сохраняя эффективность взаимодействий.
 
-## MCP Prompts as Slash Commands
+## MCP prompts как slash commands
 
-MCP servers can expose prompts that appear as slash commands in Claude Code. Prompts are accessible using the naming convention:
+MCP servers могут публиковать prompts, которые отображаются в Claude Code как slash commands. Prompts доступны по соглашению об именовании:
 
 ```
 /mcp__<server>__<prompt>
 ```
 
-For example, if a server named `github` exposes a prompt called `review`, you can invoke it as `/mcp__github__review`.
+Например, если server с именем `github` публикует prompt `review`, его можно вызвать как `/mcp__github__review`.
 
-## Server Deduplication
+## Дедупликация servers
 
-When the same MCP server is defined at multiple scopes (local, project, user), the local configuration takes precedence. This allows you to override project-level or user-level MCP settings with local customizations without conflicts.
+Когда один и тот же MCP server определён в нескольких scopes (local, project, user), приоритет у локальной конфигурации. Это позволяет переопределять project-level или user-level MCP settings локальными настройками без конфликтов.
 
-## MCP Resources via @ Mentions
+Это позволяет переопределять project-level или user-level MCP settings локальными настройками без конфликтов.
 
-You can reference MCP resources directly in your prompts using the `@` mention syntax:
+## MCP Resources через @-упоминания
+
+Вы можете ссылаться на MCP resources прямо в prompts, используя синтаксис `@`-mention:
 
 ```
 @server-name:protocol://resource/path
 ```
 
-For example, to reference a specific database resource:
+Например, чтобы сослаться на конкретный resource базы данных:
 
 ```
 @database:postgres://mydb/users
 ```
 
-This allows Claude to fetch and include MCP resource content inline as part of the conversation context.
+Это позволяет Claude подхватывать и включать содержимое MCP resource прямо в контекст разговора.
 
-## MCP Scopes
+## Области MCP
 
-MCP configurations can be stored at different scopes with varying levels of sharing:
+MCP configurations можно хранить в разных scopes с различным уровнем совместного доступа:
 
-| Scope | Location | Description | Shared With | Requires Approval |
+| Область | Расположение | Описание | Доступно | Требует одобрения |
 |-------|----------|-------------|-------------|------------------|
-| **Local** (default) | `~/.claude.json` (under project path) | Private to current user, current project only (was called `project` in older versions) | Just you | No |
-| **Project** | `.mcp.json` | Checked into git repository | Team members | Yes (first use) |
-| **User** | `~/.claude.json` | Available across all projects (was called `global` in older versions) | Just you | No |
+| **Local** (default) | `~/.claude.json` (under project path) | Private to current user, только текущий проект (в старых версиях называлось `project`) | Только вы | Нет |
+| **Project** | `.mcp.json` | Закоммичен в git repository | Члены команды | Да (при первом использовании) |
+| **User** | `~/.claude.json` | Доступно во всех проектах (в старых версиях называлось `global`) | Только вы | Нет |
 
-### Using Project Scope
+### Использование project scope
 
-Store project-specific MCP configurations in `.mcp.json`:
+Храните project-specific MCP configurations в `.mcp.json`:
 
 ```json
 {
@@ -280,51 +283,51 @@ Store project-specific MCP configurations in `.mcp.json`:
 }
 ```
 
-Team members will see an approval prompt on first use of project MCPs.
+Участники команды увидят prompt на одобрение при первом использовании project MCPs.
 
-## MCP Configuration Management
+## Управление MCP configuration
 
-### Adding MCP Servers
+### Добавление MCP servers
 
 ```bash
-# Add HTTP-based server
+# Добавить HTTP-based server
 claude mcp add --transport http github https://api.github.com/mcp
 
-# Add local stdio server
+# Добавить локальный stdio server
 claude mcp add --transport stdio database -- npx @company/db-server
 
-# List all MCP servers
+# Показать все MCP servers
 claude mcp list
 
-# Get details on specific server
+# Получить детали конкретного server
 claude mcp get github
 
-# Remove an MCP server
+# Удалить MCP server
 claude mcp remove github
 
-# Reset project-specific approval choices
+# Сбросить project-specific approval choices
 claude mcp reset-project-choices
 
-# Import from Claude Desktop
+# Импортировать из Claude Desktop
 claude mcp add-from-claude-desktop
 ```
 
-## Available MCP Servers Table
+## Таблица доступных MCP servers
 
-| MCP Server | Purpose | Common Tools | Auth | Real-time |
+| MCP Server | Назначение | Частые tools | Auth | Real-time |
 |------------|---------|--------------|------|-----------|
-| **Filesystem** | File operations | read, write, delete | OS permissions | ✅ Yes |
-| **GitHub** | Repository management | list_prs, create_issue, push | OAuth | ✅ Yes |
-| **Slack** | Team communication | send_message, list_channels | Token | ✅ Yes |
-| **Database** | SQL queries | query, insert, update | Credentials | ✅ Yes |
-| **Google Docs** | Document access | read, write, share | OAuth | ✅ Yes |
-| **Asana** | Project management | create_task, update_status | API Key | ✅ Yes |
-| **Stripe** | Payment data | list_charges, create_invoice | API Key | ✅ Yes |
-| **Memory** | Persistent memory | store, retrieve, delete | Local | ❌ No |
+| **Filesystem** | Операции с файлами | read, write, delete | OS permissions | ✅ Да |
+| **GitHub** | Управление repository | list_prs, create_issue, push | OAuth | ✅ Да |
+| **Slack** | Коммуникация команды | send_message, list_channels | Token | ✅ Да |
+| **Database** | SQL queries | query, insert, update | Credentials | ✅ Да |
+| **Google Docs** | Доступ к документам | read, write, share | OAuth | ✅ Да |
+| **Asana** | Управление проектами | create_task, update_status | API Key | ✅ Да |
+| **Stripe** | Платёжные данные | list_charges, create_invoice | API Key | ✅ Да |
+| **Memory** | Постоянная память | store, retrieve, delete | Local | ❌ Нет |
 
-## Practical Examples
+## Практические примеры
 
-### Example 1: GitHub MCP Configuration
+### Пример 1: конфигурация GitHub MCP
 
 **File:** `.mcp.json` (project root)
 
@@ -342,9 +345,9 @@ claude mcp add-from-claude-desktop
 }
 ```
 
-**Available GitHub MCP Tools:**
+**Доступные GitHub MCP tools:**
 
-#### Pull Request Management
+#### Управление Pull Request
 - `list_prs` - List all PRs in repository
 - `get_pr` - Get PR details including diff
 - `create_pr` - Create new PR
@@ -352,7 +355,7 @@ claude mcp add-from-claude-desktop
 - `merge_pr` - Merge PR to main branch
 - `review_pr` - Add review comments
 
-**Example request:**
+**Пример запроса:**
 ```
 /mcp__github__get_pr 456
 
@@ -364,34 +367,34 @@ Status: OPEN
 Reviewers: @bob, @charlie
 ```
 
-#### Issue Management
+#### Управление Issue
 - `list_issues` - List all issues
 - `get_issue` - Get issue details
 - `create_issue` - Create new issue
 - `close_issue` - Close issue
 - `add_comment` - Add comment to issue
 
-#### Repository Information
+#### Информация о repository
 - `get_repo_info` - Repository details
 - `list_files` - File tree structure
 - `get_file_content` - Read file contents
 - `search_code` - Search across codebase
 
-#### Commit Operations
+#### Операции с commit
 - `list_commits` - Commit history
 - `get_commit` - Specific commit details
 - `create_commit` - Create new commit
 
-**Setup**:
+**Настройка**:
 ```bash
 export GITHUB_TOKEN="your_github_token"
 # Or use the CLI to add directly:
 claude mcp add --transport stdio github -- npx @modelcontextprotocol/server-github
 ```
 
-### Environment Variable Expansion in Configuration
+### Подстановка переменных окружения в configuration
 
-MCP configurations support environment variable expansion with fallback defaults. The `${VAR}` and `${VAR:-default}` syntax works in the following fields: `command`, `args`, `env`, `url`, and `headers`.
+MCP configurations поддерживают подстановку переменных окружения с fallback default-ами. Синтаксис `${VAR}` и `${VAR:-default}` работает в полях `command`, `args`, `env`, `url` и `headers`.
 
 ```json
 {
@@ -415,13 +418,13 @@ MCP configurations support environment variable expansion with fallback defaults
 }
 ```
 
-Variables are expanded at runtime:
-- `${VAR}` - Uses environment variable, error if not set
-- `${VAR:-default}` - Uses environment variable, falls back to default if not set
+Переменные подставляются во время выполнения:
+- `${VAR}` - использует переменную окружения, ошибка если она не задана
+- `${VAR:-default}` - использует переменную окружения, а если она не задана, берёт default
 
-### Example 2: Database MCP Setup
+### Пример 2: настройка Database MCP
 
-**Configuration:**
+**Конфигурация:**
 
 ```json
 {
@@ -437,7 +440,7 @@ Variables are expanded at runtime:
 }
 ```
 
-**Example Usage:**
+**Пример использования:**
 
 ```markdown
 User: Fetch all users with more than 10 orders
@@ -465,22 +468,22 @@ export DATABASE_URL="postgresql://user:pass@localhost/mydb"
 claude mcp add --transport stdio database -- npx @modelcontextprotocol/server-database
 ```
 
-### Example 3: Multi-MCP Workflow
+### Пример 3: Multi-MCP workflow
 
-**Scenario: Daily Report Generation**
+**Сценарий: генерация daily report**
 
 ```markdown
-# Daily Report Workflow using Multiple MCPs
+# Daily Report workflow с использованием нескольких MCPs
 
-## Setup
-1. GitHub MCP - fetch PR metrics
-2. Database MCP - query sales data
-3. Slack MCP - post report
-4. Filesystem MCP - save report
+## Настройка
+1. GitHub MCP - получить PR metrics
+2. Database MCP - запросить sales data
+3. Slack MCP - опубликовать report
+4. Filesystem MCP - сохранить report
 
 ## Workflow
 
-### Step 1: Fetch GitHub Data
+### Шаг 1: получить данные GitHub
 /mcp__github__list_prs completed:true last:7days
 
 Output:
@@ -488,7 +491,7 @@ Output:
 - Average merge time: 2.3 hours
 - Review turnaround: 1.1 hours
 
-### Step 2: Query Database
+### Шаг 2: запросить database
 SELECT COUNT(*) as sales, SUM(amount) as revenue
 FROM orders
 WHERE created_at > NOW() - INTERVAL '1 day'
@@ -497,22 +500,22 @@ Output:
 - Sales: 247
 - Revenue: $12,450
 
-### Step 3: Generate Report
-Combine data into HTML report
+### Шаг 3: сгенерировать report
+Собрать данные в HTML report
 
-### Step 4: Save to Filesystem
-Write report.html to /reports/
+### Шаг 4: сохранить в Filesystem
+Записать report.html в `/reports/`
 
-### Step 5: Post to Slack
-Send summary to #daily-reports channel
+### Шаг 5: отправить в Slack
+Отправить summary в канал `#daily-reports`
 
-Final Output:
+Итоговый вывод:
 ✅ Report generated and posted
 📊 47 PRs merged this week
 💰 $12,450 in daily sales
 ```
 
-**Setup**:
+**Настройка**:
 ```bash
 export GITHUB_TOKEN="your_github_token"
 export DATABASE_URL="postgresql://user:pass@localhost/mydb"
@@ -520,7 +523,7 @@ export SLACK_TOKEN="your_slack_token"
 # Add each MCP server via the CLI or configure them in .mcp.json
 ```
 
-### Example 4: Filesystem MCP Operations
+### Пример 4: операции Filesystem MCP
 
 **Configuration:**
 
@@ -535,16 +538,16 @@ export SLACK_TOKEN="your_slack_token"
 }
 ```
 
-**Available Operations:**
+**Доступные операции:**
 
-| Operation | Command | Purpose |
-|-----------|---------|---------|
-| List files | `ls ~/projects` | Show directory contents |
-| Read file | `cat src/main.ts` | Read file contents |
-| Write file | `create docs/api.md` | Create new file |
-| Edit file | `edit src/app.ts` | Modify file |
-| Search | `grep "async function"` | Search in files |
-| Delete | `rm old-file.js` | Delete file |
+| Операция | Команда | Назначение |
+|-----------|---------|------------|
+| List files | `ls ~/projects` | Показать содержимое каталога |
+| Read file | `cat src/main.ts` | Прочитать содержимое файла |
+| Write file | `create docs/api.md` | Создать новый файл |
+| Edit file | `edit src/app.ts` | Изменить файл |
+| Search | `grep "async function"` | Искать в файлах |
+| Delete | `rm old-file.js` | Удалить файл |
 
 **Setup**:
 ```bash
@@ -552,18 +555,18 @@ export SLACK_TOKEN="your_slack_token"
 claude mcp add --transport stdio filesystem -- npx @modelcontextprotocol/server-filesystem /home/user/projects
 ```
 
-## MCP vs Memory: Decision Matrix
+## MCP против Memory: матрица принятия решения
 
 ```mermaid
 graph TD
-    A["Need external data?"]
-    A -->|No| B["Use Memory"]
-    A -->|Yes| C["Does it change frequently?"]
-    C -->|No/Rarely| B
-    C -->|Yes/Often| D["Use MCP"]
+    A["Нужны внешние данные?"]
+    A -->|Нет| B["Использовать Memory"]
+    A -->|Да| C["Они часто меняются?"]
+    C -->|Нет/редко| B
+    C -->|Да/часто| D["Использовать MCP"]
 
-    B -->|Stores| E["Preferences<br/>Context<br/>History"]
-    D -->|Accesses| F["Live APIs<br/>Databases<br/>Services"]
+    B -->|Хранит| E["Preferences<br/>Context<br/>History"]
+    D -->|Получает доступ| F["Live APIs<br/>Databases<br/>Services"]
 
     style A fill:#fff3e0,stroke:#333,color:#333
     style B fill:#e1f5fe,stroke:#333,color:#333
@@ -573,7 +576,7 @@ graph TD
     style F fill:#e8f5e9,stroke:#333,color:#333
 ```
 
-## Request/Response Pattern
+## Паттерн request/response
 
 ```mermaid
 sequenceDiagram
@@ -591,9 +594,9 @@ sequenceDiagram
     Note over MCP,DB: Real-time access<br/>No caching
 ```
 
-## Environment Variables
+## Переменные окружения
 
-Store sensitive credentials in environment variables:
+Храните чувствительные credentials в переменных окружения:
 
 ```bash
 # ~/.bashrc or ~/.zshrc
@@ -602,7 +605,7 @@ export DATABASE_URL="postgresql://user:pass@localhost/mydb"
 export SLACK_TOKEN="xoxb-xxxxxxxxxxxxx"
 ```
 
-Then reference them in MCP config:
+Затем ссылайтесь на них в MCP config:
 
 ```json
 {
@@ -612,40 +615,40 @@ Then reference them in MCP config:
 }
 ```
 
-## Claude as MCP Server (`claude mcp serve`)
+## Claude как MCP Server (`claude mcp serve`)
 
-Claude Code itself can act as an MCP server for other applications. This enables external tools, editors, and automation systems to leverage Claude's capabilities through the standard MCP protocol.
+Сам Claude Code может выступать как MCP server для других приложений. Это позволяет внешним tools, редакторам и системам автоматизации использовать возможности Claude через стандартный MCP protocol.
 
 ```bash
 # Start Claude Code as an MCP server on stdio
 claude mcp serve
 ```
 
-Other applications can then connect to this server as they would any stdio-based MCP server. For example, to add Claude Code as an MCP server in another Claude Code instance:
+После этого другие applications могут подключаться к этому server как к любому stdio-based MCP server. Например, чтобы добавить Claude Code как MCP server в другом экземпляре Claude Code:
 
 ```bash
 claude mcp add --transport stdio claude-agent -- claude mcp serve
 ```
 
-This is useful for building multi-agent workflows where one Claude instance orchestrates another.
+Это полезно для построения multi-agent workflows, где один экземпляр Claude orchestrates другой.
 
-## Managed MCP Configuration (Enterprise)
+## Управляемая конфигурация MCP (Enterprise)
 
-For enterprise deployments, IT administrators can enforce MCP server policies through the `managed-mcp.json` configuration file. This file provides exclusive control over which MCP servers are permitted or blocked organization-wide.
+Для корпоративных развёртываний IT-администраторы могут принудительно задавать политики MCP server через файл `managed-mcp.json`. Этот файл даёт эксклюзивный контроль над тем, какие MCP servers разрешены или заблокированы на уровне всей организации.
 
-**Location:**
+**Расположение:**
 - macOS: `/Library/Application Support/ClaudeCode/managed-mcp.json`
 - Linux: `~/.config/ClaudeCode/managed-mcp.json`
 - Windows: `%APPDATA%\ClaudeCode\managed-mcp.json`
 
-**Features:**
-- `allowedMcpServers` -- whitelist of permitted servers
-- `deniedMcpServers` -- blocklist of prohibited servers
-- Supports matching by server name, command, and URL patterns
-- Organization-wide MCP policies enforced before user configuration
-- Prevents unauthorized server connections
+**Возможности:**
+- `allowedMcpServers` -- whitelist разрешённых servers
+- `deniedMcpServers` -- blocklist запрещённых servers
+- Поддерживает сопоставление по имени server, команде и URL patterns
+- Организационные MCP policies применяются до пользовательской конфигурации
+- Предотвращает неавторизованные подключения к servers
 
-**Example configuration:**
+**Пример конфигурации:**
 
 ```json
 {
@@ -670,16 +673,16 @@ For enterprise deployments, IT administrators can enforce MCP server policies th
 }
 ```
 
-> **Note:** When both `allowedMcpServers` and `deniedMcpServers` match a server, the deny rule takes precedence.
+> **Примечание:** если server совпадает и с `allowedMcpServers`, и с `deniedMcpServers`, приоритет у deny rule.
 
-## Plugin-Provided MCP Servers
+## MCP Servers, предоставляемые Plugins
 
-Plugins can bundle their own MCP servers, making them available automatically when the plugin is installed. Plugin-provided MCP servers can be defined in two ways:
+Plugins могут упаковывать собственные MCP servers, делая их автоматически доступными после установки plugin. Такие MCP servers можно определить двумя способами:
 
-1. **Standalone `.mcp.json`** -- Place a `.mcp.json` file in the plugin root directory
-2. **Inline in `plugin.json`** -- Define MCP servers directly within the plugin manifest
+1. **Standalone `.mcp.json`** -- Поместите файл `.mcp.json` в корневой каталог plugin
+2. **Inline in `plugin.json`** -- Определите MCP servers прямо в manifest plugin
 
-Use the `${CLAUDE_PLUGIN_ROOT}` variable to reference paths relative to the plugin's installation directory:
+Используйте переменную `${CLAUDE_PLUGIN_ROOT}`, чтобы ссылаться на пути относительно каталога установки plugin:
 
 ```json
 {
@@ -695,9 +698,9 @@ Use the `${CLAUDE_PLUGIN_ROOT}` variable to reference paths relative to the plug
 }
 ```
 
-## Subagent-Scoped MCP
+## MCP в рамках Subagent
 
-MCP servers can be defined inline within agent frontmatter using the `mcpServers:` key, scoping them to a specific subagent rather than the entire project. This is useful when an agent needs access to a particular MCP server that other agents in the workflow do not require.
+MCP servers можно определять прямо во frontmatter agent с помощью ключа `mcpServers:`, ограничивая их конкретным subagent вместо всего проекта. Это полезно, когда agent нужен доступ к определённому MCP server, который не требуется другим agents в workflow.
 
 ```yaml
 ---
@@ -707,43 +710,43 @@ mcpServers:
     url: https://my-tool.example.com/mcp
 ---
 
-You are an agent with access to my-tool for specialized operations.
+Вы - agent с доступом к `my-tool` для специализированных операций.
 ```
 
-Subagent-scoped MCP servers are only available within that agent's execution context and are not shared with the parent or sibling agents.
+MCP servers, ограниченные subagent, доступны только в контексте выполнения этого agent и не разделяются с parent или sibling agents.
 
-## MCP Output Limits
+## Ограничения на MCP output
 
-Claude Code enforces limits on MCP tool output to prevent context overflow:
+Claude Code вводит ограничения на output MCP tools, чтобы предотвратить переполнение контекста:
 
-| Limit | Threshold | Behavior |
+| Ограничение | Порог | Поведение |
 |-------|-----------|----------|
-| **Warning** | 10,000 tokens | A warning is displayed that the output is large |
-| **Default max** | 25,000 tokens | Output is truncated beyond this limit |
-| **Disk persistence** | 50,000 characters | Tool results exceeding 50K characters are persisted to disk |
+| **Warning** | 10,000 tokens | Показывается предупреждение, что output большой |
+| **Default max** | 25,000 tokens | Output обрезается после этого лимита |
+| **Disk persistence** | 50,000 characters | Результаты tools, превышающие 50K символов, сохраняются на диск |
 
-The maximum output limit is configurable via the `MAX_MCP_OUTPUT_TOKENS` environment variable:
+Максимальный лимит output настраивается через переменную окружения `MAX_MCP_OUTPUT_TOKENS`:
 
 ```bash
 # Increase the max output to 50,000 tokens
 export MAX_MCP_OUTPUT_TOKENS=50000
 ```
 
-## Solving Context Bloat with Code Execution
+## Решение context bloat через code execution
 
-As MCP adoption scales, connecting to dozens of servers with hundreds or thousands of tools creates a significant challenge: **context bloat**. This is arguably the biggest problem with MCP at scale, and Anthropic's engineering team has proposed an elegant solution — using code execution instead of direct tool calls.
+По мере роста использования MCP подключение к десяткам servers с сотнями или тысячами tools создаёт серьёзную проблему: **context bloat**. Пожалуй, это самая большая проблема MCP на масштабе, и engineering team Anthropic предложила элегантное решение — использовать code execution вместо прямых tool calls.
 
-> **Source**: [Code Execution with MCP: Building More Efficient Agents](https://www.anthropic.com/engineering/code-execution-with-mcp) — Anthropic Engineering Blog
+> **Источник**: [Code Execution with MCP: Building More Efficient Agents](https://www.anthropic.com/engineering/code-execution-with-mcp) — Anthropic Engineering Blog
 
-### The Problem: Two Sources of Token Waste
+### Проблема: два источника token waste
 
-**1. Tool definitions overload the context window**
+**1. Определения tools перегружают окно контекста**
 
-Most MCP clients load all tool definitions upfront. When connected to thousands of tools, the model must process hundreds of thousands of tokens before it even reads the user's request.
+Большинство MCP clients загружают все определения tools заранее. При подключении к тысячам tools модель должна обработать сотни тысяч tokens ещё до того, как прочитает запрос пользователя.
 
-**2. Intermediate results consume additional tokens**
+**2. Промежуточные результаты потребляют дополнительные tokens**
 
-Every intermediate tool result passes through the model's context. Consider transferring a meeting transcript from Google Drive to Salesforce — the full transcript flows through context **twice**: once when reading it, and again when writing it to the destination. A 2-hour meeting transcript could mean 50,000+ extra tokens.
+Каждый промежуточный результат tool проходит через контекст модели. Представьте перенос стенограммы встречи из Google Drive в Salesforce — полная стенограмма проходит через контекст **дважды**: при чтении и при записи в destination. Стенограмма двухчасовой встречи может добавить 50,000+ лишних tokens.
 
 ```mermaid
 graph LR
@@ -756,9 +759,9 @@ graph LR
     style B fill:#f3e5f5,stroke:#333,color:#333
 ```
 
-### The Solution: MCP Tools as Code APIs
+### Решение: MCP Tools как Code APIs
 
-Instead of passing tool definitions and results through the context window, the agent **writes code** that calls MCP tools as APIs. The code runs in a sandboxed execution environment, and only the final result returns to the model.
+Вместо того чтобы проводить определения tools и результаты через окно контекста, agent **пишет code**, который вызывает MCP tools как APIs. Код выполняется в sandboxed execution environment, а модели возвращается только итоговый результат.
 
 ```mermaid
 graph LR
@@ -772,7 +775,7 @@ graph LR
     style C fill:#f3e5f5,stroke:#333,color:#333
 ```
 
-#### How It Works
+#### Как это работает
 
 MCP tools are presented as a file tree of typed functions:
 
@@ -810,7 +813,7 @@ export async function getDocument(
 }
 ```
 
-The agent then writes code to orchestrate the tools:
+Затем agent пишет code, который оркестрирует tools:
 
 ```typescript
 import * as gdrive from './servers/google-drive';
@@ -828,17 +831,17 @@ await salesforce.updateRecord({
 });
 ```
 
-**Result: Token usage drops from ~150,000 to ~2,000 — a 98.7% reduction.**
+**Результат: использование token-ов падает примерно с 150,000 до 2,000 — сокращение на 98.7%.**
 
-### Key Benefits
+### Ключевые преимущества
 
-| Benefit | Description |
+| Преимущество | Описание |
 |---------|-------------|
-| **Progressive Disclosure** | Agent browses the filesystem to load only the tool definitions it needs, instead of all tools upfront |
-| **Context-Efficient Results** | Data is filtered/transformed in the execution environment before returning to the model |
-| **Powerful Control Flow** | Loops, conditionals, and error handling run in code without round-tripping through the model |
-| **Privacy Preservation** | Intermediate data (PII, sensitive records) stays in the execution environment; never enters the model context |
-| **State Persistence** | Agents can save intermediate results to files and build reusable skill functions |
+| **Progressive Disclosure** | Agent просматривает filesystem и загружает только те определения tools, которые ему нужны, а не все сразу |
+| **Context-Efficient Results** | Данные фильтруются и преобразуются в execution environment до возврата модели |
+| **Powerful Control Flow** | Циклы, условные конструкции и обработка ошибок выполняются в code без лишних round-trips через модель |
+| **Privacy Preservation** | Промежуточные данные (PII, чувствительные записи) остаются в execution environment; они не попадают в model context |
+| **State Persistence** | Agents могут сохранять промежуточные результаты в файлы и строить переиспользуемые skill functions |
 
 #### Example: Filtering Large Datasets
 
@@ -873,33 +876,33 @@ while (!found) {
 console.log('Deployment notification received');
 ```
 
-### Trade-offs to Consider
+### Компромиссы, которые стоит учитывать
 
-Code execution introduces its own complexity. Running agent-generated code requires:
+Code execution добавляет собственную сложность. Для запуска кода, сгенерированного agent, требуется:
 
-- A **secure sandboxed execution environment** with appropriate resource limits
-- **Monitoring and logging** of executed code
-- Additional **infrastructure overhead** compared to direct tool calls
+- **Безопасная sandboxed execution environment** с подходящими лимитами ресурсов
+- **Monitoring и logging** исполняемого кода
+- Дополнительные **infrastructure overhead** по сравнению с прямыми tool calls
 
-The benefits — reduced token costs, lower latency, improved tool composition — should be weighed against these implementation costs. For agents with only a few MCP servers, direct tool calls may be simpler. For agents at scale (dozens of servers, hundreds of tools), code execution is a significant improvement.
+Преимущества — меньшая стоимость token-ов, меньшая latency, лучшая композиция tools — нужно сопоставлять с этими затратами на реализацию. Для agents с несколькими MCP servers прямые tool calls могут быть проще. Для agents на масштабе (десятки servers, сотни tools) code execution даёт заметное улучшение.
 
-### MCPorter: A Runtime for MCP Tool Composition
+### MCPorter: runtime для композиции MCP tools
 
-[MCPorter](https://github.com/steipete/mcporter) is a TypeScript runtime and CLI toolkit that makes calling MCP servers practical without boilerplate — and helps reduce context bloat through selective tool exposure and typed wrappers.
+[MCPorter](https://github.com/steipete/mcporter) — это TypeScript runtime и CLI toolkit, который делает вызов MCP servers практичным без boilerplate и помогает уменьшить context bloat за счёт выборочной экспозиции tools и typed wrappers.
 
-**What it solves:** Instead of loading all tool definitions from all MCP servers upfront, MCPorter lets you discover, inspect, and call specific tools on demand — keeping your context lean.
+**Что это решает:** вместо загрузки всех определений tools со всех MCP servers сразу MCPorter позволяет находить, просматривать и вызывать конкретные tools по требованию — сохраняя контекст лёгким.
 
-**Key features:**
+**Ключевые возможности:**
 
-| Feature | Description |
+| Возможность | Описание |
 |---------|-------------|
-| **Zero-config discovery** | Auto-discovers MCP servers from Cursor, Claude, Codex, or local configs |
-| **Typed tool clients** | `mcporter emit-ts` generates `.d.ts` interfaces and ready-to-run wrappers |
-| **Composable API** | `createServerProxy()` exposes tools as camelCase methods with `.text()`, `.json()`, `.markdown()` helpers |
-| **CLI generation** | `mcporter generate-cli` converts any MCP server into a standalone CLI with `--include-tools` / `--exclude-tools` filtering |
-| **Parameter hiding** | Optional parameters stay hidden by default, reducing schema verbosity |
+| **Zero-config discovery** | Автоматически находит MCP servers из Cursor, Claude, Codex или локальных configs |
+| **Typed tool clients** | `mcporter emit-ts` генерирует `.d.ts` interfaces и готовые к запуску wrappers |
+| **Composable API** | `createServerProxy()` открывает tools как методы в camelCase с helper-ами `.text()`, `.json()`, `.markdown()` |
+| **CLI generation** | `mcporter generate-cli` превращает любой MCP server в отдельный CLI с фильтрацией `--include-tools` / `--exclude-tools` |
+| **Parameter hiding** | Необязательные параметры по умолчанию скрыты, что уменьшает verbosity схемы |
 
-**Installation:**
+**Установка:**
 
 ```bash
 npx mcporter list          # No install required — discover servers instantly
@@ -907,7 +910,7 @@ pnpm add mcporter          # Add to a project
 brew install steipete/tap/mcporter  # macOS via Homebrew
 ```
 
-**Example — composing tools in TypeScript:**
+**Пример — композиция tools в TypeScript:**
 
 ```typescript
 import { createRuntime, createServerProxy } from "mcporter";
@@ -925,77 +928,77 @@ await salesforce.updateRecord({
 });
 ```
 
-**Example — CLI tool call:**
+**Пример — вызов tool через CLI:**
 
 ```bash
-# Call a specific tool directly
+# Вызвать конкретный tool напрямую
 npx mcporter call linear.create_comment issueId:ENG-123 body:'Looks good!'
 
-# List available servers and tools
+# Показать доступные servers и tools
 npx mcporter list
 ```
 
-MCPorter complements the code-execution approach described above by providing the runtime infrastructure for calling MCP tools as typed APIs — making it straightforward to keep intermediate data out of the model context.
+MCPorter дополняет описанный выше подход code execution, предоставляя runtime infrastructure для вызова MCP tools как typed APIs, что упрощает удержание промежуточных данных вне model context.
 
-## Best Practices
+## Лучшие практики
 
-### Security Considerations
+### Соображения по безопасности
 
-#### Do's ✅
-- Use environment variables for all credentials
-- Rotate tokens and API keys regularly (monthly recommended)
-- Use read-only tokens when possible
-- Limit MCP server access scope to minimum required
-- Monitor MCP server usage and access logs
-- Use OAuth for external services when available
-- Implement rate limiting on MCP requests
-- Test MCP connections before production use
-- Document all active MCP connections
-- Keep MCP server packages updated
+#### Делайте ✅
+- Используйте переменные окружения для всех credentials
+- Регулярно обновляйте tokens и API keys (рекомендуется раз в месяц)
+- По возможности используйте read-only tokens
+- Ограничивайте доступ MCP server минимально необходимой областью
+- Следите за использованием MCP server и журналами доступа
+- Используйте OAuth для внешних сервисов, когда это возможно
+- Вводите rate limiting для MCP requests
+- Тестируйте MCP connections перед production use
+- Документируйте все активные MCP connections
+- Поддерживайте MCP server packages в актуальном состоянии
 
-#### Don'ts ❌
-- Don't hardcode credentials in config files
-- Don't commit tokens or secrets to git
-- Don't share tokens in team chats or emails
-- Don't use personal tokens for team projects
-- Don't grant unnecessary permissions
-- Don't ignore authentication errors
-- Don't expose MCP endpoints publicly
-- Don't run MCP servers with root/admin privileges
-- Don't cache sensitive data in logs
-- Don't disable authentication mechanisms
+#### Не делайте ❌
+- Не встраивайте credentials прямо в config files
+- Не коммитьте tokens или secrets в git
+- Не передавайте tokens в командных чатах или письмах
+- Не используйте personal tokens для team projects
+- Не выдавайте лишние permissions
+- Не игнорируйте authentication errors
+- Не публикуйте MCP endpoints наружу
+- Не запускайте MCP servers с root/admin privileges
+- Не кэшируйте sensitive data в logs
+- Не отключайте authentication mechanisms
 
-### Configuration Best Practices
+### Лучшие практики конфигурации
 
-1. **Version Control**: Keep `.mcp.json` in git but use environment variables for secrets
-2. **Least Privilege**: Grant minimum permissions needed for each MCP server
-3. **Isolation**: Run different MCP servers in separate processes when possible
-4. **Monitoring**: Log all MCP requests and errors for audit trails
-5. **Testing**: Test all MCP configurations before deploying to production
+1. **Version Control**: Храните `.mcp.json` в git, но для secrets используйте переменные окружения
+2. **Least Privilege**: Выдавайте минимум permissions, необходимых каждому MCP server
+3. **Isolation**: По возможности запускайте разные MCP servers в отдельных processes
+4. **Monitoring**: Логируйте все MCP requests и errors для audit trails
+5. **Testing**: Тестируйте все MCP configurations перед deploy в production
 
-### Performance Tips
+### Советы по производительности
 
-- Cache frequently accessed data at the application level
-- Use MCP queries that are specific to reduce data transfer
-- Monitor response times for MCP operations
-- Consider rate limiting for external APIs
-- Use batching when performing multiple operations
+- Кэшируйте часто запрашиваемые данные на уровне application
+- Используйте более конкретные MCP queries, чтобы уменьшить передачу данных
+- Следите за временем ответа MCP operations
+- Рассмотрите rate limiting для внешних APIs
+- Используйте batching при выполнении нескольких операций
 
-## Installation Instructions
+## Инструкции по установке
 
-### Prerequisites
+### Предварительные требования
 - Node.js and npm installed
 - Claude Code CLI installed
 - API tokens/credentials for external services
 
-### Step-by-Step Setup
+### Пошаговая настройка
 
-1. **Add your first MCP server** using the CLI (example: GitHub):
+1. **Добавьте ваш первый MCP server** через CLI (пример: GitHub):
 ```bash
 claude mcp add --transport stdio github -- npx @modelcontextprotocol/server-github
 ```
 
-   Or create a `.mcp.json` file in your project root:
+   Или создайте файл `.mcp.json` в корне проекта:
 ```json
 {
   "mcpServers": {
@@ -1010,23 +1013,23 @@ claude mcp add --transport stdio github -- npx @modelcontextprotocol/server-gith
 }
 ```
 
-2. **Set environment variables:**
+2. **Установите переменные окружения:**
 ```bash
 export GITHUB_TOKEN="your_github_personal_access_token"
 ```
 
-3. **Test the connection:**
+3. **Проверьте соединение:**
 ```bash
 claude /mcp
 ```
 
-4. **Use MCP tools:**
+4. **Используйте MCP tools:**
 ```bash
 /mcp__github__list_prs
 /mcp__github__create_issue "Title" "Description"
 ```
 
-### Installation for Specific Services
+### Установка для конкретных сервисов
 
 **GitHub MCP:**
 ```bash
@@ -1048,65 +1051,65 @@ npm install -g @modelcontextprotocol/server-filesystem
 npm install -g @modelcontextprotocol/server-slack
 ```
 
-## Troubleshooting
+## Устранение неполадок
 
-### MCP Server Not Found
+### MCP Server не найден
 ```bash
-# Verify MCP server is installed
+# Проверить, что MCP server установлен
 npm list -g @modelcontextprotocol/server-github
 
-# Install if missing
+# Установить, если отсутствует
 npm install -g @modelcontextprotocol/server-github
 ```
 
-### Authentication Failed
+### Сбой аутентификации
 ```bash
-# Verify environment variable is set
+# Проверить, что переменная окружения задана
 echo $GITHUB_TOKEN
 
-# Re-export if needed
+# Повторно экспортировать при необходимости
 export GITHUB_TOKEN="your_token"
 
-# Verify token has correct permissions
+# Проверить, что token имеет правильные permissions
 # Check GitHub token scopes at: https://github.com/settings/tokens
 ```
 
-### Connection Timeout
+### Тайм-аут соединения
 - Check network connectivity: `ping api.github.com`
 - Verify API endpoint is accessible
 - Check rate limits on API
 - Try increasing timeout in config
 - Check for firewall or proxy issues
 
-### MCP Server Crashes
+### Сбой MCP Server
 - Check MCP server logs: `~/.claude/logs/`
 - Verify all environment variables are set
 - Ensure proper file permissions
 - Try reinstalling the MCP server package
 - Check for conflicting processes on the same port
 
-## Related Concepts
+## Связанные концепции
 
-### Memory vs MCP
-- **Memory**: Stores persistent, unchanging data (preferences, context, history)
-- **MCP**: Accesses live, changing data (APIs, databases, real-time services)
+### Memory против MCP
+- **Memory**: Хранит постоянные, неизменные данные (preferences, context, history)
+- **MCP**: Получает доступ к живым, изменяющимся данным (APIs, databases, real-time services)
 
-### When to Use Each
-- **Use Memory** for: User preferences, conversation history, learned context
-- **Use MCP** for: Current GitHub issues, live database queries, real-time data
+### Когда что использовать
+- **Use Memory** для: user preferences, conversation history, learned context
+- **Use MCP** для: current GitHub issues, live database queries, real-time data
 
-### Integration with Other Claude Features
-- Combine MCP with Memory for rich context
-- Use MCP tools in prompts for better reasoning
-- Leverage multiple MCPs for complex workflows
+### Интеграция с другими возможностями Claude
+- Комбинируйте MCP с Memory для richer context
+- Используйте MCP tools в prompts для более качественного reasoning
+- Применяйте несколько MCP для complex workflows
 
-## Additional Resources
+## Дополнительные ресурсы
 
-- [Official MCP Documentation](https://code.claude.com/docs/en/mcp)
-- [MCP Protocol Specification](https://modelcontextprotocol.io/specification)
-- [MCP GitHub Repository](https://github.com/modelcontextprotocol/servers)
-- [Available MCP Servers](https://github.com/modelcontextprotocol/servers)
-- [MCPorter](https://github.com/steipete/mcporter) — TypeScript runtime & CLI for calling MCP servers without boilerplate
-- [Code Execution with MCP](https://www.anthropic.com/engineering/code-execution-with-mcp) — Anthropic's engineering blog on solving context bloat
-- [Claude Code CLI Reference](https://code.claude.com/docs/en/cli-reference)
-- [Claude API Documentation](https://docs.anthropic.com)
+- [Официальная документация MCP](https://code.claude.com/docs/en/mcp)
+- [Спецификация MCP Protocol](https://modelcontextprotocol.io/specification)
+- [GitHub-репозиторий MCP](https://github.com/modelcontextprotocol/servers)
+- [Доступные MCP Servers](https://github.com/modelcontextprotocol/servers)
+- [MCPorter](https://github.com/steipete/mcporter) — TypeScript runtime и CLI для вызова MCP servers без boilerplate
+- [Code Execution with MCP](https://www.anthropic.com/engineering/code-execution-with-mcp) — инженерный блог Anthropic о решении context bloat
+- [Справка по Claude Code CLI](https://code.claude.com/docs/en/cli-reference)
+- [Документация Claude API](https://docs.anthropic.com)

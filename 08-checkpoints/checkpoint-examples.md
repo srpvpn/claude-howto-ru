@@ -1,15 +1,15 @@
-# Checkpoint Examples
+# Примеры checkpoint
 
-Real-world examples of using checkpoints effectively in Claude Code.
+Практические примеры эффективного использования checkpoints в Claude Code.
 
-Note: Checkpoints are created automatically with every user prompt. You do not need to manually save them. To rewind, press `Esc` twice (`Esc+Esc`) or use `/rewind` to open the checkpoint browser.
+Примечание: checkpoints создаются автоматически при каждом запросе пользователя. Вам не нужно сохранять их вручную. Чтобы откатиться, нажмите `Esc` дважды (`Esc+Esc`) или используйте `/rewind`, чтобы открыть браузер checkpoints.
 
 ## Example 1: Database Migration
 
-### Scenario
-You need to migrate from MySQL to PostgreSQL but want to explore both a direct migration and a gradual dual-write approach.
+### Сценарий
+Вам нужно мигрировать с MySQL на PostgreSQL, но вы хотите сравнить прямую миграцию и постепенный подход с двойной записью.
 
-### Workflow
+### Рабочий процесс
 
 ```
 User: Let's implement a direct migration from MySQL to PostgreSQL
@@ -42,10 +42,10 @@ User: The dual-write approach is clearly safer. Let's commit this.
 
 ## Example 2: Performance Optimization
 
-### Scenario
-Multiple performance optimization strategies to try.
+### Сценарий
+Есть несколько стратегий оптимизации производительности, которые стоит попробовать.
 
-### Workflow
+### Рабочий процесс
 
 ```
 User: Let's optimize the API response time. Current: 450ms
@@ -98,10 +98,10 @@ User: Perfect! This is the winner. Let's commit this.
 
 ## Example 3: UI/UX Iteration
 
-### Scenario
-Trying different layouts for a dashboard.
+### Сценарий
+Вы пробуете разные макеты для панели управления.
 
-### Workflow
+### Рабочий процесс
 
 ```
 User: Let's redesign the dashboard with a sidebar layout
@@ -147,10 +147,10 @@ User: Perfect! This is the final design.
 
 ## Example 4: Debugging Session
 
-### Scenario
-Hunting down a tricky bug with multiple hypotheses.
+### Сценарий
+Поиск сложной ошибки с несколькими гипотезами.
 
-### Workflow
+### Рабочий процесс
 
 ```
 User: There's a memory leak in the application
@@ -194,10 +194,10 @@ User: Excellent! Let's commit this fix.
 
 ## Example 5: API Design Evolution
 
-### Scenario
-Designing a REST API with multiple iterations.
+### Сценарий
+Проектирование REST API с несколькими итерациями.
 
-### Workflow
+### Рабочий процесс
 
 ```
 User: Create a REST API for our blog platform

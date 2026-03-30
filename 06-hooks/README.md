@@ -5,21 +5,22 @@
 
 # Hooks
 
-Hooks are automated scripts that execute in response to specific events during Claude Code sessions. They enable automation, validation, permission management, and custom workflows.
+Hooks — это автоматические скрипты, которые запускаются в ответ на конкретные события во время сессий Claude Code. Они обеспечивают автоматизацию, валидацию, управление разрешениями и пользовательские workflow.
 
-## Overview
+<a id="overview"></a>
+## Обзор
 
-Hooks are automated actions (shell commands, HTTP webhooks, LLM prompts, or subagent evaluations) that execute automatically when specific events occur in Claude Code. They receive JSON input and communicate results via exit codes and JSON output.
+Hooks — это автоматические действия (shell-команды, HTTP webhooks, LLM prompts или оценки subagent), которые запускаются автоматически при наступлении определённых событий в Claude Code. Они получают JSON-ввод и передают результаты через exit code и JSON-вывод.
 
-**Key features:**
-- Event-driven automation
-- JSON-based input/output
-- Support for command, prompt, HTTP, and agent hook types
-- Pattern matching for tool-specific hooks
+**Ключевые возможности:**
+- Автоматизация, основанная на событиях
+- JSON-ввод и JSON-вывод
+- Поддержка типов hooks: command, prompt, HTTP и agent
+- Сопоставление по шаблонам для hooks, привязанных к конкретным инструментам
 
-## Configuration
+## Конфигурация
 
-Hooks are configured in settings files with a specific structure:
+Hooks настраиваются в файлах settings с определённой структурой:
 
 - `~/.claude/settings.json` - User settings (all projects)
 - `.claude/settings.json` - Project settings (shareable, committed)
@@ -69,13 +70,13 @@ Hooks are configured in settings files with a specific structure:
 | Wildcard | Matches all tools | `"*"` or `""` |
 | MCP tools | Server and tool pattern | `"mcp__memory__.*"` |
 
-## Hook Types
+## Типы hooks
 
-Claude Code supports four hook types:
+Claude Code поддерживает четыре типа hooks:
 
-### Command Hooks
+### Command hooks
 
-The default hook type. Executes a shell command and communicates via JSON stdin/stdout and exit codes.
+Тип hook по умолчанию. Выполняет shell-команду и обменивается данными через JSON stdin/stdout и коды выхода.
 
 ```json
 {
@@ -85,11 +86,11 @@ The default hook type. Executes a shell command and communicates via JSON stdin/
 }
 ```
 
-### HTTP Hooks
+### HTTP hooks
 
 > Added in v2.1.63.
 
-Remote webhook endpoints that receive the same JSON input as command hooks. HTTP hooks POST JSON to the URL and receive a JSON response. HTTP hooks are routed through the sandbox when sandboxing is enabled. Environment variable interpolation in URLs requires an explicit `allowedEnvVars` list for security.
+Удалённые webhook-endpoint'ы, которые получают тот же JSON-ввод, что и command hooks. HTTP hooks отправляют JSON через POST на URL и получают JSON-ответ. При включённом sandboxing HTTP hooks проходят через sandbox. Для подстановки переменных окружения в URL требуется явный список `allowedEnvVars` в целях безопасности.
 
 ```json
 {
@@ -103,15 +104,15 @@ Remote webhook endpoints that receive the same JSON input as command hooks. HTTP
 }
 ```
 
-**Key properties:**
-- `"type": "http"` -- identifies this as an HTTP hook
-- `"url"` -- the webhook endpoint URL
-- Routed through sandbox when sandbox is enabled
-- Requires explicit `allowedEnvVars` list for any environment variable interpolation in the URL
+**Ключевые свойства:**
+- `"type": "http"` -- указывает, что это HTTP hook
+- `"url"` -- URL webhook endpoint'а
+- Проходит через sandbox при включённом sandboxing
+- Для любой подстановки переменных окружения в URL требуется явный список `allowedEnvVars`
 
-### Prompt Hooks
+### Prompt hooks
 
-LLM-evaluated prompts where the hook content is a prompt that Claude evaluates. Primarily used with `Stop` and `SubagentStop` events for intelligent task completion checking.
+Prompt'ы, оцениваемые LLM, где содержимое hook'а - это prompt, который Claude анализирует. Чаще всего используются с событиями `Stop` и `SubagentStop` для интеллектуальной проверки завершения задачи.
 
 ```json
 {
@@ -121,11 +122,11 @@ LLM-evaluated prompts where the hook content is a prompt that Claude evaluates. 
 }
 ```
 
-The LLM evaluates the prompt and returns a structured decision (see [Prompt-Based Hooks](#prompt-based-hooks) for details).
+LLM оценивает prompt и возвращает структурированное решение (подробности см. в разделе [Prompt-Based Hooks](#prompt-based-hooks)).
 
-### Agent Hooks
+### Agent hooks
 
-Subagent-based verification hooks that spawn a dedicated agent to evaluate conditions or perform complex checks. Unlike prompt hooks (single-turn LLM evaluation), agent hooks can use tools and perform multi-step reasoning.
+Hooks проверки на основе subagent, которые запускают отдельного agent'а для оценки условий или выполнения сложных проверок. В отличие от prompt hooks (одношаговой оценки LLM), agent hooks могут использовать tools и выполнять многошаговое рассуждение.
 
 ```json
 {
@@ -135,47 +136,47 @@ Subagent-based verification hooks that spawn a dedicated agent to evaluate condi
 }
 ```
 
-**Key properties:**
-- `"type": "agent"` -- identifies this as an agent hook
-- `"prompt"` -- the task description for the subagent
-- The agent can use tools (Read, Grep, Bash, etc.) to perform its evaluation
-- Returns a structured decision similar to prompt hooks
+**Ключевые свойства:**
+- `"type": "agent"` -- указывает, что это agent hook
+- `"prompt"` -- описание задачи для subagent
+- Agent может использовать tools (Read, Grep, Bash и т. д.) для выполнения проверки
+- Возвращает структурированное решение, похожее на prompt hooks
 
-## Hook Events
+## События hooks
 
-Claude Code supports **25 hook events**:
+Claude Code поддерживает **25 hook events**:
 
-| Event | When Triggered | Matcher Input | Can Block | Common Use |
+| Событие | Когда срабатывает | Вход matcher | Может блокировать | Типичное использование |
 |-------|---------------|---------------|-----------|------------|
-| **SessionStart** | Session begins/resumes/clear/compact | startup/resume/clear/compact | No | Environment setup |
-| **InstructionsLoaded** | After CLAUDE.md or rules file loaded | (none) | No | Modify/filter instructions |
-| **UserPromptSubmit** | User submits prompt | (none) | Yes | Validate prompts |
-| **PreToolUse** | Before tool execution | Tool name | Yes (allow/deny/ask) | Validate, modify inputs |
-| **PermissionRequest** | Permission dialog shown | Tool name | Yes | Auto-approve/deny |
-| **PostToolUse** | After tool succeeds | Tool name | No | Add context, feedback |
-| **PostToolUseFailure** | Tool execution fails | Tool name | No | Error handling, logging |
-| **Notification** | Notification sent | Notification type | No | Custom notifications |
-| **SubagentStart** | Subagent spawned | Agent type name | No | Subagent setup |
-| **SubagentStop** | Subagent finishes | Agent type name | Yes | Subagent validation |
-| **Stop** | Claude finishes responding | (none) | Yes | Task completion check |
-| **StopFailure** | API error ends turn | (none) | No | Error recovery, logging |
-| **TeammateIdle** | Agent team teammate idle | (none) | Yes | Teammate coordination |
-| **TaskCompleted** | Task marked complete | (none) | Yes | Post-task actions |
-| **TaskCreated** | Task created via TaskCreate | (none) | No | Task tracking, logging |
-| **ConfigChange** | Config file changes | (none) | Yes (except policy) | React to config updates |
-| **CwdChanged** | Working directory changes | (none) | No | Directory-specific setup |
-| **FileChanged** | Watched file changes | (none) | No | File monitoring, rebuild |
-| **PreCompact** | Before context compaction | manual/auto | No | Pre-compact actions |
-| **PostCompact** | After compaction completes | (none) | No | Post-compact actions |
-| **WorktreeCreate** | Worktree being created | (none) | Yes (path return) | Worktree initialization |
-| **WorktreeRemove** | Worktree being removed | (none) | No | Worktree cleanup |
-| **Elicitation** | MCP server requests user input | (none) | Yes | Input validation |
-| **ElicitationResult** | User responds to elicitation | (none) | Yes | Response processing |
-| **SessionEnd** | Session terminates | (none) | No | Cleanup, final logging |
+| **SessionStart** | Сессия начинается, возобновляется, очищается или compact'ится | startup/resume/clear/compact | Нет | Настройка окружения |
+| **InstructionsLoaded** | После загрузки CLAUDE.md или файла правил | (нет) | Нет | Изменение/фильтрация инструкций |
+| **UserPromptSubmit** | Пользователь отправляет prompt | (нет) | Да | Проверка prompt'ов |
+| **PreToolUse** | До выполнения tool | Имя tool | Да (allow/deny/ask) | Проверка и изменение входных данных |
+| **PermissionRequest** | Показывается диалог разрешения | Имя tool | Да | Авто-approve/deny |
+| **PostToolUse** | После успешного выполнения tool | Имя tool | Нет | Добавление контекста, feedback |
+| **PostToolUseFailure** | Выполнение tool завершается ошибкой | Имя tool | Нет | Обработка ошибок, logging |
+| **Notification** | Отправлено уведомление | Тип уведомления | Нет | Пользовательские уведомления |
+| **SubagentStart** | Запущен subagent | Имя типа agent | Нет | Настройка subagent |
+| **SubagentStop** | Subagent завершает работу | Имя типа agent | Да | Проверка subagent |
+| **Stop** | Claude завершает ответ | (нет) | Да | Проверка завершения задачи |
+| **StopFailure** | Ошибка API завершает ход | (нет) | Нет | Восстановление после ошибки, logging |
+| **TeammateIdle** | Участник команды agent'ов простаивает | (нет) | Да | Координация участников |
+| **TaskCompleted** | Задача помечена завершённой | (нет) | Да | Действия после задачи |
+| **TaskCreated** | Задача создана через TaskCreate | (нет) | Нет | Отслеживание и logging задач |
+| **ConfigChange** | Изменяется файл конфигурации | (нет) | Да (кроме policy) | Реакция на обновления конфигурации |
+| **CwdChanged** | Меняется рабочий каталог | (нет) | Нет | Настройка для конкретного каталога |
+| **FileChanged** | Изменяется отслеживаемый файл | (нет) | Нет | Мониторинг файлов, rebuild |
+| **PreCompact** | Перед context compaction | manual/auto | Нет | Действия перед compaction |
+| **PostCompact** | После завершения compaction | (нет) | Нет | Действия после compaction |
+| **WorktreeCreate** | Создаётся worktree | (нет) | Да (path return) | Инициализация worktree |
+| **WorktreeRemove** | Worktree удаляется | (нет) | Нет | Очистка worktree |
+| **Elicitation** | MCP server запрашивает ввод пользователя | (нет) | Да | Проверка ввода |
+| **ElicitationResult** | Пользователь отвечает на elicitation | (нет) | Да | Обработка ответа |
+| **SessionEnd** | Сессия завершается | (нет) | Нет | Очистка, финальное logging |
 
 ### PreToolUse
 
-Runs after Claude creates tool parameters and before processing. Use this to validate or modify tool inputs.
+Срабатывает после того, как Claude создаёт параметры tool, и до обработки. Используйте это, чтобы проверить или изменить входные данные tool.
 
 **Configuration:**
 ```json
@@ -205,7 +206,7 @@ Runs after Claude creates tool parameters and before processing. Use this to val
 
 ### PostToolUse
 
-Runs immediately after tool completion. Use for verification, logging, or providing context back to Claude.
+Срабатывает сразу после завершения tool. Используйте для проверки, logging или передачи контекста обратно Claude.
 
 **Configuration:**
 ```json
@@ -232,7 +233,7 @@ Runs immediately after tool completion. Use for verification, logging, or provid
 
 ### UserPromptSubmit
 
-Runs when user submits a prompt, before Claude processes it.
+Срабатывает, когда пользователь отправляет prompt, до того как Claude начнёт его обрабатывать.
 
 **Configuration:**
 ```json
@@ -257,11 +258,11 @@ Runs when user submits a prompt, before Claude processes it.
 - `reason`: Explanation if blocked
 - `additionalContext`: Context added to prompt
 
-### Stop and SubagentStop
+### Stop и SubagentStop
 
-Run when Claude finishes responding (Stop) or a subagent completes (SubagentStop). Supports prompt-based evaluation for intelligent task completion checking.
+Срабатывает, когда Claude завершает ответ (Stop) или subagent заканчивает работу (SubagentStop). Поддерживает оценку на основе prompt для умной проверки завершения задачи.
 
-**Additional input field:** Both `Stop` and `SubagentStop` hooks receive a `last_assistant_message` field in their JSON input, containing the final message from Claude or the subagent before stopping. This is useful for evaluating task completion.
+**Дополнительное поле ввода:** hooks `Stop` и `SubagentStop` получают поле `last_assistant_message` в JSON-вводе, содержащее финальное сообщение Claude или subagent перед остановкой. Это полезно для оценки завершённости задачи.
 
 **Configuration:**
 ```json
@@ -284,7 +285,7 @@ Run when Claude finishes responding (Stop) or a subagent completes (SubagentStop
 
 ### SubagentStart
 
-Runs when a subagent begins execution. The matcher input is the agent type name, allowing hooks to target specific subagent types.
+Срабатывает, когда subagent начинает выполнение. Входное значение matcher - это имя типа agent, что позволяет нацеливать hooks на конкретные типы subagent.
 
 **Configuration:**
 ```json
@@ -307,11 +308,11 @@ Runs when a subagent begins execution. The matcher input is the agent type name,
 
 ### SessionStart
 
-Runs when session starts or resumes. Can persist environment variables.
+Срабатывает при запуске или возобновлении сессии. Может сохранять переменные окружения.
 
 **Matchers:** `startup`, `resume`, `clear`, `compact`
 
-**Special feature:** Use `CLAUDE_ENV_FILE` to persist environment variables (also available in `CwdChanged` and `FileChanged` hooks):
+**Особенность:** используйте `CLAUDE_ENV_FILE`, чтобы сохранять переменные окружения (также доступно в hooks `CwdChanged` и `FileChanged`):
 
 ```bash
 #!/bin/bash
@@ -323,13 +324,13 @@ exit 0
 
 ### SessionEnd
 
-Runs when session ends to perform cleanup or final logging. Cannot block termination.
+Срабатывает при завершении сессии для очистки или финального логирования. Не может блокировать завершение.
 
-**Reason field values:**
-- `clear` - User cleared the session
-- `logout` - User logged out
-- `prompt_input_exit` - User exited via prompt input
-- `other` - Other reason
+**Значения поля reason:**
+- `clear` - пользователь очистил сессию
+- `logout` - пользователь вышел из аккаунта
+- `prompt_input_exit` - пользователь вышел через prompt input
+- `other` - другая причина
 
 **Configuration:**
 ```json
@@ -349,19 +350,19 @@ Runs when session ends to perform cleanup or final logging. Cannot block termina
 }
 ```
 
-### Notification Event
+### Notification
 
-Updated matchers for notification events:
-- `permission_prompt` - Permission request notification
-- `idle_prompt` - Idle state notification
-- `auth_success` - Authentication success
-- `elicitation_dialog` - Dialog shown to user
+Обновлённые matcher для notification events:
+- `permission_prompt` - уведомление о запросе разрешения
+- `idle_prompt` - уведомление о простое
+- `auth_success` - успешная аутентификация
+- `elicitation_dialog` - диалог, показанный пользователю
 
-## Component-Scoped Hooks
+## Hooks уровня компонента
 
-Hooks can be attached to specific components (skills, agents, commands) in their frontmatter:
+Hooks можно привязывать к конкретным компонентам (skills, agents, commands) в их frontmatter:
 
-**In SKILL.md, agent.md, or command.md:**
+**В `SKILL.md`, `agent.md` или `command.md`:**
 
 ```yaml
 ---
@@ -377,13 +378,13 @@ hooks:
 ---
 ```
 
-**Supported events for component hooks:** `PreToolUse`, `PostToolUse`, `Stop`
+**Поддерживаемые события для component hooks:** `PreToolUse`, `PostToolUse`, `Stop`
 
-This allows defining hooks directly in the component that uses them, keeping related code together.
+Это позволяет определять hooks прямо в компоненте, который их использует, и держать связанный код рядом.
 
 ### Hooks in Subagent Frontmatter
 
-When a `Stop` hook is defined in a subagent's frontmatter, it is automatically converted to a `SubagentStop` hook scoped to that subagent. This ensures that the stop hook only fires when that specific subagent completes, rather than when the main session stops.
+Когда hook `Stop` определён во frontmatter subagent, он автоматически преобразуется в hook `SubagentStop`, привязанный к этому subagent. Это гарантирует, что hook остановки срабатывает только при завершении именно этого subagent, а не когда заканчивается основная сессия.
 
 ```yaml
 ---
@@ -398,9 +399,9 @@ hooks:
 ---
 ```
 
-## PermissionRequest Event
+## PermissionRequest
 
-Handles permission requests with custom output format:
+Обрабатывает запросы разрешений с пользовательским форматом вывода:
 
 ```json
 {
@@ -416,11 +417,11 @@ Handles permission requests with custom output format:
 }
 ```
 
-## Hook Input and Output
+## Ввод и вывод hooks
 
-### JSON Input (via stdin)
+### JSON input (через stdin)
 
-All hooks receive JSON input via stdin:
+Все hooks получают JSON-ввод через stdin:
 
 ```json
 {
@@ -441,27 +442,27 @@ All hooks receive JSON input via stdin:
 }
 ```
 
-**Common fields:**
+**Общие поля:**
 
-| Field | Description |
+| Поле | Описание |
 |-------|-------------|
-| `session_id` | Unique session identifier |
-| `transcript_path` | Path to the conversation transcript file |
-| `cwd` | Current working directory |
-| `hook_event_name` | Name of the event that triggered the hook |
-| `agent_id` | Identifier of the agent running this hook |
-| `agent_type` | Type of agent (`"main"`, subagent type name, etc.) |
-| `worktree` | Path to the git worktree, if the agent is running in one |
+| `session_id` | Уникальный идентификатор сессии |
+| `transcript_path` | Путь к файлу транскрипта разговора |
+| `cwd` | Текущая рабочая директория |
+| `hook_event_name` | Имя события, запустившего hook |
+| `agent_id` | Идентификатор agent, выполняющего этот hook |
+| `agent_type` | Тип agent (`"main"`, имя типа subagent и т. д.) |
+| `worktree` | Путь к git worktree, если agent работает в нём |
 
-### Exit Codes
+### Exit codes
 
-| Exit Code | Meaning | Behavior |
+| Exit code | Значение | Поведение |
 |-----------|---------|----------|
-| **0** | Success | Continue, parse JSON stdout |
-| **2** | Blocking error | Block operation, stderr shown as error |
-| **Other** | Non-blocking error | Continue, stderr shown in verbose mode |
+| **0** | Успех | Продолжить, разобрать JSON stdout |
+| **2** | Блокирующая ошибка | Заблокировать операцию, stderr показать как ошибку |
+| **Other** | Неблокирующая ошибка | Продолжить, stderr показать в verbose mode |
 
-### JSON Output (stdout, exit code 0)
+### JSON output (stdout, exit code 0)
 
 ```json
 {
@@ -480,7 +481,7 @@ All hooks receive JSON input via stdin:
 }
 ```
 
-## Environment Variables
+## Переменные окружения
 
 | Variable | Availability | Description |
 |----------|-------------|-------------|
@@ -493,7 +494,7 @@ All hooks receive JSON input via stdin:
 
 ## Prompt-Based Hooks
 
-For `Stop` and `SubagentStop` events, you can use LLM-based evaluation:
+Для событий `Stop` и `SubagentStop` можно использовать оценку на основе LLM:
 
 ```json
 {
@@ -513,7 +514,7 @@ For `Stop` and `SubagentStop` events, you can use LLM-based evaluation:
 }
 ```
 
-**LLM Response Schema:**
+**Схема ответа LLM:**
 ```json
 {
   "decision": "approve",
@@ -523,9 +524,9 @@ For `Stop` and `SubagentStop` events, you can use LLM-based evaluation:
 }
 ```
 
-## Examples
+## Примеры
 
-### Example 1: Bash Command Validator (PreToolUse)
+### Пример 1: валидатор Bash-команд (PreToolUse)
 
 **File:** `.claude/hooks/validate-bash.py`
 
@@ -560,7 +561,7 @@ if __name__ == "__main__":
     main()
 ```
 
-**Configuration:**
+**Конфигурация:**
 ```json
 {
   "hooks": {
@@ -579,7 +580,7 @@ if __name__ == "__main__":
 }
 ```
 
-### Example 2: Security Scanner (PostToolUse)
+### Пример 2: сканер безопасности (PostToolUse)
 
 **File:** `.claude/hooks/security-scan.py`
 
@@ -625,7 +626,7 @@ if __name__ == "__main__":
     main()
 ```
 
-### Example 3: Auto-Format Code (PostToolUse)
+### Пример 3: автоформатирование кода (PostToolUse)
 
 **File:** `.claude/hooks/format-code.sh`
 
@@ -657,7 +658,7 @@ esac
 exit 0
 ```
 
-### Example 4: Prompt Validator (UserPromptSubmit)
+### Пример 4: валидатор prompt (UserPromptSubmit)
 
 **File:** `.claude/hooks/validate-prompt.py`
 
@@ -691,7 +692,7 @@ if __name__ == "__main__":
     main()
 ```
 
-### Example 5: Intelligent Stop Hook (Prompt-Based)
+### Пример 5: интеллектуальный hook остановки (на основе prompt)
 
 ```json
 {
@@ -711,21 +712,21 @@ if __name__ == "__main__":
 }
 ```
 
-### Example 6: Context Usage Tracker (Hook Pairs)
+### Пример 6: трекер использования контекста (пара hooks)
 
-Track token consumption per request using `UserPromptSubmit` (pre-message) and `Stop` (post-response) hooks together.
+Отслеживайте расход токенов на запрос с помощью пары hooks `UserPromptSubmit` (до сообщения) и `Stop` (после ответа).
 
 **File:** `.claude/hooks/context-tracker.py`
 
 ```python
 #!/usr/bin/env python3
 """
-Context Usage Tracker - Tracks token consumption per request.
+Context Usage Tracker - отслеживает расход токенов на каждый запрос.
 
-Uses UserPromptSubmit as "pre-message" hook and Stop as "post-response" hook
-to calculate the delta in token usage for each request.
+Использует `UserPromptSubmit` как hook "до сообщения" и `Stop` как hook "после ответа"
+для расчёта разницы в расходе токенов на каждый запрос.
 
-Token Counting Methods:
+Методы подсчёта токенов:
 1. Character estimation (default): ~4 chars per token, no dependencies
 2. tiktoken (optional): More accurate (~90-95%), requires: pip install tiktoken
 """
@@ -891,21 +892,21 @@ if __name__ == "__main__":
 
 > **Note:** Anthropic hasn't released an official offline tokenizer. Both methods are approximations. The transcript includes user prompts, Claude's responses, and tool outputs, but NOT system prompts or internal context.
 
-### Example 7: Auto-Adapt Mode (PostToolUse)
+### Пример 7: режим Auto-Adapt (PostToolUse)
 
-Automatically learns from your tool approvals and updates `~/.claude/settings.json` permissions. Every time you accept a tool execution, the hook generalizes the command into a reusable permission rule — so you never have to approve the same type of command twice. Dangerous/destructive commands are **never** remembered.
+Автоматически учится на ваших разрешениях для tools и обновляет permissions в `~/.claude/settings.json`. Каждый раз, когда вы разрешаете выполнение tool, hook обобщает команду в переиспользуемое правило разрешений - так вам не придётся дважды одобрять один и тот же тип команды. Опасные и разрушительные команды **никогда** не запоминаются.
 
-On first run, it seeds your config with auto-mode-equivalent baseline permissions (read/write files, git operations, package managers, common CLI tools).
+При первом запуске он заполняет конфиг базовым набором разрешений, эквивалентным auto mode (чтение/запись файлов, git-операции, package managers, распространённые CLI tools).
 
 **File:** `.claude/hooks/auto-adapt-mode.py`
 
 ```python
 #!/usr/bin/env python3
 """
-auto-adapt-mode: Learn from user's tool approvals and update Claude config.
+auto-adapt-mode: учится на разрешениях пользователя для tools и обновляет конфигурацию Claude.
 
-Hook Type: PostToolUse
-Event: Fires after a tool is successfully executed (meaning user approved it)
+Тип hook: `PostToolUse`
+Событие: срабатывает после успешного выполнения tool (то есть после того, как пользователь его одобрил)
 """
 
 import json
@@ -1033,21 +1034,21 @@ if __name__ == "__main__":
 }
 ```
 
-**How it works:**
-1. `PostToolUse` fires after **every** successful tool execution (meaning you already approved it)
-2. The hook extracts the tool name and input, then generalizes it into a permission rule
-3. Compound commands like `git push origin main` become `Bash(git push:*)` — matching any `git push` variant
-4. The rule is added to `~/.claude/settings.json` → `permissions.allow` if not already present
-5. On first run, seeds ~70 auto-mode-equivalent baseline permissions
+**Как это работает:**
+1. `PostToolUse` срабатывает после **каждого** успешного выполнения tool (то есть вы уже его одобрили)
+2. Hook извлекает имя tool и входные данные, затем обобщает их в правило разрешений
+3. Составные команды вроде `git push origin main` превращаются в `Bash(git push:*)` - это покрывает любой вариант `git push`
+4. Правило добавляется в `~/.claude/settings.json` → `permissions.allow`, если там его ещё нет
+5. При первом запуске задаётся примерно 70 базовых разрешений, эквивалентных auto mode
 
-**Safety guarantees:**
-- Dangerous commands (force push, rm -rf, sudo, DROP TABLE, etc.) are **never** remembered
-- Irreversible operations (npm publish, terraform destroy, prod deploys) are **always** blocked
-- Commands in the `deny` list are never overridden
-- The hook never blocks tool execution (always exits 0)
-- A log file at `~/.claude/auto-adapt-mode.log` tracks all decisions for auditing
+**Гарантии безопасности:**
+- Опасные команды (force push, `rm -rf`, `sudo`, `DROP TABLE` и т. п.) **никогда** не запоминаются
+- Необратимые операции (`npm publish`, `terraform destroy`, prod deploys) **всегда** блокируются
+- Команды из списка `deny` никогда не переопределяются
+- Hook никогда не блокирует выполнение tool (всегда завершается с кодом 0)
+- Файл журнала `~/.claude/auto-adapt-mode.log` фиксирует все решения для аудита
 
-**Generalization examples:**
+**Примеры обобщения:**
 
 | You approve | Rule added | Covers |
 |-------------|-----------|--------|
@@ -1058,11 +1059,11 @@ if __name__ == "__main__":
 | `git push --force` | *(blocked)* | Never remembered |
 | `Write` tool | `Write(*)` | All file writes |
 
-> **Tip:** Delete `~/.claude/.auto-adapt-mode-initialized` to re-seed baseline permissions. Check `~/.claude/auto-adapt-mode.log` to audit what rules were added and which were blocked.
+> **Совет:** удалите `~/.claude/.auto-adapt-mode-initialized`, чтобы заново заполнить базовые permissions. Проверьте `~/.claude/auto-adapt-mode.log`, чтобы увидеть, какие правила были добавлены и какие заблокированы.
 
 ## Plugin Hooks
 
-Plugins can include hooks in their `hooks/hooks.json` file:
+Плагины могут включать hooks в файле `hooks/hooks.json`:
 
 **File:** `plugins/hooks/hooks.json`
 
@@ -1084,15 +1085,15 @@ Plugins can include hooks in their `hooks/hooks.json` file:
 }
 ```
 
-**Environment Variables in Plugin Hooks:**
+**Переменные окружения в plugin hooks:**
 - `${CLAUDE_PLUGIN_ROOT}` - Path to the plugin directory
 - `${CLAUDE_PLUGIN_DATA}` - Path to the plugin data directory
 
-This allows plugins to include custom validation and automation hooks.
+Это позволяет плагинам включать собственные hooks для валидации и автоматизации.
 
 ## MCP Tool Hooks
 
-MCP tools follow the pattern `mcp__<server>__<tool>`:
+MCP tools следуют шаблону `mcp__<server>__<tool>`:
 
 ```json
 {
@@ -1112,39 +1113,39 @@ MCP tools follow the pattern `mcp__<server>__<tool>`:
 }
 ```
 
-## Security Considerations
+## Соображения по безопасности
 
-### Disclaimer
+### Отказ от ответственности
 
-**USE AT YOUR OWN RISK**: Hooks execute arbitrary shell commands. You are solely responsible for:
-- Commands you configure
-- File access/modification permissions
-- Potential data loss or system damage
-- Testing hooks in safe environments before production use
+**ИСПОЛЬЗУЙТЕ НА СВОЙ СТРАХ И РИСК**: hooks выполняют произвольные shell-команды. Вы несёте полную ответственность за:
+- Команды, которые вы настраиваете
+- Права доступа и изменения файлов
+- Потенциальную потерю данных или повреждение системы
+- Проверку hooks в безопасной среде до использования в production
 
-### Security Notes
+### Замечания по безопасности
 
-- **Workspace trust required:** The `statusLine` and `fileSuggestion` hook output commands now require workspace trust acceptance before they take effect.
-- **HTTP hooks and environment variables:** HTTP hooks require an explicit `allowedEnvVars` list to use environment variable interpolation in URLs. This prevents accidental leakage of sensitive environment variables to remote endpoints.
-- **Managed settings hierarchy:** The `disableAllHooks` setting now respects the managed settings hierarchy, meaning organization-level settings can enforce hook disablement that individual users cannot override.
+- **Требуется доверие к workspace:** output commands хуков `statusLine` и `fileSuggestion` теперь требуют принятия workspace trust, прежде чем вступят в силу.
+- **HTTP hooks и переменные окружения:** HTTP hooks требуют явного списка `allowedEnvVars`, чтобы использовать подстановку переменных окружения в URL. Это предотвращает случайную утечку чувствительных переменных на удалённые endpoints.
+- **Иерархия managed settings:** настройка `disableAllHooks` теперь учитывает иерархию managed settings, поэтому настройки уровня организации могут принудительно отключать hooks, а отдельные пользователи не могут это переопределить.
 
-### Best Practices
+### Лучшие практики
 
 | Do | Don't |
 |-----|-------|
-| Validate and sanitize all inputs | Trust input data blindly |
-| Quote shell variables: `"$VAR"` | Use unquoted: `$VAR` |
-| Block path traversal (`..`) | Allow arbitrary paths |
-| Use absolute paths with `$CLAUDE_PROJECT_DIR` | Hardcode paths |
-| Skip sensitive files (`.env`, `.git/`, keys) | Process all files |
-| Test hooks in isolation first | Deploy untested hooks |
-| Use explicit `allowedEnvVars` for HTTP hooks | Expose all env vars to webhooks |
+| Валидируйте и очищайте все входные данные | Безоговорочно доверяйте входу |
+| Квотируйте shell-переменные: `"$VAR"` | Используйте без кавычек: `$VAR` |
+| Блокируйте path traversal (`..`) | Разрешайте произвольные пути |
+| Используйте абсолютные пути с `$CLAUDE_PROJECT_DIR` | Захардкоживайте пути |
+| Пропускайте чувствительные файлы (`.env`, `.git/`, keys) | Обрабатывайте все файлы |
+| Сначала тестируйте hooks изолированно | Разворачивайте непроверенные hooks |
+| Для HTTP hooks задавайте явный `allowedEnvVars` | Открывайте все env vars для webhooks |
 
-## Debugging
+## Отладка
 
-### Enable Debug Mode
+### Включить debug mode
 
-Run Claude with debug flag for detailed hook logs:
+Запустите Claude с debug flag, чтобы получать подробные логи hooks:
 
 ```bash
 claude --debug
@@ -1152,19 +1153,19 @@ claude --debug
 
 ### Verbose Mode
 
-Use `Ctrl+O` in Claude Code to enable verbose mode and see hook execution progress.
+Используйте `Ctrl+O` в Claude Code, чтобы включить verbose mode и видеть ход выполнения hooks.
 
-### Test Hooks Independently
+### Тестирование hooks отдельно
 
 ```bash
-# Test with sample JSON input
+# Тест с примером JSON input
 echo '{"tool_name": "Bash", "tool_input": {"command": "ls -la"}}' | python3 .claude/hooks/validate-bash.py
 
-# Check exit code
+# Проверка exit code
 echo $?
 ```
 
-## Complete Configuration Example
+## Полный пример конфигурации
 
 ```json
 {
@@ -1234,61 +1235,61 @@ echo $?
 }
 ```
 
-## Hook Execution Details
+## Детали выполнения hooks
 
 | Aspect | Behavior |
 |--------|----------|
-| **Timeout** | 60 seconds default, configurable per command |
-| **Parallelization** | All matching hooks run in parallel |
-| **Deduplication** | Identical hook commands deduplicated |
-| **Environment** | Runs in current directory with Claude Code's environment |
+| **Timeout** | По умолчанию 60 секунд, настраивается для каждой команды |
+| **Параллельность** | Все подходящие hooks запускаются параллельно |
+| **Дедупликация** | Идентичные hook-команды дедуплицируются |
+| **Окружение** | Запускаются в текущей директории с окружением Claude Code |
 
-## Troubleshooting
+## Устранение неполадок
 
-### Hook Not Executing
-- Verify JSON configuration syntax is correct
-- Check matcher pattern matches the tool name
-- Ensure script exists and is executable: `chmod +x script.sh`
-- Run `claude --debug` to see hook execution logs
-- Verify hook reads JSON from stdin (not command args)
+### Hook не выполняется
+- Проверьте, что синтаксис JSON-конфигурации корректен
+- Убедитесь, что pattern matcher совпадает с именем tool
+- Проверьте, что скрипт существует и исполняемый: `chmod +x script.sh`
+- Запустите `claude --debug`, чтобы увидеть логи выполнения hooks
+- Убедитесь, что hook читает JSON из stdin, а не из аргументов команды
 
-### Hook Blocks Unexpectedly
-- Test hook with sample JSON: `echo '{"tool_name": "Write", ...}' | ./hook.py`
-- Check exit code: should be 0 for allow, 2 for block
-- Check stderr output (shown on exit code 2)
+### Hook блокирует неожиданно
+- Протестируйте hook на примере JSON: `echo '{"tool_name": "Write", ...}' | ./hook.py`
+- Проверьте exit code: должен быть 0 для разрешения и 2 для блокировки
+- Проверьте stderr output (показывается при exit code 2)
 
-### JSON Parsing Errors
-- Always read from stdin, not command arguments
-- Use proper JSON parsing (not string manipulation)
-- Handle missing fields gracefully
+### Ошибки разбора JSON
+- Всегда читайте из stdin, а не из аргументов команды
+- Используйте полноценный JSON parsing, а не манипуляции строками
+- Аккуратно обрабатывайте отсутствующие поля
 
-## Installation
+## Установка
 
-### Step 1: Create Hooks Directory
+### Шаг 1: создайте каталог hooks
 ```bash
 mkdir -p ~/.claude/hooks
 ```
 
-### Step 2: Copy Example Hooks
+### Шаг 2: скопируйте примеры hooks
 ```bash
 cp 06-hooks/*.sh ~/.claude/hooks/
 chmod +x ~/.claude/hooks/*.sh
 ```
 
-### Step 3: Configure in Settings
-Edit `~/.claude/settings.json` or `.claude/settings.json` with the hook configuration shown above.
+### Шаг 3: настройте в settings
+Отредактируйте `~/.claude/settings.json` или `.claude/settings.json`, добавив конфигурацию hooks, показанную выше.
 
-## Related Concepts
+## Связанные концепции
 
-- **[Checkpoints and Rewind](../08-checkpoints/)** - Save and restore conversation state
-- **[Slash Commands](../01-slash-commands/)** - Create custom slash commands
-- **[Skills](../03-skills/)** - Reusable autonomous capabilities
-- **[Subagents](../04-subagents/)** - Delegated task execution
-- **[Plugins](../07-plugins/)** - Bundled extension packages
-- **[Advanced Features](../09-advanced-features/)** - Explore advanced Claude Code capabilities
+- **[Checkpoints and Rewind](../08-checkpoints/)** - сохранение и восстановление состояния разговора
+- **[Slash Commands](../01-slash-commands/)** - создание собственных slash-команд
+- **[Skills](../03-skills/)** - переиспользуемые автономные возможности
+- **[Subagents](../04-subagents/)** - делегированное выполнение задач
+- **[Plugins](../07-plugins/)** - упакованные расширения
+- **[Advanced Features](../09-advanced-features/)** - изучение продвинутых возможностей Claude Code
 
-## Additional Resources
+## Дополнительные ресурсы
 
-- **[Official Hooks Documentation](https://code.claude.com/docs/en/hooks)** - Complete hooks reference
-- **[CLI Reference](https://code.claude.com/docs/en/cli-reference)** - Command-line interface documentation
-- **[Memory Guide](../02-memory/)** - Persistent context configuration
+- **[Official Hooks Documentation](https://code.claude.com/docs/en/hooks)** - полная справка по hooks
+- **[CLI Reference](https://code.claude.com/docs/en/cli-reference)** - документация по командной строке
+- **[Memory Guide](../02-memory/)** - настройка постоянного контекста
