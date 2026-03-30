@@ -3,8 +3,6 @@
   <img alt="Claude How To" src="resources/logos/claude-howto-logo.svg">
 </picture>
 
-[![GitHub Stars](https://img.shields.io/github/stars/luongnv89/claude-howto?style=flat&color=gold)](https://github.com/luongnv89/claude-howto/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/luongnv89/claude-howto?style=flat)](https://github.com/luongnv89/claude-howto/network/members)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-2.2.0-brightgreen)](CHANGELOG.md)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-2.1+-purple)](https://code.claude.com)
@@ -12,6 +10,8 @@
 # Освойте Claude Code за выходные
 
 От простого ввода `claude` до оркестрации агентов, hooks, skills и MCP-серверов — с наглядными туториалами, шаблонами для копирования и пошаговым учебным маршрутом.
+
+> **Примечание о переводе:** это любительский перевод оригинального проекта [luongnv89/claude-howto](https://github.com/luongnv89/claude-howto). Спасибо автору оригинала за основу. Я открыт к вашим улучшениям перевода и правкам формулировок.
 
 **[Начать за 15 минут](#-get-started-in-15-minutes)** | **[Определить свой уровень](#-not-sure-where-to-start)** | **[Открыть каталог возможностей](CATALOG.md)**
 
@@ -93,14 +93,11 @@
 
 ---
 
-## Нам доверяют 5,900+ разработчиков
+## О проекте перевода
 
-- **5,900+ звёзд на GitHub** от разработчиков, которые используют Claude Code каждый день
-- **690+ форков** — команды адаптируют этот гид под свои процессы
-- **Активно поддерживается** — синхронизируется с каждым релизом Claude Code (последняя версия: v2.2.0, март 2026)
-- **Основан на сообществе** — вклад вносят разработчики, которые делятся своими реальными конфигурациями
-
-[![Star History Chart](https://api.star-history.com/svg?repos=luongnv89/claude-howto&type=Date)](https://star-history.com/#luongnv89/claude-howto&Date)
+- Это русскоязычная версия оригинального гайда `claude-howto`
+- Основа и автор оригинального проекта: [luongnv89/claude-howto](https://github.com/luongnv89/claude-howto)
+- Если заметите неточный перевод, корявую формулировку или смысловую ошибку, улучшения приветствуются
 
 ---
 
