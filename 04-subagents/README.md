@@ -400,7 +400,7 @@ Subagents могут продолжать предыдущие разговор�
 **Сценарии использования**:
 - долгие исследования через несколько сессий
 - итеративная доработка без потери контекста
-- многошаговые рабочие процессы с сохранением контекста
+- многошаговые workflows с сохранением контекста
 
 ---
 
@@ -597,7 +597,7 @@ Set the environment variable or add it to your `settings.json`:
 export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 ```
 
-Or in `settings.json`:
+Или в `settings.json`:
 
 ```json
 {
@@ -609,14 +609,14 @@ Or in `settings.json`:
 
 ### Запуск команды
 
-Once enabled, ask Claude to work with teammates in your prompt:
+После включения попросите Claude работать с teammates прямо в промпте:
 
 ```
-User: Build the authentication module. Use a team — one teammate for the API endpoints,
-      one for the database schema, and one for the test suite.
+Пользователь: Собери модуль аутентификации. Используй команду: один teammate
+      для API endpoint-ов, один для схемы базы данных и один для набора тестов.
 ```
 
-Claude will create the team, assign tasks, and coordinate the work automatically.
+Claude создаст команду, распределит задачи и автоматически скоординирует работу.
 
 ### Режимы отображения
 
@@ -655,23 +655,23 @@ claude --teammate-mode tmux
 ```mermaid
 graph TB
     Lead["Team Lead<br/>(Координатор)"]
-    TaskList["Shared Task List<br/>(Dependencies)"]
-    Mailbox["Mailbox<br/>(Messages)"]
-    T1["Teammate 1<br/>(Own Context)"]
-    T2["Teammate 2<br/>(Own Context)"]
-    T3["Teammate 3<br/>(Own Context)"]
+    TaskList["Общий список задач<br/>(Dependencies)"]
+    Mailbox["Почтовый ящик<br/>(Messages)"]
+    T1["Teammate 1<br/>(Свой контекст)"]
+    T2["Teammate 2<br/>(Свой контекст)"]
+    T3["Teammate 3<br/>(Свой контекст)"]
 
-    Lead -->|assigns tasks| TaskList
-    Lead -->|sends messages| Mailbox
-    TaskList -->|picks up work| T1
-    TaskList -->|picks up work| T2
-    TaskList -->|picks up work| T3
-    T1 -->|reads/writes| Mailbox
-    T2 -->|reads/writes| Mailbox
-    T3 -->|reads/writes| Mailbox
-    T1 -->|updates status| TaskList
-    T2 -->|updates status| TaskList
-    T3 -->|updates status| TaskList
+    Lead -->|назначает задачи| TaskList
+    Lead -->|отправляет сообщения| Mailbox
+    TaskList -->|берёт работу| T1
+    TaskList -->|берёт работу| T2
+    TaskList -->|берёт работу| T3
+    T1 -->|читает и пишет| Mailbox
+    T2 -->|читает и пишет| Mailbox
+    T3 -->|читает и пишет| Mailbox
+    T1 -->|обновляет статус| TaskList
+    T2 -->|обновляет статус| TaskList
+    T3 -->|обновляет статус| TaskList
 
     style Lead fill:#e1f5fe,stroke:#333,color:#333
     style TaskList fill:#fff9c4,stroke:#333,color:#333
@@ -707,7 +707,7 @@ Agent Teams добавляют два дополнительных [hook-соб�
 | Событие | Срабатывает когда | Сценарий использования |
 |-------|------------------|----------------------|
 | `TeammateIdle` | teammate завершает текущую задачу и у него нет ожидающей работы | запускать уведомления, назначать последующие задачи |
-| `TaskCompleted` | задача в общем списке помечена как завершённая | запускать проверку, обновлять dashboards, цеплять зависимую работу |
+| `TaskCompleted` | задача в общем списке помечена как завершённая | запускать проверку, обновлять dashboards, запускать зависимую работу |
 
 ### Лучшие практики
 

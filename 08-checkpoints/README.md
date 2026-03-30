@@ -3,43 +3,43 @@
   <img alt="Claude How To" src="../resources/logos/claude-howto-logo.svg">
 </picture>
 
-# Checkpoints и Rewind
+# Checkpoints и откат
 
 Checkpoints позволяют сохранять состояние разговора и откатываться к предыдущим точкам в сессии Claude Code. Это незаменимо, когда вы исследуете разные подходы, восстанавливаетесь после ошибок или сравниваете альтернативные решения.
 
-## Overview
+## Обзор
 
-Checkpoints позволяют сохранять состояние разговора и возвращаться к предыдущим точкам, что даёт безопасное экспериментирование и возможность исследовать несколько подходов. Это снимки состояния вашей сессии, включая:
-- All messages exchanged
-- File modifications made
-- Tool usage history
-- Session context
+Checkpoints позволяют сохранять состояние разговора и возвращаться к предыдущим точкам, что даёт безопасное пространство для экспериментов и возможность исследовать несколько подходов. Это снимки состояния вашей сессии, включая:
+- все сообщения в разговоре
+- внесённые изменения в файлах
+- историю использования инструментов
+- контекст сессии
 
 Checkpoints особенно полезны, когда вы исследуете разные подходы, исправляете ошибки или сравниваете альтернативные решения.
 
-## Key Concepts
+## Ключевые понятия
 
 | Понятие | Описание |
 |---------|-------------|
 | **Checkpoint** | Снимок состояния разговора, включая сообщения, файлы и контекст |
 | **Rewind** | Возврат к предыдущему checkpoint с отбрасыванием последующих изменений |
-| **Branch Point** | Checkpoint, с которого исследуются несколько подходов |
+| **Branch Point** | Checkpoint, от которого исследуются несколько подходов |
 
-## Accessing Checkpoints
+## Доступ к Checkpoints
 
 Вы можете открывать и управлять checkpoints двумя основными способами:
 
-### Using Keyboard Shortcut
+### Через сочетание клавиш
 Нажмите `Esc` дважды (`Esc` + `Esc`), чтобы открыть интерфейс checkpoints и просмотреть сохранённые точки.
 
-### Using Slash Command
-Используйте команду `/rewind` (alias: `/checkpoint`) для быстрого доступа:
+### Через slash-команду
+Используйте команду `/rewind` (`alias`: `/checkpoint`) для быстрого доступа:
 
 ```bash
-# Open rewind interface
+# Открыть интерфейс отката
 /rewind
 
-# Or use the alias
+# Или использовать алиас
 /checkpoint
 ```
 
@@ -47,11 +47,11 @@ Checkpoints особенно полезны, когда вы исследует�
 
 При откате вам предлагается меню из пяти вариантов:
 
-1. **Restore code and conversation** -- Вернуть и файлы, и сообщения к этому checkpoint
-2. **Restore conversation** -- Откатить только сообщения, оставив текущий код без изменений
-3. **Restore code** -- Откатить только изменения файлов, сохранив всю историю разговора
-4. **Summarize from here** -- Сжать разговор от этой точки в AI-сводку вместо удаления. Исходные сообщения сохраняются в транскрипте. При желании можно задать инструкции, чтобы сфокусировать сводку на конкретных темах.
-5. **Never mind** -- Отменить действие и вернуться к текущему состоянию
+1. **Restore code and conversation** -- вернуть и файлы, и сообщения к этому checkpoint
+2. **Restore conversation** -- откатить только сообщения, оставив текущий код без изменений
+3. **Restore code** -- откатить только изменения файлов, сохранив всю историю разговора
+4. **Summarize from here** -- сжать разговор от этой точки в AI-сводку вместо удаления. Исходные сообщения сохраняются в транскрипте. При желании можно задать инструкции, чтобы сфокусировать сводку на конкретных темах.
+5. **Never mind** -- отменить действие и вернуться к текущему состоянию
 
 ## Автоматические Checkpoints
 
@@ -63,7 +63,7 @@ Claude Code автоматически создаёт checkpoints для вас:
 
 Это значит, что вы всегда можете откатиться к любой предыдущей точке разговора, будь то несколько минут назад или несколько дней назад.
 
-## Use Cases
+## Сценарии использования
 
 | Сценарий | Рабочий процесс |
 |----------|----------|
@@ -72,7 +72,7 @@ Claude Code автоматически создаёт checkpoints для вас:
 | **A/B-тестирование** | Save → Design A → Save → Rewind → Design B → Compare |
 | **Восстановление после ошибки** | Замечаете проблему → откат к последнему рабочему состоянию |
 
-## Using Checkpoints
+## Использование Checkpoints
 
 ### Просмотр и откат
 
@@ -91,66 +91,66 @@ Claude Code автоматически создаёт checkpoints для вас:
 ### Пример 1: Исследование разных подходов
 
 ```
-User: Let's add a caching layer to the API
+Пользователь: Давай добавим слой кэширования в API
 
-Claude: I'll add Redis caching to your API endpoints...
-[Makes changes at checkpoint A]
+Claude: Я добавлю Redis-кэширование в ваши API endpoint-ы...
+[Вносит изменения в checkpoint A]
 
-User: Actually, let's try in-memory caching instead
+Пользователь: Вообще давай лучше попробуем кэширование в памяти
 
-Claude: I'll rewind to explore a different approach...
-[User presses Esc+Esc and rewinds to checkpoint A]
-[Implements in-memory caching at checkpoint B]
+Claude: Я выполню откат, чтобы попробовать другой подход...
+[Пользователь нажимает Esc+Esc и откатывается к checkpoint A]
+[Реализует кэширование в памяти в checkpoint B]
 
-User: Now I can compare both approaches
+Пользователь: Теперь я могу сравнить оба подхода
 ```
 
 ### Пример 2: Восстановление после ошибки
 
 ```
-User: Refactor the authentication module to use JWT
+Пользователь: Отрефакторь модуль аутентификации так, чтобы он использовал JWT
 
-Claude: I'll refactor the authentication module...
-[Makes extensive changes]
+Claude: Я отрефакторю модуль аутентификации...
+[Вносит большие изменения]
 
-User: Wait, that broke the OAuth integration. Let's go back.
+Пользователь: Подожди, это сломало интеграцию с OAuth. Давай вернёмся назад.
 
-Claude: I'll help you rewind to before the refactoring...
-[User presses Esc+Esc and selects the checkpoint before the refactor]
+Claude: Я помогу откатиться к состоянию до рефакторинга...
+[Пользователь нажимает Esc+Esc и выбирает checkpoint до рефакторинга]
 
-User: Let's try a more conservative approach this time
+Пользователь: Давай в этот раз попробуем более консервативный подход
 ```
 
 ### Пример 3: Безопасные эксперименты
 
 ```
-User: Let's try rewriting this in a functional style
-[Creates checkpoint before experiment]
+Пользователь: Давай попробуем переписать это в функциональном стиле
+[Создаётся checkpoint перед экспериментом]
 
-Claude: [Makes experimental changes]
+Claude: [Вносит экспериментальные изменения]
 
-User: The tests are failing. Let's rewind.
-[User presses Esc+Esc and rewinds to the checkpoint]
+Пользователь: Тесты падают. Давай откатимся.
+[Пользователь нажимает Esc+Esc и откатывается к checkpoint]
 
-Claude: I've rewound the changes. Let's try a different approach.
+Claude: Я откатил изменения. Давай попробуем другой подход.
 ```
 
 ### Пример 4: Ветвление подходов
 
 ```
-User: I want to compare two database designs
-[Takes note of checkpoint - call it "Start"]
+Пользователь: Я хочу сравнить два варианта дизайна базы данных
+[Фиксирует checkpoint и условно называет его "Start"]
 
-Claude: I'll create the first design...
-[Implements Schema A]
+Claude: Я создам первый вариант...
+[Реализует Schema A]
 
-User: Now let me go back and try the second approach
-[User presses Esc+Esc and rewinds to "Start"]
+Пользователь: Теперь дай мне вернуться назад и попробовать второй подход
+[Пользователь нажимает Esc+Esc и откатывается к "Start"]
 
-Claude: Now I'll implement Schema B...
-[Implements Schema B]
+Claude: Теперь я реализую Schema B...
+[Реализует Schema B]
 
-User: Great! Now I have both schemas to choose from
+Пользователь: Отлично. Теперь у меня есть обе схемы на выбор
 ```
 
 ## Хранение checkpoint
@@ -165,27 +165,27 @@ Claude Code автоматически управляет вашими checkpoin
 
 ### Стратегия ветвления для исследования
 
-When exploring multiple approaches:
+Когда вы исследуете несколько подходов:
 
 ```
-1. Start with initial implementation → Checkpoint A
-2. Try Approach 1 → Checkpoint B
-3. Rewind to Checkpoint A
-4. Try Approach 2 → Checkpoint C
-5. Compare results from B and C
-6. Choose best approach and continue
+1. Начните с исходной реализации → Checkpoint A
+2. Попробуйте подход 1 → Checkpoint B
+3. Откатитесь к Checkpoint A
+4. Попробуйте подход 2 → Checkpoint C
+5. Сравните результаты B и C
+6. Выберите лучший подход и продолжайте
 ```
 
 ### Шаблон безопасного рефакторинга
 
-When making significant changes:
+Когда вы вносите значительные изменения:
 
 ```
-1. Current state → Checkpoint (auto)
-2. Start refactoring
-3. Run tests
-4. If tests pass → Continue working
-5. If tests fail → Rewind and try different approach
+1. Текущее состояние → Checkpoint (автоматически)
+2. Начните рефакторинг
+3. Запустите тесты
+4. Если тесты проходят → продолжайте работу
+5. Если тесты падают → выполните откат и попробуйте другой подход
 ```
 
 ## Лучшие практики
@@ -205,7 +205,7 @@ When making significant changes:
 - Не ожидайте, что checkpoints отслеживают внешние изменения файловой системы
 - Не используйте checkpoints как замену git commit
 
-## Configuration
+## Конфигурация
 
 Вы можете включать и отключать автоматические checkpoints в настройках:
 
@@ -217,7 +217,7 @@ When making significant changes:
 
 - `autoCheckpoint`: Включает или отключает автоматическое создание checkpoint при каждом запросе пользователя (по умолчанию: `true`)
 
-## Limitations
+## Ограничения
 
 У checkpoints есть следующие ограничения:
 
@@ -225,7 +225,7 @@ When making significant changes:
 - **Внешние изменения НЕ отслеживаются** - Изменения, сделанные вне Claude Code (в редакторе, терминале и т. д.), не фиксируются
 - **Это не замена системе контроля версий** - Используйте git для постоянных и проверяемых изменений в кодовой базе
 
-## Troubleshooting
+## Устранение неполадок
 
 ### Отсутствуют checkpoints
 
@@ -245,7 +245,7 @@ When making significant changes:
 - Проверьте, не повреждён ли checkpoint
 - Попробуйте откатиться к другому checkpoint
 
-## Integration with Git
+## Интеграция с Git
 
 Checkpoints дополняют git, но не заменяют его:
 
@@ -263,7 +263,7 @@ Checkpoints дополняют git, но не заменяют его:
 3. Создавайте checkpoint перед git-операциями
 4. Фиксируйте в git успешные состояния после checkpoint
 
-## Quick Start Guide
+## Краткий старт
 
 ### Базовый рабочий процесс
 
@@ -277,7 +277,7 @@ Checkpoints дополняют git, но не заменяют его:
 
 - **`Esc` + `Esc`** - Открыть браузер checkpoint
 - **`/rewind`** - Альтернативный способ доступа к checkpoints
-- **`/checkpoint`** - Alias для `/rewind`
+- **`/checkpoint`** - Алиас для `/rewind`
 
 ## Как понять, когда пора откатываться: мониторинг контекста
 
@@ -296,7 +296,7 @@ Checkpoints позволяют откатываться назад, но как 
 ## Дополнительные ресурсы
 
 - [Официальная документация по checkpointing](https://code.claude.com/docs/en/checkpointing)
-- [Руководство по Advanced Features](../09-advanced-features/) - Extended thinking и другие возможности
+- [Руководство по Advanced Features](../09-advanced-features/) - Расширенное мышление и другие возможности
 
 ## Итог
 

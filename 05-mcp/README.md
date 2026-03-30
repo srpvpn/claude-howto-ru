@@ -5,7 +5,7 @@
 
 # MCP (Model Context Protocol)
 
-Эта папка содержит полную документацию и примеры конфигурации MCP servers и их использования с Claude Code.
+Эта папка содержит полную документацию и примеры конфигурации MCP-серверов и их использования с Claude Code.
 
 <a id="overview"></a>
 ## Обзор
@@ -25,17 +25,17 @@ MCP (Model Context Protocol) — это стандартизированный �
 graph TB
     A["Claude"]
     B["MCP Server"]
-    C["External Service"]
+    C["Внешний сервис"]
 
-    A -->|Request: list_issues| B
-    B -->|Query| C
-    C -->|Data| B
-    B -->|Response| A
+    A -->|Запрос: list_issues| B
+    B -->|Запрос| C
+    C -->|Данные| B
+    B -->|Ответ| A
 
-    A -->|Request: create_issue| B
-    B -->|Action| C
-    C -->|Result| B
-    B -->|Response| A
+    A -->|Запрос: create_issue| B
+    B -->|Действие| C
+    C -->|Результат| B
+    B -->|Ответ| A
 
     style A fill:#e1f5fe,stroke:#333,color:#333
     style B fill:#f3e5f5,stroke:#333,color:#333
@@ -78,10 +78,10 @@ Claude Code поддерживает несколько транспортных
 ### HTTP-транспорт (рекомендуется)
 
 ```bash
-# Basic HTTP connection
+# Базовое HTTP-подключение
 claude mcp add --transport http notion https://mcp.notion.com/mcp
 
-# HTTP with authentication header
+# HTTP с заголовком аутентификации
 claude mcp add --transport http secure-api https://api.example.com/mcp \
   --header "Authorization: Bearer your-token"
 ```
@@ -91,10 +91,10 @@ claude mcp add --transport http secure-api https://api.example.com/mcp \
 Для локально запущенных MCP servers:
 
 ```bash
-# Local Node.js server
+# Локальный сервер Node.js
 claude mcp add --transport stdio myserver -- npx @myorg/mcp-server
 
-# With environment variables
+# С переменными окружения
 claude mcp add --transport stdio myserver --env KEY=value -- npx server
 ```
 
@@ -127,10 +127,10 @@ claude mcp add --transport stdio my-server -- cmd /c npx -y @some/package
 Claude Code поддерживает OAuth 2.0 для MCP servers, которым это требуется. При подключении к OAuth-enabled серверу Claude Code обрабатывает весь поток аутентификации:
 
 ```bash
-# Connect to an OAuth-enabled MCP server (interactive flow)
+# Подключиться к MCP-серверу с OAuth (интерактивный сценарий)
 claude mcp add --transport http my-service https://my-service.example.com/mcp
 
-# Pre-configure OAuth credentials for non-interactive setup
+# Предварительно настроить OAuth-учётные данные для неинтерактивной установки
 claude mcp add --transport http my-service https://my-service.example.com/mcp \
   --client-id "your-client-id" \
   --client-secret "your-client-secret" \
@@ -139,10 +139,10 @@ claude mcp add --transport http my-service https://my-service.example.com/mcp \
 
 | Возможность | Описание |
 |---------|-------------|
-| **Interactive OAuth** | Используйте `/mcp`, чтобы запустить OAuth flow в браузере |
-| **Pre-configured OAuth clients** | Встроенные OAuth clients для популярных сервисов вроде Notion, Stripe и других (v2.1.30+) |
+| **Interactive OAuth** | Используйте `/mcp`, чтобы запустить OAuth-сценарий в браузере |
+| **Pre-configured OAuth clients** | Встроенные OAuth-клиенты для популярных сервисов вроде Notion, Stripe и других (v2.1.30+) |
 | **Pre-configured credentials** | Флаги `--client-id`, `--client-secret`, `--callback-port` для автоматической настройки |
-| **Token storage** | Tokens безопасно хранятся в системном keychain |
+| **Token storage** | Токены безопасно хранятся в системном keychain |
 | **Step-up auth** | Поддерживает step-up authentication для привилегированных операций |
 | **Discovery caching** | OAuth discovery metadata кэшируются для более быстрых повторных подключений |
 | **Metadata override** | `oauth.authServerMetadataUrl` в `.mcp.json` для переопределения стандартного OAuth metadata discovery |

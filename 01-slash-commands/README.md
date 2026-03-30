@@ -3,7 +3,7 @@
   <img alt="Claude How To" src="../resources/logos/claude-howto-logo.svg">
 </picture>
 
-# Slash Commands
+# Slash-команды
 
 ## Обзор
 
@@ -14,39 +14,39 @@ Slash-команды — это ярлыки, которые управляют 
 - **Plugin commands**: команды из установленных plugins (`/frontend-design:frontend-design`)
 - **MCP prompts**: команды от MCP-серверов (`/mcp__github__list_prs`)
 
-> **Note**: Пользовательские slash-команды были объединены со skills. Файлы в `.claude/commands/` всё ещё работают, но skills (`.claude/skills/`) теперь рекомендуемый подход. Оба варианта создают ярлыки `/command-name`. См. [Skills Guide](../03-skills/) для полной справки.
+> **Примечание**: пользовательские slash-команды были объединены со skills. Файлы в `.claude/commands/` всё ещё работают, но skills (`.claude/skills/`) теперь рекомендуемый подход. Оба варианта создают ярлыки `/command-name`. См. [Skills Guide](../03-skills/) для полной справки.
 
 ## Справка по встроенным командам
 
 Встроенные команды — это ярлыки для частых действий. Доступно **55+ built-in commands** и **5 bundled skills**. Введите `/` в Claude Code, чтобы увидеть полный список, или `/` и любые буквы, чтобы отфильтровать его.
 
-| Command | Purpose |
+| Команда | Назначение |
 |---------|---------|
 | `/add-dir <path>` | Добавить рабочий каталог |
 | `/agents` | Управлять конфигурациями агентов |
-| `/branch [name]` | Ветвить разговор в новую сессию (alias: `/fork`). Note: `/fork` renamed to `/branch` in v2.1.77 |
+| `/branch [name]` | Ветвить разговор в новую сессию (`alias`: `/fork`). Примечание: `/fork` был переименован в `/branch` в v2.1.77 |
 | `/btw <question>` | Задать побочный вопрос без добавления в историю |
 | `/chrome` | Настроить интеграцию с браузером Chrome |
-| `/clear` | Очистить разговор (aliases: `/reset`, `/new`) |
+| `/clear` | Очистить разговор (`aliases`: `/reset`, `/new`) |
 | `/color [color\|default]` | Установить цвет prompt bar |
 | `/compact [instructions]` | Сжать разговор с опциональными инструкциями по фокусу |
-| `/config` | Открыть Settings (alias: `/settings`) |
+| `/config` | Открыть настройки (`alias`: `/settings`) |
 | `/context` | Визуализировать использование контекста в виде цветной сетки |
-| `/copy [N]` | Скопировать ответ ассистента в буфер обмена; `w` writes to file |
+| `/copy [N]` | Скопировать ответ ассистента в буфер обмена; `w` записывает в файл |
 | `/cost` | Показать статистику использования токенов |
-| `/desktop` | Продолжить в Desktop app (alias: `/app`) |
+| `/desktop` | Продолжить в Desktop app (`alias`: `/app`) |
 | `/diff` | Интерактивный diff viewer для незакоммиченных изменений |
 | `/doctor` | Диагностировать состояние установки |
 | `/effort [low\|medium\|high\|max\|auto]` | Установить уровень effort. `max` requires Opus 4.6 |
-| `/exit` | Выйти из REPL (alias: `/quit`) |
+| `/exit` | Выйти из REPL (`alias`: `/quit`) |
 | `/export [filename]` | Экспортировать текущий разговор в файл или clipboard |
 | `/extra-usage` | Настроить дополнительное использование для rate limits |
 | `/fast [on\|off]` | Переключить fast mode |
 | `/feedback` | Отправить отзыв (alias: `/bug`) |
-| `/help` | Показать help |
+| `/help` | Показать справку |
 | `/hooks` | Просмотреть конфигурации hooks |
 | `/ide` | Управлять интеграциями IDE |
-| `/init` | Инициализировать `CLAUDE.md`. Set `CLAUDE_CODE_NEW_INIT=true` for interactive flow |
+| `/init` | Инициализировать `CLAUDE.md`. Установите `CLAUDE_CODE_NEW_INIT=true`, чтобы включить интерактивный сценарий |
 | `/insights` | Сгенерировать session analysis report |
 | `/install-github-app` | Настроить GitHub Actions app |
 | `/install-slack-app` | Установить Slack app |
@@ -55,10 +55,10 @@ Slash-команды — это ярлыки, которые управляют 
 | `/logout` | Выйти из Anthropic аккаунта |
 | `/mcp` | Управлять MCP-серверами и OAuth |
 | `/memory` | Редактировать `CLAUDE.md`, переключать auto-memory |
-| `/mobile` | QR code для mobile app (aliases: `/ios`, `/android`) |
+| `/mobile` | QR-код для мобильного приложения (`aliases`: `/ios`, `/android`) |
 | `/model [model]` | Выбрать модель с помощью стрелок влево/вправо для effort |
 | `/passes` | Поделиться бесплатной неделей Claude Code |
-| `/permissions` | Просмотреть/обновить permissions (alias: `/allowed-tools`) |
+| `/permissions` | Просмотреть/обновить permissions (`alias`: `/allowed-tools`) |
 | `/plan [description]` | Войти в plan mode |
 | `/plugin` | Управлять plugins |
 | `/pr-comments [PR]` | Получить комментарии GitHub PR |
@@ -69,7 +69,7 @@ Slash-команды — это ярлыки, которые управляют 
 | `/remote-env` | Настроить default remote environment |
 | `/rename [name]` | Переименовать сессию |
 | `/resume [session]` | Возобновить разговор (alias: `/continue`) |
-| `/review` | **Deprecated** — install the `code-review` plugin instead |
+| `/review` | **Deprecated** — вместо этого установите плагин `code-review` |
 | `/rewind` | Отмотать разговор и/или код назад (alias: `/checkpoint`) |
 | `/sandbox` | Переключить sandbox mode |
 | `/schedule [description]` | Создать/управлять scheduled tasks |
@@ -88,7 +88,7 @@ Slash-команды — это ярлыки, которые управляют 
 
 Эти skills поставляются вместе с Claude Code и вызываются как slash-команды:
 
-| Skill | Purpose |
+| Skill | Назначение |
 |-------|---------|
 | `/batch <instruction>` | Организовать крупные параллельные изменения с помощью worktrees |
 | `/claude-api` | Загрузить Claude API reference для языка проекта |
@@ -96,15 +96,15 @@ Slash-команды — это ярлыки, которые управляют 
 | `/loop [interval] <prompt>` | Запускать prompt повторно с указанным интервалом |
 | `/simplify [focus]` | Проверить изменённые файлы на качество кода |
 
-### Deprecated Commands
+### Устаревшие команды
 
-| Command | Status |
+| Команда | Статус |
 |---------|--------|
-| `/review` | Deprecated — replaced by `code-review` plugin |
-| `/output-style` | Deprecated since v2.1.73 |
-| `/fork` | Renamed to `/branch` (alias still works, v2.1.77) |
+| `/review` | Deprecated — заменена плагином `code-review` |
+| `/output-style` | Deprecated начиная с v2.1.73 |
+| `/fork` | Переименована в `/branch` (`alias` всё ещё работает, v2.1.77) |
 
-### Recent Changes
+### Последние изменения
 
 - `/fork` renamed to `/branch` with `/fork` kept as alias (v2.1.77)
 - `/output-style` deprecated (v2.1.73)

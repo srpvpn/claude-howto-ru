@@ -5,7 +5,7 @@
 
 # Руководство по Agent Skills
 
-Agent Skills — это переиспользуемые возможности на уровне файловой системы, которые расширяют функциональность Claude. Они упаковывают предметную экспертизу, workflows и best practices в обнаруживаемые компоненты, которые Claude автоматически использует, когда это уместно.
+Agent Skills — это переиспользуемые возможности на уровне файловой системы, которые расширяют функциональность Claude. Они упаковывают предметную экспертизу, workflows и лучшие практики в обнаруживаемые компоненты, которые Claude автоматически использует, когда это уместно.
 
 ## Обзор
 
@@ -17,13 +17,13 @@ Agent Skills — это переиспользуемые возможности 
 - **Меньше повторов**: создайте один раз, используйте автоматически в разных беседах
 - **Композиция возможностей**: комбинируйте Skills для сложных workflows
 - **Масштабирование workflows**: переиспользуйте skills в нескольких проектах и командах
-- **Поддержание качества**: встраивайте best practices прямо в рабочий процесс
+- **Поддержание качества**: встраивайте лучшие практики прямо в рабочий процесс
 
 Skills следуют открытому стандарту [Agent Skills](https://agentskills.io), который работает во многих AI-инструментах. Claude Code расширяет стандарт дополнительными возможностями, такими как управление активацией, выполнение через subagent и динамическая подстановка контекста.
 
 > **Примечание**: пользовательские slash-команды были объединены в skills. Файлы `.claude/commands/` по-прежнему работают и поддерживают те же поля frontmatter. Для новых проектов рекомендуется использовать skills. Если оба варианта существуют в одном месте (например, `.claude/commands/review.md` и `.claude/skills/review/SKILL.md`), приоритет у skill.
 
-## Как работают Skills: Progressive Disclosure
+## Как работают Skills: постепенное раскрытие
 
 Skills используют архитектуру **progressive disclosure** — Claude загружает информацию поэтапно по мере необходимости, а не съедает весь контекст заранее. Это даёт эффективное управление контекстом при практически неограниченном масштабировании.
 
@@ -33,20 +33,20 @@ Skills используют архитектуру **progressive disclosure** �
 graph TB
     subgraph "Level 1: Metadata (Always Loaded)"
         A["YAML Frontmatter"]
-        A1["~100 tokens per skill"]
+        A1["~100 токенов на skill"]
         A2["name + description"]
     end
 
     subgraph "Level 2: Instructions (When Triggered)"
         B["SKILL.md Body"]
         B1["Under 5k tokens"]
-        B2["Workflows & guidance"]
+        B2["Рабочие процессы и инструкции"]
     end
 
     subgraph "Level 3: Resources (As Needed)"
         C["Bundled Files"]
-        C1["Effectively unlimited"]
-        C2["Scripts, templates, docs"]
+        C1["Практически без ограничений"]
+        C2["Скрипты, шаблоны, документация"]
     end
 
     A --> B
@@ -56,7 +56,7 @@ graph TB
 | Уровень | Когда загружается | Стоимость в токенах | Содержимое |
 |-------|------------|------------|---------|
 | **Level 1: Metadata** | Всегда, при старте | ~100 токенов на Skill | `name` и `description` из YAML frontmatter |
-| **Level 2: Instructions** | Когда skill активируется | Меньше 5k токенов | Тело `SKILL.md` с инструкциями и guidance |
+| **Level 2: Instructions** | Когда skill активируется | Меньше 5k токенов | Тело `SKILL.md` с инструкциями и пояснениями |
 | **Level 3+: Resources** | По необходимости | Практически неограниченно | Вложенные файлы, которые выполняются через bash без загрузки содержимого в контекст |
 
 Это означает, что вы можете установить много Skills без штрафа за контекст: Claude знает только о существовании каждого Skill и о том, когда его использовать, пока он не будет реально активирован.
@@ -108,12 +108,12 @@ sequenceDiagram
 
 ```
 my-skill/
-├── SKILL.md           # Main instructions (required)
-├── template.md        # Template for Claude to fill in
+├── SKILL.md           # Основные инструкции (обязательно)
+├── template.md        # Шаблон, который Claude будет заполнять
 ├── examples/
-│   └── sample.md      # Example output showing expected format
+│   └── sample.md      # Пример результата в ожидаемом формате
 └── scripts/
-    └── validate.sh    # Script Claude can execute
+    └── validate.sh    # Скрипт, который Claude может выполнить
 ```
 
 ### Формат `SKILL.md`
@@ -127,10 +127,10 @@ description: Brief description of what this Skill does and when to use it
 # Your Skill Name
 
 ## Instructions
-Provide clear, step-by-step guidance for Claude.
+Дайте Claude понятные пошаговые инструкции.
 
 ## Examples
-Show concrete examples of using this Skill.
+Покажите конкретные примеры использования этого Skill.
 ```
 
 ### Обязательные поля
@@ -181,9 +181,9 @@ hooks:                                      # Skill-scoped hooks
 
 Skills могут содержать два типа контента, каждый для своих задач:
 
-### Reference Content
+### Справочный контент
 
-Добавляет знания, которые Claude применяет к текущей работе: соглашения, паттерны, style guides, предметную область. Выполняется прямо в контексте беседы.
+Добавляет знания, которые Claude применяет к текущей работе: соглашения, паттерны, style guides, предметную область. Используется прямо в контексте беседы.
 
 ```yaml
 ---
@@ -197,7 +197,7 @@ When writing API endpoints:
 - Include request validation
 ```
 
-### Task Content
+### Контент задач
 
 Пошаговые инструкции для конкретных действий. Часто вызываются напрямую через `/skill-name`.
 
@@ -219,15 +219,15 @@ Deploy the application:
 
 По умолчанию и вы, и Claude можете запускать любой skill. Два поля frontmatter управляют тремя режимами активации:
 
-| Frontmatter | You can invoke | Claude can invoke |
+| Frontmatter | Вы можете вызвать | Claude может вызвать |
 |---|---|---|
-| (default) | Yes | Yes |
-| `disable-model-invocation: true` | Yes | No |
-| `user-invocable: false` | No | Yes |
+| (default) | Да | Да |
+| `disable-model-invocation: true` | Да | Нет |
+| `user-invocable: false` | Нет | Да |
 
-**Use `disable-model-invocation: true`** for workflows with side effects: `/commit`, `/deploy`, `/send-slack-message`. You don't want Claude deciding to deploy because your code looks ready.
+**Используйте `disable-model-invocation: true`** для workflows с побочными эффектами: `/commit`, `/deploy`, `/send-slack-message`. Claude не должен сам решать, что пора выкатывать код только потому, что он выглядит готовым.
 
-**Use `user-invocable: false`** for background knowledge that isn't actionable as a command. A `legacy-system-context` skill explains how an old system works—useful for Claude, but not a meaningful action for users.
+**Используйте `user-invocable: false`** для фоновых знаний, которые не являются осмысленной командой. Например, skill `legacy-system-context` объясняет, как устроена старая система: это полезно для Claude, но не является действием для пользователя.
 
 ## Подстановки строк
 

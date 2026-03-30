@@ -22,14 +22,14 @@ Hooks — это автоматические действия (shell-коман
 
 Hooks настраиваются в файлах settings с определённой структурой:
 
-- `~/.claude/settings.json` - User settings (all projects)
-- `.claude/settings.json` - Project settings (shareable, committed)
-- `.claude/settings.local.json` - Local project settings (not committed)
-- Managed policy - Organization-wide settings
-- Plugin `hooks/hooks.json` - Plugin-scoped hooks
-- Skill/Agent frontmatter - Component lifetime hooks
+- `~/.claude/settings.json` - пользовательские настройки (все проекты)
+- `.claude/settings.json` - настройки проекта (можно шарить, коммитятся)
+- `.claude/settings.local.json` - локальные настройки проекта (не коммитятся)
+- Managed policy - настройки на уровне организации
+- Plugin `hooks/hooks.json` - hooks уровня плагина
+- Skill/Agent frontmatter - hooks на время жизни компонента
 
-### Basic Configuration Structure
+### Базовая структура конфигурации
 
 ```json
 {
@@ -50,25 +50,25 @@ Hooks настраиваются в файлах settings с определён�
 }
 ```
 
-**Key fields:**
+**Ключевые поля:**
 
-| Field | Description | Example |
+| Поле | Описание | Пример |
 |-------|-------------|---------|
-| `matcher` | Pattern to match tool names (case-sensitive) | `"Write"`, `"Edit\|Write"`, `"*"` |
-| `hooks` | Array of hook definitions | `[{ "type": "command", ... }]` |
-| `type` | Hook type: `"command"` (bash), `"prompt"` (LLM), `"http"` (webhook), or `"agent"` (subagent) | `"command"` |
-| `command` | Shell command to execute | `"$CLAUDE_PROJECT_DIR/.claude/hooks/format.sh"` |
-| `timeout` | Optional timeout in seconds (default 60) | `30` |
-| `once` | If `true`, run the hook only once per session | `true` |
+| `matcher` | Шаблон для сопоставления имён инструментов (с учётом регистра) | `"Write"`, `"Edit\|Write"`, `"*"` |
+| `hooks` | Массив определений hook | `[{ "type": "command", ... }]` |
+| `type` | Тип hook: `"command"` (bash), `"prompt"` (LLM), `"http"` (webhook) или `"agent"` (subagent) | `"command"` |
+| `command` | Shell-команда для выполнения | `"$CLAUDE_PROJECT_DIR/.claude/hooks/format.sh"` |
+| `timeout` | Необязательный таймаут в секундах (по умолчанию 60) | `30` |
+| `once` | Если `true`, запускать hook только один раз за сессию | `true` |
 
-### Matcher Patterns
+### Шаблоны matcher
 
-| Pattern | Description | Example |
+| Шаблон | Описание | Пример |
 |---------|-------------|---------|
-| Exact string | Matches specific tool | `"Write"` |
-| Regex pattern | Matches multiple tools | `"Edit\|Write"` |
-| Wildcard | Matches all tools | `"*"` or `""` |
-| MCP tools | Server and tool pattern | `"mcp__memory__.*"` |
+| Точное совпадение | Совпадает с конкретным инструментом | `"Write"` |
+| Regex-шаблон | Совпадает с несколькими инструментами | `"Edit\|Write"` |
+| Wildcard | Совпадает со всеми инструментами | `"*"` or `""` |
+| MCP tools | Шаблон сервера и инструмента | `"mcp__memory__.*"` |
 
 ## Типы hooks
 
